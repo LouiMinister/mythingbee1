@@ -1,0 +1,13 @@
+INSERT INTO `light_admin_tb` (`li_admin_code`, `li_admin_name`, `li_admin_tel`) VALUES ('DB', '도봉구청', '02-2091-4083');
+INSERT INTO `light_admin_tb` (`li_admin_code`, `li_admin_name`, `li_admin_tel`) VALUES ('DJ', '서울특별시 동작구청', '02-820-1408');
+INSERT INTO `light_admin_tb` (`li_admin_code`, `li_admin_name`, `li_admin_tel`) VALUES ('EP', '서울특별시 은평구청', '02-351-7944');
+INSERT INTO `light_admin_tb` (`li_admin_code`, `li_admin_name`, `li_admin_tel`) VALUES ('GA', '관악구청', '02-879-6781');
+INSERT INTO `light_admin_tb` (`li_admin_code`, `li_admin_name`, `li_admin_tel`) VALUES ('GB', '서울특별시 강북구청', '02-901-5863');
+INSERT INTO `light_admin_tb` (`li_admin_code`, `li_admin_name`, `li_admin_tel`) VALUES ('GC', '금천구청 도로과', '02-2627-2405');
+INSERT INTO `light_admin_tb` (`li_admin_code`, `li_admin_name`, `li_admin_tel`) VALUES ('GD', '서울특별시 강동구청', '02-3425-6373');
+INSERT INTO `light_admin_tb` (`li_admin_code`, `li_admin_name`, `li_admin_tel`) VALUES ('GR', '서울특별시 구로구청', '02-860-2407');
+INSERT INTO `light_admin_tb` (`li_admin_code`, `li_admin_name`, `li_admin_tel`) VALUES ('GS', '서울특별시 강서구청', '02-2600-6407');
+INSERT INTO `light_admin_tb` (`li_admin_code`, `li_admin_name`, `li_admin_tel`) VALUES ('JG', '서울특별시 중구청', '3396-6153');
+INSERT INTO `light_admin_tb` (`li_admin_code`, `li_admin_name`, `li_admin_tel`) VALUES ('SB', '서울특별시 성북구청', '02-2241-3594');
+INSERT INTO `light_admin_tb` (`li_admin_code`, `li_admin_name`, `li_admin_tel`) VALUES ('SC', '서초구청', '02-2155-6996');
+INSERT INTO `light_admin_tb` (`li_admin_code`, `li_admin_name`, `li_admin_tel`) VALUES ('SD', '서울특별시 성동구', '02-2286-5787');

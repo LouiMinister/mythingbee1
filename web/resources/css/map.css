@@ -1,0 +1,81 @@
+html, body { height:100%; overflow:hidden; word-break: break-all;}
+
+
+#aside {z-index:10;}
+.navbar-brand { text-align:center;}
+.navbar-toggler {text-align:left;}
+#container {position:absolute; top:60px; right:0; left:1px;bottom:0; margin:0; }
+#left_bar {position:absolute; top:0; left:-480px; bottom:0; width:320px; height:100%; border-rigth: 1px solid black; font-family:'Malgun Gothic','���� ���',sans-serif;font-size:12px;text-align:center;background-color:#fff;}
+#nav {position:absolute; top:0; bottom:0; left:0; width:56px; border-rigth: 1px solid black; background-color:#F4F9FA;}
+.nav_lst { list-style: none; margin:0;}
+.nav_lst li {margin:0; padding:0;}
+.on {margin:0; padding:0; display:list-item; list-style:none;}
+#nav_panel {position:absolute; top:0; right:0; bottom:0; left:0; background-color:#abaaaa; z-index:1;}
+#search_title{}
+#address_search_text {text-align:center; margin:20px; color:BLACK;}
+#address_search{}
+#search_form{position:relative; width: 270px; margin:0 auto; padding: 1px; vertical-align:middle; border-radius:0.25rem; background-color:#fff;}
+.form-control {margin-left:5px;}
+#address_result{position:relative; width: 300px; height:100%; margin:0; margin-top:50px; padding: 1px; vertical-align:middle; border-radius:0.25rem; background-color:#fff;}
+#placesList { width:100%;}
+#mapwrap{position:absolute;overflow:hidden; top:0; right:0; bottom:0; min-width:100%; z-index:0;}
+#security { position:absolute; overflow:hidden; bottom:-102px; right:30%; width:370px; height:102px; z-index:1;}
+#category {list-style:none; padding:0;}
+#category li {list-style:none; list-style-type:none;}
+#menu_bar{ position:absolute; overflow:hidden; width:100%; z-index:4; }
+#cctv {position:absolute; overflow:hidden;  border:none; width:50px; cursor:pointer;  bottom:0px; right:48px; z-index:5; background:white; border-radius: 50px; padding:0;}
+#bell {position:absolute; overflow:hidden;  border:none; width:40px; cursor:pointer;bottom:25px; right:95px; z-index:5;background:white; border-radius: 30px;padding:0;}
+#guard {position:absolute; overflow:hidden; border:none; width:40px; cursor:pointer;bottom:40px; right:140px; z-index:5;background:white; border-radius: 30px;padding:0;}
+#police {position:absolute; overflow:hidden;  border:none; width:40px; cursor:pointer;bottom:38.5px; right:195px; z-index:5;background:white; border-radius: 30px;padding:0;}
+#shop {position:absolute; overflow:hidden;  border:none; width:40px; cursor:pointer;bottom:23px; right:242px; z-index:5;background:white; border-radius: 30px;padding:0;}
+#security_lamp {position:absolute; overflow:hidden;  border:none; width:40px; cursor:pointer;bottom:0px; right:282px; z-index:5;background:white; border-radius: 30px;padding:0;}
+
+
+#mapwrap div button:focus {
+	outline:none;
+}
+
+#left_bar  label[for="menu_state"] i {
+	cursor: pointer;
+	position: absolute;
+	top:50%;
+	right: -8px;
+	box-shadow:0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+	background: #fff;
+	font-size: 10px;
+	display:flex;
+	justify-content: center;
+	align-items:center;
+	height:15px;
+	width:15px;
+	border-radius:50%;
+	border: 1px solid #ddd;
+	transition: width 0.15s ease-in-out;
+	z-index:3;
+}
+
+#left_bar label[for="menu_state"] i::before{
+	margin-top: 2px;
+	content: "\f054";
+}
+
+#left_bar label[for="menu_state"] i:hover {
+	box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.scroll_pane {
+	display:none;
+	width:300px;
+	margin:0 auto;
+}
+
+.btn-secondary{
+	position:relative;
+	display:inline-block;
+	margin-top : 5px;
+	float:right;
+}
+
+#map-scroller{
+	width:340px;
+}

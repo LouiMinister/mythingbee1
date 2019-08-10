@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--이 안쪽에 구현된것과 mapper namespace 안에 있는것(mybatis 밑에있는 MemberMapper interface와 연결하겠다는 뜻)-->
+<mapper namespace="com.antybeety.press.mybatis.PressMapper">
+
+    <resultMap id="press_result" type="com.antybeety.press.model.vo.PressVO">
+        <id property="code" column="pr_code" jdbcType="VARCHAR" />
+        <id property="name" column="pr_name" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="searchPressName" parameterType="java.lang.String" resultType="java.lang.String" >
+        select pr_name from press_tb where pr_code=#{code};
+    </select>
+
+    <select id="searchPressCode" parameterType="java.lang.String" resultType="java.lang.String">
+        select pr_code from press_tb where pr_name=#{name};
+    </select>
+
+    <select id="searchAllNames" parameterType="java.lang.String" resultType="java.lang.String">
+        select pr_name from press_tb;
+    </select>
+
+    <insert id="insertPressInfo" parameterType="hashmap">
+        insert into press_tb (pr_code,pr_name) values(#{code}, #{name});
+    </insert>
+</mapper>

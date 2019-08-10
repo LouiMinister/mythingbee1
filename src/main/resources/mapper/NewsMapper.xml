@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.antybeety.news.mybatis.NewsMapper">
+
+    <resultMap id="article_map" type="com.antybeety.news.model.vo.ArticleInfoVO">
+        <id property="title" column="title"/>
+        <id property="summary" column="summary"/>
+        <id property="articleTime" column="ar_time"/>
+        <id property="districtName" column="di_name"/>
+        <id property="url" column="url"/>
+        <id property="imgURL" column="img_url"/>
+        <id property="code" column="ar_code"/>
+        <id property="viewCnt" column="view_cnt"/>
+        <id property="pressName" column="pr_name"/>
+        <id property="keywordName" column="keyword_array"/>
+    </resultMap>
+
+    <sql id="member_columns">   /*끌어다놓고 쓰기*/
+        id,pwd,name,
+        DATE_FORMAT(reg_date, "%Y-%m-%d %H:%i:%s") AS reg_date_str
+    </sql>
+
+    <insert id="addArticle" parameterType="com.antybeety.news.model.vo.ArticleInfoVO" statementType="CALLABLE">
+        call addArticle(#{summary}  ,#{pressName},#{title}, #{districtName}, #{url}, #{code}, #{imgURL});
+</insert>
+
+
+    <select id="searchArticleInfo" resultMap="article_map"><!--인터페이스 메서드랑 id랑 이름 같아야함-->
+        SELECT * FROM article_view2 where ar_code= #{code}
+    </select>
+
+    <select id="searchAllArticles" resultMap="article_map">
+        SELECT * FROM article_view2
+    </select>
+
+    <select id="searchArticleTimeByCode" resultType="java.lang.String">
+        SELECT ar_time FROM article_view2 where ar_code= #{code}
+    </select>
+    <select id="searchBeforeArticlesByTime" resultMap="article_map" parameterType="hashmap">
+        SELECT * FROM article_view2 WHERE ar_time &lt; #{time} ORDER BY ar_time DESC LIMIT ${limit}
+    </select>
+    <select id="searchArticleByFilter" resultMap="article_map" parameterType="hashmap">
+        SELECT * FROM article_view2 WHERE (title like '%${searchWord}%' OR keyword_array like '%${searchWord}%' ) AND ar_time &lt; #{startTime}  AND ar_time &gt;= #{lastTime} ORDER BY ar_time desc limit ${limit}
+    </select>
+    <select id="searchArticleByFilterDistrict" resultMap="article_map" parameterType="hashmap">
+        SELECT * FROM article_view2 WHERE (title like '%${searchWord}%' OR keyword_array like '%${searchWord}%' ) AND di_name=#{district} AND ar_time &lt; #{startTime}  AND ar_time &gt;= #{lastTime} ORDER BY ar_time desc limit ${limit}
+    </select>
+    <select id="searchLastDate" resultType="java.lang.String">
+        SELECT ar_code FROM article_view2 ORDER BY(ar_time) DESC limit 1
+    </select>
+<!--
+    <select id="getAllMembers" resultType="com.example.springmybatis1.vo.Member" >   /*끌어다놓고쓰기*/
+        SELECT  <include refid="member_columns" />
+        FROM member_tx;
+    </select>
+
+    <select id="getAllMembers2" resultMap="member_map" >   /*끌어다놓고쓰기*/
+        SELECT  <include refid="member_columns" />
+        FROM member_tx;
+    </select>
+-->
+
+<!--    <delete id="deleteMember" parameterType="java.lang.String">
+        DELETE FROM member_tx WHERE id=#{id}
+    </delete>
+
+    <update id="updateMember" parameterType="hashmap">
+        UPDATE member_tx SET pwd=#{pwd}, name=#{name} WHERE id=#{id}
+    </update>-->
+<!--    <insert id="insertMember" parameterType="com.antybeety.news.vo.ArticleInfoVO">
+        INSERT INTO member(id, password, name) VALUES(#{id}, #{pwd}, #{name})
+                                ^^^^^^^ 파라미터 넣어줄 때 해시맵 키로 얠 넣어주면댐
+    </insert>-->
+</mapper>

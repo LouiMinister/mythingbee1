@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.antybeety.map.mybatis.MapMapper">
+
+<!--    시설물 위치 정보 건네받는 타입 -->
+    <resultMap id="Bell_map" type="com.antybeety.map.model.vo.BellMarkVO">
+        <id property="code" column ="be_code" jdbcType="VARCHAR"/>
+        <id property="lat" column = "lat" jdbcType="DOUBLE"/>
+        <id property="lng" column="lng" jdbcType="DOUBLE"/>
+    </resultMap>
+
+    <resultMap id="Police_map" type="com.antybeety.map.model.vo.PoliceMarkVO">
+        <id property="code" column ="pd_code" jdbcType="VARCHAR"/>
+        <id property="lat" column = "lat" jdbcType="DOUBLE"/>
+        <id property="lng" column="lng" jdbcType="DOUBLE"/>
+    </resultMap>
+
+    <resultMap id="Convenience_map" type="com.antybeety.map.model.vo.ConvenienceMarkVO">
+        <id property="code" column="CS_CODE" jdbcType="VARCHAR" />
+        <id property="lat" column="LAT" jdbcType="NUMERIC" />
+        <id property="lng" column="LNG" jdbcType="NUMERIC" />
+    </resultMap>
+
+    <resultMap id="Light_map" type="com.antybeety.map.model.vo.LightMarkVO">
+        <id property="code" column ="li_code" jdbcType="VARCHAR"/>
+        <id property="lat" column = "lat" jdbcType="DOUBLE"/>
+        <id property="lng" column="lng" jdbcType="DOUBLE"/>
+    </resultMap>
+
+    <resultMap id="CCTV_map" type="com.antybeety.map.model.vo.CCTVMarkVO">
+        <id property="code" column ="cc_code" jdbcType="VARCHAR"/>
+        <id property="lat" column = "lat" jdbcType="DOUBLE"/>
+        <id property="lng" column="lng" jdbcType="DOUBLE"/>
+    </resultMap>
+
+<!--    시설물 상세정보 넘겨받는 타입-->
+    <resultMap id="bell_detail" type="com.antybeety.map.model.vo.BellDetailVO">
+        <id property="code" column = "be_code" jdbcType="VARCHAR"/>
+        <id property="roadAddr" column = "road_addr" jdbcType="VARCHAR"/>
+        <id property="landAddr" column = "land_addr" jdbcType="VARCHAR"/>
+        <id property="adminName" column = "be_admin_name" jdbcType="VARCHAR"/>
+        <id property="adminTel" column = "be_admin_tel" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="cctv_detail" type="com.antybeety.map.model.vo.CCTVDetailVO">
+        <id property="code" column = "cc_code" jdbcType="VARCHAR"/>
+        <id property="roadAddr" column = "road_addr" jdbcType="VARCHAR"/>
+        <id property="landAddr" column = "land_addr" jdbcType="VARCHAR"/>
+        <id property="adminName" column = "cc_admin_name" jdbcType="VARCHAR"/>
+        <id property="adminTel" column = "cc_admin_tel" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="police_detail" type="com.antybeety.map.model.vo.PoliceDetailVO">
+        <id property="code" column = "pd_code" jdbcType="VARCHAR"/>
+        <id property="roadAddr" column = "road_addr" jdbcType="VARCHAR"/>
+        <id property="landAddr" column = "land_addr" jdbcType="VARCHAR"/>
+        <id property="adminName" column = "pd_admin_name" jdbcType="VARCHAR"/>
+        <id property="adminTel" column = "pd_admin_tel" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="light_detail" type="com.antybeety.map.model.vo.LightDetailVO">
+        <id property="code" column = "li_code" jdbcType="VARCHAR"/>
+        <id property="roadAddr" column = "road_addr" jdbcType="VARCHAR"/>
+        <id property="landAddr" column = "land_addr" jdbcType="VARCHAR"/>
+        <id property="adminName" column = "li_admin_name" jdbcType="VARCHAR"/>
+        <id property="adminTel" column = "li_admin_tel" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="convenience_detail" type="com.antybeety.map.model.vo.ConvenienceDetailVO">
+        <id property="code" column = "CS_CODE" jdbcType="VARCHAR"/>
+        <id property="roadAddr" column = "ROAD_ADDR" jdbcType="VARCHAR"/>
+        <id property="landAddr" column = "LAND_ADDR" jdbcType="VARCHAR"/>
+        <id property="adminName" column = "NAME" jdbcType="VARCHAR"/>
+        <id property="adminTel" column = "CS_TEL" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+
+<!--    시설물 별 위치 정보 가져오는 쿼리 -->
+
+    <select id="selectBell" parameterType="hashmap" resultMap="Bell_map">
+        SELECT  be_code, lat, lng FROM bell_mark_view where (lat between #{la} and #{ka} )AND(lng between #{ea} and #{ja})
+    </select>
+
+    <select id="selectPolice" parameterType="hashmap" resultMap="Police_map">
+        SELECT pd_code, lat, lng FROM pd_mark_view where (lat between #{la} and #{ka} )AND(lng between #{ea} and #{ja})
+    </select>
+
+    <select id="selectConvenience" parameterType="hashmap" resultMap="Convenience_map">
+        SELECT cs_code, lat, lng FROM CS_MARK_VIEW where (lat between #{la} and #{ka} )AND(lng between #{ea} and #{ja})
+    </select>
+
+    <select id="selectCCTV" parameterType="hashmap" resultMap="CCTV_map">
+        SELECT cc_code, lat, lng FROM cctv_mark_view where (lat between #{la} and #{ka} )AND(lng between #{ea} and #{ja})
+    </select>
+
+    <select id="selectLight" parameterType="hashmap" resultMap="Light_map">
+        SELECT li_code, lat, lng FROM light_mark_view where (lat between #{la} and #{ka} )AND(lng between #{ea} and #{ja})
+    </select>
+
+<!-- 상세 정보 가져오는 쿼리 -->
+    <select id="getCCTVDetail" resultMap="cctv_detail">
+        SELECT cc_code, road_addr, land_addr, cc_admin_name, cc_admin_tel FROM cctv_detail_view where cc_code = #{code}
+    </select>
+
+    <select id="getBellDetail" resultMap="bell_detail">
+        SELECT be_code, road_addr, land_addr, be_admin_name, be_admin_tel FROM bell_detail_view where be_code = #{code}
+    </select>
+
+    <select id="getPoliceDetail" resultMap="police_detail">
+        SELECT pd_code, road_addr, land_addr, pd_admin_name, pd_admin_tel FROM pd_detail_view where pd_code = #{code}
+    </select>
+
+    <select id="getLightDetail" resultMap="light_detail">
+        SELECT li_code, road_addr, land_addr, li_admin_name, li_admin_tel FROM light_detail_view where li_code = #{code}
+    </select>
+
+    <select id="getConvenienceDetail" parameterType="java.lang.String" resultMap="convenience_detail">
+        SELECT cs_code, road_addr, land_addr, name, cs_tel FROM CS_DETAIL_VIEW where CS_CODE = #{code}
+    </select>
+
+</mapper>

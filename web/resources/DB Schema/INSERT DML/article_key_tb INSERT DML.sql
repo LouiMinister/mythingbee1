@@ -1,0 +1,12 @@
+INSERT INTO `article_key_tb` (`ke_code`, `ar_code`) VALUES ('WOMA01', '1907190001');
+INSERT INTO `article_key_tb` (`ke_code`, `ar_code`) VALUES ('SGTI01', '1907190004');
+INSERT INTO `article_key_tb` (`ke_code`, `ar_code`) VALUES ('MOKA01', '1907190001');
+INSERT INTO `article_key_tb` (`ke_code`, `ar_code`) VALUES ('HODA01', '1907190001');
+INSERT INTO `article_key_tb` (`ke_code`, `ar_code`) VALUES ('HADA01', '1907190002');
+INSERT INTO `article_key_tb` (`ke_code`, `ar_code`) VALUES ('GOYA01', '1907190002');
+INSERT INTO `article_key_tb` (`ke_code`, `ar_code`) VALUES ('GEJE01', '1907190004');
+INSERT INTO `article_key_tb` (`ke_code`, `ar_code`) VALUES ('GCGU01', '1907190003');
+INSERT INTO `article_key_tb` (`ke_code`, `ar_code`) VALUES ('DOSA01', '1907190002');
+INSERT INTO `article_key_tb` (`ke_code`, `ar_code`) VALUES ('DBMI01', '1907190003');
+INSERT INTO `article_key_tb` (`ke_code`, `ar_code`) VALUES ('BBCY01', '1907190001');
+INSERT INTO `article_key_tb` (`ke_code`, `ar_code`) VALUES ('ADHD01', '1907190003');

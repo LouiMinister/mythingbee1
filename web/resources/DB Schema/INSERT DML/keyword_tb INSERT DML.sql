@@ -1,0 +1,12 @@
+INSERT INTO `keyword_tb` (`ke_code`, `ke_name`) VALUES ('ADHD01', '아동학대');
+INSERT INTO `keyword_tb` (`ke_code`, `ke_name`) VALUES ('BBCY01', '불법촬영');
+INSERT INTO `keyword_tb` (`ke_code`, `ke_name`) VALUES ('DBMI01', '돌보미');
+INSERT INTO `keyword_tb` (`ke_code`, `ke_name`) VALUES ('DOSA01', '도살');
+INSERT INTO `keyword_tb` (`ke_code`, `ke_name`) VALUES ('GCGU01', '금천구');
+INSERT INTO `keyword_tb` (`ke_code`, `ke_name`) VALUES ('GEJE01', '거절');
+INSERT INTO `keyword_tb` (`ke_code`, `ke_name`) VALUES ('GOYA01', '고양이');
+INSERT INTO `keyword_tb` (`ke_code`, `ke_name`) VALUES ('HADA01', '학대');
+INSERT INTO `keyword_tb` (`ke_code`, `ke_name`) VALUES ('HODA01', '홍대');
+INSERT INTO `keyword_tb` (`ke_code`, `ke_name`) VALUES ('MOKA01', '몰카');
+INSERT INTO `keyword_tb` (`ke_code`, `ke_name`) VALUES ('SGTI01', '소개팅');
+INSERT INTO `keyword_tb` (`ke_code`, `ke_name`) VALUES ('WOMA01', '워마드');

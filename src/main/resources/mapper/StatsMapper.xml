@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--이 안쪽에 구현된것과 mapper namespace 안에 있는것(mybatis 밑에있는 MemberMapper interface와 연결하겠다는 뜻)-->
+<mapper namespace="com.antybeety.stats.mybatis.StatsMapper">
+    <!--result맵으로 getAllMember2 에서 연결-->
+    <resultMap id="crime_stats" type="com.antybeety.stats.model.vo.CrimeStatsVO">
+<!--        <id property="id" column="col_id" jdbcType="" /> 데이터베이스와 자바의 이름에서 다를때 이런식으로 사용-->
+        <id property="district" column="di_name"/>
+        <id property="year" column="year" />
+        <id property="occurCnt" column="occur_cnt" />
+        <id property="arrestCnt" column="arrest_cnt" />
+        <id property="population" column="population" />
+    </resultMap>
+    <resultMap id="crime_stats_all" type="com.antybeety.stats.model.vo.CrimeStatsVO">
+        <!--        <id property="id" column="col_id" jdbcType="" /> 데이터베이스와 자바의 이름에서 다를때 이런식으로 사용-->
+        <id property="name" column="cr_name"/>
+        <id property="district" column="di_name"/>
+        <id property="year" column="year" />
+        <id property="occurCnt" column="occur_cnt" />
+        <id property="arrestCnt" column="arrest_cnt" />
+        <id property="population" column="population" />
+    </resultMap>
+    <sql id="allcategory">
+        di_name, year, population,occur_cnt,arrest_cnt,population
+    </sql>
+    <sql id="onecategory">
+        cr_name, di_name, year,occur_cnt,arrest_cnt,population
+    </sql>
+    <!--result type을 지정해주어야함 vo 객체 형태로 매핑. getAllMembers 메소드가 실행되면 이 안의 select 문이 실행됨-->
+    <select id="searchStatsByAllCrime" resultMap="crime_stats" parameterType="java.lang.Integer">
+        select  di_name, year, population,ifnull(occur_cnt,0) as occur_cnt, arrest_cnt,population
+        from district_tb left join (select  di_name, year,sum(occur_cnt) as occur_cnt,sum(arrest_cnt) as arrest_cnt
+        from crimestats_view group by di_name, year having year=#{year}) as sub
+        using (di_name) where di_name like '%';
+    </select>
+<!--    /* SELECT * FROM member ORDER BY reg_date DESC*/
+    /*, reg_date 처럼 추가로 컬럼명을 뒤에 더 쓸수도있다.*/-->
+    <select id="searchStatsByOneCrime" resultMap="crime_stats_all" parameterType="hashmap" >
+        SELECT *
+        FROM crimestats_view
+        WHERE year = #{year} AND cr_name=#{crime};
+    </select>
+</mapper>

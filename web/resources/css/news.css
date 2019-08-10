@@ -1,0 +1,164 @@
+	body{
+		padding : 0;margin : 0;
+	}
+	
+	#mainNavi{
+		width : 40px; height:40px;
+		margin-left:10px; margin-top:2px;float:left;
+	}
+	
+	#mainSearchTextbox{
+		width:600px;height:40px;margin-left:-300px;left:50%;position: absolute;
+		margin-top:3px; 
+	}
+	
+	#mainSearchButton{
+		width : 40px; height:30px;left:67.8%;top:8px;position:absolute;margin-left:-20px;
+	}
+	
+	#btnGroupDrop3{
+		width:15px; height:15px;left:63.8%;top:13.5px;position:absolute;
+	}
+	
+	#main_wrap{
+		width:100%;
+	}
+	
+	#main_left_wrap{
+		width : 20%;float:left;
+		
+	}
+	
+	#main_center_wrap{
+		width:45%;float:left;
+		margin-right : 20px;
+		margin-top : 10px;
+	}
+	
+	.component{
+		margin-top:10px;
+		margin-botton:10px;
+	}
+	
+	#main_right_wrap{
+		width:28%;float:left;
+		margin-left : 20px;
+	}
+	
+	#detail_search{
+		width:250px; height:150px;
+		border:2px solid #EAF0F2;
+		border-radius:10px;
+		display:none;
+	}
+	
+	#dateSelect{
+		width:100%; height:50px;
+	}
+	
+	#zoneSelect{
+		width:100%; height:50px;
+	}
+	
+	#selelctTable1{
+		width:90%;margin-top:5px;
+	}
+	
+	.tableHead1, .tableHead2{
+		text-align:center;
+	}
+	
+	.form-control{
+		width : 100%; height:40px;
+	}
+	
+	#selelctTable2{
+		width:90%;
+	}
+	
+	#btnTable{
+		margin:0 auto;
+	}
+	
+	#search, #close{
+		width:70px; height:33px;
+	}
+	
+	#hot_topic{
+		width:400px;
+		border : 5px solid #EAF0F2;
+		border-radius:10px;
+		margin-top:20px;
+		text-align:center;
+	}
+	
+	#hot_topic_title{
+		border-bottom:1px solid #5AA2AE;
+		border-bottom-style:dotted;
+		margin-right:10px; margin-left:10px;
+		margin-top:5px;margin-bottom:5px;
+		padding-bottom:5px;
+	}
+	
+	#topics{
+		text-align:left;
+		padding-left:10px; padding-right:10px;
+		margin-top:5px;margin-bottom:5px;
+	}
+	
+	#topic1, #topic2, #topic3, #topic3, #topic4, #topic5, #topic6, #topic7, #topic8, #topic9, #topic10{
+		margin-bottom:3px; margin-top:3px;
+	}
+	
+	.component{
+		width:100%;
+		border : 5px solid #EAF0F2;
+		border-radius:20px;
+	}
+	
+	.component_header{
+		padding-top : 16px;
+		border-bottom:1px dotted #5AA2AE;
+		padding-bottom : 16px;
+	}
+		
+	ul  li{
+		list-style : none;
+		width : 100%;
+	}
+	
+	#footer{
+		text-align : center;
+		border-top : 1px dotted #5AA2AE;
+		padding-top : 16px;
+	}
+	
+	
+	#footer > li{
+		display : inline;
+		padding-top : 17px;
+	}
+	
+	#footer > li button{
+		width : 40%;text-align :  center;
+		margin-left : 5px;
+		margin-right : 5px;
+	}
+	
+	.articleImg , .districtImg{
+		padding-top : 16px;padding-bottom : 16px;
+		text-align : center;
+	}
+	
+	.districtImg{
+		display : none;
+	}
+	
+	.head_tb{
+		margin-left : 40px;
+	}
+	
+	.head_tb tr th{
+		font-size:20px; width : 50%;
+		text-align : center;
+	}
