@@ -32,8 +32,8 @@ var drawChart = function(infos) {
 
 	  var options = {
 	    title: "서울시 전체 범죄율 TOP10",
-	    width: resolution.width-300,
-	    height: 400,
+	    width: '30%',
+	    height: '30%',
 	    bar: {groupWidth: "75%"},
 	    legend: { position: "none" },
 	  };

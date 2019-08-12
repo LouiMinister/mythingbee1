@@ -15,4 +15,5 @@
         <property name="suffix" value=".jsp"/>
     </bean>
     <import resource="mybatis-config.xml"></import>
+    <bean class="org.springframework.mobile.device.DeviceResolverHandlerInterceptor" />
 </beans>

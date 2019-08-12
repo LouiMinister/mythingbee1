@@ -11,8 +11,8 @@ google.load('visualization', '1.0', {'packages':['corechart']});
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/resources/css/chart.css">
-<link rel="stylesheet" href="/resources/css/sidebar.css">
-<link rel="shortcut icon" href="../favicon.ico">
+<link rel="stylesheet" href="/resources/css/sidebar.css"><%--
+<link rel="shortcut icon" href="../favicon.ico">--%>
 <link rel="stylesheet" type="text/css" href="/resources/css/normalize.css" />
 <link rel="stylesheet" type="text/css" href="/resources/css/demostats.css" />
 <link rel="stylesheet" type="text/css" href="/resources/css/component.css" />
