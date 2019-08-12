@@ -2,7 +2,6 @@ package com.antybeety.map.model.dao;
 
 import com.antybeety.map.mybatis.MapMapper;
 import com.antybeety.map.model.vo.FacilityMarkVO;
-import com.sun.javaws.IconUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
