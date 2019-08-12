@@ -1,13 +1,13 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="thingbeeways:Web exploded">
-    <output-path>$PROJECT_DIR$/out/artifacts/thingbeeways_Web_exploded</output-path>
+  <artifact type="exploded-war" name="thingbeeways:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/thingbeeways_war_exploded</output-path>
     <root id="root">
-      <element id="javaee-facet-resources" facet="thingbeeways/web/Web" />
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="thingbeeways" />
         </element>
         <element id="directory" name="lib">
+          <element id="library" level="project" name="ojdbc6" />
           <element id="library" level="project" name="Maven: org.springframework:spring-beans:5.1.8.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-core:5.1.8.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-jcl:5.1.8.RELEASE" />
@@ -41,6 +41,7 @@
           <element id="library" level="project" name="Maven: org.aspectj:aspectjweaver:1.9.4" />
         </element>
       </element>
+      <element id="javaee-facet-resources" facet="thingbeeways/web/Web" />
     </root>
   </artifact>
 </component>
