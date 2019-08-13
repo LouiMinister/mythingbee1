@@ -10,7 +10,10 @@
     </resultMap>
 
     <insert id="addKeyword" parameterType="com.antybeety.news.model.vo.KeywordVO" >
-        INSERT INTO keyword_tb(ke_code, ke_name) VALUES (#{code},{name});
+        INSERT INTO keyword_tb(ke_code, ke_name) VALUES (#{code},#{name});
+    </insert>
+    <insert id="addKeywordPivot" parameterType="hashmap">
+        INSERT INTO article_key_tb(ke_code,ar_code) VALUES (#{ke_code},#{ar_code});
     </insert>
 
     <select id="searchCode"  resultType="java.lang.String">

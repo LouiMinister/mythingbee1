@@ -1,11 +1,15 @@
 package com.antybeety.news.model.dao;
 
+import com.antybeety.news.model.vo.KeywordVO;
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+
+import java.util.HashMap;
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -18,9 +22,33 @@ public class KeywordDAOTest {
     KeywordDAO dao;
 
     @Test
-    public void test_키워드의_코드와이름으로_기사추가하기(){
+    public void test_키워드테이블_피벗테이블에_기사추가_중복없는경우(){
 
+        String code = "1908060001";
+        KeywordVO keyword = new KeywordVO();
+        keyword.setCode("ZZZZ01");
+        keyword.setName("중복이름");
+        dao.addKeyword(code, keyword);
     }
+
+    @Test
+    public void test_키워드테이블_피벗테이블에_기사추가_키워드이름중복(){
+        String code = "1908090010";
+        KeywordVO keyword = new KeywordVO();
+        keyword.setCode("YYYY01");
+        keyword.setName("중복이름");
+        dao.addKeyword(code, keyword);
+    }
+
+    @Test
+    public void test_키워드테이블_피벗테이블에_기사추가_키워드코드중복(){
+        String code = "1908060001";
+        KeywordVO keyword = new KeywordVO();
+        keyword.setCode("YYYY01");
+        keyword.setName("안중복이름");
+        dao.addKeyword(code, keyword);
+    }
+
 
     @Test
     public void test_약자코드4자리로_마지막기사의코드찾기(){
@@ -42,5 +70,4 @@ public class KeywordDAOTest {
         String res= dao.searchCodeByName(name);
         System.out.println("존재안할경우 null리턴  "+res);
     }
-
 }
