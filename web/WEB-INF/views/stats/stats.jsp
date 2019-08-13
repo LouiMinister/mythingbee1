@@ -13,7 +13,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="/resources/css/chart.css">
 	<link rel="stylesheet" href="/resources/css/sidebar.css">
-	<link rel="shortcut icon" href="../favicon.ico">
 	<link rel="stylesheet" type="text/css" href="/resources/css/normalize.css" />
 	<link rel="stylesheet" type="text/css" href="/resources/css/demostats.css" />
 	<link rel="stylesheet" type="text/css" href="/resources/css/component.css" />
@@ -25,7 +24,6 @@
 	<link rel="stylesheet" href="/resources/css/bootstrap.min.css">
 	<script src="/resources/js/jquery-3.4.1.min.js"></script>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=06e3ef01d1d218cb9e1a983b257300eb"></script>
-	<!-- <script src="js/resize.js"></script> -->
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<script src="/resources/js/statsareas.js"></script>
 	<script src="/resources/js/statsmapSidebar.js"></script>

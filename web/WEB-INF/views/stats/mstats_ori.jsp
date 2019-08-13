@@ -94,8 +94,8 @@
     <div id="mapwrap">
         <div id="map" style="width: 70%;height: 600px;z-index: 0;position: relative;overflow: hidden;background: url('http://t1.daumcdn.net/mapjsapi/images/2x/bg_tile.png');margin-left: 20%;"></div>
         <div id="clickLatlng"></div>
-        <div id="stats_content"     style="margin-left: 15%";>
-            <div id="columnchart_values" style="width: 900px; height: 400px; "></div>
+        <div id="stats_content" style="margin-left: 15%";>
+            <div id="columnchart_values" style="width: 100%; height: 400px; "></div>
             <div id="chart_div"></div>
         </div>
         <div class="container">

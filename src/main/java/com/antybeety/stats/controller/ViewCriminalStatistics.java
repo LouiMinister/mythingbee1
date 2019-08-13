@@ -35,7 +35,7 @@ public class ViewCriminalStatistics {
         }
         else{
             System.out.println("normal");
-            return "stats/mstats";
+            return "stats/stats";
         }
     }
 
