@@ -38,12 +38,14 @@ public class KeywordDAO {
 
         HashMap<String,String> param = new HashMap<String, String>();
 
-        if(preCodeByName==null && preCode==null){   //둘다 널일경오 -> 걍꽂기
+        if(preCodeByName==null && preCode==null){   //둘다 널일경우 -> 문자코드에 01붙혀서 코드 만들어넣기
+
+            keyword.setCode(keyword.getCode()+"01");
             param.put("ke_code",keyword.getCode());
             param.put("ar_code",code);
 
-            mapper.addKeyword(keyword);
-            mapper.addKeywordPivot(param);
+            mapper.addKeyword(keyword);      //키워드테이블에 추가
+            mapper.addKeywordPivot(param);  //피벗테이블에 추가
         }
         else if(preCode!=null && preCodeByName==null){     //같은 코드를 가진 키워드가 존재하고 이름은 중복되지 않은경우
             int index=Integer.parseInt(preCode.substring(4));
