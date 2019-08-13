@@ -34,5 +34,26 @@ public class NewsAdServiceTest {
         assertNotNull("기사코드 만들기",result);
     }
 
+    @Test
+    public void test_코드로_기사찾기(){
+
+    }
+
+    @Test
+    public void test_모든신문사이름찾기(){
+
+    }
+
+    @Test
+    public void test_모든지역구이름찾기(){
+
+    }
+
+    @Test
+    public void test_ArticleInfoKVo로_기사_수정하기(){
+
+    }
+
+
 
 }
