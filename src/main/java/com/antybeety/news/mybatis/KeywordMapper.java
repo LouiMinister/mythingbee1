@@ -1,0 +1,21 @@
+package com.antybeety.news.mybatis;
+
+import com.antybeety.news.model.vo.KeywordVO;
+
+import java.util.HashMap;
+
+public interface KeywordMapper {
+
+    //키워드 테이블에 키워드명, 키워드코드로 기사 추가
+    int addKeyword(KeywordVO vo);
+
+    //피벗 테이블에 기사코드, 키워드코드로 레코드 추가
+    int addKeywordPivot(HashMap<String, String> param);
+
+    //코드로 기사 찾아서 마지막 인덱스으 키워드 코드 리턴
+    String searchCode(String code);
+
+    //이름으로 기사 찾아서 마지막 인덱스의 키워드 코드 리턴
+    String searchCodeByName(String name);
+
+}
