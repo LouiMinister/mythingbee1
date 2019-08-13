@@ -5,8 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>지도 지도 시작하기</title>
-<link rel="stylesheet" href="/resources/css/map.css"></link>
-<link rel="stylesheet" href="/resources/css/bootstrap.min.css"></link>
+<link rel="stylesheet" href="/resources/css/map.css">
+<link rel="stylesheet" href="/resources/css/bootstrap.min.css">
 <link rel="stylesheet" href="/resources/css/mainnavi.css" media="screen">
 <link rel="stylesheet" href="/resources/css/sidebar.css">
 <link rel="stylesheet" href="/resources/css/mapSearch.css">
@@ -75,11 +75,11 @@
 			     <!--  <li><span id=mainmenu_btn>MAIN MENU</span> -->
 			     <li> <span id="mainmenu_text">메인 메뉴</span>
 			      <ul>
-					  <li><a href="/index.jsp" id="mainmenu-list" class="m1">메인</a></li>
-					  <li><a href="/map" id="mainmenu-list" class="m2">지도</a></li>
-					  <li><a href="/news/main" id="mainmenu-list" class="m3">뉴스</a></li>
-					  <li><a href="/safeguide/preedu.jsp" id="mainmenu-list" class="m4">안전 가이드</a></li>
-					  <li><a href="/stats" id="mainmenu-list" class="m5">범죄 통계</a></li>
+					  <li><a href="/index.jsp" id="mainmenu-list_main" class="m1">메인</a></li>
+					  <li><a href="/map" id="mainmenu-list_map" class="m2">지도</a></li>
+					  <li><a href="/news/main" id="mainmenu-list_news" class="m3">뉴스</a></li>
+					  <li><a href="/safeguide/preedu.jsp" id="mainmenu-list_guard" class="m4">안전 가이드</a></li>
+					  <li><a href="/stats" id="mainmenu-list_stats" class="m5">범죄 통계</a></li>
 			    	</ul>
 			      </li>
 			    </ul>

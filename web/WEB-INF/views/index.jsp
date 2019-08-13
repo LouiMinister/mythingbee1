@@ -30,19 +30,15 @@
      <a id="navlogo" href="#"><img src="./mainNaviImg/menu Button.png"></a>
 </nav> -->
 
-<div class="center" height:auto;">
+<div class="center" height:auto;>
 <video id="videobcg" preload="auto" autoplay="true" loop="loop" muted="muted" volume="0">
   <source src="./image/index/indexMov.mp4" type="video/mp4">
   <source src="movie.webm" type="video/webm">
   Sorry, your browser does not support HTML5 video.
 </video>
 
-<button name="test" type="button" onclick="location.href='news.jsp'"
-
-        style=" opacity:0; height:31%; width:12%; cursor:hand; position:absolute; top:57%; left:47%; z-index:10001">
-  <button name="test" type="button" onclick="location.href='map.jsp'""
-
-  style="opacity:0; height:28%; width:13%; cursor:hand; position:absolute; top:54%; left:59%; z-index:10001">
+<button name="test" type="button" onclick="location.href='news.jsp'" style=" opacity:0; height:31%; width:12%; cursor:hand; position:absolute; top:57%; left:47%; z-index:10001"/>
+  <button name="test" type="button" onclick="location.href='map.jsp'" style="opacity:0; height:28%; width:13%; cursor:hand; position:absolute; top:54%; left:59%; z-index:10001"/>
 
   </div>
 
@@ -61,6 +57,7 @@
     z-index: -1000;
     overflow: hidden;
     transform: translateX(0%) translateY(0%);
+  }
   body{
     background-color: black;
   }
