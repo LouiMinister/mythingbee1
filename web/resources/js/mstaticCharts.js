@@ -6,7 +6,6 @@ var alldata = [];
 var prev1year= [];
 var prev2year= [];
 var area=25;
-var polygon;
 var ranking = function(infos){
 	$('<tr class="ranked">'+'<td class="rank">'+infos.rank+'</td>'+
 		'<td class="district">'+infos.stats.district+'</td>'+
