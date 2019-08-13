@@ -27,7 +27,7 @@ public class PressDAOTest {
 
 
 
-    @Test
+ /*   @Test
     public void test_언론사추가하기(){
         String name="테스트뉴스";
         String code="TS";
@@ -38,7 +38,7 @@ public class PressDAOTest {
         int result = dao.insertPressInfo(press);
         System.out.println(press);
         assertNotNull("언론사추가",result);
-    }
+    }*/
 
     @Test
     public void test_이름으로코드찾기(){
