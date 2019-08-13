@@ -2,6 +2,7 @@ package com.antybeety.news.model.service;
 
 import com.antybeety.district.model.dao.DistrictDAO;
 import com.antybeety.news.model.dao.ArticleInfoDAO;
+import com.antybeety.news.model.dao.KeywordDAO;
 import com.antybeety.news.model.vo.ArticleInfoKVO;
 import com.antybeety.news.model.vo.ArticleInfoVO;
 import com.antybeety.news.model.vo.KeywordVO;
@@ -9,6 +10,7 @@ import com.antybeety.press.model.dao.PressDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.security.Key;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -21,6 +23,9 @@ public class NewsAdServiceImpl implements NewsAdService{
     private PressDAO pressDao;
     @Autowired
     private DistrictDAO districtDao;
+    @Autowired
+    private KeywordDAO keywordDao;
+
 
 
     private ArticleInfoVO parseKvoToVo(ArticleInfoKVO article){
@@ -65,8 +70,19 @@ public class NewsAdServiceImpl implements NewsAdService{
         article.setDistrictName(districtCode);  //이름을 코드로 변환
         articleDao.addArticle(parseKvoToVo(article)); // db에 article_tb, img_tb에 기사 추가
 
+        List<KeywordVO> keywords = article.getKeywords();
+
+        int res;
+        for(KeywordVO k:keywords){
+            res= addKeywordWithArticle(article.getCode(), k);
+            //추가할 때 리턴받는 값을 통해 실패여부 리턴 (추후 추가)
+        }
         //기사 키워드 추가하기기
        return 0;
+    }
+
+    public int addKeywordWithArticle(String code, KeywordVO keyword){
+        return keywordDao.addKeyword(code, keyword);
     }
 
     public String makeArticleCode(){

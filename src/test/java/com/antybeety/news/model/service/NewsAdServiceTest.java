@@ -45,7 +45,6 @@ public class NewsAdServiceTest {
 
         kvo.setKeywords(keywords);
         service.addArticle(kvo);
-
     }
 
 
@@ -61,14 +60,14 @@ public class NewsAdServiceTest {
         kvo.setDistrictName("동작구");
 
         List<KeywordVO> keywords = new ArrayList<KeywordVO>();
+        // 키워드가 중복이 되면 기사PK, 키워드PK 중복되서 에러 발생
         keywords.add(new KeywordVO("테스트키워드1","EEEE"));
-        keywords.add(new KeywordVO("테스트키워드1","FFFF"));
         keywords.add(new KeywordVO("테스트키워드2","FFFF"));
-        keywords.add(new KeywordVO("테스트키워드2","FFFF"));
+        keywords.add(new KeywordVO("테스트키워드3","FFFF"));
+        keywords.add(new KeywordVO("테스트키워드4","CCCC"));
 
         kvo.setKeywords(keywords);
         service.addArticle(kvo);
-
     }
 
 
