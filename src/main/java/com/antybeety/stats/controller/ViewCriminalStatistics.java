@@ -24,7 +24,6 @@ public class ViewCriminalStatistics {
 
         currentDevice = DeviceUtils.getCurrentDevice(request);
 
-
         if(currentDevice.isMobile())
         {
             System.out.println("mobile");
@@ -37,6 +36,10 @@ public class ViewCriminalStatistics {
             System.out.println("normal");
             return "stats/stats";
         }
+    }
+    @RequestMapping(value = "/stats/chart", method = RequestMethod.GET)
+    public String charts(){
+        return "stats/mcharts";
     }
 
 }

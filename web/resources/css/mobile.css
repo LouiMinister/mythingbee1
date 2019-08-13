@@ -9,3 +9,9 @@
     float:none;
 }
 .btn {cursor:pointer;}
+
+body, html {height: 100%;}
+
+body div div {height:100%;}
+
+#mapwrap {height: 100%;}

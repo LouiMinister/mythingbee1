@@ -1,5 +1,4 @@
 google.charts.load("current", {packages:['corechart']});
-//google.charts.setOnLoadCallback(drawChart);
 var map;
 var markers = [];
 var alldata = [];
@@ -8,17 +7,10 @@ var prev2year= [];
 var polygon;
 //$(".w3-sidebar w3-bar-item w3-button").click(function())
 //var selection = $(".w3-sidebar w3-bar-item w3-button").text();
-
-var ranking = function(infos){
-	//console.log(infos);
-	$('<tr class="ranked">'+'<td class="rank">'+infos.rank+'</td>'+
-			'<td class="district">'+infos.stats.district+'</td>'+
-			'<td class="occurCnt">'+infos.stats.occurCnt+'</td>'+'</tr>',{}).appendTo('#rankContent > tbody');
-};
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
   mapOption = { 
       center: new kakao.maps.LatLng(37.578126, 126.9546207), // 지도의 중심좌표
-      level: 11 // 지도의 확대 레벨
+      level: 20 // 지도의 확대 레벨
   };
 
 
@@ -26,7 +18,6 @@ var map = new kakao.maps.Map(mapContainer, mapOption),
 customOverlay2 = new kakao.maps.CustomOverlay({}),
 infowindow = new kakao.maps.CustomOverlay({
 	   clickable : true
-	   //removable : true
 	   });
 map.setMinLevel(9);
 map.setMaxLevel(9);
@@ -54,7 +45,6 @@ var setMarkers = function(map){
 var selection = function(event){
 	alldata = null;
 	alldata = [];
-	$('.ranked').remove();
 	var crimeId = event.srcElement.id;
 	if(crimeId==null) crimeId="ALL";
 	$.ajax({
@@ -62,14 +52,12 @@ var selection = function(event){
 				type:'POST',
 				data:{crimeId: crimeId},
 			success:function(data){
-				//alert("성공");
 			for(let x=0;x<data.length;x++){
 				alldata=alldata.concat(data[x]);
 			}
 			//지도에 폴리곤으로 표시할 영역데이터 배열입니다
 			prev2year=data[1];
 			prev1year=data[2];
-			drawChart(alldata);
 
 			for (let i = 0, len = areas.length; i < len; i++) {
 				let prev2;
@@ -89,7 +77,6 @@ var selection = function(event){
 						displayArea(areas[i],alldata[j],prev2,prev1);
 					}
 				}
-				ranking(alldata[i]);
 			}
 
 			
@@ -176,9 +163,6 @@ var displayArea = function(area,d,d15,d16) {
 		  // polygon.setOptions({fillColor: '#fff'});
 		   customOverlay2.setMap(null);
 		});
-		/*  kakao.maps.event.addListener(map, 'idle', function() {
-				console.log(map.getLevel());
-			}); */
 
 		// 다각형에 click 이벤트를 등록하고 이벤트가 발생하면 다각형의 이름과 면적을 인포윈도우에 표시합니다 
 		kakao.maps.event.addListener(polygon, 'click', function(mouseEvent) {
