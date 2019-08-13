@@ -60,6 +60,9 @@ public class KeywordDAO {
             mapper.addKeywordPivot(param);
         }else {    //같은 이름의 키워드가 존재하는 경우
                     //현재 존재하는 같은 이름을 가진 키워드의 코드를 통해 연결
+
+            
+
             param.put("ar_code",code);
             param.put("ke_code",preCodeByName);
             mapper.addKeywordPivot(param);  //피벗에만 추가
