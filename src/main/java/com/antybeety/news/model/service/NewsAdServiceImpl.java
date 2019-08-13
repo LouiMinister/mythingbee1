@@ -53,7 +53,7 @@ public class NewsAdServiceImpl implements NewsAdService{
     @Override
     public int addArticle(ArticleInfoKVO article) {
         /*
-        만들어야할것: code, pressName, districtName, keywordName
+        만들어야할것: code, pressName, districtName, keywords
         그대로써야핟것: title, summary, url, imgURL,
         sql에서 자동추가: articleTime, viewCnt
          */
