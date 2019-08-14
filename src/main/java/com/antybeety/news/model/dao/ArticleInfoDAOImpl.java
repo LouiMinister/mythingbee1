@@ -1,5 +1,6 @@
 package com.antybeety.news.model.dao;
 
+import com.antybeety.news.model.vo.ArticleInfoKVO;
 import com.antybeety.news.mybatis.NewsMapper;
 import com.antybeety.news.model.vo.ArticleInfoVO;
 import org.apache.ibatis.session.SqlSession;
@@ -90,12 +91,22 @@ public class ArticleInfoDAOImpl implements ArticleInfoDAO{
     }
 
     @Override
-    public int updateArticle(ArticleInfoVO oldArticle, ArticleInfoVO newArticle) {
-        return 0;
+    public int updateArticle(ArticleInfoKVO article) {
+        NewsMapper mapper = getMapper();
+        HashMap<String,Object> param = new HashMap<String,Object>();
+        param.put("arCode",article.getCode());
+        param.put("summary",article.getSummary());
+        param.put("title",article.getTitle());
+        param.put("url",article.getUrl());
+        return mapper.updateArticle(param);
     }
 
     @Override
     public int removeArticle(String code) {
-        return 0;
+        NewsMapper mapper = getMapper();
+        return mapper.deleteArticle(code);
     }
+    
+
+
 }

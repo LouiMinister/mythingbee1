@@ -1,6 +1,7 @@
 package com.antybeety.news.model.dao;
 
 
+import com.antybeety.news.model.vo.ArticleInfoKVO;
 import com.antybeety.news.model.vo.ArticleInfoVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -128,6 +129,26 @@ public class ArticleDAOTest {
         List<ArticleInfoVO> articles= dao.searchArticleByFilter(searchWord, startTime, lastTime,district, limit);
         boolean ar = false;
         assertTrue(ar);
+    }
+    @Test
+    public void test_기사수정테스트(){
+        ArticleInfoKVO article = new ArticleInfoKVO();
+        String code="1908140001";
+        String title="기사추가테스트1";
+        String pressName="ED";
+        String districtName="DJ";
+        String summary="테스트하는중1";
+        String url ="www.sampleurl.com";
+        String imgUrl ="www.sampleimgurl.com";
+        article.setCode(code);
+        article.setTitle(title);
+        article.setPressName(pressName);
+        article.setDistrictName(districtName);
+        article.setSummary(summary);
+        article.setUrl(url);
+        article.setImgURL(imgUrl);
+        //assertNotNull("추가된 기사는",dao.updateArticle(article));
+        System.out.println(dao.updateArticle(article));
     }
   /*  @Test
     public void test_*/
