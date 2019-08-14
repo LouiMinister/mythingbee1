@@ -22,4 +22,7 @@ public interface NewsAdController {
 
     /*기사 VO를 통해 기사의 내용을 업데이트함*/
     int updateArticle(ArticleInfoKVO article);
+
+    /* *******************추가 ****************모든 기사 불러오기*/
+    List<ArticleInfoVO> searchAllArticles();
 }
