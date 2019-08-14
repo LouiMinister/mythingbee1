@@ -1,6 +1,7 @@
 package com.antybeety.news.controller;
 
 import com.antybeety.news.model.service.NewsAdService;
+import com.antybeety.news.model.service.NewsService;
 import com.antybeety.news.model.vo.ArticleInfoKVO;
 import com.antybeety.news.model.vo.ArticleInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import java.util.List;
 public class NewsAdControllerImpl implements NewsAdController{
     @Autowired
     private NewsAdService newsAdService;
+    @Autowired
+    private NewsService newsService;
 
     @Override
     public int addArticle(ArticleInfoKVO article) {
@@ -36,5 +39,10 @@ public class NewsAdControllerImpl implements NewsAdController{
     @Override
     public int updateArticle(ArticleInfoKVO article) {  //0814 0949 미구현
         return newsAdService.updateArticle(article);
+    }
+
+    @Override
+    public List<ArticleInfoVO> searchAllArticles() {
+        return newsAdService.searchAllArticles();
     }
 }

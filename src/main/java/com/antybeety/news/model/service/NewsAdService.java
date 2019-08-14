@@ -26,4 +26,7 @@ public interface NewsAdService {
     /* ArticleInfoKVO로 지역구 수정하기기*/
    public int updateArticle(ArticleInfoKVO article);
 
+   /*모든 기사 찾기*/
+    public List<ArticleInfoVO> searchAllArticles();
+
 }
