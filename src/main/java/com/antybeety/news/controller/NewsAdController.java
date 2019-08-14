@@ -22,7 +22,7 @@ public interface NewsAdController {
     int updateArticle(ArticleInfoKVO article);
 
     /*기사들의 코드들을 컬랙션으로 받아 해당하는 기사를 삭제함*/
-    int deleteArticle(List<ArticleInfoVO> articles);
+    int deleteArticle(List<String> articles);
 
     /*언론사 추가하기*/
     int insertPress(PressVO vo);

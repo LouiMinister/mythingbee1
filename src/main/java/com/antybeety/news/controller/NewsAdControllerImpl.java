@@ -53,17 +53,17 @@ public class NewsAdControllerImpl implements NewsAdController{
     }
 
     @Override
-    public int deleteArticle(List<ArticleInfoVO> articles) {
-        return 0;
+    public int deleteArticle(List<String> articles) {
+        return newsAdService.deleteArticles(articles);
     }
 
     @Override
     public int updatePress(String code, String name) {
-        return 0;
+        return pressService.updatePressName(code,name);
     }
 
     @Override
     public int deletePress(String name) {
-        return 0;
+        return pressService.deleteByName(name);
     }
 }

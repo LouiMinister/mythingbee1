@@ -37,4 +37,17 @@ public class NewsAdControllerTest{
         PressVO vo = new PressVO("TT","티티뉴스");
         controller.insertPress(vo);
     }
+
+    @Test
+    public void test_언론사삭제하기(){
+        String pressName= "티티뉴스";
+        controller.deletePress(pressName);
+    }
+
+    @Test
+    public void test_언론사수정하기(){
+        String pressCode="TT";
+        String pressName="티티수정뉴스";
+        controller.updatePress(pressCode, pressName);
+    }
 }
