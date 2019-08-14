@@ -20,7 +20,7 @@ public class PressDAO {
     private PressMapper getMapper(){
         return sqlSession.getMapper(PressMapper.class);
     }
-    int insertPressInfo(PressVO press){
+    public int insertPressInfo(PressVO press){
         PressMapper mapper = getMapper();
         HashMap<String, Object> param = new HashMap<>();
         param.put("code", press.getCode());
