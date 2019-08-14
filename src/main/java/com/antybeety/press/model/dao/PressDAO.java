@@ -59,14 +59,16 @@ public class PressDAO {
         return result;
     }
     public int updatePressName(String code, String name){
-        //중복체크
-        if((searchPressName(code)!=null)){
+        //중복체크( null이 아니고, 코드로 검색해서 가져온 이름이 바꾸려는 이름과 일치할 경우(바꾸려는이름과 현재 이름이  -1 리턴))
+        String checkName=searchPressName(code);
+        if((checkName!=null)&&(checkName.equals(name))){
             return -1;
         }
         PressMapper mapper = getMapper();
         HashMap<String, Object> param = new HashMap<String, Object>();
         param.put("code", code);
         param.put("name", name);
+
         return mapper.updatePressName(param);
     }
 }
