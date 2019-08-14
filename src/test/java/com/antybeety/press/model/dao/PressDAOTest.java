@@ -78,4 +78,13 @@ public class PressDAOTest {
         assertNotNull("언론사 제거",dao.deleteByName(name));
         System.out.println(dao.searchAllNames());
     }
+    @Test
+    public void test_코드로언론사제거(){
+        String code = "TE";
+        PressVO press = new PressVO(code,"테스트");
+        assertNotNull("언론사추가",dao.insertPressInfo(press));
+        System.out.println(dao.searchAllNames());
+        assertNotNull("언론사 제거",dao.deleteByCode(code));
+        System.out.println(dao.searchAllNames());
+    }
 }
