@@ -78,6 +78,7 @@ import java.util.List;
 
         //기사 코드와 일치하는 기사를 리턴한다.
         ArticleInfoVO article = newsAdController.searchArticle(arCode);
+        System.out.println(article);
 
         //기사에 해당하는 키워드
         List<String> keywords = new ArrayList<String>();
@@ -98,7 +99,7 @@ import java.util.List;
         mav.addObject("districts",districts);
         mav.addObject("presses",presses);
 
-        mav.setViewName("updateArticle");
+        mav.setViewName("admin_news/updateArticle");
 
         return mav;
     }
