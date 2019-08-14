@@ -18,7 +18,7 @@
 <body>
     <h3>관리자 메뉴</h3> <br>
 
-    <button onclick="location.href='/admin_map/facility'">시설물 관리자</button><br>
-    <button onclick="location.href='/admin_news/news'">뉴스 관리자</button>
+    <button onclick="location.href='/admin/facility'">시설물 관리자</button><br>
+    <button onclick="location.href='/admin/news'">뉴스 관리자</button>
 </body>
 </html>
