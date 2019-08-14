@@ -56,6 +56,11 @@ public class PressDAO {
         return result;
     }
     public int updatePressName(String code, String name){
+        //중복체크
+        if((searchPressName(code)!=null)){
+            return -1;
+        }
+        
         PressMapper mapper = getMapper();
         HashMap<String, Object> param = new HashMap<String, Object>();
         param.put("code",code);

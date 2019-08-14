@@ -92,6 +92,7 @@ public class PressDAOTest {
         String code="TS";
         assertNotNull("언론사명변경",dao.updatePressName(code,"테스팅"));
         System.out.println(dao.searchAllNames());
+        System.out.println("중복이면 -1이 출력됩니다 : " + dao.updatePressName(code,"테스팅"));
         assertNotNull("안론사명재변경",dao.updatePressName(code,"테스트 뉴스"));
         System.out.println(dao.searchAllNames());
     }
