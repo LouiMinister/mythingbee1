@@ -19,4 +19,5 @@ public interface PressMapper {
     /*모든 신문사 이름을 반환*/
     List<String> searchAllNames();
 
+    int deletePressByName(String name);
 }

@@ -2,6 +2,7 @@ package com.antybeety.press.model.dao;
 
 import com.antybeety.news.model.vo.ArticleInfoVO;
 import com.antybeety.press.model.vo.PressVO;
+import com.antybeety.press.mybatis.PressMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,5 +68,14 @@ public class PressDAOTest {
             res+=name+", ";
         }
         assertNotNull("모든이름찾기", res);
+    }
+    @Test
+    public void test_이름으로언론사제거(){
+        String name = "테스트";
+        PressVO press = new PressVO("TE","테스트");
+        assertNotNull("언론사추가",dao.insertPressInfo(press));
+        System.out.println(dao.searchAllNames());
+        assertNotNull("언론사 제거",dao.deleteByName(name));
+        System.out.println(dao.searchAllNames());
     }
 }

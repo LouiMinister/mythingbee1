@@ -45,4 +45,9 @@ public class PressDAO {
         List<String> info = mapper.searchAllNames();
         return info;
     }
+    public int deleteByName(String name){
+        PressMapper mapper = getMapper();
+        int result = mapper.deletePressByName(name);
+        return result;
+    }
 }
