@@ -18,4 +18,6 @@ public interface KeywordMapper {
     //이름으로 기사 찾아서 마지막 인덱스의 키워드 코드 리턴
     String searchCodeByName(String name);
 
+    //키워드 코드가 있는 피벗테이블의 레코드를 삭제
+    int deleteKeyword(String code);
 }

@@ -70,4 +70,14 @@ public class KeywordDAOTest {
         String res= dao.searchCodeByName(name);
         System.out.println("존재안할경우 null리턴  "+res);
     }
+    @Test
+    public void test_키워드이름으로_키워드제거_피벗(){
+        String arCode="1907190002";
+        String name="테스팅";
+        String code="TEST01";
+        KeywordVO kvo = new KeywordVO(name,code);
+        dao.addKeyword(arCode,kvo);
+
+      System.out.println(dao.deleteKeyword("테스팅"));
+    }
 }
