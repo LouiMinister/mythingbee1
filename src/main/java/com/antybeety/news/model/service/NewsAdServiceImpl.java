@@ -110,7 +110,7 @@ public class NewsAdServiceImpl implements NewsAdService{
 
     @Override
     public ArticleInfoVO searchArticle(String article){
-        return null;
+        return articleDao.searchArticleInfo(article);
     }
 
 

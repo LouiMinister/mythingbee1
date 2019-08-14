@@ -37,10 +37,10 @@ public class ArticleInfoDAOImpl implements ArticleInfoDAO{
         return info;
     }
     @Override
-    public List<ArticleInfoVO> searchArticleInfo(String code) {
+    public ArticleInfoVO searchArticleInfo(String code) {
 
         NewsMapper mapper = getMapper();
-        List<ArticleInfoVO>  info = mapper.searchArticleInfo(code);
+        ArticleInfoVO  info = mapper.searchArticleInfo(code);
         return info;
     }
     @Override

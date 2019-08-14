@@ -78,5 +78,12 @@ public class NewsAdServiceTest {
         assertNotNull("기사코드 만들기",result);
     }
 
+    @Test
+    public void test_코드로기사하나찾기(){
+        String code ="1907190001";
+        System.out.println(service.searchArticle(code));
+
+    }
+
 
 }
