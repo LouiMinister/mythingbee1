@@ -10,7 +10,7 @@ import java.util.List;
 public interface ArticleInfoDAO {
 
     int addArticle(ArticleInfoVO article);
-    List<ArticleInfoVO> searchArticleInfo(String code);
+    ArticleInfoVO searchArticleInfo(String code);
     List<ArticleInfoVO> searchAllArticles();
     String searchArticleTimeByCode(String code);
     List<ArticleInfoVO> searchBeforeArticlesByTime(String time, int limit);

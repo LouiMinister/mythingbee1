@@ -45,14 +45,14 @@ public class ArticleDAOTest {
         article.setUrl(url);
         article.setImgURL(imgUrl);
         dao.addArticle(article);
-        List<ArticleInfoVO> insertRes=dao.searchArticleInfo(code);
+        ArticleInfoVO insertRes=dao.searchArticleInfo(code);
         assertNotNull("추가된 기사는",insertRes);
     }
 
     @Test
     public void test_기사코드로찾기(){
         String code="1907190001";
-        List<ArticleInfoVO> article = dao.searchArticleInfo(code);
+        ArticleInfoVO article = dao.searchArticleInfo(code);
         System.out.println(article);
         assertNotNull("기사코드로 찾은 기사 결과는 존재한다.",article);
     }
