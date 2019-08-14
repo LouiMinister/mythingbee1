@@ -25,5 +25,21 @@ public class PressService {
         return dao.searchAllNames();
     }
 
-    public int insertPress(PressVO press) {return dao.insertPressInfo(press);}
+    public int insertPress(PressVO press) {
+        return dao.insertPressInfo(press);
+    }
+
+    public int deleteByName(String name) {
+        return dao.deleteByName(name);
+    }
+
+    public int deleteByCode(String code) {
+        return dao.deleteByCode(code);
+    }
+
+    public int updatePressName(String code, String name) {
+        return dao.updatePressName(code, name);
+    }
+
+
 }

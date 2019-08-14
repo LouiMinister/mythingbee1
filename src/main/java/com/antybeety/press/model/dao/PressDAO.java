@@ -17,10 +17,11 @@ public class PressDAO {
     @Autowired
     private SqlSession sqlSession;
 
-    private PressMapper getMapper(){
+    private PressMapper getMapper() {
         return sqlSession.getMapper(PressMapper.class);
     }
-    public int insertPressInfo(PressVO press){
+
+    public int insertPressInfo(PressVO press) {
         PressMapper mapper = getMapper();
         HashMap<String, Object> param = new HashMap<>();
         param.put("code", press.getCode());
@@ -45,21 +46,24 @@ public class PressDAO {
         List<String> info = mapper.searchAllNames();
         return info;
     }
-    public int deleteByName(String name){
+
+    public int deleteByName(String name) {
         PressMapper mapper = getMapper();
         int result = mapper.deletePressByName(name);
         return result;
     }
-    public int deleteByCode(String code){
+
+    public int deleteByCode(String code) {
         PressMapper mapper = getMapper();
         int result = mapper.deletePressByCode(code);
         return result;
     }
-    public int updatePressName(String code, String name){
+
+    public int updatePressName(String code, String name) {
         PressMapper mapper = getMapper();
         HashMap<String, Object> param = new HashMap<String, Object>();
-        param.put("code",code);
-        param.put("name",name);
+        param.put("code", code);
+        param.put("name", name);
         return mapper.updatePressName(param);
     }
 }
