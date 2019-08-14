@@ -85,5 +85,21 @@ public class NewsAdServiceTest {
 
     }
 
+    @Test
+    public void test_기사수정테스트(){
+        List<KeywordVO> list=new ArrayList<KeywordVO>();
+        list.add(new KeywordVO("간첩","SPYY01"));
+        list.add(new KeywordVO("테스트키워드1","AAAA0001"));
+        ArticleInfoKVO akvo = new ArticleInfoKVO("1908140001","기사테스트중","이데일리","써머리",null,0,"urll.url","imgul.imgul",
+                "노원",list);
+        System.out.println(service.updateArticle(akvo));
+    }
 
+    @Test
+    public void test_기사삭제테스트(){
+        List<String> codeList = new ArrayList<String>();
+        codeList.add("1908140001");
+        service.deleteArticles(codeList);
+    }
+    
 }
