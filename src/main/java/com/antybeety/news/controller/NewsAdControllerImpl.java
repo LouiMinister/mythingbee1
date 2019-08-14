@@ -29,7 +29,7 @@ public class NewsAdControllerImpl implements NewsAdController{
 
     @Override
     public List<String> searchAllPresses() {
-        return newsAdService.searchAllPresses();
+        return pressService.searchAllNames();
     }
 
     @Override

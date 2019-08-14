@@ -20,9 +20,6 @@ public interface NewsAdService {
     /*기사코드 여러개로 기사 삭제하기*/
     public int deleteArticles(List<String> code);
 
-    /*모든 신문사 이름 찾기*/
-    public List<String> searchAllPresses();
-
     /*모든 지역구 찾기*/
     public List<String> searchAllDistricts();
 
