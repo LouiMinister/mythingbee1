@@ -1,6 +1,7 @@
 package com.antybeety.press.model.service;
 
 import com.antybeety.press.model.dao.PressDAO;
+import com.antybeety.press.model.vo.PressVO;
 import com.antybeety.press.mybatis.PressMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,4 +24,6 @@ public class PressService {
     public List<String> searchAllNames() {
         return dao.searchAllNames();
     }
+
+    public int insertPress(PressVO press) {return dao.insertPressInfo(press);}
 }

@@ -2,6 +2,7 @@ package com.antybeety.news.model.controller;
 
 import com.antybeety.news.controller.NewsAdController;
 import com.antybeety.news.model.vo.ArticleInfoVO;
+import com.antybeety.press.model.vo.PressVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,11 @@ public class NewsAdControllerTest{
         for(ArticleInfoVO v : res){
             System.out.println(v);
         }
+    }
 
+    @Test
+    public void test_언론사추가하기(){
+        PressVO vo = new PressVO("TT","티티뉴스");
+        controller.insertPress(vo);
     }
 }
