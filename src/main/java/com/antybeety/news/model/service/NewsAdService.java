@@ -29,4 +29,6 @@ public interface NewsAdService {
    /*모든 기사 찾기*/
     public List<ArticleInfoVO> searchAllArticles();
 
+
+
 }

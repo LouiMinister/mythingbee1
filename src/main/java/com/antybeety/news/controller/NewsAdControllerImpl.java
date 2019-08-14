@@ -1,9 +1,10 @@
 package com.antybeety.news.controller;
 
 import com.antybeety.news.model.service.NewsAdService;
-import com.antybeety.news.model.service.NewsService;
 import com.antybeety.news.model.vo.ArticleInfoKVO;
 import com.antybeety.news.model.vo.ArticleInfoVO;
+import com.antybeety.press.model.service.PressService;
+import com.antybeety.press.model.vo.PressVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -14,7 +15,7 @@ public class NewsAdControllerImpl implements NewsAdController{
     @Autowired
     private NewsAdService newsAdService;
     @Autowired
-    private NewsService newsService;
+    private PressService pressService;
 
     @Override
     public int addArticle(ArticleInfoKVO article) {
@@ -34,6 +35,11 @@ public class NewsAdControllerImpl implements NewsAdController{
     @Override
     public List<String> searchAllDistricts() {
         return newsAdService.searchAllDistricts();
+    }
+
+    @Override
+    public int insertPress(PressVO vo) {
+        return pressService.insertPress(vo);
     }
 
     @Override
