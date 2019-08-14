@@ -82,8 +82,9 @@ public class NewsAdServiceImpl implements NewsAdService {
         for(KeywordVO k : keywords){
             res += addKeywordWithArticle(articleCode, k);
             //추가할 때 리턴받는 값을 통해 실패여부 리턴 (추후 추가)
-        }
 
+        }
+        return 0;
     }
 
     public int addKeywordWithArticle(String code, KeywordVO keyword) {

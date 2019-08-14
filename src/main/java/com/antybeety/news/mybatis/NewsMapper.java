@@ -23,7 +23,8 @@ public interface NewsMapper {
     List<ArticleInfoVO> searchArticleByFilterDistrict(HashMap<String, Object> param);
 
     String searchLastDate();
-//    int updateArticle(ArticleInfoVO oldArticle, ArticleInfoVO newArticle);
-//    int removeArticle(String code);
 
+    int updateArticle(HashMap<String,Object> param);
+
+    int deleteArticle(String code);
 }
