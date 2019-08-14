@@ -118,6 +118,7 @@ import java.util.List;
             System.out.println(delCodes.get(i));
         }
 
-        return delCodes.size();
+        return newsAdController.deleteArticle(delCodes);
+
     }
 }

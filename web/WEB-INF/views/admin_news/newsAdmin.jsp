@@ -49,8 +49,6 @@
 <script src="/resources/js/demo/datatables-demo.js"></script>
 
 <script src="/resources/js/classie.js"></script>
-<script src="/resources/js/gnmenu.js"></script>
-<script> new gnMenu( document.getElementById("gn-menu") );</script>
 
 <script>
 
@@ -392,10 +390,6 @@
     }
 </script>
 <script src="/resources/js/classie.js"></script>
-<script src="/resources/js/gnmenu.js"></script>
-<script>
-    new gnMenu( document.getElementById('gn-menu') );
-</script>
 
 <body id="page-top"></body>
 
