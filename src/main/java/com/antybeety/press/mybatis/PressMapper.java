@@ -22,4 +22,6 @@ public interface PressMapper {
     int deletePressByName(String name);
 
     int deletePressByCode(String code);
+
+    int updatePressName(HashMap<String, Object> param);
 }
