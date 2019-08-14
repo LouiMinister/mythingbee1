@@ -113,6 +113,11 @@ public class NewsAdServiceImpl implements NewsAdService{
         return null;
     }
 
+
+    @Override
+    public int deleteArticles(List<String> code) {
+        return 0;
+    }
     @Override
     public List<String> searchAllPresses() {
         return null;

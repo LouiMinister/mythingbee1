@@ -51,4 +51,19 @@ public class NewsAdControllerImpl implements NewsAdController{
     public List<ArticleInfoVO> searchAllArticles() {
         return newsAdService.searchAllArticles();
     }
+
+    @Override
+    public int deleteArticle(List<ArticleInfoVO> articles) {
+        return 0;
+    }
+
+    @Override
+    public int updatePress(String code, String name) {
+        return 0;
+    }
+
+    @Override
+    public int deletePress(String name) {
+        return 0;
+    }
 }
