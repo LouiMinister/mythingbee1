@@ -147,7 +147,7 @@ public class ArticleDAOTest {
         article.setSummary(summary);
         article.setUrl(url);
         article.setImgURL(imgUrl);
-        //assertNotNull("추가된 기사는",dao.updateArticle(article));
+        
         System.out.println(dao.updateArticle(article));
     }
   /*  @Test
