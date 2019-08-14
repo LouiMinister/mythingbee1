@@ -80,4 +80,27 @@ public class KeywordDAOTest {
 
       System.out.println(dao.deleteKeyword("테스팅"));
     }
+
+    @Test
+    public void test_키워드코드와기사코드로_피벗테이블연결끊기(){
+        String arCode="1907190002";
+        String name="테스팅";
+        String code="TEST01";
+
+        String arCode2="1907210001";
+
+        KeywordVO kvo = new KeywordVO(name,code);
+
+        dao.addKeyword(arCode,kvo);
+        dao.addKeyword(arCode2,kvo);
+        //같은 키워드를 가진 다른 두 기사가 있을때 하나만 사라지는것 확인
+        System.out.println(dao.cutBetweenKeywordAndArticle(code,arCode));
+        System.out.println(dao.cutBetweenKeywordAndArticle(code,arCode2));
+    }
+
+    @Test
+    public void test_기사코드로_피벗테이블모든기사지우기(){
+        String arCode="1908140001";
+        System.out.println(dao.cutEveryKeyword(arCode));
+    }
 }
