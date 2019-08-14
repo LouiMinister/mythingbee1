@@ -103,6 +103,10 @@ public class NewsAdServiceImpl implements NewsAdService{
         return res;
     }
 
+    @Override
+    public List<ArticleInfoVO> searchAllArticles() {
+        return articleDao.searchAllArticles();
+    }
 
     @Override
     public ArticleInfoVO searchArticle(String article){
