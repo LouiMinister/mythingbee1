@@ -32,4 +32,7 @@
     <delete id="deletePressByCode" parameterType="java.lang.String">
         DELETE FROM press_tb WHERE pr_code=#{code};
     </delete>
+    <update id="updatePressName" parameterType="hashmap">
+        UPDATE press_tb SET pr_name=#{name} WHERE pr_code=#{code};
+    </update>
 </mapper>
