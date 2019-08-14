@@ -31,6 +31,12 @@ public class NewsAdControllerTest{
             System.out.println(v);
         }
     }
+    @Test
+    public void test_모든신문사찾기(){
+        List<String> res = controller.searchAllPresses();
+        System.out.println(res);
+    }
+
 
     @Test
     public void test_언론사추가하기(){
