@@ -309,7 +309,8 @@
 				<table id="btnTable">
 					<tr>
 						<td>
-							<button type="button" id="close" class="btn btn-outline-info">닫기</button>
+							<button type="button" id="close" class="btn btn-outline-info" onclick="showOption()">닫기
+							</button>
 							<button   type="button" id="search" class="btn btn-outline-info" onclick="searchArticle()">검색</button>
 						</td>
 					</tr>
