@@ -143,16 +143,15 @@ public class NewsAdServiceImpl implements NewsAdService {
 
         article.setPressName(pressCode);    //이름을 코드로 변환
         article.setDistrictName(districtCode);  //이름을 코드로 변환
-        articleDao.updateArticle(article);
+       int result = articleDao.updateArticle(article);
 
         List<KeywordVO> keywords = article.getKeywords();
         int res=0;
         //키워드와 기사 사이 연결을 전부 삭제
         res = keywordDao.cutAllKeywordBtwArticle(article.getCode());
 
-
         res = addKeywordAtArticle(article.getCode(),keywords);  //기사에 키워드 추가
 
-        return 0;
+        return result;
     }
 }
