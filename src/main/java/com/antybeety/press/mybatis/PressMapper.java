@@ -20,4 +20,6 @@ public interface PressMapper {
     List<String> searchAllNames();
 
     int deletePressByName(String name);
+
+    int deletePressByCode(String code);
 }

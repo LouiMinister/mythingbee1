@@ -50,4 +50,9 @@ public class PressDAO {
         int result = mapper.deletePressByName(name);
         return result;
     }
+    public int deleteByCode(String code){
+        PressMapper mapper = getMapper();
+        int result = mapper.deletePressByCode(code);
+        return result;
+    }
 }
