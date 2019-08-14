@@ -87,10 +87,11 @@ public class PressDAOTest {
         assertNotNull("언론사 제거",dao.deleteByCode(code));
         System.out.println(dao.searchAllNames());
     }
+
     @Test
     public void test_코드로언론사이름변경(){
         String code="TS";
-       int result= dao.updatePressName(code,"토토뉴스");
+        int result= dao.updatePressName(code,"토토뉴스");
         assertNotNull("언론사명변경",result);
         System.out.println(result);
         System.out.println(dao.searchAllNames());
