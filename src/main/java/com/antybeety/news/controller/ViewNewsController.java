@@ -8,6 +8,7 @@ package com.antybeety.news.controller;
         import org.springframework.web.bind.annotation.RequestParam;
         import org.springframework.web.servlet.ModelAndView;
 
+
 @Controller
 @RequestMapping("/news")
 public class ViewNewsController {

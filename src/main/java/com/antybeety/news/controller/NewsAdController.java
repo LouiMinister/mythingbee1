@@ -39,9 +39,7 @@ public interface NewsAdController {
     /*모든 지역구 이름들을 불러옴*/
     List<String> searchAllDistricts();
 
-
-
-
-
+    //어드민 로그인
+    String login(String id, String password);
 
 }

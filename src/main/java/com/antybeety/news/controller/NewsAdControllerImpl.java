@@ -38,6 +38,9 @@ public class NewsAdControllerImpl implements NewsAdController{
     }
 
     @Override
+    public String login(String id, String password) { return newsAdService.login(id,password); }
+
+    @Override
     public int insertPress(PressVO vo) {
         return pressService.insertPress(vo);
     }
