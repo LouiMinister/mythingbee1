@@ -1,6 +1,7 @@
 package com.antybeety.news.controller;
 
 import com.antybeety.news.model.service.NewsAdService;
+import com.antybeety.news.model.service.NewsCrawlingService;
 import com.antybeety.news.model.vo.ArticleInfoKVO;
 import com.antybeety.news.model.vo.ArticleInfoVO;
 import com.antybeety.press.model.service.PressService;
@@ -16,6 +17,8 @@ public class NewsAdControllerImpl implements NewsAdController{
     private NewsAdService newsAdService;
     @Autowired
     private PressService pressService;
+    @Autowired
+    private NewsCrawlingService crawlingService;
 
     @Override
     public int addArticle(ArticleInfoKVO article) {
@@ -68,5 +71,10 @@ public class NewsAdControllerImpl implements NewsAdController{
     @Override
     public int deletePress(String name) {
         return pressService.deleteByName(name);
+    }
+
+    @Override
+    public ArticleInfoKVO crawlingArticle(int engine, String url) {
+        return crawlingService.searchArticle(engine,url);
     }
 }
