@@ -1,6 +1,8 @@
 package com.antybeety.news.model.controller;
 
 import com.antybeety.news.controller.NewsAdController;
+import com.antybeety.news.model.service.NewsCrawlingService;
+import com.antybeety.news.model.vo.ArticleInfoKVO;
 import com.antybeety.news.model.vo.ArticleInfoVO;
 import com.antybeety.press.model.vo.PressVO;
 import org.junit.Test;
@@ -55,5 +57,12 @@ public class NewsAdControllerTest{
         String pressCode="TT";
         String pressName="티티수정뉴스";
         controller.updatePress(pressCode, pressName);
+    }
+    @Test
+    public void test_크롤링(){
+        String s = "https://news.v.daum.net/v/20190814154259704";
+        ArticleInfoKVO article;
+        article=controller.crawlingArticle(NewsCrawlingService.ENGINE_DAUM, s);
+        System.out.println(article);
     }
 }

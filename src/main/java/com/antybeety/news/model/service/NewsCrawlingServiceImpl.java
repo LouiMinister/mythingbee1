@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 public class NewsCrawlingServiceImpl implements NewsCrawlingService {
 
     @Override
-    public ArticleInfoKVO searchArticle(int engine, String url) {
-        ArticleInfoKVO article=null;
-        switch (engine){
+            public ArticleInfoKVO searchArticle(int engine, String url) {
+                ArticleInfoKVO article=null;
+                switch (engine){
             case NewsCrawlingService.ENGINE_DAUM:
                 article =searchAtDaum(url);
                 break;
@@ -26,11 +26,11 @@ public class NewsCrawlingServiceImpl implements NewsCrawlingService {
     }
 
     public ArticleInfoKVO searchAtDaum(String url){
-        Document doc;
+        Document doc=null;
         try{
            doc = Jsoup.connect(url).get();
         }catch(Exception e){
-            return null;
+            e.printStackTrace();
         }
 
         //기사 제목
