@@ -13,7 +13,7 @@ public interface NewsAdController {
     int addArticle(ArticleInfoKVO article);
 
     /*기사의 코드를 통해 해당하는 기사의 기사 VO를 리턴받음*/
-    ArticleInfoVO searchArticle(String artiCode);
+    ArticleInfoKVO searchArticle(String artiCode);
 
     /*모든 기사 불러오기*/
     List<ArticleInfoVO> searchAllArticles();

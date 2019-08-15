@@ -15,7 +15,7 @@ public interface NewsAdService {
     public String makeArticleCode();
 
     /*기사코드 하나로 기사찾기*/
-    public ArticleInfoVO searchArticle(String article);
+    public ArticleInfoKVO searchArticle(String article);
 
     /*기사코드 여러개로 기사 삭제하기*/
     public int deleteArticles(List<String> code);
