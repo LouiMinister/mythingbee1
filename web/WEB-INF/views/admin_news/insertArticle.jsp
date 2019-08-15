@@ -302,7 +302,7 @@
             var td = $('<td name="keywordList" id="'+keyName+'"></td>').appendTo('#keywordAdd');
 
             $('<div class="btn-group btn-group-toggle" data-toggle="buttons">'
-            +'<label class="btn btn-secondary active" onclick="deleteKeyword(event)" id="'+keyName+' " name="'+keyCode+'>'
+            +'<label class="btn btn-secondary active" onclick="deleteKeyword(event)" id="'+keyName+','+keyCode+'">'
             +'<input type="radio" name="options" id="option2" autocomplete="off" checked>X</label>'
             +'<label class="btn btn-secondary" >'+keyName+'</label></div>').appendTo(td);
 
@@ -314,8 +314,12 @@
         }
 
         var deleteKeyword = function(event){
-            var keyName = event.srcElement.id;
-            var keyCode = event.srcElement.name;
+            var id = event.srcElement.id;
+            var splitString = id.split(",");
+
+            var keyName = splitString[0];
+            var keyCode = splitString[1];
+
             console.log(keyName + ", "+keyCode);
 
             $("#"+keyName).remove();
@@ -334,6 +338,7 @@
                 document.getElementById("title").style.backgroundColor="#ffffb3";
 
                 setTimeout(function() {
+
                     document.getElementById("title").style.backgroundColor="#ffffff";
                 }, 1500);
 
@@ -432,9 +437,7 @@
                 if(status == "success"){
                     console.log(data);
 
-                    if(data>0) {
-                        location.href = "/admin/news";
-                    }
+                    location.href = "/admin/news";
                 }
             });
         }

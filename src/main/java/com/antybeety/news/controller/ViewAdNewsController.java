@@ -93,8 +93,8 @@ public class ViewAdNewsController {
         article.setSummary((String)requestParam.get("summary"));
         article.setUrl((String)requestParam.get("url"));
         article.setImgURL((String)requestParam.get("imgUrl"));
-        article.setDistrictName((String)requestParam.get("pressName"));
-        article.setPressName((String)requestParam.get("districtName"));
+        article.setDistrictName((String)requestParam.get("districtName"));
+        article.setPressName((String)requestParam.get("pressName"));
 
         System.out.println(requestParam.get("keywordName"));
         System.out.println(requestParam.get("keywordCode"));
@@ -105,9 +105,9 @@ public class ViewAdNewsController {
 
         List<KeywordVO> keywords = new ArrayList<KeywordVO>();
 
-//        for(int i=0;i<keywordCodeSplit.length;i++){
-//            keywords.add(new KeywordVO(keywordNameSplit[i],keywordCodeSplit[i]));
-//        }
+        for(int i=0;i<keywordCodeSplit.length;i++){
+            keywords.add(new KeywordVO(keywordNameSplit[i],keywordCodeSplit[i]));
+        }
 
         article.setKeywords(keywords);
 
