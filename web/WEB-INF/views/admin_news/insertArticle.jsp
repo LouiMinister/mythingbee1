@@ -29,6 +29,11 @@
             margin-bottom: 30px;
             margin-top: 30px;
         }
+        #summary{
+            margin-top: 0px;
+            margin-bottom: 0px;
+            height: 137px;
+        }
     </style>
 
     <script>
@@ -312,8 +317,8 @@
 
                                     <div class="form-group">
                                         <label class="col-form-label col-form-label-lg">기사 요약</label>
-                                        <input class="form-control form-control-lg" type="text" placeholder="기사 요약"
-                                               id="summary" name="summary">
+                                        <textarea class="form-control form-control-lg"  placeholder="기사 요약"
+                                                  id="summary" name="summary"></textarea>
                                     </div>
 
                                     <div class="form-group">
