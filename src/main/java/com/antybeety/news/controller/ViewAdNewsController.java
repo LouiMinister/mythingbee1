@@ -67,11 +67,10 @@ public class ViewAdNewsController {
     }
 
     @RequestMapping(value = "/addlink", method = RequestMethod.POST)
-   public @ResponseBody ArticleInfoVO parsing(@RequestParam(value = "link", required = true) String url) {
-        System.out.println("url = "+url);
-        ArticleInfoVO avo = new ArticleInfoVO("LTHANDROID","이태현 안드로이드 제작중","이데일리",
-                "만들다가 암에걸리다","0000",9999,"theurl","theimgurl","관악구","거절");
-        return avo;
+    public @ResponseBody ArticleInfoKVO parsing(@RequestParam(value = "link", required = true) String url) {
+        ArticleInfoKVO akvo = new ArticleInfoKVO("LTHANDROID","이태현 안드로이드 제작중","이데일리",
+                "만들다가 암에걸리다","0000",9999,"theurl","theimgurl","관악구",null);
+        return akvo;
     }
     //@RequestMapping(value="")
 
