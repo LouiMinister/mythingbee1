@@ -26,7 +26,7 @@ public class NewsAdControllerImpl implements NewsAdController{
     }
 
     @Override
-    public ArticleInfoVO searchArticle(String artiCode) {
+    public ArticleInfoKVO searchArticle(String artiCode) {
         return newsAdService.searchArticle(artiCode);
     }
 

@@ -12,8 +12,10 @@ import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.StringTokenizer;
 
 @Service
 public class NewsAdServiceImpl implements NewsAdService {
@@ -53,6 +55,36 @@ public class NewsAdServiceImpl implements NewsAdService {
         return vo;
     }
 
+    private ArticleInfoKVO parseVoToKvo(ArticleInfoVO article) {
+        ArticleInfoKVO kvo = new ArticleInfoKVO();
+        kvo.setCode(article.getCode());
+        kvo.setTitle(article.getTitle());
+        kvo.setImgURL(article.getImgURL());
+        kvo.setUrl(article.getUrl());
+        kvo.setSummary(article.getSummary());
+        kvo.setDistrictName(article.getDistrictName());
+        kvo.setPressName(article.getPressName());
+        kvo.setArticleTime(article.getArticleTime());
+        kvo.setViewCnt(article.getViewCnt());
+
+        //키워드 형식 파싱. "키워드1,키워드2,키워드3"-> List<KeywordVO>
+        String keywords=article.getKeywordName();   // ,로 구분된 키워드들 문자열
+
+        List<KeywordVO> keywordList= new ArrayList<KeywordVO>();    //KVO에 넣을 List<VO>
+
+        StringTokenizer st= new StringTokenizer(keywords, ","); // ,로 구분된 키워드들 문자열 토크나이징
+
+        while(st.hasMoreTokens()){
+            KeywordVO tempKeywordVo = new KeywordVO();      //List<VO>에 넣을 VO
+            String tempKeywordName=st.nextToken();          //, 로 구분된 키워드들의 하나하나 토큰
+            tempKeywordVo.setName(tempKeywordName);                             //토크나이징 한 키워드 이름을 vo에 set
+            tempKeywordVo.setCode(keywordDao.searchCodeByName(tempKeywordName)); //키워드 이름으로 코드 찾아 vo에 set
+
+            keywordList.add(tempKeywordVo); //셋팅한 VO를 KeywordList에 추가
+        }
+        kvo.setKeywords(keywordList);   //만든 vo를 kvo의 키워드 필드에 세팅
+        return kvo;
+    }
 
     @Override
     public int addArticle(ArticleInfoKVO article) {
@@ -125,8 +157,9 @@ public class NewsAdServiceImpl implements NewsAdService {
     }
 
     @Override
-    public ArticleInfoVO searchArticle(String article) {
-        return articleDao.searchArticleInfo(article);
+    public ArticleInfoKVO searchArticle(String article) {
+        ArticleInfoVO articleVo= articleDao.searchArticleInfo(article);
+        return parseVoToKvo(articleVo); //vo를 Kvo로 파싱하여 리턴
     }
 
 
