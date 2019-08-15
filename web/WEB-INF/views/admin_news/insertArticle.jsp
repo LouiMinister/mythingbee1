@@ -437,9 +437,7 @@
                 if(status == "success"){
                     console.log(data);
 
-                    if(data>0) {
-                        location.href = "/admin/news";
-                    }
+                    location.href = "/admin/news";
                 }
             });
         }
