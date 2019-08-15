@@ -360,7 +360,7 @@
         var arCode = $(event.srcElement).val();
 
 
-        var go = "/admin/updateNews?arCode=\""+arCode+"\"";
+        var go = "/admin/news";
         location.href = go;
     }
 
