@@ -145,15 +145,11 @@ public class ViewAdNewsController {
         ModelAndView mav = new ModelAndView();
 
         //기사 코드와 일치하는 기사를 리턴한다.
-        ArticleInfoVO article = newsAdController.searchArticle(arCode);
+        ArticleInfoKVO article = newsAdController.searchArticle(arCode);
 
 //        System.out.println(article.getKeywords());
         //기사에 해당하는 키워드
-        List<KeywordVO> keywords = new ArrayList<KeywordVO>();
-        keywords.add(new KeywordVO("홍대","HODA01"));
-        keywords.add(new KeywordVO("불법촬영","BBCY01"));
-        keywords.add(new KeywordVO("몰카","MOKA01"));
-        keywords.add(new KeywordVO("워마드","WOMA01"));
+        List<KeywordVO> keywords = article.getKeywords();
 
         System.out.println(keywords);
         //모든 지역구 이름 정보
