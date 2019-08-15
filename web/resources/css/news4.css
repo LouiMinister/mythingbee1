@@ -53,6 +53,9 @@
 	}
 	
 	#detail_search{
+		margin-top: 50px;
+		position: absolute;
+		right: -140px;
 		width:250px; height:150px;
 		border:2px solid #EAF0F2;
 		border-radius:10px;
