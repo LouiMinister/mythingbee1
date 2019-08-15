@@ -24,12 +24,14 @@ public class ViewAdNewsController {
     public String adminIndex() {
         return "admin/adminLogin";
     }
+
     //produces="application/json;charset=UTF-8"
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public  @ResponseBody String adminLogin(@RequestParam(value = "id", required = true) String id,
-                                            @RequestParam(value = "password", required = true) String password) {
+    public @ResponseBody
+    String adminLogin(@RequestParam(value = "id", required = true) String id,
+                      @RequestParam(value = "password", required = true) String password) {
         String pass = "verified";
-        String result="/admin/menu";
+        String result = "/admin/menu";
 
         if (pass.equals(newsAdController.login(id, password))) {
             return result;
@@ -39,29 +41,38 @@ public class ViewAdNewsController {
         }
     }
 
-    @RequestMapping(value = "/menu",method= RequestMethod.GET)
-    public String admin(){
+    @RequestMapping(value = "/menu", method = RequestMethod.GET)
+    public String admin() {
         return "admin/adminMenu";
     }
 
-    @RequestMapping(value= "/facility" ,method = RequestMethod.GET)
-    public String facilityPage(){
+    @RequestMapping(value = "/facility", method = RequestMethod.GET)
+    public String facilityPage() {
         return "admin_map/facilityAdmin";
     }
 
-    @RequestMapping(value="/news",method=RequestMethod.GET)
-    public String getNewsPage(){
+    @RequestMapping(value = "/news", method = RequestMethod.GET)
+    public String getNewsPage() {
         return "admin_news/newsAdmin";
     }
 
-    @RequestMapping(value = "/getNews",method = RequestMethod.GET,produces="application/json;charset=UTF-8")
+    @RequestMapping(value = "/getNews", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     public @ResponseBody
-    List<ArticleInfoVO> newsPage(){
+    List<ArticleInfoVO> newsPage() {
         //기사 전부 가져와서 리스트 형태로 반환
         List<ArticleInfoVO> article = newsAdController.searchAllArticles();
 
         return article;
     }
+
+    @RequestMapping(value = "/addlink", method = RequestMethod.POST)
+   public @ResponseBody ArticleInfoVO parsing(@RequestParam(value = "link", required = true) String url) {
+        System.out.println("url = "+url);
+        ArticleInfoVO avo = new ArticleInfoVO("LTHANDROID","이태현 안드로이드 제작중","이데일리",
+                "만들다가 암에걸리다","0000",9999,"theurl","theimgurl","관악구","거절");
+        return avo;
+    }
+    //@RequestMapping(value="")
 
     @RequestMapping(value="/addArticle" , method=RequestMethod.GET)
     public ModelAndView goAddArticle(){
@@ -209,4 +220,5 @@ public class ViewAdNewsController {
     private List<String> getAllDistrictName(){
         return newsAdController.searchAllDistricts();
     }
+
 }
