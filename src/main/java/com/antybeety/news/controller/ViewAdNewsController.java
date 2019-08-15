@@ -68,17 +68,14 @@ public class ViewAdNewsController {
     @RequestMapping(value="/addArticle" , method=RequestMethod.POST,produces="application/json;charset=UTF-8")
     public @ResponseBody int addArticle(@RequestBody Map<String, Object> requestParam){
 
-
-        //int addArticle(ArticleInfoKVO article)
-        //System.out.println("기사 추가");
         ArticleInfoKVO article = new ArticleInfoKVO();
 
         article.setTitle((String)requestParam.get("title"));
         article.setSummary((String)requestParam.get("summary"));
         article.setUrl((String)requestParam.get("url"));
         article.setImgURL((String)requestParam.get("imgUrl"));
-        article.setDistrictName("관악구");
-        article.setPressName((String)requestParam.get("pressName"));
+        article.setDistrictName((String)requestParam.get("pressName"));
+        article.setPressName((String)requestParam.get("districtName"));
 
         System.out.println(requestParam.get("keywordName"));
         System.out.println(requestParam.get("keywordCode"));
@@ -89,18 +86,31 @@ public class ViewAdNewsController {
 
         List<KeywordVO> keywords = new ArrayList<KeywordVO>();
 
-        for(int i=0;i<keywordCodeSplit.length;i++){
-            keywords.add(new KeywordVO(keywordNameSplit[i],keywordCodeSplit[i]));
-        }
+//        for(int i=0;i<keywordCodeSplit.length;i++){
+//            keywords.add(new KeywordVO(keywordNameSplit[i],keywordCodeSplit[i]));
+//        }
 
         article.setKeywords(keywords);
+
+        System.out.println(article);
 
         return newsAdController.addArticle(article);
     }
 
     @RequestMapping(value="/addPress",method=RequestMethod.GET)
-    public String goAddPress(){
-        return "admin_news/insertPress";
+    public ModelAndView goAddPress(){
+        ModelAndView mav = new ModelAndView();
+
+        List<String> presses = newsAdController.searchAllPresses();
+
+        System.out.println(presses);
+
+        mav.addObject("presses",presses);
+
+        mav.setViewName("admin_news/insertPress");
+
+
+        return mav;
     }
 
 //    언론사 추가 페이지에서 이어서 구현
