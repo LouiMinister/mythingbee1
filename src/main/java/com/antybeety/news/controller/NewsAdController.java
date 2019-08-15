@@ -42,4 +42,6 @@ public interface NewsAdController {
     //어드민 로그인
     String login(String id, String password);
 
+    /*뉴스 크롤링*/
+    ArticleInfoKVO crawlingArticle(int engine, String url);
 }
