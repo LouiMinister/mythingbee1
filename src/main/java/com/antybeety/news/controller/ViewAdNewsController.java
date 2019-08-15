@@ -3,6 +3,7 @@ package com.antybeety.news.controller;
 import com.antybeety.news.model.vo.ArticleInfoKVO;
 import com.antybeety.news.model.vo.ArticleInfoVO;
 import com.antybeety.news.model.vo.KeywordVO;
+import com.antybeety.press.model.vo.PressVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -70,13 +71,10 @@ public class ViewAdNewsController {
         mav.setViewName("admin_news/insertArticle");
 
         //모든 지역구 이름 정보
-        //미구현
         List<String> districts = getAllDistrictName();
-        System.out.println(districts);
 
         //모든 언론사 이름 정보
         List<String> presses = getAllPressName();
-        System.out.println(presses);
 
         mav.addObject("districts",districts);
         mav.addObject("presses",presses);
@@ -96,10 +94,6 @@ public class ViewAdNewsController {
         article.setDistrictName((String)requestParam.get("districtName"));
         article.setPressName((String)requestParam.get("pressName"));
 
-        System.out.println(requestParam.get("keywordName"));
-        System.out.println(requestParam.get("keywordCode"));
-
-
         String[] keywordNameSplit = requestParam.get("keywordName").toString().split(",");
         String[] keywordCodeSplit = requestParam.get("keywordCode").toString().split(",");
 
@@ -111,8 +105,6 @@ public class ViewAdNewsController {
 
         article.setKeywords(keywords);
 
-        System.out.println(article);
-
         return newsAdController.addArticle(article);
     }
 
@@ -122,8 +114,6 @@ public class ViewAdNewsController {
 
         List<String> presses = getAllPressName();
 
-        System.out.println(presses);
-
         mav.addObject("presses",presses);
 
         mav.setViewName("admin_news/insertPress");
@@ -132,15 +122,14 @@ public class ViewAdNewsController {
         return mav;
     }
 
-//    언론사 추가 페이지에서 이어서 구현
-//    @RequestMapping(value="/addPress",method=RequestMethod.POST)
-//    public void addPress(@RequestParam(value = "code") String code,
-//                         @RequestParam(value="name") String name){
-//
-//        int result = newsService.insertPressInfo(code, name);
-//
-//        newsPage();
-//    }
+    @RequestMapping(value="/addPress",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
+    public @ResponseBody int addPress(@RequestBody Map<String, Object> requestParam){
+        String name = (String)requestParam.get("name");
+        String code = (String)requestParam.get("code");
+        System.out.println(name + ", " + code);
+
+        return newsAdController.insertPress(new PressVO(code, name));
+    }
 
     @RequestMapping(value="/updateNews",method=RequestMethod.GET)
     public ModelAndView goUpdatePage(@RequestParam("arCode") String arCode){
@@ -150,7 +139,6 @@ public class ViewAdNewsController {
 
         //기사 코드와 일치하는 기사를 리턴한다.
         ArticleInfoVO article = newsAdController.searchArticle(arCode);
-//        System.out.println(article);
 
         //기사에 해당하는 키워드
         List<String> keywords = new ArrayList<String>();
@@ -192,7 +180,6 @@ public class ViewAdNewsController {
 
     @RequestMapping(value="/deletePress", method=RequestMethod.GET,produces="application/json;charset=UTF-8")
     public @ResponseBody int removeArticles(@RequestParam(value="delPressName") String delPressName){
-        System.out.println(delPressName);
 
         return newsAdController.deletePress(delPressName);
     }

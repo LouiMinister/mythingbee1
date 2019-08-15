@@ -49,6 +49,13 @@
     <script src="/resources/js/demo/datatables-demo.js"></script>
 
     <script>
+        String.prototype.isEmpty = function () {
+            return (this.trim() == '');
+        }
+
+        var keyNames = new Array();
+        var keyCodes = new Array();
+
         $(document).ready(function(){
             getPressName();
         });
@@ -89,8 +96,61 @@
             });
         }
 
+        var addPressInfo = function() {
+            var pressName = document.getElementById("pressName").value;
+            var pressCode = document.getElementById("pressCode").value;
+
+            console.log(pressName + ", " + pressCode);
+
+            if (pressCode.isEmpty()) {
+                document.getElementById("pressCode").value = "필수 입력";
+                document.getElementById("pressCode").style.backgroundColor = "#ffffb3";
+
+                setTimeout(function () {
+                    document.getElementById("pressCode").style.backgroundColor = "#ffffff";
+                    document.getElementById("pressCode").value = "";
+                    document.getElementById("pressCode").placeholder = "키워드 코드";
+                }, 1500);
+
+                return;
+            }
+
+            if (pressName.isEmpty()) {
+                document.getElementById("pressName").value = "필수 입력";
+                document.getElementById("pressName").style.backgroundColor = "#ffffb3";
+
+                setTimeout(function () {
+                    document.getElementById("pressName").style.backgroundColor = "#ffffff";
+                    document.getElementById("pressName").value = "";
+                    document.getElementById("pressName").placeholder = "키워드 이름";
+                }, 1500);
+
+                return;
+            }
+
+            $.ajax({
+                url: "/admin/addPress",
+                type: "POST",
+                contentType: "application/json",
+                crossDomain: true,
+                data: JSON.stringify({"name": pressName, "code": pressCode})
+            }).then(function (data, status) {
+                if (status == "success") {
+                    console.log(data);
+
+                    $('[name="delOp"]').remove();
+                    getPressName();
+
+                    document.getElementById("pressCode").value = "";
+                    document.getElementById("pressCode").placeholder = "키워드 코드";
+
+                    document.getElementById("pressName").value = "";
+                    document.getElementById("pressName").placeholder = "키워드 이름";
+                }
 
 
+            });
+        }
     </script>
 </head>
 <body id="page-top">
@@ -128,35 +188,37 @@
                                                 <label for="press">현재 언론사</label>
                                                 <select class="form-control" id="press" name="press">
                                                         <option disabled selected>언론사 목록</option>
-<%--                                                    <c:forEach items="${presses}" var = "press">--%>
-<%--                                                        <option value = '${press}'>${press}</option>--%>
-<%--                                                    </c:forEach>--%>
                                                 </select>
                                             </div>
                                         </fieldset>
                                     </form>
-                                    <button type="submit" class="btn btn-primary" onclick="deletePress()">삭제
+                                    <button class="btn btn-primary" onclick="deletePress()">삭제
                                     </button>
 
-                                    <form class="seperate-form" action="">
+                                    <form class="seperate-form">
 
                                         <fieldset>
                                             <legend class="text-xl-left">언론사 추가</legend>
                                             <div class="form-group">
                                                 <div class="col-md-6">
-                                                    <label class="form-control-label" for="addPressName">이름</label>
-                                                    <input type="text" value="correct value" class="form-control" id="addPressName">
+                                                    <label class="form-control-label" >언론사 이름</label>
+                                                    <input type="text" class="form-control"
+                                                           id="pressName" placeholder="언론사 이름">
                                                     <div class="valid-feedback">추가할 언론사 이름을 입력해주세요.</div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label class="form-control-label" for="addPressCode">코드</label>
-                                                    <input type="text" value="correct value" class="form-control" id="addPressCode">
+                                                    <label class="form-control-label" >언론사 코드</label>
+                                                    <input type="text" class="form-control"
+                                                           id="pressCode" placeholder="언론사 코드">
                                                     <div class="valid-feedback">추가할 언론사 코드를 영문 대문자 두글자로 입력해주세요.</div>
                                                 </div>
                                             </div>
                                             <div>
-                                            <button type="submit" class="btn btn-success button-box">추가</button>
-                                            <button type="submit" class="btn btn-secondary button-box">취소</button>
+                                            <button type="button" class="btn btn-success button-box"
+                                                onclick="addPressInfo()">추가
+                                            </button>
+                                            <button type="button" class="btn btn-secondary button-box"
+                                                    onclick="location.href='/admin/news'">뉴스 관리자 페이지</button>
                                             </div>
                                         </fieldset>
                                     </form>
