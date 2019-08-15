@@ -139,7 +139,6 @@ public class NewsAdServiceImpl implements NewsAdService {
         return 0;
     }
 
-
     @Override
     public List<String> searchAllDistricts() {
         return districtDao.searchAllDistrictNames();
