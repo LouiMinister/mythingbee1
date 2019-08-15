@@ -338,6 +338,7 @@
                 document.getElementById("title").style.backgroundColor="#ffffb3";
 
                 setTimeout(function() {
+
                     document.getElementById("title").style.backgroundColor="#ffffff";
                 }, 1500);
 
