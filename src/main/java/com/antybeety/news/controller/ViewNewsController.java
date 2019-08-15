@@ -56,8 +56,14 @@ import java.util.List;
     }
 
     @RequestMapping(value="/addPress",method=RequestMethod.GET)
-    public String goAddPress(){
-        return "admin_news/insertPress";
+    public ModelAndView goAddPress(){
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("admin_news/insertPress");
+
+        List<String> presses= newsAdController.searchAllPresses();
+        mav.addObject("presses",presses);
+
+        return mav;
     }
 
 //    언론사 추가 페이지에서 이어서 구현
