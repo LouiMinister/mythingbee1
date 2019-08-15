@@ -134,7 +134,6 @@ public class ViewAdNewsController {
     public @ResponseBody int addPress(@RequestBody Map<String, Object> requestParam){
         String name = (String)requestParam.get("name");
         String code = (String)requestParam.get("code");
-        System.out.println(name + ", " + code);
 
         return newsAdController.insertPress(new PressVO(code, name));
     }
@@ -148,14 +147,15 @@ public class ViewAdNewsController {
         //기사 코드와 일치하는 기사를 리턴한다.
         ArticleInfoVO article = newsAdController.searchArticle(arCode);
 
+//        System.out.println(article.getKeywords());
         //기사에 해당하는 키워드
-        List<String> keywords = new ArrayList<String>();
-        String[] ary = article.getKeywordName().split(",");
+        List<KeywordVO> keywords = new ArrayList<KeywordVO>();
+        keywords.add(new KeywordVO("홍대","HODA01"));
+        keywords.add(new KeywordVO("불법촬영","BBCY01"));
+        keywords.add(new KeywordVO("몰카","MOKA01"));
+        keywords.add(new KeywordVO("워마드","WOMA01"));
 
-        for(String s : ary){
-            keywords.add(s);
-        }
-
+        System.out.println(keywords);
         //모든 지역구 이름 정보
         List<String> districts = getAllDistrictName();
 
@@ -172,13 +172,36 @@ public class ViewAdNewsController {
         return mav;
     }
 
-//    뉴스 수정에서 구현
-//    @RequestMapping(value="/updateNews",method=RequestMethod.POST)
-//    public void updateNews(@RequestParam("arCode") String arCode){
-//
-//        //뉴스 페이지로
-//        newsPage();
-//    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    @RequestMapping(value="/updateNews",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
+    public @ResponseBody int updateNews(@RequestBody Map<String, Object> requestParam){
+
+        ArticleInfoKVO article = new ArticleInfoKVO();
+
+        article.setCode((String)requestParam.get("arCode"));
+        article.setTitle((String)requestParam.get("title"));
+        article.setSummary((String)requestParam.get("summary"));
+        article.setUrl((String)requestParam.get("url"));
+        article.setImgURL((String)requestParam.get("imgUrl"));
+        article.setDistrictName((String)requestParam.get("districtName"));
+        article.setPressName((String)requestParam.get("pressName"));
+
+        String[] keywordNameSplit = requestParam.get("keywordName").toString().split(",");
+        String[] keywordCodeSplit = requestParam.get("keywordCode").toString().split(",");
+
+        List<KeywordVO> keywords = new ArrayList<KeywordVO>();
+
+        for(int i=0;i<keywordCodeSplit.length;i++){
+            keywords.add(new KeywordVO(keywordNameSplit[i],keywordCodeSplit[i]));
+        }
+
+        article.setKeywords(keywords);
+
+        System.out.println(article);
+
+        return newsAdController.updateArticle(article);
+    }
 
     @RequestMapping(value="/deleteArticles",method=RequestMethod.GET,produces="application/json;charset=UTF-8")
     public @ResponseBody int removeArticles(@RequestParam(value = "delCodes[]") List<String> delCodes){
