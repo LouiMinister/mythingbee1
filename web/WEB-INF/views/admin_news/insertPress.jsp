@@ -75,7 +75,9 @@
                                             <button type="submit" class="btn btn-primary">삭제</button>
                                         </fieldset>
                                     </form>
+
                                     <form class="seperate-form" action="">
+
                                         <fieldset>
                                             <legend class="text-xl-left">언론사 추가</legend>
                                             <div class="form-group">
