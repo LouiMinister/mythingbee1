@@ -1,5 +1,6 @@
 package com.antybeety.news.controller;
 
+import com.antybeety.news.model.service.NewsCrawlingService;
 import com.antybeety.news.model.vo.ArticleInfoKVO;
 import com.antybeety.news.model.vo.ArticleInfoVO;
 import com.antybeety.news.model.vo.KeywordVO;
@@ -68,11 +69,8 @@ public class ViewAdNewsController {
 
     @RequestMapping(value = "/addlink", method = RequestMethod.POST)
     public @ResponseBody ArticleInfoKVO parsing(@RequestParam(value = "link", required = true) String url) {
-        ArticleInfoKVO akvo = new ArticleInfoKVO("LTHANDROID","이태현 안드로이드 제작중","이데일리",
-                "만들다가 암에걸리다","0000",9999,"theurl","theimgurl","관악구",null);
-        return akvo;
+        return  newsAdController.crawlingArticle(1,url);
     }
-    //@RequestMapping(value="")
 
     @RequestMapping(value="/addArticle" , method=RequestMethod.GET)
     public ModelAndView goAddArticle(){
