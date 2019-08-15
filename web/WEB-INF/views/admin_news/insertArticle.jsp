@@ -302,7 +302,7 @@
             var td = $('<td name="keywordList" id="'+keyName+'"></td>').appendTo('#keywordAdd');
 
             $('<div class="btn-group btn-group-toggle" data-toggle="buttons">'
-            +'<label class="btn btn-secondary active" onclick="deleteKeyword(event)" id="'+keyName+'" name="'+keyCode+'>'
+            +'<label class="btn btn-secondary active" onclick="deleteKeyword(event)" id="'+keyName+' " name="'+keyCode+'>'
             +'<input type="radio" name="options" id="option2" autocomplete="off" checked>X</label>'
             +'<label class="btn btn-secondary" >'+keyName+'</label></div>').appendTo(td);
 
@@ -329,7 +329,6 @@
             var form = document.addForm;
 
             var title = $('#title').val();
-            console.log(title);
             if(title.isEmpty()){
                 $('#title').focus();
                 document.getElementById("title").style.backgroundColor="#ffffb3";
@@ -342,7 +341,6 @@
             }
 
             var summary = $('#summary').val();
-            console.log(summary);
             if(summary.isEmpty()){
                 $('#summary').focus();
                 document.getElementById("summary").style.backgroundColor="#ffffb3";
@@ -368,7 +366,6 @@
             }
 
             var img_url = $('#img_url').val();
-            console.log(img_url);
             if(img_url.isEmpty()){
                 $('#img_url').focus();
                 document.getElementById("img_irl").style.backgroundColor="#ffffb3";
@@ -381,7 +378,6 @@
             }
 
             var district = document.getElementById('district').value;
-            console.log(district);
             if(district == "지역구"){
                 $('#district').focus();
                 document.getElementById("district").style.backgroundColor="#ffffb3";
@@ -394,17 +390,16 @@
 
             // 구현되면 주석 풀기
             var press = document.getElementById('press').value;
-            console.log(press);
-            // if(press == "언론사"){
-            //     $('#press').focus();
-            //     document.getElementById("press").style.backgroundColor="#ffffb3";
-            //
-            //     setTimeout(function() {
-            //         document.getElementById("press").style.backgroundColor="#ffffff";
-            //     }, 1500);
-            //
-            //     return ;
-            // }
+            if(press == "언론사"){
+                $('#press').focus();
+                document.getElementById("press").style.backgroundColor="#ffffb3";
+
+                setTimeout(function() {
+                    document.getElementById("press").style.backgroundColor="#ffffff";
+                }, 1500);
+
+                return ;
+            }
 
             if(keyNames.length == 0){
                 document.getElementById("keyword").value="키워드 미입력";
@@ -501,14 +496,14 @@
 
                                         <fieldset>
                                             <div class="form-group">
-                                                <select class="custom-select" id = "district" name = "district" >
+                                                <select class="custom-select" id = "press" name = "press" >
                                                     <option selected disabled>언론사</option>
                                                     <c:forEach items="${presses}" var = "press">
                                                         <option value = '${press}'>${press}</option>
                                                     </c:forEach>
                                                 </select>
                                                 <div class="form-group">
-                                                    <select class="custom-select" id = "press" name = "press" >
+                                                    <select class="custom-select" id = "district" name = "district" >
                                                         <option selected disabled>지역구</option>
                                                         <c:forEach items="${districts}" var = "district">
                                                             <option value = '${district}'>${district}</option>

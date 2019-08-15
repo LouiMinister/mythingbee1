@@ -67,6 +67,7 @@
                                             <div class="form-group">
                                                 <label for="press">현재 언론사</label>
                                                 <select class="form-control" id="press" name="press">
+                                                    <option selected disabled>언론사 목록</option>
                                                     <c:forEach items="${presses}" var = "press">
                                                         <option value = '${press}'>${press}</option>
                                                     </c:forEach>
