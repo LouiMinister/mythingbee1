@@ -1,6 +1,7 @@
 package com.antybeety.news.model.service;
 
 import com.antybeety.news.model.vo.ArticleInfoKVO;
+import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +13,10 @@ public class NewsCrawlingServiceImpl implements NewsCrawlingService {
         ArticleInfoKVO article=null;
         switch (engine){
             case NewsCrawlingService.ENGINE_DAUM:
-                searchAtDaum(url);
+                article =searchAtDaum(url);
                 break;
             case NewsCrawlingService.ENGINE_NAVER:
-                searchAtNaver(url);
+                article= searchAtNaver(url);
                 break;
             default:
                 article=null;
@@ -25,7 +26,12 @@ public class NewsCrawlingServiceImpl implements NewsCrawlingService {
     }
 
     public ArticleInfoKVO searchAtDaum(String url){
-        Document doc =null;
+        Document doc;
+        try{
+           doc = Jsoup.connect(url).get();
+        }catch(Exception e){
+            return null;
+        }
 
         //기사 제목
         String title = doc.select("h3.tit_view").text();
