@@ -29,6 +29,8 @@ public interface NewsAdService {
    /*모든 기사 찾기*/
     public List<ArticleInfoVO> searchAllArticles();
 
+    //로그인 확인
+    public String login(String id, String password);
 
 
 }

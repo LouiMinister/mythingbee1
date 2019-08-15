@@ -115,6 +115,16 @@ public class NewsAdServiceImpl implements NewsAdService {
     }
 
     @Override
+    public String login(String id, String password) {
+        if((id.equals("admin"))&&(password.equals("abty"))) {
+            return "verified";
+        }
+        else{
+            return "failed";
+        }
+    }
+
+    @Override
     public ArticleInfoVO searchArticle(String article) {
         return articleDao.searchArticleInfo(article);
     }
