@@ -81,7 +81,8 @@ public class NewsAdServiceTest {
     @Test
     public void test_코드로기사하나찾기(){
         String code ="1907190001";
-        System.out.println(service.searchArticle(code));
+        ArticleInfoKVO articleKvo = service.searchArticle(code);
+        System.out.println(articleKvo);
 
     }
 
