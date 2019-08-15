@@ -37,12 +37,22 @@
 
         }
         function addlink() {
-
+            var target = $('#targeturl').val();
+            $.ajax({
+                type:'POST',
+                url :'/admin/addlink',
+                data: {link:target}
+            }).then(function(data,status){
+                console.log(data);
+                $('#title').val(data.title);
+                $('#summary').val(data.summary);
+                $('#ar_url').val(data.url);
+                $('#img_url').val(data.imgURL);
+                $('#press').val(data.pressName);
+            });
             loadLink();
-    }
-        function resetform() {
+        }
 
-    }
 
     //직접 추가 기능 관련
     Array.prototype.remove = function () {
@@ -290,7 +300,6 @@
                                                    placeholder="URL">
                                         </div>
                                         <button type="button" class="btn btn-primary" onclick="addlink()">추가</button>
-                                        <button type="reset" class="btn btn-secondary" onclick="resetform()">취소</button>
                                     </fieldset>
                                 <form class="bs-component" name="addForm">
                                     <legend class="text-xl-left">직접 입력</legend>
