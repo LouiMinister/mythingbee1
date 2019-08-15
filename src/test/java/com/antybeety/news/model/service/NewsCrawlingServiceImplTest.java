@@ -24,7 +24,8 @@ public class NewsCrawlingServiceImplTest {
         String []articleURL= {"https://news.v.daum.net/v/20190815090039789",
                 "https://news.v.daum.net/v/20190814212855807",
                 "https://news.v.daum.net/v/20190815090643916",
-                "https://news.v.daum.net/v/20190812200137883"
+                "https://news.v.daum.net/v/20190812200137883",
+                "https://news.v.daum.net/v/20190815133627394"
         };
         ArticleInfoKVO article;
         for(String s: articleURL){

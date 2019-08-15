@@ -36,7 +36,7 @@ public class NewsCrawlingServiceImpl implements NewsCrawlingService {
         //기사 제목
         String title = doc.select("h3.tit_view").text();
         //기사 요약
-        String summary = doc.select("div.layer_summary > *:not(.ico_info_summary)").text();
+        String summary = doc.select("div.layer_summary > *:not([class*=info_summary])").text();
         if (summary.equals("")){    // 요약내용을 지원하지 않는 기사일 경우, 전체 기사에서 첫 문장을 가져온다
             summary= doc.select("p[dmcf-ptype=general]").first().text();
         }
