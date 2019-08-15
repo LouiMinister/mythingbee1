@@ -32,6 +32,30 @@
         .button-box{margin: 10px 4px}
     </style>
 
+    <script>
+
+        var deletePress = function(){
+            var pressName = document.getElementById('press').value;
+            console.log(pressName);
+
+            $.ajax("admin/deletePress",{
+                type:"GET",
+                data:{"delPressName":pressName}
+            }).then(function(data, status){
+                if(status == "success"){
+                    console.log(data);
+
+                    //언론사 현재 디비에 있는 언론사 정보를 긁어 오는 코드
+                    //추가 및 삭제 되었을 때 호출 되어야 하는 함수
+                }
+            });
+        }
+
+        // var getPressName = function(){
+        //     $.ajax()
+        // }
+
+    </script>
 </head>
 <body id="page-top">
 
@@ -73,9 +97,10 @@
                                                     </c:forEach>
                                                 </select>
                                             </div>
-                                            <button type="submit" class="btn btn-primary">삭제</button>
                                         </fieldset>
                                     </form>
+                                    <button type="submit" class="btn btn-primary" onclick="deletePress()">삭제
+                                    </button>
 
                                     <form class="seperate-form" action="">
 

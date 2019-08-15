@@ -71,11 +71,11 @@ public class ViewAdNewsController {
 
         //모든 지역구 이름 정보
         //미구현
-        List<String> districts = newsAdController.searchAllDistricts();
+        List<String> districts = getAllDistrictName();
         System.out.println(districts);
 
         //모든 언론사 이름 정보
-        List<String> presses = newsAdController.searchAllPresses();
+        List<String> presses = getAllPressName();
         System.out.println(presses);
 
         mav.addObject("districts",districts);
@@ -120,7 +120,7 @@ public class ViewAdNewsController {
     public ModelAndView goAddPress(){
         ModelAndView mav = new ModelAndView();
 
-        List<String> presses = newsAdController.searchAllPresses();
+        List<String> presses = getAllPressName();
 
         System.out.println(presses);
 
@@ -161,10 +161,10 @@ public class ViewAdNewsController {
         }
 
         //모든 지역구 이름 정보
-        List<String> districts = newsAdController.searchAllDistricts();
+        List<String> districts = getAllDistrictName();
 
         //모든 언론사 이름 정보
-        List<String> presses = newsAdController.searchAllPresses();
+        List<String> presses = getAllPressName();
 
         mav.addObject("article",article);
         mav.addObject("keywords",keywords);
@@ -186,10 +186,27 @@ public class ViewAdNewsController {
 
     @RequestMapping(value="/deleteArticles",method=RequestMethod.GET,produces="application/json;charset=UTF-8")
     public @ResponseBody int removeArticles(@RequestParam(value = "delCodes[]") List<String> delCodes){
-//        for(int i= 0 ;i<delCodes.size();i++){
-//            System.out.println(delCodes.get(i));
-//        }
 
         return delCodes.size();
+    }
+
+    @RequestMapping(value="/deletePress", method=RequestMethod.GET,produces="application/json;charset=UTF-8")
+    public @ResponseBody int removeArticles(@RequestParam(value="delPressName") String delPressName){
+        System.out.println(delPressName);
+
+        return newsAdController.deletePress(delPressName);
+    }
+
+    @RequestMapping(value="/allPress", method=RequestMethod.GET)
+    public @ResponseBody List<String> getPressNamePAGE(){
+        return getAllPressName();
+    }
+
+    private List<String> getAllPressName(){
+        return newsAdController.searchAllPresses();
+    }
+
+    private List<String> getAllDistrictName(){
+        return newsAdController.searchAllDistricts();
     }
 }
