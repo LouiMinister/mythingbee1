@@ -16,7 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class NewsAdServiceImpl implements NewsAdService{
+public class NewsAdServiceImpl implements NewsAdService {
     @Autowired
     private ArticleInfoDAO articleDao;
     @Autowired
@@ -27,8 +27,7 @@ public class NewsAdServiceImpl implements NewsAdService{
     private KeywordDAO keywordDao;
 
 
-
-    private ArticleInfoVO parseKvoToVo(ArticleInfoKVO article){
+    private ArticleInfoVO parseKvoToVo(ArticleInfoKVO article) {
         ArticleInfoVO vo = new ArticleInfoVO();
         vo.setCode(article.getCode());
         vo.setTitle(article.getTitle());
@@ -41,13 +40,13 @@ public class NewsAdServiceImpl implements NewsAdService{
         vo.setViewCnt(article.getViewCnt());
 
         //키워드 형식 파싱. KeywordVo-> "키워드1,키워드2,키워드3"
-        List<KeywordVO> kws=article.getKeywords();
-        String keywordArray="";
-        for(KeywordVO k : kws){
-            keywordArray+=k.getName()+",";
+        List<KeywordVO> kws = article.getKeywords();
+        String keywordArray = "";
+        for (KeywordVO k : kws) {
+            keywordArray += k.getName() + ",";
         }
-         //마지막 쉼표 제거
-        keywordArray =keywordArray.substring(0,keywordArray.length()-1);
+        //마지막 쉼표 제거
+        keywordArray = keywordArray.substring(0, keywordArray.length() - 1);
 
         vo.setKeywordName(keywordArray);
 
@@ -72,33 +71,40 @@ public class NewsAdServiceImpl implements NewsAdService{
 
         List<KeywordVO> keywords = article.getKeywords();
 
-        int res;
-        for(KeywordVO k:keywords){
-            res= addKeywordWithArticle(article.getCode(), k);
-            //추가할 때 리턴받는 값을 통해 실패여부 리턴 (추후 추가)
-        }
-        //기사 키워드 추가하기기
-       return 0;
+        int res=0;
+        res = addKeywordAtArticle(article.getCode(),keywords);  //기사에 키워드 추가
+
+        return 0;
     }
 
-    public int addKeywordWithArticle(String code, KeywordVO keyword){
+    public int addKeywordAtArticle(String articleCode, List<KeywordVO> keywords){
+        int res=0;
+        for(KeywordVO k : keywords){
+            res += addKeywordWithArticle(articleCode, k);
+            //추가할 때 리턴받는 값을 통해 실패여부 리턴 (추후 추가)
+
+        }
+        return 0;
+    }
+
+    public int addKeywordWithArticle(String code, KeywordVO keyword) {
         return keywordDao.addKeyword(code, keyword);
     }
 
-    public String makeArticleCode(){
+    public String makeArticleCode() {
         SimpleDateFormat format = new SimpleDateFormat("yyMMdd");
-        String res="";
+        String res = "";
         String now = format.format(new Date()); //오늘 날짜정보
 
-        String lastArtiCode= articleDao.searchLastDate();
+        String lastArtiCode = articleDao.searchLastDate();
 
-        String lastArtiDate= lastArtiCode.substring(0,6);//
+        String lastArtiDate = lastArtiCode.substring(0, 6);//
 
-        if(lastArtiDate.equals(now)){   //오늘 추가된 기사가 있을 경우 오늘 추가된 기사의 코드 인덱스 +1
-            String lastArtiIndex= lastArtiCode.substring(6);
-            res= now+String.format("%04d", Integer.parseInt(lastArtiIndex)+1);
-        }else{
-            res= now+"0001";
+        if (lastArtiDate.equals(now)) {   //오늘 추가된 기사가 있을 경우 오늘 추가된 기사의 코드 인덱스 +1
+            String lastArtiIndex = lastArtiCode.substring(6);
+            res = now + String.format("%04d", Integer.parseInt(lastArtiIndex) + 1);
+        } else {
+            res = now + "0001";
         }
         return res;
     }
@@ -109,23 +115,42 @@ public class NewsAdServiceImpl implements NewsAdService{
     }
 
     @Override
-    public ArticleInfoVO searchArticle(String article){
+    public ArticleInfoVO searchArticle(String article) {
         return articleDao.searchArticleInfo(article);
     }
 
 
     @Override
     public int deleteArticles(List<String> code) {
+
+        for(String c : code){
+            articleDao.removeArticle(c);
+        }
         return 0;
     }
 
     @Override
     public List<String> searchAllDistricts() {
-        return null;
+        return districtDao.searchAllDistrictNames();
     }
 
     @Override
     public int updateArticle(ArticleInfoKVO article) {
-        return 0;
+
+        String pressCode= pressDao.searchPressCode(article.getPressName());
+        String districtCode = districtDao.searchDistrictCodeByName(article.getDistrictName());
+
+        article.setPressName(pressCode);    //이름을 코드로 변환
+        article.setDistrictName(districtCode);  //이름을 코드로 변환
+       int result = articleDao.updateArticle(article);
+
+        List<KeywordVO> keywords = article.getKeywords();
+        int res=0;
+        //키워드와 기사 사이 연결을 전부 삭제
+        res = keywordDao.cutAllKeywordBtwArticle(article.getCode());
+
+        res = addKeywordAtArticle(article.getCode(),keywords);  //기사에 키워드 추가
+
+        return result;
     }
 }

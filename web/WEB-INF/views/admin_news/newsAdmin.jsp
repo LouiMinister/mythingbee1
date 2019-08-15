@@ -49,8 +49,6 @@
 <script src="/resources/js/demo/datatables-demo.js"></script>
 
 <script src="/resources/js/classie.js"></script>
-<script src="/resources/js/gnmenu.js"></script>
-<script> new gnMenu( document.getElementById("gn-menu") );</script>
 
 <script>
 
@@ -73,7 +71,7 @@
             +'<!-- Main Content -->'
             +'<div id="content">'
             +'<!-- Topbar -->'
-            +'<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">'
+            +'<nav class="navbar navbar-expand">'
             +'<!-- Topbar Navbar -->'
             +'<div class="container" style>'
             +'<ul id="gn-menu" class="gn-menu-main">'
@@ -234,7 +232,7 @@
             +'</li>'
             +'</ul>'
             +'</div>'
-            +'<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">'
+            +'<table style="font-size: 0.85rem;"class="table table-bordered" id="dataTable" width="100%" cellspacing="0">'
             +'<thead>'
             +'<tr>'
             +'<th></th>'
@@ -392,10 +390,6 @@
     }
 </script>
 <script src="/resources/js/classie.js"></script>
-<script src="/resources/js/gnmenu.js"></script>
-<script>
-    new gnMenu( document.getElementById('gn-menu') );
-</script>
 
 <body id="page-top"></body>
 

@@ -1,5 +1,6 @@
 package com.antybeety.news.model.dao;
 
+import com.antybeety.news.model.vo.ArticleInfoKVO;
 import com.antybeety.news.model.vo.ArticleInfoVO;
 
 
@@ -16,7 +17,7 @@ public interface ArticleInfoDAO {
     List<ArticleInfoVO> searchBeforeArticlesByTime(String time, int limit);
     List<ArticleInfoVO> searchArticleByFilter(String searchWord, String startTime, String lastTime, int limit);
     List<ArticleInfoVO> searchArticleByFilter(String searchWord, String startTime, String lastTime, String district, int limit);
-    int updateArticle(ArticleInfoVO oldArticle, ArticleInfoVO newArticle);
+    int updateArticle(ArticleInfoKVO article);
     int removeArticle(String code);
     String searchLastDate();
 

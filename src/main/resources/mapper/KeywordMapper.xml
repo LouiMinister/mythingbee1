@@ -26,6 +26,12 @@
     <delete id="deleteKeyword" parameterType="java.lang.String">
         DELETE FROM article_key_tb WHERE ke_code=#{code}
     </delete>
+    <delete id="cutKeywordBtwArticle" parameterType="hashmap">
+        DELETE FROM article_key_tb WHERE ke_code=#{keCode} AND ar_code=#{arCode};
+    </delete>
+    <delete id="cutAllKeywordBtwArticle" parameterType="java.lang.String">
+        DELETE FROM article_key_tb WHERE ar_code=#{arCode};
+    </delete>
  <!--   <select id="searchArticleInfo" resultMap="article_map">&lt;!&ndash;인터페이스 메서드랑 id랑 이름 같아야함&ndash;&gt;
         SELECT * FROM article_view2 where ar_code= #{code}
     </select>

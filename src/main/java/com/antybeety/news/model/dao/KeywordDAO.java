@@ -96,4 +96,15 @@ public class KeywordDAO {
         return mapper.deleteKeyword(code);
     }
 
+    public int cutKeywordBtwArticle(String keCode, String arCode) {
+        KeywordMapper mapper =getMapper();
+        HashMap<String,Object> param = new HashMap<String,Object>();
+        param.put("keCode",keCode);
+        param.put("arCode",arCode);
+        return mapper.cutKeywordBtwArticle(param);
+    }
+    public int cutAllKeywordBtwArticle(String arCode){
+        KeywordMapper mapper =getMapper();
+        return mapper.cutAllKeywordBtwArticle(arCode);
+    }
 }

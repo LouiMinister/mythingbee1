@@ -33,5 +33,6 @@ public class ViewNewsController {
         mav.addObject("district",district);
         return mav;
     }
+
 }
 

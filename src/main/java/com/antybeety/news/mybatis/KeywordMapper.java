@@ -20,4 +20,8 @@ public interface KeywordMapper {
 
     //키워드 코드가 있는 피벗테이블의 레코드를 삭제
     int deleteKeyword(String code);
+
+    //키워드코드와
+    int cutKeywordBtwArticle(HashMap<String,Object> param);
+    int cutAllKeywordBtwArticle(String arCode);
 }
