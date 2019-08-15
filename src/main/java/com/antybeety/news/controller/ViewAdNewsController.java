@@ -20,6 +20,25 @@ public class ViewAdNewsController {
     @Autowired
     private NewsAdController newsAdController;
 
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public String adminIndex() {
+        return "admin/adminLogin";
+    }
+    //produces="application/json;charset=UTF-8"
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public  @ResponseBody String adminLogin(@RequestParam(value = "id", required = true) String id,
+                                            @RequestParam(value = "password", required = true) String password) {
+        String pass = "verified";
+        String result="/admin/menu";
+
+        if (pass.equals(newsAdController.login(id, password))) {
+            return result;
+        } else {
+            System.out.println("로그인 실패");
+            return null;
+        }
+    }
+
     @RequestMapping(value = "/menu",method= RequestMethod.GET)
     public String admin(){
         return "admin/adminMenu";
