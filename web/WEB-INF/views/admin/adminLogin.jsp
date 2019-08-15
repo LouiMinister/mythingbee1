@@ -23,9 +23,9 @@
         <div class="fadeIn first">
             <img src="/resources/image/admin/bee.png" id="icon" alt="User Icon"/>
         </div>
-
+        <div id="status"></div>
+    <div>
         <!-- Login Form -->
-
             <input type="text" id="id" class="fadeIn second" name="id" placeholder="ID">
             <input type="password" id="password" class="fadeIn third" name="login" placeholder="password">
              <input type="button" id="btnSubmit" class="fadeIn fourth" value="로그인">

@@ -19,7 +19,8 @@ var onLogin = function(){
     }).then(function(data,status){
         console.log(data);
         if(!data){
-            $('#id').addClass("placeholder").val("로그인 정보를 확인하세요.");
+            $('span').remove();
+            $('<span style="color:red">로그인 정보를 확인하세요</span>').appendTo('#status');
         }
         else{
             location.href=data;
