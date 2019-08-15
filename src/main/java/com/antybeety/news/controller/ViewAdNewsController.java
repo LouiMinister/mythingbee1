@@ -187,7 +187,7 @@ public class ViewAdNewsController {
     @RequestMapping(value="/deleteArticles",method=RequestMethod.GET,produces="application/json;charset=UTF-8")
     public @ResponseBody int removeArticles(@RequestParam(value = "delCodes[]") List<String> delCodes){
 
-        return delCodes.size();
+        return newsAdController.deleteArticle(delCodes);
     }
 
     @RequestMapping(value="/deletePress", method=RequestMethod.GET,produces="application/json;charset=UTF-8")
