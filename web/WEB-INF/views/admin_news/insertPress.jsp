@@ -32,28 +32,64 @@
         .button-box{margin: 10px 4px}
     </style>
 
+    <script src="/resources/vendor/jquery/jquery.min.js"></script>
+    <script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="/resources/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="/resources/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/resources/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="/resources/js/demo/datatables-demo.js"></script>
+
     <script>
+        $(document).ready(function(){
+            getPressName();
+        });
 
         var deletePress = function(){
             var pressName = document.getElementById('press').value;
             console.log(pressName);
 
-            $.ajax("admin/deletePress",{
+            $.ajax("/admin/deletePress",{
                 type:"GET",
                 data:{"delPressName":pressName}
             }).then(function(data, status){
                 if(status == "success"){
                     console.log(data);
 
-                    //언론사 현재 디비에 있는 언론사 정보를 긁어 오는 코드
-                    //추가 및 삭제 되었을 때 호출 되어야 하는 함수
+                    $('[name="delOp"]').remove();
+                    getPressName();
                 }
             });
         }
 
-        // var getPressName = function(){
-        //     $.ajax()
-        // }
+        var getPressName = function(){
+            $.ajax('/admin/allPress',{
+                type:'GET'
+            }).then(function(data,status){
+               if(status == "success"){
+                   console.log(data);
+
+                   var presses = [];
+
+                   presses = data;
+
+                   for(var i = 0; i<presses.length; i++){
+                       var option =
+                           $('<option name="delOp" value="'+presses[i]+'">'+presses[i]+'</option>').appendTo($("#press"));
+                   }
+               }
+            });
+        }
+
+
 
     </script>
 </head>
@@ -91,10 +127,10 @@
                                             <div class="form-group">
                                                 <label for="press">현재 언론사</label>
                                                 <select class="form-control" id="press" name="press">
-                                                    <option selected disabled>언론사 목록</option>
-                                                    <c:forEach items="${presses}" var = "press">
-                                                        <option value = '${press}'>${press}</option>
-                                                    </c:forEach>
+                                                        <option disabled selected>언론사 목록</option>
+<%--                                                    <c:forEach items="${presses}" var = "press">--%>
+<%--                                                        <option value = '${press}'>${press}</option>--%>
+<%--                                                    </c:forEach>--%>
                                                 </select>
                                             </div>
                                         </fieldset>
@@ -148,20 +184,5 @@
     <i class="fas fa-angle-up"></i>
 </a>
 <!-- Bootstrap core JavaScript-->
-<script src="/resources/vendor/jquery/jquery.min.js"></script>
-<script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-<!-- Core plugin JavaScript-->
-<script src="/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-<!-- Custom scripts for all pages-->
-<script src="/resources/js/sb-admin-2.min.js"></script>
-
-<!-- Page level plugins -->
-<script src="/resources/vendor/datatables/jquery.dataTables.min.js"></script>
-<script src="/resources/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-<!-- Page level custom scripts -->
-<script src="/resources/js/demo/datatables-demo.js"></script>
 </body>
 </html>
