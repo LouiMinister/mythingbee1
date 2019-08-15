@@ -75,17 +75,21 @@
                                             <button type="submit" class="btn btn-primary">삭제</button>
                                         </fieldset>
                                     </form>
-                                    <form class="seperate-form">
+
+                                    <form class="seperate-form" action="">
+
                                         <fieldset>
                                             <legend class="text-xl-left">언론사 추가</legend>
                                             <div class="form-group">
                                                 <div class="col-md-6">
                                                     <label class="form-control-label" for="addPressName">이름</label>
                                                     <input type="text" value="correct value" class="form-control" id="addPressName">
+                                                    <div class="valid-feedback">추가할 언론사 이름을 입력해주세요.</div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label class="form-control-label" for="addPressCode">코드</label>
                                                     <input type="text" value="correct value" class="form-control" id="addPressCode">
+                                                    <div class="valid-feedback">추가할 언론사 코드를 영문 대문자 두글자로 입력해주세요.</div>
                                                 </div>
                                             </div>
                                             <div>
