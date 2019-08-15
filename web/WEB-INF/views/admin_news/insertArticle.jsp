@@ -368,7 +368,7 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <button type="button" onclick="addKeyword()">추가</button>
+                                                <button type="button" class="btn btn-warning" onclick="addKeyword()">추가</button>
                                             </td>
                                         </tr>
                                         <tr id="keywordAdd">

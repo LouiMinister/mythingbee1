@@ -359,8 +359,7 @@
     var modifyArticle = function(event){
         var arCode = $(event.srcElement).val();
 
-
-        var go = "/admin/news";
+        var go = "/admin/updateNews?arCode="+arCode;
         location.href = go;
     }
 
