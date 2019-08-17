@@ -62,14 +62,12 @@
 
         var deletePress = function(){
             var pressName = document.getElementById('press').value;
-            console.log(pressName);
 
             $.ajax("/admin/deletePress",{
                 type:"GET",
                 data:{"delPressName":pressName}
             }).then(function(data, status){
                 if(status == "success"){
-                    console.log(data);
 
                     $('[name="delOp"]').remove();
                     getPressName();
@@ -82,7 +80,6 @@
                 type:'GET'
             }).then(function(data,status){
                if(status == "success"){
-                   console.log(data);
 
                    var presses = [];
 
@@ -100,7 +97,6 @@
             var pressName = document.getElementById("pressName").value;
             var pressCode = document.getElementById("pressCode").value;
 
-            console.log(pressName + ", " + pressCode);
 
             if (pressCode.isEmpty()) {
                 document.getElementById("pressCode").value = "필수 입력";
@@ -136,7 +132,6 @@
                 data: JSON.stringify({"name": pressName, "code": pressCode})
             }).then(function (data, status) {
                 if (status == "success") {
-                    console.log(data);
 
                     $('[name="delOp"]').remove();
                     getPressName();

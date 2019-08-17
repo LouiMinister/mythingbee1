@@ -16,7 +16,7 @@ public class ApiNewsController {
     @RequestMapping(value="/getArticles" ,method= RequestMethod.GET)
     public List<ArticleInfoVO> getArticles(@RequestParam String lastArticleCode){
         int limit= 5;
-        System.out.println(lastArticleCode);
+        //System.out.println(lastArticleCode);
         List<ArticleInfoVO>  articles=  controller.getArticles(lastArticleCode, limit);
 
         return articles;
@@ -33,8 +33,8 @@ public class ApiNewsController {
 
         articles = controller.searchArticle(searchWord,lastArticleCode, date, district ,limit );
         controller.searchArticle(searchWord,lastArticleCode,date,district,limit);
-        System.out.println("검색어:"+searchWord+"마지막기사코드"+lastArticleCode+"마지막일"+date+"구역"+district+"모드"+mode );
-        System.out.println(articles);
+        //System.out.println("검색어:"+searchWord+"마지막기사코드"+lastArticleCode+"마지막일"+date+"구역"+district+"모드"+mode );
+        //System.out.println(articles);
         return  articles;
 
     }
@@ -42,7 +42,7 @@ public class ApiNewsController {
     @RequestMapping(value="/increaseViewCount",method=RequestMethod.GET)
     public @ResponseBody
     int addViewCount(@RequestParam(value="articleId") String arCode){
-        System.out.println(arCode + "조회수 증가");
+        //System.out.println(arCode + "조회수 증가");
 
 
         return controller.increaseViewCount(arCode);

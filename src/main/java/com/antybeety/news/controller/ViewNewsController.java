@@ -23,7 +23,7 @@ public class ViewNewsController {
     public ModelAndView newsSearchPage(@RequestBody @RequestParam String searchWord,
                                        @RequestParam String date,
                                        @RequestParam String district){
-        System.out.println(searchWord + date + district);
+        //System.out.println(searchWord + date + district);
 
         ModelAndView mav = new ModelAndView("/news/newsSearch");
         mav.addObject("searchWord", searchWord);

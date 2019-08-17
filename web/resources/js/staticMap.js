@@ -7,7 +7,6 @@ var prev1year = [];
 var prev2year = [];
 var polygon;
 var ranking = function (infos) {
-    //console.log(infos);
     $('<tr class="ranked">' + '<td class="rank">' + infos.rank + '</td>' +
     '<td class="district">' + infos.stats.district + '</td>' +
     '<td class="occurCnt">' + infos.stats.occurCnt + '</td>' + '</tr>', {}).appendTo('#rankContent > tbody');
@@ -23,7 +22,6 @@ var map = new kakao.maps.Map(mapContainer, mapOption),
     customOverlay2 = new kakao.maps.CustomOverlay({}),
     infowindow = new kakao.maps.CustomOverlay({
         clickable: true
-        //removable : true
     });
 map.setMinLevel(9);
 map.setMaxLevel(9);
@@ -31,7 +29,6 @@ var setMarkers = function (map) {
     for (var i = 0; i < positions.length; i++) {
         // 마커 이미지의 이미지 크기 입니다
         var imageSize = new kakao.maps.Size(50, 35);
-        //console.log(positions[i].img);
         var imageSrc = positions[i].img;
         // 마커 이미지를 생성합니다
         var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
@@ -53,23 +50,18 @@ var selection = function (event) {
     alldata = [];
     $('.ranked').remove();
     var crimeId = event.srcElement.id;
-    //console.log(crimeId);
     if (crimeId == null) crimeId = "ALL";
     $.ajax({
         url: "/api/stats/stats",
         type: 'POST',
         data: {crimeId: crimeId},
         success: function (data) {
-            //alert("성공");
-            //console.log(data.length);
             for (let x = 0; x < data.length; x++) {
                 alldata = alldata.concat(data[x]);
             }
             //지도에 폴리곤으로 표시할 영역데이터 배열입니다
             prev2year = data[1];
             prev1year = data[2];
-            //console.log(prev2year);
-            //console.log(prev1year);
             drawChart(alldata);
 
             for (let i = 0, len = areas.length; i < len; i++) {
@@ -106,8 +98,6 @@ var selection = function (event) {
 
 //다각형을 생상하고 이벤트를 등록하는 함수입니다
 var displayArea = function (area, d, d15, d16) {
-    //console.log("thisd is d16");
-    //console.log(d16);
     if (d.rank <= 5) {
         polygon = new kakao.maps.Polygon({
             map: map, // 다각형을 표시할 지도 객체
@@ -179,15 +169,9 @@ var displayArea = function (area, d, d15, d16) {
         // polygon.setOptions({fillColor: '#fff'});
         customOverlay2.setMap(null);
     });
-    /*  kakao.maps.event.addListener(map, 'idle', function() {
-            console.log(map.getLevel());
-        }); */
 
     // 다각형에 click 이벤트를 등록하고 이벤트가 발생하면 다각형의 이름과 면적을 인포윈도우에 표시합니다
     kakao.maps.event.addListener(polygon, 'click', function (mouseEvent) {
-        //	console.log(d);
-        //	console.log(mouseEvent.latLng.getLat());
-        //	console.log(mouseEvent.latLng.getLng());
         closeOverlay();
         var content = '<div class=wrap>' +
             '<div class="info">' +
