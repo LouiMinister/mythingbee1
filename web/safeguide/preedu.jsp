@@ -71,28 +71,27 @@
     <div class="centerbox"  style="margin-top:72px;">
         <div class="centerbox"  style="margin-top:72px;">
             <div class="listbox" onclick="window.open('http://www.mogef.go.kr/oe/olb/oe_olb_s002.do?mid=etc605&div2=405')">
-                <div class="listboxIMG"><img src="/resources/image/linkImg/1to1.png" class="listboxIMG-i"  alt="사이트 바로가기"></div>
+                <div class="listboxIMG"><img src="/resources/image/linkImg/mogef1.png" class="listboxIMG-i"
+                                             alt="사이트 바로가기"></div>
                 <div class="listboxTEXT"><b>여성가족부</b> <span class="greenicon">정부</span><br>
                     성희롱 예방교육</div>
                 <span class="listboxCLICK">성희롱 예방교육 바로가기</span>
             </div>
-            <div class="listbox" onclick="window.open('http://www.mogef.go.kr/oe/olb/oe_olb_s002.do?mid=etc605&div2=405')">
-                <div class="listboxIMG"><img src="/resources/image/linkImg/1to1.png" class="listboxIMG-i"  alt="사이트 바로가기"></div>
+            <div class="listbox" onclick="window.open('http://www.mogef.go.kr/oe/olb/oe_olb_s002.do?mid=etc605&div2=403')">
+                <div
+                        class="listboxIMG"><img src="/resources/image/linkImg/mogef.png" class="listboxIMG-i"
+                                                alt="사이트 바로가기"></div>
                 <div class="listboxTEXT"><b>여성가족부</b> <span class="greenicon">정부</span><br>
-                    성희롱 예방교육</div>
-                <span class="listboxCLICK">성희롱 예방교육 바로가기</span>
+                    성폭력 예방교육</div>
+                <span class="listboxCLICK">성폭력 예방교육 바로가기</span>
             </div>
-            <div class="listbox" onclick="window.open('http://www.mogef.go.kr/oe/olb/oe_olb_s002.do?mid=etc605&div2=405')">
-                <div class="listboxIMG"><img src="/resources/image/linkImg/1to1.png" class="listboxIMG-i"  alt="사이트 바로가기"></div>
-                <div class="listboxTEXT"><b>여성가족부</b> <span class="greenicon">정부</span><br>
-                    성희롱 예방교육</div>
-                <span class="listboxCLICK">성희롱 예방교육 바로가기</span>
-            </div>
-            <div class="listbox" onclick="window.open('http://www.mogef.go.kr/oe/olb/oe_olb_s002.do?mid=etc605&div2=405')">
-                <div class="listboxIMG"><img src="/resources/image/linkImg/1to1.png" class="listboxIMG-i"  alt="사이트 바로가기"></div>
-                <div class="listboxTEXT"><b>여성가족부</b> <span class="greenicon">정부</span><br>
-                    성희롱 예방교육</div>
-                <span class="listboxCLICK">성희롱 예방교육 바로가기</span>
+            <div class="listbox" onclick="window.open('https://www.police.go.kr/portal/main/contents.do?menuNo=200565')">
+                <div
+                        class="listboxIMG"><img src="/resources/image/linkImg/police.png" class="listboxIMG-i"
+                                                alt="사이트 바로가기"></div>
+                <div class="listboxTEXT"><b>경찰청</b> <span class="greenicon">정부</span><br>
+                    유괴 예방교육</div>
+                <span class="listboxCLICK">유괴 예방교육 바로가기</span>
             </div>
             <div style="clear: both;"></div>
         </div>

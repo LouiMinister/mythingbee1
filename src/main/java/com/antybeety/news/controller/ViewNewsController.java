@@ -31,15 +31,5 @@ public class ViewNewsController {
         mav.addObject("district",district);
         return mav;
     }
-
-    @RequestMapping(value="/increaseViewCount",method=RequestMethod.GET)
-    public @ResponseBody
-    int addViewCount(@RequestParam(value="articleId") String arCode){
-        System.out.println(arCode + "조회수 증가");
-
-
-        return controller.increaseViewCount(arCode);
-    }
-
 }
 

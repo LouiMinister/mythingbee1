@@ -234,8 +234,8 @@ function makeOutListener(infowindow) {
 }
 
 function makeClickListener(marker){
+
 	return function() {
-		console.log(marker.getTitle());
 
 		$.ajax('api/map/detail',{
 			type: 'GET',
@@ -406,13 +406,13 @@ var ps = new kakao.maps.services.Places();
 
 // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
 var infowindow = new kakao.maps.InfoWindow({zIndex:1});
-
+var keyword;
 // 키워드 검색을 요청하는 함수입니다
 function searchPlaces() {
 	if(detailList){
 		detailList.close();
 	}
-	var keyword = document.getElementById('keyword').value;
+	keyword = document.getElementById('keyword').value;
 	console.log(keyword);
 	if (!keyword.replace(/^\s+|\s+$/g, '')) {
 		alert('키워드를 입력해주세요!');
@@ -480,11 +480,11 @@ function placesSearchCB(data, status, pagination) {
 
 	}
 }
-
+var listEl; // 검색 결과 목록
 // 검색 결과 목록과 마커를 표출하는 함수입니다
 function displayPlaces(places) {
 
-	var listEl = document.getElementById('placesList'),
+	listEl = document.getElementById('placesList'),
 		menuEl = document.getElementById('menu_wrap'),
 		fragment = document.createDocumentFragment(),
 		bounds = new kakao.maps.LatLngBounds(),
@@ -594,11 +594,11 @@ function removeMarker() {
 	}
 	searchMarkers = [];
 }
-
+var paginationEl;
 // 검색결과 목록 하단에 페이지번호를 표시는 함수입니다
 function displayPagination(pagination) {
-	var paginationEl = document.getElementById('pagination'),
-		fragment = document.createDocumentFragment(),
+	paginationEl = document.getElementById('pagination')
+	var fragment = document.createDocumentFragment(),
 		i;
 
 	// 기존에 추가된 페이지번호를 삭제합니다
@@ -960,6 +960,12 @@ $(document).ready(function(){
 	map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
 	kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
+		// keyword.value().set
+		// // 기존에 추가된 페이지번호를 삭제합니다
+		// while (paginationEl.hasChildNodes()) {
+		// 	paginationEl.removeChild (paginationEl.lastChild);
+		// }
+		// removeAllChildNods(listEl);
 		if(detailList){
 			detailList.close();
 		}

@@ -14,6 +14,8 @@ public interface NewsController {
     List<ArticleInfoVO> getArticles(String lastArticleCode, int limit);
     List<ArticleInfoVO> searchArticle(String searchWord, String lastArticleCode, String lastDate, String district, int cnt);
 
+    /*가장 조회수 높은 키워드 n개를 리턴*/
+    List<String> searchTopKeywords(int limit);
     /*기사 조회수 증가하기*/
     int increaseViewCount(String code);
 }

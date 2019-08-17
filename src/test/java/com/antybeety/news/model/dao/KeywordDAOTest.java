@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.HashMap;
+import java.util.List;
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -102,5 +103,13 @@ public class KeywordDAOTest {
     public void test_기사코드로_피벗테이블모든기사지우기(){
         String arCode="1908140001";
         System.out.println(dao.cutAllKeywordBtwArticle(arCode));
+    }
+    @Test
+    public void test_최고조회수_키워드가져오기(){
+        List<String> keywords;
+        int limit =3;
+        keywords= dao.searchTopKeywords(limit);
+
+        System.out.println(keywords);
     }
 }

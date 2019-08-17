@@ -3,6 +3,7 @@ package com.antybeety.news.model.service;
 import com.antybeety.district.model.dao.DistrictDAO;
 import com.antybeety.news.model.dao.ArticleInfoDAO;
 
+import com.antybeety.news.model.dao.KeywordDAO;
 import com.antybeety.news.model.vo.ArticleInfoVO;
 import com.antybeety.press.model.dao.PressDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,8 @@ import java.util.List;
 public class NewsServiceImpl implements NewsService{
     @Autowired
     private ArticleInfoDAO articleDao;
-
+    @Autowired
+    private KeywordDAO keywordDao;
 
     public NewsServiceImpl() {
 
@@ -75,6 +77,11 @@ public class NewsServiceImpl implements NewsService{
         List<ArticleInfoVO> res = articleDao.searchArticleByFilter(searchWord, startTime, lastDate, district, cnt);
 
         return res;
+    }
+
+    @Override
+    public List<String> searchTopKeywords(int limit) {
+        return keywordDao.searchTopKeywords(limit);
     }
 
     @Override
