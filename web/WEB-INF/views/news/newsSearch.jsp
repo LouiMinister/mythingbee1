@@ -215,10 +215,10 @@ v<%@ page language="java" contentType="text/html; charset=UTF-8"
 			     <li> <span id="mainmenu_text">메인 메뉴</span>
 			      <ul>
 					  <li><a href="/index.jsp" id="mainmenu-list" class="m1">메인</a></li>
-					  <li><a href="/map" id="mainmenu-list" class="m2">지도</a></li>
-					  <li><a href="/news/main" id="mainmenu-list" class="m3">뉴스</a></li>
-					  <li><a href="/safeguide/preedu.jsp" id="mainmenu-list" class="m4">안전 가이드</a></li>
-					  <li><a href="/stats" id="mainmenu-list" class="m5">범죄 통계</a></li>
+					  <li><a href="/map" class="m2">지도</a></li>
+					  <li><a href="/news/main"  class="m3">뉴스</a></li>
+					  <li><a href="/safeguide/preedu.jsp"  class="m4">안전 가이드</a></li>
+					  <li><a href="/stats" class="m5">범죄 통계</a></li>
 			    	</ul>
 			      </li>
 			    </ul>
@@ -301,11 +301,11 @@ v<%@ page language="java" contentType="text/html; charset=UTF-8"
 
 				</div>
 	 		  	</div>
-	 		  </li> 
-	 		  
-	 		  
-	 		  
-				<li><a class="codrops-icon codrops-icon-prev" href="/index.jsp"><span>THINK BEE WAY</span></a></li>
+	 		  </li>
+
+
+
+				<li><a class="" href="/index.jsp"><img src="/resources/image/logo_small.png" id="logo"><span>THINK BEE WAY</span></a></li>
 			</ul>
 		</div><!-- /container -->
 		<script src="/resources/js/classie.js"></script>
