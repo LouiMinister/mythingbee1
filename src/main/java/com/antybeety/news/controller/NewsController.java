@@ -13,4 +13,7 @@ public interface NewsController {
     * 기사코드가 없을경우는 파라미터로 null String을 받는다.*/
     List<ArticleInfoVO> getArticles(String lastArticleCode, int limit);
     List<ArticleInfoVO> searchArticle(String searchWord, String lastArticleCode, String lastDate, String district, int cnt);
+
+    /*기사 조회수 증가하기*/
+    int increaseViewCount(String code);
 }

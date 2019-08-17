@@ -77,6 +77,11 @@ public class NewsServiceImpl implements NewsService{
         return res;
     }
 
+    @Override
+    public int increaseViewCount(String code) {
+        return articleDao.increaseViewCount(code);
+    }
+
 
     public List<ArticleInfoVO> searchArticles(String searchWord, String lastArtiCode, String lastDate, int cnt) {
 

@@ -106,7 +106,10 @@ public class ArticleInfoDAOImpl implements ArticleInfoDAO{
         NewsMapper mapper = getMapper();
         return mapper.deleteArticle(code);
     }
-    
 
-
+    @Override
+    public int increaseViewCount(String code) {
+        NewsMapper mapper = getMapper();
+        return mapper.increaseViewCount(code);
+    }
 }

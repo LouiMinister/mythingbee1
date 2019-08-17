@@ -27,4 +27,6 @@ public interface NewsMapper {
     int updateArticle(HashMap<String,Object> param);
 
     int deleteArticle(String code);
+
+    int increaseViewCount(String code);
 }

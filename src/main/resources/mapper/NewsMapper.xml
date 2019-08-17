@@ -76,6 +76,9 @@
     <update id="updateArticle" parameterType="hashmap" >
         UPDATE article_tb SET title=#{title}, summary=#{summary}, url=#{url} WHERE ar_code=#{arCode};
     </update>
+    <update id="increaseViewCount" >
+        update article_tb SET view_cnt=view_cnt+1 WHERE ar_code = #{code}
+    </update>
     <delete id="deleteArticle" parameterType="java.lang.String">
         DELETE FROM article_tb WHERE ar_code=#{code};
     </delete>
