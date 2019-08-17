@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="thingbeeways:Web">
+    <output-path>$PROJECT_DIR$/out/artifacts/thingbeeways_Web</output-path>
+    <root id="archive" name="thingbeeways_Web.war">
+      <element id="artifact" artifact-name="thingbeeways:Web exploded" />
+    </root>
+  </artifact>
+</component>
