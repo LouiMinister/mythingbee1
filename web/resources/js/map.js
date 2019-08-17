@@ -205,7 +205,7 @@ function setMarkers(markers, map) {
 //"마커 감추기" 버튼을 클릭하면 호출되어 배열에 추가된 마커를 지도에서 삭제하는 함수입니다
 function hideMarkers(type) {
 	if( (bellFlag | cctvFlag | securityLampFlag | shopFlag) != 1){
-		setZoomable(true);
+		map.setMaxLevel(12);
 	}
 	switch(type){
 		case "cctv": setMarkers(cctvAll,null); cctvAll= []; cctvMarkers = []; break;
@@ -273,7 +273,7 @@ function makeClickListener(marker){
 function searchNewPlaces() {
 	// 지도 영역 조정하고 가져오기 . 해당 시설물 중 하나라도 켜져 있으면 크기 제한
 	if( cctvFlag | bellFlag | securityLampFlag | shopFlag == 1 ){
-		map.setLevel(2); setZoomable(false);
+		map.setMaxLevel(2);
 	}
 	var center = map.getCenter();
 	var level = map.getLevel();
@@ -403,6 +403,7 @@ function searchPlaces() {
 	if(detailList){
 		detailList.close();
 	}
+
 	keyword = document.getElementById('keyword').value;
 	if (!keyword.replace(/^\s+|\s+$/g, '')) {
 		alert('키워드를 입력해주세요!');
@@ -431,7 +432,6 @@ function searchPlaces() {
 		case "은행" : ps.categorySearch('BK9', placesSearchCB, {useMapBounds:true}); break;
 		default :  ps.keywordSearch(keyword, placesSearchCB);  break;
 	}
-
 }
 
 function hideAllFacility() {
