@@ -33,7 +33,7 @@ public class ViewAdNewsController {
     String adminLogin(@RequestParam(value = "id", required = true) String id,
                       @RequestParam(value = "password", required = true) String password) {
         String pass = "verified";
-        String result = "/admin/menu";
+        String result = "/admin/news";
 
         if (pass.equals(newsAdController.login(id, password))) {
             return result;
@@ -41,11 +41,6 @@ public class ViewAdNewsController {
             System.out.println("로그인 실패");
             return null;
         }
-    }
-
-    @RequestMapping(value = "/menu", method = RequestMethod.GET)
-    public String admin() {
-        return "admin/adminMenu";
     }
 
     @RequestMapping(value = "/facility", method = RequestMethod.GET)
