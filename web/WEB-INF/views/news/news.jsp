@@ -15,11 +15,16 @@
 <link rel="stylesheet" type="text/css" href="/resources/css/demo.css" />
 <link rel="stylesheet" type="text/css" href="/resources/css/component.css" />
 <script src="/resources/js/modernizr.custom.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://npmcdn.com/axios/dist/axios.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap" rel="stylesheet">
+
 <style>
 
 </style>
 <script language="JavaScript" type="text/javascript">
+
+
 
 
 function layer_toggle(obj) {
@@ -28,12 +33,31 @@ function layer_toggle(obj) {
 }
 </script>
 <script language="JavaScript" type="text/javascript">
-	$(document).ready(function(){
+	$(document).ready(function() {
 		initNews();
+
+		var keyword = new Vue({
+			el: '#vue-keyword',
+			data: {
+				res: ""
+			},
+			methods: {
+				keywordsUpdate: function () {
+					axios.get('/api/news/updateTopKeywords?limit=10', {}).then(response => {
+						this.res = response.data;
+						console.log(this.res[0]);
+						console.log(this.res[1]);
+					}).catch(res => {
+					})
+				}
+			}
+		});
+		keyword.keywordsUpdate();
 	});
 
 	//받아온 데이터로 기사를 씀
 	var addArticle = function(data,indexNum){
+
 		$('<div class="component">'+
 				'<input type="hidden" value="'+indexNum+'" />'+
 				'<div class="component_header">' +
@@ -57,9 +81,11 @@ function layer_toggle(obj) {
 				'</div>'+
 				'<div id="arti_footer" class="component_footer">'+
 					'<ul id="footer" class="footer">'+
-						'<li><button class="btn btn-outline-info" onclick="showDistrictImg(event)" value="districtImg'+indexNum+'">'+data.districtName+'</button></li>'+
+						'<li><button class="btn btn-outline-info" disabled="true" onclick="showDistrictImg(event)" value="districtImg'+indexNum+'">'+data.districtName+'</button></li>'+
 						'<li><button type="button" id="'+data.code+'" class="btn btn-outline-info" name="findid"  onclick="linkPage(event)" value="'+data.url+'">상세보기</button></li>'+
-						'<li class="districtImg"><img src='+"cat.jpg"+' id="districtImg'+indexNum+'" class="districtImg"></li>'+
+						'<li class="districtImg">'
+						// +'<img src='+"cat.jpg"+' id="districtImg'+indexNum+'" class="districtImg"></li>'+
+						+'<img id="districtImg'+indexNum+'" class="districtImg"></li>'+
 					'</ul>'+
 				'</div>'+
 			'</div>',{}).appendTo('#main_center_wrap');
@@ -71,21 +97,19 @@ function layer_toggle(obj) {
 			type:'GET',
 			data:{lastArticleCode : 'first'}
 		}).then(function(data,status){
-			console.log(status);
+
 			if(status=='success'){
 				var indexNum=1;
-				console.log(data);
 
 				var datas= data;
-				console.log(datas);
 
 				for(let i = 0;i < Object.keys(datas).length; i++){
 
 					if(i != 0){
 						indexNum = Number($("#main_center_wrap").children(":last").find('input[type=hidden]').val()) + 1;
 					}
-
 					addArticle(datas[i], indexNum);
+
 				}
 			}
 		});
@@ -94,16 +118,15 @@ function layer_toggle(obj) {
 	$(window).scroll(function(){
 		var scrollHeight=$(window).scrollTop()+$(window).height();
 		var documentHeight=$(document).height();
-			/* console.log($(window).scrollTop(), $(window).height(), scrollHeight, documentHeight); */
 
-			if(scrollHeight+10 > documentHeight){
+			if(scrollHeight+1 > documentHeight){
 				getMoreArticles();
+				keyword.keywordsUpdate();
 			}
 
 		});
 
 	var showOption = function(){
-		console.log($('#detail_search').css("display"));
 
 		if($('#detail_search').css("display") == "none"){
 			$('#detail_search').css("display","block");
@@ -115,31 +138,26 @@ function layer_toggle(obj) {
 
 	var getMoreArticles = function(){
 		var lastArticleCode = $("#main_center_wrap").children(":last").find('button[name=findid]').attr('id');
-		console.log(lastArticleCode);
 
 		$.ajax('/api/news/getArticles',{
 			type:'GET',
 			data:{lastArticleCode : lastArticleCode}
 		}).then(function(data,status){
-			console.log(status);
 			if(status=='success'){
 				let indexNum = Number($("#main_center_wrap").children(":last").find('input[type=hidden]').val())+1;
-				console.log(data);
 
 				var datas= data;
 
 				for(let i = 0;i < Object.keys(datas).length; i++){
-					addArticle(datas[i], indexNum);
+					addArticle(datas[i], indexNum+i);
 				}
 			}
 		});
 	};
 
 	var showDistrictImg = function(event){
-		var imgId = $(event.srcElement).val();
-		console.log(imgId);
 
-		console.log($("#"+imgId).css("display"));
+		var imgId = $(event.srcElement).val();
 
 		if($("#"+imgId).css("display") == "none"){
 			$("#"+imgId).css("display","block");
@@ -153,7 +171,6 @@ function layer_toggle(obj) {
 	var linkPage = function(event){
 		var page = $(event.srcElement).val();
 		var articleId = event.srcElement.id;
-		console.log(page + " , " + articleId);
 
 		window.open(page,"","width=800,height=800");
 
@@ -162,7 +179,6 @@ function layer_toggle(obj) {
 				type:'GET',
 				data:{articleId : articleId}
 			}).then(function(data,status){
-				console.log(status);
 			});
 		};
 
@@ -184,7 +200,7 @@ function layer_toggle(obj) {
 	var clickKeyword = function	(clicked_id) {
 		var searchWord =$("#"+clicked_id).val();
 
-
+		console.log(searchWord);
 		var go = "/news/newsSearchPage?searchWord="+searchWord+"&district="+""+"&date="+"";
 		location.href=go;
 
@@ -323,22 +339,14 @@ function layer_toggle(obj) {
 					인기 급상승 뉴스
 				</div>
 				<form>
-					<div id="topics" class="topics">
-						<button type="button" value="남성" id="topic1" class="btn btn-outline-info" onclick="clickKeyword(this.id)" >남성</button>
-						<button type="button" value="불법촬영" id="topic2" class="btn btn-outline-info" onclick="clickKeyword(this.id)">불법촬영</button>
-						<button type="button" value="홍대" id="topic3" class="btn btn-outline-info " onclick="clickKeyword(this.id)">홍대</button>
-						<button type="button" value="제목" id="topic4" class="btn btn-outline-info" onclick="clickKeyword(this.id)">제목</button>
-						<button type="button" value="아동학대" id="topic5" class="btn btn-outline-info " onclick="clickKeyword(this.id)">아동학대</button>
-						<button type="button" value="고양이" id="topic6" class="btn btn-outline-info" onclick="clickKeyword(this.id)">고양이</button>
-						<button type="button" value="여성" id="topic7" class="btn btn-outline-info " onclick="clickKeyword(this.id)">여성</button>
-						<button type="button" value="법원" id="topic8" class="btn btn-outline-info " onclick="clickKeyword(this.id)">법원</button>
-						<button type="button" value="제목" id="topic9" class="btn btn-outline-info " onclick="clickKeyword(this.id)">제목</button>
-						<button type="button" value="남성" id="topic10" class="btn btn-outline-info " onclick="clickKeyword(this.id)">남성</button>
+					<div id="vue-keyword" class="topics">
+						<button type="button" v-for="(item ,i) in res" :value="item" :id="'topic'+(i+1)" class ="btn" class="btn btn-outline-info" onclick="clickKeyword(this.id)" >
+							{{item}}
+						</button>
 					</div>
 				</form>
 			</div>
 		</div>
-	</div>
-
+	</div>c
 </body>
 </html>

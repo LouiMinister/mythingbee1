@@ -133,7 +133,8 @@ $(function () {
 
 var imageSize = new kakao.maps.Size(30, 40.5), // 마커이미지의 크기입니다
 	cctvImageSize = new kakao.maps.Size(40,42.5),
-	imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+	imageOption = {offset: new kakao.maps.Point(34, 69)}
+	cctvImageOption = {offset: new kakao.maps.Point(30,65)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 
 var policeImageSrc = '/resources/image/map/police_color.png'; // 마커이미지의 주소입니다
 var cctvImageSrc = '/resources/image/map/cctv_color.png'; // 마커이미지의 주소입니다
@@ -152,7 +153,7 @@ var policeMarkerImage = new kakao.maps.MarkerImage(policeImageSrc, imageSize, im
 var shopMarkerImage = new kakao.maps.MarkerImage(shopImageSrc, imageSize, imageOption);
 var securityLampMarkerImage = new kakao.maps.MarkerImage(securityLampImageSrc, imageSize, imageOption);
 var bellMarkerImage = new kakao.maps.MarkerImage(bellImageSrc, imageSize, imageOption);
-var cctvMarkerImage = new kakao.maps.MarkerImage(cctvImageSrc, cctvImageSize, imageOption);
+var cctvMarkerImage = new kakao.maps.MarkerImage(cctvImageSrc, cctvImageSize, cctvImageOption);
 var guardMarkerImage = new kakao.maps.MarkerImage(guardImageSrc, imageSize, imageOption);
 //markerPosition = new kakao.maps.LatLng(37.498004414546934, 127.02770621963765); // 마커가 표시될 위치입니다
 
@@ -204,8 +205,13 @@ function setMarkers(markers, map) {
 
 //"마커 감추기" 버튼을 클릭하면 호출되어 배열에 추가된 마커를 지도에서 삭제하는 함수입니다
 function hideMarkers(type) {
+	// 얘네들이 하나도 안 켜져있으면 맥스 레벨 조정
 	if( (bellFlag | cctvFlag | securityLampFlag | shopFlag) != 1){
-		setZoomable(true);
+		map.setMaxLevel(12);
+		// 지킴이집이랑 경찰서도 꺼져 있으면 z index 기본값 0으로 세팅
+		if( (guardFlag | policeFlag) == 0){
+			zIndex = 1;
+		}
 	}
 	switch(type){
 		case "cctv": setMarkers(cctvAll,null); cctvAll= []; cctvMarkers = []; break;
@@ -217,9 +223,11 @@ function hideMarkers(type) {
 	}
 }
 
+var zIndex = 1;
 function makeOverListener(map, marker, infowindow) {
 	return function() {
-		infowindow.open(map, marker);
+		// infowindow.open(map, marker);
+		marker.setZIndex(zIndex++);
 	};
 }
 
@@ -273,7 +281,7 @@ function makeClickListener(marker){
 function searchNewPlaces() {
 	// 지도 영역 조정하고 가져오기 . 해당 시설물 중 하나라도 켜져 있으면 크기 제한
 	if( cctvFlag | bellFlag | securityLampFlag | shopFlag == 1 ){
-		map.setLevel(2); setZoomable(false);
+		map.setMaxLevel(2);
 	}
 	var center = map.getCenter();
 	var level = map.getLevel();
@@ -403,6 +411,7 @@ function searchPlaces() {
 	if(detailList){
 		detailList.close();
 	}
+
 	keyword = document.getElementById('keyword').value;
 	if (!keyword.replace(/^\s+|\s+$/g, '')) {
 		alert('키워드를 입력해주세요!');
@@ -431,7 +440,6 @@ function searchPlaces() {
 		case "은행" : ps.categorySearch('BK9', placesSearchCB, {useMapBounds:true}); break;
 		default :  ps.keywordSearch(keyword, placesSearchCB);  break;
 	}
-
 }
 
 function hideAllFacility() {
@@ -665,7 +673,7 @@ function createBellMarkers() {
 		// 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
 		// 이벤트 리스너로는 클로저를 만들어 등록합니다
 		// for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-//        kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+       kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
 //        kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
 		kakao.maps.event.addListener(marker, 'click', makeClickListener(marker));
 	}
@@ -693,7 +701,7 @@ function createPoliceMarkers() {
 		// 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
 		// 이벤트 리스너로는 클로저를 만들어 등록합니다
 		// for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-//        kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+       kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
 //        kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
 		kakao.maps.event.addListener(marker, 'click', makeClickListener(marker));
 	}
@@ -721,7 +729,7 @@ function createShopMarkers() {
 		// 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
 		// 이벤트 리스너로는 클로저를 만들어 등록합니다
 		// for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-//        kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+       kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
 //        kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
 		kakao.maps.event.addListener(marker, 'click', makeClickListener(marker));
 	}
@@ -749,7 +757,7 @@ function createGuardMarkers() {
 		// 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
 		// 이벤트 리스너로는 클로저를 만들어 등록합니다
 		// for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-//        kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+       kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
 //        kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
 		kakao.maps.event.addListener(marker, 'click', makeClickListener(marker));
 	}
@@ -777,7 +785,7 @@ function createSecurityLampMarkers() {
 		// 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
 		// 이벤트 리스너로는 클로저를 만들어 등록합니다
 		// for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-//        kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+       kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
 //        kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
 		kakao.maps.event.addListener(marker, 'click', makeClickListener(marker));
 	}
@@ -805,7 +813,7 @@ function createCctvMarkers() {
 		// 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
 		// 이벤트 리스너로는 클로저를 만들어 등록합니다
 		// for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-//       kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+      kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
 //       kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
 		kakao.maps.event.addListener(marker, 'click', makeClickListener(marker));
 	}

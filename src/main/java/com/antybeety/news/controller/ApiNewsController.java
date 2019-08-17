@@ -3,6 +3,7 @@ package com.antybeety.news.controller;
 import com.antybeety.news.model.vo.ArticleInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import sun.misc.Request;
 
 import java.util.List;
 
@@ -46,6 +47,13 @@ public class ApiNewsController {
 
 
         return controller.increaseViewCount(arCode);
+    }
+
+    @RequestMapping(value="/updateTopKeywords", method = RequestMethod.GET)
+    public @ResponseBody
+    List<String> updateTopKeywords(int limit){
+        limit=5;
+        return controller.searchTopKeywords(limit);
     }
 
 }
