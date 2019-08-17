@@ -80,7 +80,12 @@ public class KeywordDAO {
     public String searchCodeByName(String name) {
         KeywordMapper mapper = getMapper();
         return mapper.searchCodeByName(name);
+    }
 
+    /*가장 조회수 높은 키워드 n개를 리턴*/
+    public List<String> searchTopKeywords(int limit){
+        KeywordMapper mapper = getMapper();
+        return mapper.searchTopKeywords(limit);
     }
 
     //키워드 삭제(이름으로 검색)

@@ -3,6 +3,7 @@ package com.antybeety.news.mybatis;
 import com.antybeety.news.model.vo.KeywordVO;
 
 import java.util.HashMap;
+import java.util.List;
 
 public interface KeywordMapper {
 
@@ -17,6 +18,9 @@ public interface KeywordMapper {
 
     //이름으로 기사 찾아서 마지막 인덱스의 키워드 코드 리턴
     String searchCodeByName(String name);
+
+    /*가장 조회수 높은 키워드 n개를 리턴*/
+    List<String> searchTopKeywords(int limit);
 
     //키워드 코드가 있는 피벗테이블의 레코드를 삭제
     int deleteKeyword(String code);

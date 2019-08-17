@@ -2,10 +2,7 @@ package com.antybeety.news.controller;
 
 import com.antybeety.news.model.vo.ArticleInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -42,5 +39,13 @@ public class ApiNewsController {
 
     }
 
+    @RequestMapping(value="/increaseViewCount",method=RequestMethod.GET)
+    public @ResponseBody
+    int addViewCount(@RequestParam(value="articleId") String arCode){
+        System.out.println(arCode + "조회수 증가");
+
+
+        return controller.increaseViewCount(arCode);
+    }
 
 }

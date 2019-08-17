@@ -20,8 +20,10 @@ public interface NewsService {
     /*필터 기사 검색 + 구역*/
     public List<ArticleInfoVO> searchArticles(String searchWord, String lastArtiCode, String lastDate, String district, int cnt);
 
+    /*조회수에 따른 추천 키워드 리턴*/
+    List<String> searchTopKeywords(int limit);
+
     /*기사 조회수 증가하기*/
     int increaseViewCount(String code);
-
 
 }
