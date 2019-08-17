@@ -157,13 +157,15 @@ function layer_toggle(obj) {
 
 		window.open(page,"","width=800,height=800");
 
-		$.ajax('서블릿서블릿서블릿',{
-			type:'GET',
-			data:{articleId : articleId}
-		}).then(function(data,status){
-			console.log(status);
-		});
-	};
+
+			$.ajax('/news/increaseViewCount',{
+				type:'GET',
+				data:{articleId : articleId}
+			}).then(function(data,status){
+				console.log(status);
+			});
+		};
+
 
 	String.prototype.isEmpty = function(){
 	      return (this.trim() == '');

@@ -20,8 +20,8 @@ public interface NewsService {
     /*필터 기사 검색 + 구역*/
     public List<ArticleInfoVO> searchArticles(String searchWord, String lastArtiCode, String lastDate, String district, int cnt);
 
-
-
+    /*기사 조회수 증가하기*/
+    int increaseViewCount(String code);
 
 
 }

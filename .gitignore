@@ -42,6 +42,7 @@ captures/
 # IntelliJ
 *.iml
 .idea/codeStyles/
+.idea/artifacts/thingbeeways_Web_exploded.xml
 .idea/artifacts/
 .idea/workspace.xml
 .idea/tasks.xml
