@@ -157,7 +157,7 @@
 
 			window.open(page,"","width=800,height=800");
 
-			$.ajax('/news/increaseViewCount',{
+			$.ajax('/api/news/increaseViewCount',{
 				type:'GET',
 				data:{articleId : articleId}
 			}).then(function(data,status){
