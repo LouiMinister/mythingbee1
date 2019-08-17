@@ -317,7 +317,6 @@
         var district= $("#SelectDistrict option:selected").val();
         var date= $("#SelectDate option:selected").val();
 
-        console.log(searchWord+", "+district+", "+date);
 
         $.ajax("/api/news/searchNews",{
             type:'GET',
@@ -345,8 +344,6 @@
 
 
     var showOption = function(){
-        console.log($('#detail_search').css("display"));
-
         if($('#detail_search').css("display") == "none"){
             $('#detail_search').css("display","inline-block");
         }
@@ -363,25 +360,21 @@
     }
 
     var deleteArticles =function(){
-        console.log("Delete");
 
         var delCheckBox = document.getElementsByName("del_chk");
         var delCodes = [];
 
         for(var i = 0;i<delCheckBox.length;i++){
             if(delCheckBox[i].checked){
-                console.log(delCheckBox[i].value);
                 delCodes.push(delCheckBox[i].value);
             }
         }
 
-        console.log(delCodes);
 
         $.ajax('/admin/deleteArticles',{
             type:'GET',
             data:{delCodes:delCodes}
         }).then(function(data,status){
-            console.log(data);
             $('[name="removeTr"]').remove();
             getNews();
         });

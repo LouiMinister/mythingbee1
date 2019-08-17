@@ -21,7 +21,7 @@ public class ConvenienceMarkDAO extends FacilityMarkDAOImpl{
         MapMapper mapper = sqlSession_oracle.getMapper(MapMapper.class);
         List<FacilityMarkVO> list = mapper.selectConvenience(bounds);
 
-        System.out.println(list);
+        //System.out.println(list);
         return list;
     }
 

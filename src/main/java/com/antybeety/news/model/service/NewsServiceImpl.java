@@ -30,7 +30,7 @@ public class NewsServiceImpl implements NewsService{
 
     public List<ArticleInfoVO> getMoreArticles(String lastArticleCode, int limit) {
         if (lastArticleCode == null || lastArticleCode.equals("")) {
-            System.out.println("기사 코드 오류");
+            //System.out.println("기사 코드 오류");
             return null;
         }
 

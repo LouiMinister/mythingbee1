@@ -63,9 +63,6 @@
                 keyNames.push(splitString[0]);
                 keyCodes.push(splitString[1]);
             }
-
-            console.log(keyNames);
-            console.log(keyCodes);
         });
 
         var addKeyword = function () {
@@ -99,7 +96,6 @@
                 return ;
             }
 
-            console.log(keyName + ", " + keyCode);
 
             for (var i = 0; i < keyNames.length; i++) {
 
@@ -142,7 +138,6 @@
                 return ;
             }
 
-            console.log(keyName + ", " + keyCode);
 
             $("#" + keyName).remove();
 
@@ -180,7 +175,6 @@
             }
 
             var ar_url = $('#ar_url').val();
-            console.log(ar_url);
             if (ar_url.isEmpty()) {
                 $('#ar_url').focus();
                 document.getElementById("ar_url").style.backgroundColor = "#ffffb3";
@@ -244,8 +238,6 @@
 
             var keywordNameString = keyNames.toString();
             var keywordCodeString = keyCodes.toString();
-            console.log(keywordNameString);
-            console.log(keywordCodeString);
 
             var arCode = document.getElementsByClassName("articleCode")[0].id;
 
@@ -267,7 +259,6 @@
                 })
             }).then(function (data, status) {
                 if (status == "success") {
-                    console.log(data);
 
                     location.href = "/admin/news";
                 }

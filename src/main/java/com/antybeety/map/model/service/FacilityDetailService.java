@@ -22,7 +22,7 @@ public class FacilityDetailService {
 
         for(FacilityDetailDAO f : fd){
             if(f.getFacilName().equals(type)){
-                System.out.println(f.getFacilName());
+                //System.out.println(f.getFacilName());
                 return f.searchDetail(code);
             }
         }
