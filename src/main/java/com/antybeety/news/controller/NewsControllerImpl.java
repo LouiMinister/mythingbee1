@@ -32,6 +32,7 @@ public class NewsControllerImpl implements NewsController {
         return list;
     }
 
+    @Override
     public List<ArticleInfoVO> searchArticle(String searchWord, String lastArticleCode, String lastDate, String district, int cnt) {
 
         List<ArticleInfoVO> list;
@@ -42,6 +43,12 @@ public class NewsControllerImpl implements NewsController {
             list = newsService.searchArticles(searchWord, lastArticleCode, lastDate, district, cnt);
         }
         return list;
+    }
+
+    /*가장 조회수 높은 키워드 n개를 리턴*/
+    @Override
+    public List<String> searchTopKeywords(int limit){
+        return newsService.searchTopKeywords(limit);
     }
 
     @Override
