@@ -22,8 +22,6 @@ var selection = function(event){
 		type:'POST',
 		data:{crimeId: crimeId},
 		success:function(data){
-			//alert("성공");
-			//console.log(data.length);
 			for(let x=0;x<data.length;x++){
 				alldata=alldata.concat(data[x]);
 			}

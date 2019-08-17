@@ -26,14 +26,14 @@ public class ViewCriminalStatistics {
 
         if(currentDevice.isMobile())
         {
-            System.out.println("mobile");
+            //System.out.println("mobile");
             return "stats/mstats";
         }else if (currentDevice.isTablet()){
-            System.out.println("isTablet");
+           // System.out.println("isTablet");
             return "stats/mstats";
         }
         else{
-            System.out.println("normal");
+            //System.out.println("normal");
             return "stats/stats";
         }
     }

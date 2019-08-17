@@ -38,7 +38,7 @@ public class ViewAdNewsController {
         if (pass.equals(newsAdController.login(id, password))) {
             return result;
         } else {
-            System.out.println("로그인 실패");
+            //System.out.println("로그인 실패");
             return null;
         }
     }
@@ -146,7 +146,7 @@ public class ViewAdNewsController {
         //기사에 해당하는 키워드
         List<KeywordVO> keywords = article.getKeywords();
 
-        System.out.println(keywords);
+        //System.out.println(keywords);
         //모든 지역구 이름 정보
         List<String> districts = getAllDistrictName();
 
@@ -189,7 +189,7 @@ public class ViewAdNewsController {
 
         article.setKeywords(keywords);
 
-        System.out.println(article);
+        //System.out.println(article);
 
         return newsAdController.updateArticle(article);
     }

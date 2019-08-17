@@ -6,7 +6,6 @@ var prev2year = [];
 var polygon;
 var areacnt=25;
 var ranking = function(infos){
-	//console.log(infos);
 	$('<tr class="ranked">'+'<td class="rank">'+infos.rank+'</td>'+
 	'<td class="district">'+infos.stats.district+'</td>'+
 	'<td class="occurCnt">'+infos.stats.occurCnt+'</td>'+'</tr>',{}).appendTo('#rankContent > tbody');
@@ -164,8 +163,6 @@ var displayArea = function (area, d, d15, d16) {
 
     // 다각형에 click 이벤트를 등록하고 이벤트가 발생하면 다각형의 이름과 면적을 인포윈도우에 표시합니다
     kakao.maps.event.addListener(polygon, 'click', function (mouseEvent) {
-    	console.log("clicked");
-    	console.log(mouseEvent.latLng);
        closeOverlay();
         var content = '<div class=wrap>' +
             '<div class="info">' +

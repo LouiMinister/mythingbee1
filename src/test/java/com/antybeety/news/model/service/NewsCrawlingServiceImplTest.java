@@ -30,8 +30,8 @@ public class NewsCrawlingServiceImplTest {
         ArticleInfoKVO article;
         for(String s: articleURL){
             article=service.searchArticle(NewsCrawlingService.ENGINE_DAUM, s );
-            System.out.println(article);
-            System.out.println("-------------------------------------------------------------");
+            //System.out.println(article);
+            //System.out.println("-------------------------------------------------------------");
         }
     }
 }

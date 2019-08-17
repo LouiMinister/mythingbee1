@@ -3,7 +3,6 @@ function setResponsive() {
 		    width : window.innerWidth || document.body.clientWidth,
 		    height : window.innerWidth || document.body.clientHeight
 		  };
-	console.log(vRes.height);
 	redrawChart();
 }
 
