@@ -124,27 +124,27 @@
 			<ul id="category">
 				<li>	
 					<img src="/resources/image/map/menubar.png" id="menu_bar">
-					<img src="/resources/image/map/cctv_click.png" style="display:none;" name="cctv">
+					<img src="/resources/image/map/cctv_color.png" style="display:none;" name="cctv">
 					<button id="cctv" onclick="cctvToggle()"><img src="/resources/image/map/cctv.png" name="cctv"></button>
 				</li>
 				<li>
-					<img src="/resources/image/map/bell_click.png" style="display:none;" name="bell">
+					<img src="/resources/image/map/bell_color.png" style="display:none;" name="bell">
 					<button id="bell" onclick="bellToggle()"><img src="/resources/image/map/bell.png" name="bell"></button>
 				</li>
 				<li>
-					<img src="/resources/image/map/guard_click.png" style="display:none" name="guard">
+					<img src="/resources/image/map/guard_color.png" style="display:none" name="guard">
 					<button id="guard"><img src="/resources/image/map/guard.png" name="guard"></button>
 				</li>
 				<li>
-					<img src="/resources/image/map/police_click.png" style="display:none" name="police">
+					<img src="/resources/image/map/police_color.png" style="display:none" name="police">
 					<button id="police" onclick="policeToggle()"><img src="/resources/image/map/police.png" name="police"></button>
 				</li>
 				<li>
-					<img src="/resources/image/map/shop_click.png" style="display:none" name="shop">
+					<img src="/resources/image/map/shop_color.png" style="display:none" name="shop">
 					<button id="shop" onclick="shopToggle()"><img src="/resources/image/map/shop.png" name="shop"></button>
 				</li>
 				<li>
-					<img src="/resources/image/map/security_lamp_click.png" style="display:none"  name="security_lamp">
+					<img src="/resources/image/map/security_lamp_color.png" style="display:none"  name="security_lamp">
 					<button id="security_lamp" onclick="securityLampToggle()"><img src="/resources/image/map/security_lamp.png" name="security_lamp"></button>
 				</li>
 			</ul>
