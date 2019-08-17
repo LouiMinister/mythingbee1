@@ -21,7 +21,7 @@
 
         <!-- Icon -->
         <div class="fadeIn first">
-            <img src="/resources/image/admin/bee.png" id="icon" alt="User Icon"/>
+            <img src="/resources/image/admin/fthinkbee.png" id="icon" alt="User Icon"/>
         </div>
         <div id="status"></div>
     <div>
