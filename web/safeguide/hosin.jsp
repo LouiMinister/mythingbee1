@@ -72,20 +72,26 @@
 <div style="margin-left:0%">
     <div class="centerbox"  style="margin-top:72px;">
         <div class="centerbox"  style="margin-top:72px;">
-            <div class="listbox" onclick="window.open('http://dhgun.com/shopuser/goods/productList.html?largeno=3&kind=normal')">
-                <div class="listboxIMG"><img src="/resources/image/linkImg/1to1.png" class="listboxIMG-i"  alt="사이트 바로가기"></div>
+            <div class="listbox" onclick="window.open('https://smartstore.naver.com/dhguncom?NaPm=ct%3Djzexg1yb%7Cci%3Dcheckout%7Ctr%3Dds%7Ctrx%3D%7Chk%3D29f4f7ddbd40abd1904d83ca97de27ca5e398c70')">
+                <div
+                        class="listboxIMG"><img src="/resources/image/linkImg/dhguncom.png" class="listboxIMG-i"
+                                                alt="사이트 바로가기"></div>
                 <div class="listboxTEXT"><b>대한안전공사</b> <span class="greenicon">사설</span><br>
                     여성 호신용품 판매</div>
                 <span class="listboxCLICK">여성 호신용품 알아보기</span>
             </div>
             <div class="listbox" onclick="window.open('https://www.netpx.co.kr/app/category/lists/007')">
-                <div class="listboxIMG"><img src="/resources/image/linkImg/1to1.png" class="listboxIMG-i"  alt="사이트 바로가기"></div>
+                <div
+                        class="listboxIMG"><img src="/resources/image/linkImg/netpx.png" class="listboxIMG-i"
+                                                alt="사이트 바로가기"></div>
                 <div class="listboxTEXT"><b>NETPX</b> <span class="greenicon">사설</span><br>
                     호신용품 판매 사이트</div>
                 <span class="listboxCLICK">여성 호신용품 알아보기</span>
             </div>
             <div class="listbox" onclick="window.open('https://www.youtube.com/watch?v=6M-GysbAy4Q')">
-                <div class="listboxIMG"><img src="/resources/image/linkImg/1to1.png" class="listboxIMG-i"  alt="사이트 바로가기"></div>
+                <div
+                        class="listboxIMG"><img src="/resources/image/linkImg/youtube_hosin.png" class="listboxIMG-i"
+                                                alt="사이트 바로가기"></div>
                 <div class="listboxTEXT"><b>대학내일</b> <span class="greenicon">사설</span><br>
                     여성 호신술 영상</div>
                 <span class="listboxCLICK">여성 호신술 알아보기</span>

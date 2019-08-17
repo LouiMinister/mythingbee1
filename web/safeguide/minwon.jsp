@@ -74,19 +74,19 @@
 <div style="margin-left:0%">
     <div class="centerbox"  style="margin-top:72px;">
         <div class="listbox" onclick="window.open('https://www.epeople.go.kr/jsp/user/pc/cvreq/UPcCvreqForm.paid?flag=N')">
-            <div class="listboxIMG"><img src="/resources/image/linkImg/1to1.png" class="listboxIMG-i"  alt="사이트 바로가기"></div>
+            <div class="listboxIMG"><img src="/resources/image/linkImg/epeople.png" class="listboxIMG-i"  alt="사이트 바로가기"></div>
             <div class="listboxTEXT"><b>국민신문고</b> <span class="greenicon">정부</span><br>
                 민원 신청페이지</div>
             <span class="listboxCLICK">민원 신청 바로가기</span>
         </div>
         <div class="listbox" onclick="window.open('https://www.120dasan.or.kr/dsnc/main/contents.do?menuNo=200022')">
-            <div class="listboxIMG"><img src="/resources/image/linkImg/1to1.png" class="listboxIMG-i"  alt="사이트 바로가기"></div>
+            <div class="listboxIMG"><img src="/resources/image/linkImg/dasan.png" class="listboxIMG-i"  alt="사이트 바로가기"></div>
             <div class="listboxTEXT"><b>다산콜센터</b> <span class="greenicon">정부</span><br>
                 민원 신청페이지</div>
             <span class="listboxCLICK">민원 신청 바로가기</span>
         </div>
         <div class="listbox" onclick="window.open('http://eungdapso.seoul.go.kr/Req/Req02/Req02_not.jsp')">
-            <div class="listboxIMG"><img src="/resources/image/linkImg/1to1.png" class="listboxIMG-i"  alt="사이트 바로가기"></div>
+            <div class="listboxIMG"><img src="/resources/image/linkImg/eungdapso.png" class="listboxIMG-i"  alt="사이트 바로가기"></div>
             <div class="listboxTEXT"><b>서울특별시 응답소</b> <span class="greenicon">정부</span><br>
                 민원 신청 페이지</div>
             <span class="listboxCLICK">민원 신청 바로가기</span>

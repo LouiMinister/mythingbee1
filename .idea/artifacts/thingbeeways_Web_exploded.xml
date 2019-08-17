@@ -39,6 +39,9 @@
           <element id="library" level="project" name="Maven: org.jboss.logging:jboss-logging:3.3.2.Final" />
           <element id="library" level="project" name="Maven: com.fasterxml:classmate:1.3.4" />
           <element id="library" level="project" name="Maven: org.aspectj:aspectjweaver:1.9.4" />
+          <element id="library" level="project" name="Maven: org.springframework.mobile:spring-mobile-device:1.1.3.RELEASE" />
+          <element id="library" level="project" name="ojdbc6" />
+          <element id="library" level="project" name="Maven: org.jsoup:jsoup:1.11.3" />
         </element>
       </element>
     </root>
