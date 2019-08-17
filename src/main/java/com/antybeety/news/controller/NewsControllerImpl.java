@@ -9,25 +9,25 @@ import java.util.List;
 
 @Controller
 public class NewsControllerImpl implements NewsController {
+
     @Autowired
     private NewsService newsService;
 
     public List<ArticleInfoVO> getArticles(String lastArticleCode, int limit) {
 
-        if(lastArticleCode.equals("") || lastArticleCode == null) {
+        if (lastArticleCode.equals("") || lastArticleCode == null) {
             return null;
         }
 
-        if(limit <= 0) {
+        if (limit <= 0) {
             limit = 5;
         }
 
         List<ArticleInfoVO> list = null;
-        if(lastArticleCode.equals("first")) {
+        if (lastArticleCode.equals("first")) {
             list = newsService.initializeArticle(limit);
-        }
-        else {
-            list =newsService.getMoreArticles(lastArticleCode,limit);
+        } else {
+            list = newsService.getMoreArticles(lastArticleCode, limit);
         }
         return list;
     }
@@ -36,13 +36,17 @@ public class NewsControllerImpl implements NewsController {
 
         List<ArticleInfoVO> list;
 
-        if(district.equals("")) {
+        if (district.equals("")) {
             list = newsService.searchArticles(searchWord, lastArticleCode, lastDate, cnt);
-        }
-        else {
-            list =newsService.searchArticles(searchWord, lastArticleCode, lastDate, district, cnt);
+        } else {
+            list = newsService.searchArticles(searchWord, lastArticleCode, lastDate, district, cnt);
         }
         return list;
+    }
+
+    @Override
+    public int increaseViewCount(String code) {
+        return newsService.increaseViewCount(code);
     }
 
 }

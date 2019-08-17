@@ -21,4 +21,6 @@ public interface ArticleInfoDAO {
     int removeArticle(String code);
     String searchLastDate();
 
+    int increaseViewCount(String code);
+
 }

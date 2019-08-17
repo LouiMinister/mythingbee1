@@ -157,7 +157,7 @@
 
 			window.open(page,"","width=800,height=800");
 
-			$.ajax('서블릿서블릿서블릿',{
+			$.ajax('/news/increaseViewCount',{
 				type:'GET',
 				data:{articleId : articleId}
 			}).then(function(data,status){
