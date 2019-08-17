@@ -15,11 +15,16 @@
 <link rel="stylesheet" type="text/css" href="/resources/css/demo.css" />
 <link rel="stylesheet" type="text/css" href="/resources/css/component.css" />
 <script src="/resources/js/modernizr.custom.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://npmcdn.com/axios/dist/axios.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap" rel="stylesheet">
+
 <style>
 
 </style>
 <script language="JavaScript" type="text/javascript">
+
+
 
 
 function layer_toggle(obj) {
@@ -28,8 +33,26 @@ function layer_toggle(obj) {
 }
 </script>
 <script language="JavaScript" type="text/javascript">
-	$(document).ready(function(){
+	$(document).ready(function() {
 		initNews();
+
+		var keyword = new Vue({
+			el: '#vue-keyword',
+			data: {
+				res: ""
+			},
+			methods: {
+				keywordsUpdate: function () {
+					axios.get('/api/news/updateTopKeywords?limit=10', {}).then(response => {
+						this.res = response.data;
+						console.log(this.res[0]);
+						console.log(this.res[1]);
+					}).catch(res => {
+					})
+				}
+			}
+		});
+		keyword.keywordsUpdate();
 	});
 
 	//받아온 데이터로 기사를 씀
@@ -86,6 +109,7 @@ function layer_toggle(obj) {
 						indexNum = Number($("#main_center_wrap").children(":last").find('input[type=hidden]').val()) + 1;
 					}
 					addArticle(datas[i], indexNum);
+
 				}
 			}
 		});
@@ -97,6 +121,7 @@ function layer_toggle(obj) {
 
 			if(scrollHeight+1 > documentHeight){
 				getMoreArticles();
+				keyword.keywordsUpdate();
 			}
 
 		});
@@ -175,7 +200,7 @@ function layer_toggle(obj) {
 	var clickKeyword = function	(clicked_id) {
 		var searchWord =$("#"+clicked_id).val();
 
-
+		console.log(searchWord);
 		var go = "/news/newsSearchPage?searchWord="+searchWord+"&district="+""+"&date="+"";
 		location.href=go;
 
@@ -314,22 +339,14 @@ function layer_toggle(obj) {
 					인기 급상승 뉴스
 				</div>
 				<form>
-					<div id="topics" class="topics">
-						<button type="button" value="남성" id="topic1" class="btn btn-outline-info" onclick="clickKeyword(this.id)" >남성</button>
-						<button type="button" value="불법촬영" id="topic2" class="btn btn-outline-info" onclick="clickKeyword(this.id)">불법촬영</button>
-						<button type="button" value="홍대" id="topic3" class="btn btn-outline-info " onclick="clickKeyword(this.id)">홍대</button>
-						<button type="button" value="제목" id="topic4" class="btn btn-outline-info" onclick="clickKeyword(this.id)">제목</button>
-						<button type="button" value="아동학대" id="topic5" class="btn btn-outline-info " onclick="clickKeyword(this.id)">아동학대</button>
-						<button type="button" value="고양이" id="topic6" class="btn btn-outline-info" onclick="clickKeyword(this.id)">고양이</button>
-						<button type="button" value="여성" id="topic7" class="btn btn-outline-info " onclick="clickKeyword(this.id)">여성</button>
-						<button type="button" value="법원" id="topic8" class="btn btn-outline-info " onclick="clickKeyword(this.id)">법원</button>
-						<button type="button" value="제목" id="topic9" class="btn btn-outline-info " onclick="clickKeyword(this.id)">제목</button>
-						<button type="button" value="남성" id="topic10" class="btn btn-outline-info " onclick="clickKeyword(this.id)">남성</button>
+					<div id="vue-keyword" class="topics">
+						<button type="button" v-for="(item ,i) in res" :value="item" :id="'topic'+(i+1)" class ="btn" class="btn btn-outline-info" onclick="clickKeyword(this.id)" >
+							{{item}}
+						</button>
 					</div>
 				</form>
 			</div>
 		</div>
-	</div>
-
+	</div>c
 </body>
 </html>
