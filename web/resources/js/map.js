@@ -56,7 +56,6 @@ function guardToggle() {
 }
 
 function policeToggle() {
-	console.log("police");
 	var img = document.getElementsByName("police");
 	var tmp = img[0].src;
 	img[0].src = img[1].src;
@@ -197,8 +196,6 @@ function setMarkers(markers, map) {
 	if(detailList){
 		detailList.close();
 	}
-	// console.log("setMarkers");
-	// console.log(markers.length);
 	for (var i = 0; i < markers.length; i++) {
 		markers[i].setMap(map);
 	}
@@ -246,7 +243,6 @@ function makeClickListener(marker){
 		}).then(function(data,status){
 			if(status == 'success')
 			{
-				console.log(data);
 				var adminName = data.adminName;
 				var roadAddr = data.roadAddr;
 				var landAddr = data.landAddr;
@@ -303,7 +299,6 @@ function searchNewPlaces() {
 	}).then(function(data,status){
 		if(status == 'success')
 		{
-			// console.log(data); // data = List<Map<String,Object>> 리턴됨,
 
 			for (var i = 0; i < data.length; i++){
 				var temp = data[i].data;
@@ -318,20 +313,16 @@ function searchNewPlaces() {
 					};
 					positions.push(posi);
 				}
-				// console.log(positions.length);
 				switch(data[i].name){
 					case "cctv":
-						console.log("cctv");
 						cctvPositions = [];
 						cctvPositions = positions;
 						createCctvMarkers();
 						setMarkers(cctvMarkers,map);
 						break;
 					case "bell":
-						console.log("bell");
 						bellPositions = [];
 						bellPositions = positions;
-						// console.log(bellPositions.length);
 						createBellMarkers();
 						setMarkers(bellMarkers,map);
 						break;
@@ -413,7 +404,6 @@ function searchPlaces() {
 		detailList.close();
 	}
 	keyword = document.getElementById('keyword').value;
-	console.log(keyword);
 	if (!keyword.replace(/^\s+|\s+$/g, '')) {
 		alert('키워드를 입력해주세요!');
 		return false;
@@ -663,8 +653,6 @@ function createMarker(position, image, number) {
 //비상벨 마커를 생성하고 비상벨 마커 배열에 추가하는 함수입니다
 function createBellMarkers() {
 	bellMarkers= [];
-	console.log("createBellmarkers");
-	console.log(bellPositions.length);
 	for (var i = 0; i < bellPositions.length; i++) {
 		var marker = createMarker(bellPositions[i].latlng, bellMarkerImage, bellPositions[i].number);
 		// 생성된 마커를 cctv 마커 배열에 추가합니다
@@ -805,7 +793,6 @@ function setSecurityLampMarkers(map) {
 //cctv 마커를 생성하고 cctv 마커 배열에 추가하는 함수입니다
 function createCctvMarkers() {
 	cctvMarkers= [];
-	console.log("createCctvMarkers");
 	for (var i = 0; i < cctvPositions.length; i++) {
 		var marker = createMarker(cctvPositions[i].latlng, cctvMarkerImage, cctvPositions[i].number);
 		// 생성된 마커를 cctv 마커 배열에 추가합니다

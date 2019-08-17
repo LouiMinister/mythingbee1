@@ -17,7 +17,6 @@ var onLogin = function(){
         url : '/admin/login',
         data:{id: id, password: pwd}
     }).then(function(data,status){
-        console.log(data);
         if(!data){
             $('span').remove();
             $('<span style="color:red">로그인 정보를 확인하세요</span>').appendTo('#status');

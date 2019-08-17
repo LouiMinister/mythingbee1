@@ -3,7 +3,6 @@ google.charts.setOnLoadCallback(drawChart);
 var chart;
 var view;
 var drawChart = function(infos) {
-//	console.log(infos);
 	var resolution = {
 		width : window.innerWidth || document.body.clientWidth,
 		height : window.innerWidth || document.body.clientHeight

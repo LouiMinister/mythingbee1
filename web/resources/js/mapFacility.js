@@ -56,7 +56,6 @@ function hideMarkers() {
 
 function makeOverListener(map, marker, infowindow) {
     return function() {
-    	console.log(infowindow);
         infowindow.open(map, marker);
     };
 }
@@ -64,7 +63,6 @@ function makeOverListener(map, marker, infowindow) {
 // 인포윈도우를 닫는 클로저를 만드는 함수입니다 
 function makeOutListener(infowindow) {
     return function() {
-    	console.log(infowindow);
         infowindow.close();
     };
 }

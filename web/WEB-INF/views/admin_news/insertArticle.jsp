@@ -48,7 +48,6 @@
                 url :'/admin/addlink',
                 data: {link:target}
             }).then(function(data,status){
-                console.log(data);
                 $('#title').val(data.title);
                 $('#summary').val(data.summary);
                 $('#ar_url').val(data.url);
@@ -104,7 +103,6 @@
 
             var keyName = $('#keyword').val();
             var keyCode = $('#keywordCode').val();
-            console.log(keyName + ", " + keyCode);
 
             for (var i = 0; i < keyNames.length; i++) {
                 if (keyNames[i] == keyName) {
@@ -140,7 +138,6 @@
             var keyName = splitString[0];
             var keyCode = splitString[1];
 
-            console.log(keyName + ", " + keyCode);
 
             $("#" + keyName).remove();
 
@@ -178,7 +175,6 @@
             }
 
             var ar_url = $('#ar_url').val();
-            console.log(ar_url);
             if (ar_url.isEmpty()) {
                 $('#ar_url').focus();
                 document.getElementById("ar_url").style.backgroundColor = "#ffffb3";
@@ -242,8 +238,6 @@
 
             var keywordNameString = keyNames.toString();
             var keywordCodeString = keyCodes.toString();
-            console.log(keywordNameString);
-            console.log(keywordCodeString);
 
             $.ajax({
                 url: "/admin/addArticle",
@@ -262,7 +256,6 @@
                 })
             }).then(function (data, status) {
                 if (status == "success") {
-                    console.log(data);
 
                     location.href = "/admin/news";
                 }
