@@ -154,7 +154,7 @@ v<%@ page language="java" contentType="text/html; charset=UTF-8"
 
 		window.open(page,"","width=800,height=800");
 
-		$.ajax('서블릿서블릿서블릿',{
+		$.ajax('/api/news/increaseViewCount',{
 			type:'GET',
 			data:{articleId : articleId}
 		}).then(function(data,status){
