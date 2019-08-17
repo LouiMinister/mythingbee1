@@ -98,6 +98,8 @@ public class ArticleInfoDAOImpl implements ArticleInfoDAO{
         param.put("summary",article.getSummary());
         param.put("title",article.getTitle());
         param.put("url",article.getUrl());
+        param.put("district",article.getDistrictName());
+        param.put("press",article.getPressName());
         return mapper.updateArticle(param);
     }
 
