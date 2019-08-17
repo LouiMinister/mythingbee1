@@ -15,4 +15,12 @@ public class KeywordVO {
     public KeywordVO(){
 
     }
+
+    @Override
+    public String toString() {
+        return "KeywordVO{" +
+                "name='" + name + '\'' +
+                ", code='" + code + '\'' +
+                '}';
+    }
 }

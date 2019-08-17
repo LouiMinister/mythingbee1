@@ -1,4 +1,6 @@
 package com.antybeety.news.controller;
+import com.antybeety.news.model.service.NewsCrawlingService;
+import com.antybeety.news.model.vo.ArticleInfoKVO;
 import com.antybeety.news.model.vo.ArticleInfoVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;

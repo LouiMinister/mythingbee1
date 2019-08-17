@@ -73,4 +73,10 @@
         INSERT INTO member(id, password, name) VALUES(#{id}, #{pwd}, #{name})
                                 ^^^^^^^ 파라미터 넣어줄 때 해시맵 키로 얠 넣어주면댐
     </insert>-->
+    <update id="updateArticle" parameterType="hashmap" >
+        UPDATE article_tb SET title=#{title}, summary=#{summary}, url=#{url}, di_code=#{district}, pr_code=#{press} WHERE ar_code=#{arCode};
+    </update>
+    <delete id="deleteArticle" parameterType="java.lang.String">
+        DELETE FROM article_tb WHERE ar_code=#{code};
+    </delete>
 </mapper>

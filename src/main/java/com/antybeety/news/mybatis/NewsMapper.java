@@ -9,14 +9,22 @@ import java.util.List;
 public interface NewsMapper {
 
     int addArticle(ArticleInfoVO article);
-    List<ArticleInfoVO> searchArticleInfo(String code);
-    List<ArticleInfoVO> searchAllArticles();
-    String searchArticleTimeByCode(String code);
-    List<ArticleInfoVO> searchBeforeArticlesByTime(HashMap<String, Object> param);
-    List<ArticleInfoVO> searchArticleByFilter(HashMap<String, Object> param);
-    List<ArticleInfoVO> searchArticleByFilterDistrict(HashMap<String, Object> param);
-    String searchLastDate();
-//    int updateArticle(ArticleInfoVO oldArticle, ArticleInfoVO newArticle);
-//    int removeArticle(String code);
 
+    ArticleInfoVO searchArticleInfo(String code);
+
+    List<ArticleInfoVO> searchAllArticles();
+
+    String searchArticleTimeByCode(String code);
+
+    List<ArticleInfoVO> searchBeforeArticlesByTime(HashMap<String, Object> param);
+
+    List<ArticleInfoVO> searchArticleByFilter(HashMap<String, Object> param);
+
+    List<ArticleInfoVO> searchArticleByFilterDistrict(HashMap<String, Object> param);
+
+    String searchLastDate();
+
+    int updateArticle(HashMap<String,Object> param);
+
+    int deleteArticle(String code);
 }

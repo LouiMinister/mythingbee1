@@ -5,8 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>지도 지도 시작하기</title>
-<link rel="stylesheet" href="/resources/css/map.css"></link>
-<link rel="stylesheet" href="/resources/css/bootstrap.min.css"></link>
+<link rel="stylesheet" href="/resources/css/map.css">
+<link rel="stylesheet" href="/resources/css/bootstrap.min.css">
 <link rel="stylesheet" href="/resources/css/mainnavi.css" media="screen">
 <link rel="stylesheet" href="/resources/css/sidebar.css">
 <link rel="stylesheet" href="/resources/css/mapSearch.css">

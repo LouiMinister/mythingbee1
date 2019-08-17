@@ -25,4 +25,14 @@
     <insert id="insertPressInfo" parameterType="hashmap">
         insert into press_tb (pr_code,pr_name) values(#{code}, #{name});
     </insert>
+
+    <delete id="deletePressByName" parameterType="java.lang.String">
+        DELETE FROM press_tb WHERE pr_name=#{name};
+    </delete>
+    <delete id="deletePressByCode" parameterType="java.lang.String">
+        DELETE FROM press_tb WHERE pr_code=#{code};
+    </delete>
+    <update id="updatePressName" parameterType="hashmap">
+        UPDATE press_tb SET pr_name=#{name} WHERE pr_code=#{code};
+    </update>
 </mapper>

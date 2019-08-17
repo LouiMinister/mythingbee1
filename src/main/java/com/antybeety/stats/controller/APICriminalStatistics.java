@@ -5,11 +5,14 @@ import com.antybeety.stats.service.CrimeStatsService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mobile.device.Device;
+import org.springframework.mobile.device.DeviceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -19,10 +22,8 @@ import java.util.List;
 public class APICriminalStatistics {
     @Autowired
     private CriminalStatistics controller;
-
     @RequestMapping(value = "/stats",method = RequestMethod.POST)
     public List<List<CrimeRankedVO>> stats(@RequestParam(value = "crimeId") String crimeId){
-
         if(crimeId==null){
             crimeId="ALL";
         }

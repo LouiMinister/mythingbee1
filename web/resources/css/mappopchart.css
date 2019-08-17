@@ -1,6 +1,6 @@
-/* 
-    ǥ�� ���� CSS 
- */  
+/*
+    ǥ�� ���� CSS
+ */
     .details_Wrap{
     	border : solid black 1px;
       background-color: #ffffff;
@@ -22,10 +22,9 @@
     */
 .wrap {position: absolute;left: 0;bottom: 40px;width: 288px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '����', sans-serif;line-height: 1.5;}
     .wrap * {padding: 0;margin: 0;}
-    .wrap .info {width: 286px;;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
+    .wrap .info {width: 286px;;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff; font-size: 8px;}
     .info .details_header {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
-    .info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 13px;height: 13px;background-image: url('../image/stats/fixed_overlay_close.png');}
+    .info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 13px;height: 13px;background-image: url('/resources/image/stats/fixed_overlay_close.png');}
     .info .close:hover {cursor: pointer;}
     .info .body {position: relative;overflow: hidden; margin-top:20px; height:140px;}
     .info .desc {position: relative;height: 75px;}
-    
