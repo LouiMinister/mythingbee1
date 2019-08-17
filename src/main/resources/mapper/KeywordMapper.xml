@@ -23,6 +23,18 @@
     <select id="searchCodeByName" parameterType="java.lang.String" resultType="java.lang.String">
         SELECT ke_code FROM keyword_tb WHERE ke_name=#{name}
     </select>
+
+    <select id="searchTopKeywords" resultType="java.lang.String">
+        SELECT ke_name, SUM(view_cnt) AS view_cnt FROM keyword_tb AS SUB1
+        JOIN(SELECT ke_code, ar_code FROM article_key_tb) AS SUB2
+        ON(SUB1.ke_code = SUB2.ke_code)
+        INNER JOIN(SELECT ar_code, view_cnt AS view_cnt FROM article_tb) AS SUB3
+        ON(SUB2.ar_code = SUB3.ar_code)
+        GROUP BY(ke_name)
+        ORDER BY view_cnt DESC
+        limit #{limit};
+    </select>
+
     <delete id="deleteKeyword" parameterType="java.lang.String">
         DELETE FROM article_key_tb WHERE ke_code=#{code}
     </delete>
