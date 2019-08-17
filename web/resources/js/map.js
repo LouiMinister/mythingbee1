@@ -23,12 +23,6 @@ function cctvToggle() {
 		cctvFlag = 0;
 		hideMarkers("cctv");
 	}
-	console.log("비트 and");
-	console.log(cctvFlag & bellFlag & securityLampFlag);
-	if((cctvFlag & bellFlag & securityLampFlag) == 0){
-		console.log("줌 트루");
-		setZoomable(true);
-	}
 }
 
 function bellToggle() {
@@ -42,10 +36,6 @@ function bellToggle() {
 	} else {
 		bellFlag = 0;
 		hideMarkers("bell");
-	}
-	if((cctvFlag & bellFlag & securityLampFlag) == 0){
-		console.log("줌 트루");
-		setZoomable(true);
 	}
 }
 
@@ -108,14 +98,6 @@ function securityLampToggle() {
 		securityLampFlag = 0;
 		hideMarkers("securityLamp");
 	}
-	if(cctvFlag == 0 && securityLampFlag == 0){
-		setZoomable(true);
-	}
-	if((cctvFlag & bellFlag & securityLampFlag) == 0){
-		console.log("줌 트루");
-		setZoomable(true);
-	}
-
 }
 
 
@@ -212,58 +194,22 @@ var detailList;
 
 //배열에 추가된 마커들을 지도에 표시하거나 삭제하는 함수입니다
 function setMarkers(markers, map) {
+    if(detailList){
+        detailList.close();
+    }
 	// console.log("setMarkers");
 	// console.log(markers.length);
-	console.log(marekrs.length);
     for (var i = 0; i < markers.length; i++) {
     	markers[i].setMap(map);
     }            
 }
 
-//"마커 보이기" 버튼을 클릭하면 호출되어 배열에 추가된 마커를 지도에 표시하는	 함수입니다
-function showMarkers(type) {
-	var bounds = map.getBounds();
-	// 영역의 남서쪽 좌표를 얻어옵니다 
-    var swLatLng = bounds.getSouthWest(); 
-    
-    // 영역의 북동쪽 좌표를 얻어옵니다 
-    var neLatLng = bounds.getNorthEast();   
-    var json = JSON.stringify(bounds);
-	$.ajax('location.do',{
-		type: 'GET',
-		data: {
-			type : type,
-			bounds : json
-			}
-	}).then(function(data,status){
-		if(status == 'success')
-		{
-			var locations = JSON.parse(data);
-			var positions = [];
-			for (var i = 0; i < Object.keys(locations).length; i++){
-				var position = {
-				    	content : '<div>cctv!<div>',
-				        latlng: new kakao.maps.LatLng(locations[i].lat, locations[i].lng),
-						number : locations[i].number,
-						iwContent : locations[i].title
-				    };
-				positions.push(position);
-			}
-		}
-		
-		switch(type){
-		case "cctv": cctvPositions = positions; createCctvMarkers(); console.log(cctvMarkers); setMarkers(cctvMarkers,map); map.setLevel(2); setZoomable(false); break;
-		case "police": policePositions = positions; createPoliceMarkers(); setMarkers(policeMarkers,map); break;
-		case "shop":  shopPositions = positions;  createShopMarkers();  setMarkers(shopMarkers,map); break;
-		case "securityLamp": securityLampPositions = positions; createSecurityLampMarkers();  setMarkers(securityLampMarkers,map); map.setLevel(2); setZoomable(false); break;
-		case "guard": guardPositions = positions; createGuardMarkers();  setMarkers(guardMarkers,map);  break;
-		case "bell":  bellPositions = positions;  createBellMarkers();  setMarkers(bellMarkers,map); break;
-		}
-	})
-}
 
 //"마커 감추기" 버튼을 클릭하면 호출되어 배열에 추가된 마커를 지도에서 삭제하는 함수입니다
 function hideMarkers(type) {
+    if( (bellFlag | cctvFlag | securityLampFlag | shopFlag) != 1){
+        setZoomable(true);
+    }
 	switch(type){
 	case "cctv": setMarkers(cctvAll,null); cctvAll= []; cctvMarkers = []; break;
 	case "police": setMarkers(policeAll,null); policeAll= []; policeMarkers = [];break;
@@ -329,6 +275,10 @@ function makeClickListener(marker){
 }
 
 function searchNewPlaces() {
+    // 지도 영역 조정하고 가져오기 . 해당 시설물 중 하나라도 켜져 있으면 크기 제한
+    if( cctvFlag | bellFlag | securityLampFlag | shopFlag == 1 ){
+        map.setLevel(2); setZoomable(false);
+    }
 	 var center = map.getCenter();
 	 var level = map.getLevel();
 	var bounds = map.getBounds();
@@ -375,7 +325,7 @@ function searchNewPlaces() {
 						cctvPositions = [];
 						cctvPositions = positions;
 						createCctvMarkers();
-						setMarkers(cctvMarkers,map); map.setLevel(2); setZoomable(false); 
+						setMarkers(cctvMarkers,map);
 					break;
 				case "bell":
 							console.log("bell");
@@ -383,24 +333,26 @@ function searchNewPlaces() {
 							bellPositions = positions;
 							// console.log(bellPositions.length);
 							createBellMarkers();
-							setMarkers(bellMarkers,map); map.setLevel(2); setZoomable(false); 
+							setMarkers(bellMarkers,map);
 					break;
 				case "guard": guardPositions = [];
 							guardPositions = positions;
 							createGuardMarkers();
 					break;
 				case "convenience" : shopPositions = [];
-							shopPositions = positions; map.setLevel(2); setZoomable(false);
+							shopPositions = positions;
 							createShopMarkers();
 							setMarkers(shopMarkers,map);
 					break;
 				case "light" : cctvPositions = [];
 							securityLampPositions = (positions);
-							createSecurityLampMarkers(); setMarkers(securityLampMarkers,map); map.setLevel(2); setZoomable(false);
+							createSecurityLampMarkers();
+							setMarkers(securityLampMarkers,map);
 					break;
 				case "police": policePositions = [];
 							policePositions = (positions);
-							createPoliceMarkers(); setMarkers(policeMarkers,map);
+							createPoliceMarkers();
+							setMarkers(policeMarkers,map);
 					break;
 				}
 			}
@@ -457,7 +409,9 @@ var infowindow = new kakao.maps.InfoWindow({zIndex:1});
 
 // 키워드 검색을 요청하는 함수입니다
 function searchPlaces() {
-
+    if(detailList){
+        detailList.close();
+    }
     var keyword = document.getElementById('keyword').value;
 	console.log(keyword);
     if (!keyword.replace(/^\s+|\s+$/g, '')) {
@@ -492,7 +446,7 @@ function searchPlaces() {
 
 function hideAllFacility() {
 	
-	if(cctvFlag==1){cctvToggle();}
+	if(cctvFlag==1){ cctvToggle();}
 	if(bellFlag==1){bellToggle();}
 	if(shopFlag==1){shopToggle();}
 	if(policeFlag==1){policeToggle();}
@@ -540,7 +494,7 @@ function displayPlaces(places) {
     removeAllChildNods(listEl);
 
     // 지도에 표시되고 있는 마커를 제거합니다
-    //removeMarker();
+    removeMarker();
     
     for ( var i=0; i<places.length; i++ ) {
 
@@ -582,9 +536,10 @@ function displayPlaces(places) {
     // menuEl.scrollTop = 0;
 
     // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
-//    map.setBounds(bounds);
-    map.setLevel(9);
-    map.setCenter(new kakao.maps.LatLng(37.54273333812522, 126.91993213895803));
+   map.setBounds(bounds);
+    // 검색 결과 지도 레벨 서울시로 조정
+    // map.setLevel(8);
+    // map.setCenter(new kakao.maps.LatLng(37.54273333812522, 126.91993213895803));
 }
 
 // 검색결과 항목을 Element로 반환하는 함수입니다
@@ -634,7 +589,7 @@ function addMarker(position, idx, title) {
 
 // 지도 위에 표시되고 있는 마커를 모두 제거합니다
 function removeMarker() {
-    for ( var i = 0; i < markers.length; i++ ) {
+    for ( var i = 0; i < searchMarkers.length; i++ ) {
         searchMarkers[i].setMap(null);
     }   
     searchMarkers = [];
@@ -1009,8 +964,6 @@ $(document).ready(function(){
 			detailList.close();
 		}
 	});
-	map.setMinLevel(1);
-	map.setMaxLevel(4);
 	//////////////////////////////////////////////
 	
 	// 지도에 idle 이벤트를 등록합니다 지도 이동할때 발생하는 이벤트

@@ -2,6 +2,8 @@ package com.antybeety.map.controller;
 
 import com.antybeety.map.model.vo.FacilityDetailVO;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import jdk.nashorn.internal.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,6 +40,8 @@ public class ApiMapController {
             bounds = mapper.readValue((String) request.get("bounds"), Map.class);
             facilFlag = mapper.readValue((String)request.get("facilFlag"), List.class);
             facilName = mapper.readValue((String)request.get("facilName"), List.class);
+
+
             result = fc.searchFacility(bounds,facilFlag,facilName);
 
             sJson = mapper.writeValueAsString(result);
@@ -49,6 +53,40 @@ public class ApiMapController {
         catch(SQLException ex){
             ex.printStackTrace();
         }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    @RequestMapping(value="/search/mobile", method = RequestMethod.POST)
+    public List<Map<String,Object>> showFacilityByMobile(@RequestBody String request) {
+        Map<String, Object> temp = new HashMap<>();
+
+        Map<String,Object> bounds = new HashMap<>();
+        List<Integer> facilFlag = new ArrayList<>();
+        List<String> facilName = new ArrayList<>();
+
+        List<Map<String,Object>> result = new ArrayList<>();
+
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            temp = mapper.readValue(request,Map.class);
+            bounds = (Map<String, Object>) temp.get("bounds");
+            String strTemp ;
+            strTemp = (String) temp.get("facilFlag");
+
+            facilFlag = mapper.readValue(strTemp,List.class);
+
+            facilName = (List<String>) temp.get("facilName");
+
+            result = fc.searchFacility(bounds,facilFlag,facilName);
+
+        } catch (IOException | SQLException e) {
+            e.printStackTrace();
+        }
+
 
         return result;
     }
