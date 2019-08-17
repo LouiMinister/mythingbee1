@@ -57,6 +57,7 @@ function layer_toggle(obj) {
 
 	//받아온 데이터로 기사를 씀
 	var addArticle = function(data,indexNum){
+
 		$('<div class="component">'+
 				'<input type="hidden" value="'+indexNum+'" />'+
 				'<div class="component_header">' +
@@ -80,9 +81,11 @@ function layer_toggle(obj) {
 				'</div>'+
 				'<div id="arti_footer" class="component_footer">'+
 					'<ul id="footer" class="footer">'+
-						'<li><button class="btn btn-outline-info" onclick="showDistrictImg(event)" value="districtImg'+indexNum+'">'+data.districtName+'</button></li>'+
+						'<li><button class="btn btn-outline-info" disabled="true" onclick="showDistrictImg(event)" value="districtImg'+indexNum+'">'+data.districtName+'</button></li>'+
 						'<li><button type="button" id="'+data.code+'" class="btn btn-outline-info" name="findid"  onclick="linkPage(event)" value="'+data.url+'">상세보기</button></li>'+
-						'<li class="districtImg"><img src='+"cat.jpg"+' id="districtImg'+indexNum+'" class="districtImg"></li>'+
+						'<li class="districtImg">'
+						// +'<img src='+"cat.jpg"+' id="districtImg'+indexNum+'" class="districtImg"></li>'+
+						+'<img id="districtImg'+indexNum+'" class="districtImg"></li>'+
 					'</ul>'+
 				'</div>'+
 			'</div>',{}).appendTo('#main_center_wrap');
@@ -94,20 +97,17 @@ function layer_toggle(obj) {
 			type:'GET',
 			data:{lastArticleCode : 'first'}
 		}).then(function(data,status){
-			console.log(status);
+
 			if(status=='success'){
 				var indexNum=1;
-				console.log(data);
 
 				var datas= data;
-				console.log(datas);
 
 				for(let i = 0;i < Object.keys(datas).length; i++){
 
 					if(i != 0){
 						indexNum = Number($("#main_center_wrap").children(":last").find('input[type=hidden]').val()) + 1;
 					}
-
 					addArticle(datas[i], indexNum);
 
 				}
@@ -118,9 +118,8 @@ function layer_toggle(obj) {
 	$(window).scroll(function(){
 		var scrollHeight=$(window).scrollTop()+$(window).height();
 		var documentHeight=$(document).height();
-			/* console.log($(window).scrollTop(), $(window).height(), scrollHeight, documentHeight); */
 
-			if(scrollHeight+10 > documentHeight){
+			if(scrollHeight+1 > documentHeight){
 				getMoreArticles();
 				keyword.keywordsUpdate();
 			}
@@ -128,7 +127,6 @@ function layer_toggle(obj) {
 		});
 
 	var showOption = function(){
-		console.log($('#detail_search').css("display"));
 
 		if($('#detail_search').css("display") == "none"){
 			$('#detail_search').css("display","block");
@@ -140,31 +138,26 @@ function layer_toggle(obj) {
 
 	var getMoreArticles = function(){
 		var lastArticleCode = $("#main_center_wrap").children(":last").find('button[name=findid]').attr('id');
-		console.log(lastArticleCode);
 
 		$.ajax('/api/news/getArticles',{
 			type:'GET',
 			data:{lastArticleCode : lastArticleCode}
 		}).then(function(data,status){
-			console.log(status);
 			if(status=='success'){
 				let indexNum = Number($("#main_center_wrap").children(":last").find('input[type=hidden]').val())+1;
-				console.log(data);
 
 				var datas= data;
 
 				for(let i = 0;i < Object.keys(datas).length; i++){
-					addArticle(datas[i], indexNum);
+					addArticle(datas[i], indexNum+i);
 				}
 			}
 		});
 	};
 
 	var showDistrictImg = function(event){
-		var imgId = $(event.srcElement).val();
-		console.log(imgId);
 
-		console.log($("#"+imgId).css("display"));
+		var imgId = $(event.srcElement).val();
 
 		if($("#"+imgId).css("display") == "none"){
 			$("#"+imgId).css("display","block");
@@ -178,7 +171,6 @@ function layer_toggle(obj) {
 	var linkPage = function(event){
 		var page = $(event.srcElement).val();
 		var articleId = event.srcElement.id;
-		console.log(page + " , " + articleId);
 
 		window.open(page,"","width=800,height=800");
 
@@ -187,7 +179,6 @@ function layer_toggle(obj) {
 				type:'GET',
 				data:{articleId : articleId}
 			}).then(function(data,status){
-				console.log(status);
 			});
 		};
 

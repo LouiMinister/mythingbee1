@@ -70,8 +70,10 @@ v<%@ page language="java" contentType="text/html; charset=UTF-8"
 				'<div id="arti_footer" class="component_footer">' +
 				'<ul id="footer" class="footer">' +
 				'<li><button class="btn btn-outline-info" onclick="showDistrictImg(event)" value="districtImg' + indexNum + '">' + data.districtName + '</button></li>' +
-				'<li><button type="button" id="' + data.code + '" class="btn btn-outline-info" name="findid"  onclick="linkPage(event)" value="' + data.url + '">상세보기</button></li>' +
-				'<li class="districtImg"><img src=' + "cat.jpg" + ' id="districtImg' + indexNum + '" class="districtImg"></li>' +
+				'<li><button type="button" disabled="true" id="' + data.code +
+				'" class="btn btn-outline-info" name="findid"  onclick="linkPage(event)" value="' + data.url + '">상세보기</button></li>' +
+				// '<li class="districtImg"><img src=' + "cat.jpg" + ' id="districtImg' + indexNum + '" class="districtImg"></li>' +
+				'<li class="districtImg"><img id="districtImg' + indexNum + '" class="districtImg"></li>' +
 				'</ul>' +
 				'</div>' +
 				'</div>', {}).appendTo('#main_center_wrap');
@@ -87,10 +89,9 @@ v<%@ page language="java" contentType="text/html; charset=UTF-8"
 				"mode" : "init"
 			}
 		}).then(function(data,status){
-			console.log(status);
 			if(status=='success'){
 				var indexNum=1;
-				console.log(data);
+
 				var datas= data;
 				for(let i = 0;i < Object.keys(datas).length; i++){
 					if(i != 0){
@@ -105,17 +106,14 @@ v<%@ page language="java" contentType="text/html; charset=UTF-8"
 	$(window).scroll(function(){
 		var scrollHeight=$(window).scrollTop()+$(window).height();
 		var documentHeight=$(document).height();
-		console.log($(window).scrollTop(), $(window).height(), scrollHeight, documentHeight);	 
-	
-			if(scrollHeight+0.01 > documentHeight){
+
+			if(scrollHeight+1 > documentHeight){
 				getMoreArticles();
 				keyword.keywordsUpdate();
 			}
-	
 		});
 	
 	var showOption = function(){
-		console.log($('#detail_search').css("display"));
 		
 		if($('#detail_search').css("display") == "none"){
 			$('#detail_search').css("display","block");
@@ -127,7 +125,6 @@ v<%@ page language="java" contentType="text/html; charset=UTF-8"
 	
 	var getMoreArticles = function(){
 		var lastArticleCode = $("#main_center_wrap").children(":last").find('button[name=findid]').attr('id');
-		console.log(lastArticleCode);
 		
 		$.ajax('/api/news/searchNews',{
 			type:'GET',
@@ -138,15 +135,14 @@ v<%@ page language="java" contentType="text/html; charset=UTF-8"
 				"mode" : "init"
 			}
 		}).then(function(data,status){
-			console.log(status);
 			if(status=='success'){
 				let indexNum = Number($("#main_center_wrap").children(":last").find('input[type=hidden]').val())+1;
-				console.log(data);
+
 				
 				var datas= data;
 				
 				for(let i = 0;i < Object.keys(datas).length; i++){
-					addArticle(datas[i], indexNum);
+					addArticle(datas[i], indexNum+i);
 				}
 			}
 		});
@@ -154,9 +150,6 @@ v<%@ page language="java" contentType="text/html; charset=UTF-8"
 	
 	var showDistrictImg = function(event){
 		var imgId = $(event.srcElement).val();
-		console.log(imgId);
-		
-		console.log($("#"+imgId).css("display"));
 		
 		if($("#"+imgId).css("display") == "none"){
 			$("#"+imgId).css("display","block");
@@ -170,7 +163,6 @@ v<%@ page language="java" contentType="text/html; charset=UTF-8"
 	var linkPage = function(event){
 		var page = $(event.srcElement).val();
 		var articleId = event.srcElement.id;
-		console.log(page + " , " + articleId);
 
 		window.open(page,"","width=800,height=800");
 
@@ -178,7 +170,6 @@ v<%@ page language="java" contentType="text/html; charset=UTF-8"
 			type:'GET',
 			data:{articleId : articleId}
 		}).then(function(data,status){
-			console.log(status);
 		});
 	}
 
