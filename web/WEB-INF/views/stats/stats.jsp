@@ -48,25 +48,56 @@
 <script type="text/javascript"src="/resources/js/chart.js"></script>
 
 <div class="container">
-	<ul id="gn-menu" class="gn-menu-main">
-		<li class="gn-trigger">
-			<a class="gn-icon gn-icon-menu gn-selected" style="margin-top:35px"><span>Menu</span></a>
-			<nav class="gn-menu-wrapper">
-				<div class="gn-scroller">
-					<ul class="gn-menu">
-						<li>
-						<li><a href="#" onclick="selection(event)" id="ALL" class="gn-icon gn-icon-article">합계</a></li>
-						<li><a href="#" onclick="selection(event)" id="MU" class="gn-icon gn-icon-article">살인</a></li>
-						<li><a href="#" onclick="selection(event)" id="RO" class="gn-icon gn-icon-article">강도</a></li>
-						<li><a href="#" onclick="selection(event)" id="SE" class="gn-icon gn-icon-article">성범죄</a></li>
-						<li><a href="#" onclick="selection(event)" id="TH" class="gn-icon gn-icon-article">절도</a></li>
-						<li><a href="#" onclick="selection(event)" id="VI" class="gn-icon gn-icon-article">폭력</a></li>
-						</li>
-					</ul>
-				</div><!-- /gn-scroller -->
-			</nav>
-		</li>
-		<li>
+			<ul id="gn-menu" class="gn-menu-main">
+				<li class="gn-trigger">
+					<a class="gn-icon gn-icon-menu gn-selected" style="margin-top:35px"><span>Menu</span></a>
+					<nav class="gn-menu-wrapper">
+						<div class="gn-scroller">
+							<ul class="gn-menu">
+								<li>
+  								  <li><a href="#" onclick="selection(event)" id="ALL" class="gn-icon gn-icon-article">합계</a></li>
+								  <li><a href="#" onclick="selection(event)" id="MU" class="gn-icon gn-icon-article">살인</a></li>
+								  <li><a href="#" onclick="selection(event)" id="RO" class="gn-icon gn-icon-article">강도</a></li>
+								  <li><a href="#" onclick="selection(event)" id="SE" class="gn-icon gn-icon-article">성범죄</a></li>
+								  <li><a href="#" onclick="selection(event)" id="TH" class="gn-icon gn-icon-article">절도</a></li>
+								  <li><a href="#" onclick="selection(event)" id="VI" class="gn-icon gn-icon-article">폭력</a></li>
+								</li>
+							</ul>
+						</div><!-- /gn-scroller -->
+					</nav>
+				</li>
+				<li>
+					
+				  <div id="mainmenu_div">
+				  
+			      <ul class="menu">
+			      
+			     <!--  <li><span id=mainmenu_btn>MAIN MENU</span> -->
+			     <li> <span id="mainmenu_text">메인 메뉴</span>
+			      <ul>
+					  <li><a href="/index.jsp" id="mainmenu-list" class="m1">메인</a></li>
+					  <li><a href="/map"  class="m2">지도</a></li>
+					  <li><a href="/news/main"  class="m3">뉴스</a></li>
+					  <li><a href="/safeguide/preedu.jsp"  class="m4">안전 가이드</a></li>
+					  <li><a href="/stats" class="m5">범죄 통계</a></li>
+			    	</ul>
+			      </li>
+			    </ul>
+			    </div>
+				</li>
+
+				<li><a class="" href="/index.jsp"><img src="/resources/image/logo_small.png" id="logo"><span>THINK BEE WAY</span></a></li>
+			</ul>
+		</div><!-- /container -->
+		<script src="/resources/js/classie.js"></script>
+		<script src="/resources/js/gnmenu.js"></script>
+		<script>
+			new gnMenu( document.getElementById( 'gn-menu' ) );
+		</script>
+
+
+
+
 
 			<div id="mainmenu_div">
 
