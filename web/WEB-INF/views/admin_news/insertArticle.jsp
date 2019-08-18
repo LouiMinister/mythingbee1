@@ -354,30 +354,23 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        <div class="form-group" style="float:left">
+                                            <label class="col-form-label col-form-label-lg">키워드 이름
+                                                <input class="form-control form-control-lg" type="text"
+                                                       placeholder="키워드 이름" id="keyword" name="keyword">
+                                            </label>
+                                        </div>
+                                        <div class="form-group" style="float:left">
+                                            <label class="col-form-label col-form-label-lg">키워드 코드
+                                                <input class="form-control form-control-lg" type="text"
+                                                       placeholder="키워드 코드" id="keywordCode" name="keywordCode">
+                                            </label>
+                                            <button type="button" class="btn btn-warning"
+                                                    onclick="addKeyword()">추가</button>
+                                        </div>
                                     </fieldset>
 
                                     <table>
-                                        <tr>
-                                            <td>
-                                                <div class="form-group">
-                                                    <label class="col-form-label col-form-label-lg">키워드 이름
-                                                        <input class="form-control form-control-lg" type="text"
-                                                               placeholder="키워드 이름" id="keyword" name="keyword">
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="form-group">
-                                                    <label class="col-form-label col-form-label-lg">키워드 코드
-                                                        <input class="form-control form-control-lg" type="text"
-                                                               placeholder="키워드 코드" id="keywordCode" name="keywordCode">
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <button type="button" class="btn btn-warning" onclick="addKeyword()">추가</button>
-                                            </td>
-                                        </tr>
                                         <tr id="keywordAdd">
                                         <tr>
                                     </table>
