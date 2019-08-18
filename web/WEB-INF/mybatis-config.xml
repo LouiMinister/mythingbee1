@@ -15,7 +15,7 @@
     <!--dataSource 에서 Connection 에 대한 내용 필요-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <property name="mapperLocations" value="classpath:mapper/**/*Mapper.xml"/>
+        <property name="mapperLocations" value="classpath:mapper/NewsMapper.xml"/>
     </bean>
     <!--MemberDAO 에서 sqlSession AutoWired-->
     <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
@@ -27,7 +27,7 @@
 
     <bean id="dataSource_oracle" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
-        <property name="url" value="jdbc:oracle:thin:@192.168.123.103:1521:xe"/>
+        <property name="url" value="jdbc:oracle:thin:@192.168.10.189:1521:xe"/>
         <property name="username" value="abty"/>
         <property name="password" value="roal123"/>
     </bean>
