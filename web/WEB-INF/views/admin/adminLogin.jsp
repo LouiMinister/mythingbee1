@@ -27,9 +27,10 @@
     <div>
         <!-- Login Form -->
             <input type="text" id="id" class="fadeIn second" name="id" placeholder="ID">
-            <input type="password" id="password" class="fadeIn third" name="login" placeholder="password">
+            <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
              <input type="button" id="btnSubmit" class="fadeIn fourth" value="로그인">
     </div>
+</div>
 </div>
 
 

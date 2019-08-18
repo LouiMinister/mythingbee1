@@ -5,8 +5,11 @@ import com.antybeety.news.model.vo.ArticleInfoKVO;
 import com.antybeety.news.model.vo.ArticleInfoVO;
 import com.antybeety.news.model.vo.KeywordVO;
 import com.antybeety.press.model.vo.PressVO;
+import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -15,33 +18,47 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
+@Log4j
 @Controller
 @RequestMapping("/admin")
 public class ViewAdNewsController {
     @Autowired
     private NewsAdController newsAdController;
-
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String adminIndex() {
         return "admin/adminLogin";
     }
 
     //produces="application/json;charset=UTF-8"
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public @ResponseBody
-    String adminLogin(@RequestParam(value = "id", required = true) String id,
-                      @RequestParam(value = "password", required = true) String password) {
-        String pass = "verified";
-        String result = "/admin/news";
+//    @RequestMapping(value = "/login", method = RequestMethod.POST)
+//    public @ResponseBody
+//    String adminLogin(@RequestParam(value = "id", required = true) String id,
+//                      @RequestParam(value = "password", required = true) String password) {
+//        String pass = "verified";
+//        String result = "/admin/news";
+//
+//        if (pass.equals(newsAdController.login(id, password))) {
+//            return result;
+//        } else {
+//            System.out.println("로그인 실패");
+//            return null;
+//        }
+//    }
+//
+//    @RequestMapping(value ="/accessError")
+//    public ModelAndView accessDenied(Authentication auth, Model model){
+//        ModelAndView mav = new ModelAndView();
+//        mav.setViewName("/error");
+//        log.info("Access Denied: "+ auth);
+//        mav.addObject("msg","Access Denied");
+//        return mav;
+//    }
 
-        if (pass.equals(newsAdController.login(id, password))) {
-            return result;
-        } else {
-            //System.out.println("로그인 실패");
-            return null;
-        }
-    }
+
+
+
+
+
 
     @RequestMapping(value = "/facility", method = RequestMethod.GET)
     public String facilityPage() {

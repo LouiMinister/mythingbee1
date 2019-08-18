@@ -10,11 +10,11 @@ var validation = function(){
     return true
 }
 var onLogin = function(){
-    var id= $('#id').val();
-    var pwd= $('#password').val();
+    var id= $('#id').val().trim();
+    var pwd= $('#password').val().trim();
     $.ajax({
         type: 'POST',
-        url : '/admin/login',
+        url : '/login',
         data:{id: id, password: pwd}
     }).then(function(data,status){
         if(!data){
@@ -22,7 +22,8 @@ var onLogin = function(){
             $('<span style="color:red">로그인 정보를 확인하세요</span>').appendTo('#status');
         }
         else{
-            location.href=data;
+            console.log(data);
+            location.href = data;
         }
     });
 }
