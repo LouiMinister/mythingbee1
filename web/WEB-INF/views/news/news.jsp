@@ -347,6 +347,6 @@ function layer_toggle(obj) {
 				</form>
 			</div>
 		</div>
-	</div>c
+	</div>
 </body>
 </html>

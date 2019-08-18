@@ -303,8 +303,8 @@
 
                                     <div class="form-group">
                                         <label class="col-form-label col-form-label-lg">기사 요약</label>
-                                        <input class="form-control form-control-lg" type="text"
-                                               id="summary" name="summary" value='${article.summary}'>
+                                        <textarea class="form-control form-control-lg"  placeholder="기사 요약"
+                                                  id="summary" name="summary">${article.summary}</textarea>
                                     </div>
 
                                     <div class="form-group">
