@@ -32,5 +32,12 @@ public interface NewsAdService {
     //로그인 확인
     public String login(String id, String password);
 
+    //휴지통에 있는 기사 확인
+    public List<ArticleInfoVO> searchDelArticleInfo();
 
+    //휴지통에 있는 기사 디비에서 삭제
+    public int realDelArticles(List<String> code);
+
+    //휴지통에 있는 기사 복구
+    public int restoreArticle(String code);
 }

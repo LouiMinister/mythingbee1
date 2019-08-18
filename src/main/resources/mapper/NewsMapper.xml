@@ -26,6 +26,9 @@
         call addArticle(#{summary}  ,#{pressName},#{title}, #{districtName}, #{url}, #{code}, #{imgURL});
 </insert>
 
+    <select id="searchDelArticleInfo" resultMap="article_map">
+        select * from article_view2 where del='y'
+    </select>
 
     <select id="searchArticleInfo" resultMap="article_map"><!--인터페이스 메서드랑 id랑 이름 같아야함-->
         SELECT * FROM article_view2 where ar_code= #{code}
@@ -85,6 +88,14 @@
     </update>
 
     <update id="deleteArticle" parameterType="java.lang.String">
-            UPDATE article_tb SET del='y' where ar_code=#{code};
+        UPDATE article_tb SET del='y' WHERE ar_code=#{code};
     </update>
+
+    <update id="restoreArticle" parameterType="string">
+        UPDATE article_tb set del='n' where ar_code=#{cde};
+    </update>
+
+    <delete id="realDelArticle" parameterType="java.lang.String">
+        DELETE FROM article_tb WHERE ar_code=#{code};
+    </delete>
 </mapper>

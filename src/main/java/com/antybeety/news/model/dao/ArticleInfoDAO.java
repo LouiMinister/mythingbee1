@@ -23,4 +23,10 @@ public interface ArticleInfoDAO {
 
     int increaseViewCount(String code);
 
+    List<ArticleInfoVO> searchDelArticleInfo();
+
+    int realDelArticle(String code);
+
+    int restoreArticle(String code);
+
 }
