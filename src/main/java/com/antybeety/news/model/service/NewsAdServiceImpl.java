@@ -72,17 +72,22 @@ public class NewsAdServiceImpl implements NewsAdService {
 
         List<KeywordVO> keywordList= new ArrayList<KeywordVO>();    //KVO에 넣을 List<VO>
 
-        StringTokenizer st= new StringTokenizer(keywords, ","); // ,로 구분된 키워드들 문자열 토크나이징
+        if(keywords == null){
 
-        while(st.hasMoreTokens()){
-            KeywordVO tempKeywordVo = new KeywordVO();      //List<VO>에 넣을 VO
-            String tempKeywordName=st.nextToken();          //, 로 구분된 키워드들의 하나하나 토큰
-            tempKeywordVo.setName(tempKeywordName);                             //토크나이징 한 키워드 이름을 vo에 set
-            tempKeywordVo.setCode(keywordDao.searchCodeByName(tempKeywordName)); //키워드 이름으로 코드 찾아 vo에 set
+        }else{
+            StringTokenizer st= new StringTokenizer(keywords, ","); // ,로 구분된 키워드들 문자열 토크나이징
 
-            keywordList.add(tempKeywordVo); //셋팅한 VO를 KeywordList에 추가
+            while(st.hasMoreTokens()){
+                KeywordVO tempKeywordVo = new KeywordVO();      //List<VO>에 넣을 VO
+                String tempKeywordName=st.nextToken();          //, 로 구분된 키워드들의 하나하나 토큰
+                tempKeywordVo.setName(tempKeywordName);                             //토크나이징 한 키워드 이름을 vo에 set
+                tempKeywordVo.setCode(keywordDao.searchCodeByName(tempKeywordName)); //키워드 이름으로 코드 찾아 vo에 set
+
+                keywordList.add(tempKeywordVo); //셋팅한 VO를 KeywordList에 추가
+            }
+            kvo.setKeywords(keywordList);   //만든 vo를 kvo의 키워드 필드에 세팅
         }
-        kvo.setKeywords(keywordList);   //만든 vo를 kvo의 키워드 필드에 세팅
+
         return kvo;
     }
 
@@ -154,6 +159,26 @@ public class NewsAdServiceImpl implements NewsAdService {
         else{
             return "failed";
         }
+    }
+
+    @Override
+    public List<ArticleInfoVO> searchDelArticleInfo() {
+        return articleDao.searchDelArticleInfo();
+    }
+
+    @Override
+    public int realDelArticles(List<String> code) {
+
+        for(String s : code){
+            articleDao.realDelArticle(s);
+        }
+
+        return 0;
+    }
+
+    @Override
+    public int restoreArticle(String code) {
+        return articleDao.restoreArticle(code);
     }
 
     @Override

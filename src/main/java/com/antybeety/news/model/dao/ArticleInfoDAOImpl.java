@@ -13,7 +13,6 @@ import java.util.List;
 @Repository
 public class ArticleInfoDAOImpl implements ArticleInfoDAO{
 
-
     @Autowired
     private SqlSession sqlSession;
 
@@ -114,4 +113,24 @@ public class ArticleInfoDAOImpl implements ArticleInfoDAO{
         NewsMapper mapper = getMapper();
         return mapper.increaseViewCount(code);
     }
+
+    @Override
+    public List<ArticleInfoVO> searchDelArticleInfo(){
+        NewsMapper mapper = getMapper();
+        return mapper.searchDelArticleInfo();
+    }
+
+    @Override
+    public int realDelArticle(String code) {
+        NewsMapper mapper = getMapper();
+        return mapper.realDelArticle(code);
+    }
+
+    @Override
+    public int restoreArticle(String code) {
+        NewsMapper mapper = getMapper();
+        return mapper.restoreArticle(code);
+    }
+
+
 }

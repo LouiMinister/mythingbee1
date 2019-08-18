@@ -12,7 +12,8 @@ import org.springframework.stereotype.Controller;
 import java.util.List;
 
 @Controller
-public class NewsAdControllerImpl implements NewsAdController{
+public class NewsAdControllerImpl implements NewsAdController {
+
     @Autowired
     private NewsAdService newsAdService;
     @Autowired
@@ -41,7 +42,9 @@ public class NewsAdControllerImpl implements NewsAdController{
     }
 
     @Override
-    public String login(String id, String password) { return newsAdService.login(id,password); }
+    public String login(String id, String password) {
+        return newsAdService.login(id, password);
+    }
 
     @Override
     public int insertPress(PressVO vo) {
@@ -65,7 +68,7 @@ public class NewsAdControllerImpl implements NewsAdController{
 
     @Override
     public int updatePress(String code, String name) {
-        return pressService.updatePressName(code,name);
+        return pressService.updatePressName(code, name);
     }
 
     @Override
@@ -75,6 +78,21 @@ public class NewsAdControllerImpl implements NewsAdController{
 
     @Override
     public ArticleInfoKVO crawlingArticle(int engine, String url) {
-        return crawlingService.searchArticle(engine,url);
+        return crawlingService.searchArticle(engine, url);
+    }
+
+    @Override
+    public List<ArticleInfoVO> searchDelArticleInfo() {
+        return newsAdService.searchDelArticleInfo();
+    }
+
+    @Override
+    public int realDelArticles(List<String> code) {
+        return newsAdService.realDelArticles(code);
+    }
+
+    @Override
+    public int restoreArticle(String code) {
+        return newsAdService.restoreArticle(code);
     }
 }

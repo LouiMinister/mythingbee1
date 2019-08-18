@@ -26,26 +26,33 @@
         call addArticle(#{summary}  ,#{pressName},#{title}, #{districtName}, #{url}, #{code}, #{imgURL});
 </insert>
 
+    <select id="searchDelArticleInfo" resultMap="article_map">
+        select * from article_view2 where del='y'
+    </select>
 
     <select id="searchArticleInfo" resultMap="article_map"><!--인터페이스 메서드랑 id랑 이름 같아야함-->
         SELECT * FROM article_view2 where ar_code= #{code}
     </select>
 
     <select id="searchAllArticles" resultMap="article_map">
-        SELECT * FROM article_view2
+        SELECT * FROM article_view2 where del='n'
     </select>
 
     <select id="searchArticleTimeByCode" resultType="java.lang.String">
         SELECT ar_time FROM article_view2 where ar_code= #{code}
     </select>
     <select id="searchBeforeArticlesByTime" resultMap="article_map" parameterType="hashmap">
-        SELECT * FROM article_view2 WHERE ar_time &lt; #{time} ORDER BY ar_time DESC LIMIT ${limit}
+        SELECT * FROM article_view2 WHERE ar_time &lt; #{time} AND where del='n' ORDER BY ar_time DESC LIMIT ${limit}
     </select>
     <select id="searchArticleByFilter" resultMap="article_map" parameterType="hashmap">
-        SELECT * FROM article_view2 WHERE (title like '%${searchWord}%' OR keyword_array like '%${searchWord}%' ) AND ar_time &lt; #{startTime}  AND ar_time &gt;= #{lastTime} ORDER BY ar_time desc limit ${limit}
+        SELECT * FROM article_view2 WHERE (title like '%${searchWord}%' OR keyword_array like '%${searchWord}%' ) AND
+         ar_time &lt; #{startTime}  AND ar_time &gt;= #{lastTime} AND where del='n' ORDER BY ar_time desc limit
+         ${limit}
     </select>
     <select id="searchArticleByFilterDistrict" resultMap="article_map" parameterType="hashmap">
-        SELECT * FROM article_view2 WHERE (title like '%${searchWord}%' OR keyword_array like '%${searchWord}%' ) AND di_name=#{district} AND ar_time &lt; #{startTime}  AND ar_time &gt;= #{lastTime} ORDER BY ar_time desc limit ${limit}
+        SELECT * FROM article_view2 WHERE (title like '%${searchWord}%' OR keyword_array like '%${searchWord}%' ) AND
+         di_name=#{district} AND ar_time &lt; #{startTime}  AND ar_time &gt;= #{lastTime} AND where del='n' ORDER BY ar_time desc
+         limit ${limit}
     </select>
     <select id="searchLastDate" resultType="java.lang.String">
         SELECT ar_code FROM article_view2 ORDER BY(ar_time) DESC limit 1
@@ -79,7 +86,16 @@
     <update id="increaseViewCount" >
         update article_tb SET view_cnt=view_cnt+1 WHERE ar_code = #{code}
     </update>
-    <delete id="deleteArticle" parameterType="java.lang.String">
+
+    <update id="deleteArticle" parameterType="java.lang.String">
+        UPDATE article_tb SET del='y' WHERE ar_code=#{code};
+    </update>
+
+    <update id="restoreArticle" parameterType="string">
+        UPDATE article_tb set del='n' where ar_code=#{cde};
+    </update>
+
+    <delete id="realDelArticle" parameterType="java.lang.String">
         DELETE FROM article_tb WHERE ar_code=#{code};
     </delete>
 </mapper>

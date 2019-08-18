@@ -44,4 +44,13 @@ public interface NewsAdController {
 
     /*뉴스 크롤링*/
     ArticleInfoKVO crawlingArticle(int engine, String url);
+
+    //휴지통에 있는 기사 가져오기
+    List<ArticleInfoVO> searchDelArticleInfo();
+
+    //휴지통에 있는 기사 디비에서 삭제
+    int realDelArticles(List<String> code);
+
+    //휴지통에 있는 기사 복구
+    int restoreArticle(String code);
 }

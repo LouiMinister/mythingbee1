@@ -17,7 +17,7 @@
     </insert>
 
     <select id="searchCode"  resultType="java.lang.String">
-        SELECT ke_code FROM keyword_tb WHERE ke_code like CONCAT('%',#{code},'%') ORDER BY (ke_code) limit 1
+        SELECT ke_code FROM keyword_tb WHERE ke_code like CONCAT('%',#{code},'%') ORDER BY (ke_code) desc limit 1
     </select>
     
     <select id="searchCodeByName" parameterType="java.lang.String" resultType="java.lang.String">

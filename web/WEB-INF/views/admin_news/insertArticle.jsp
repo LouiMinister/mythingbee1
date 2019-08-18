@@ -104,6 +104,10 @@
             var keyName = $('#keyword').val();
             var keyCode = $('#keywordCode').val();
 
+            if(keyName.isEmpty() || keyCode.isEmpty()){
+                return ;
+            }
+
             for (var i = 0; i < keyNames.length; i++) {
                 if (keyNames[i] == keyName) {
                     document.getElementById("keyword").value = "";
@@ -222,7 +226,7 @@
                 return;
             }
 
-            if (keyNames.length == 0) {
+            if (keyNames.length == 0 || keyCodes.length == 0) {
                 document.getElementById("keyword").value = "키워드 미입력";
                 document.getElementById("keywordCode").value = "키워드 코드 미입력";
 
@@ -230,14 +234,23 @@
                 document.getElementById("keywordCode").style.backgroundColor = "#ffffb3";
 
                 setTimeout(function () {
+                    document.getElementById("keyword").value = "";
+                    document.getElementById("keyword").placeholder="키워드 이름";
+
+                    document.getElementById("keywordCode").value = "";
+                    document.getElementById("keywordCode").placeholder="키워드 코드";
+
                     document.getElementById("keyword").style.backgroundColor = "#ffffff";
                     document.getElementById("keywordCode").style.backgroundColor = "#ffffff";
                 }, 1500);
+
                 return;
             }
 
             var keywordNameString = keyNames.toString();
             var keywordCodeString = keyCodes.toString();
+
+            console.log(keywordNameString+"\n"+keywordCodeString);
 
             $.ajax({
                 url: "/admin/addArticle",
@@ -345,30 +358,23 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        <div class="form-group" style="float:left">
+                                            <label class="col-form-label col-form-label-lg">키워드 이름
+                                                <input class="form-control form-control-lg" type="text"
+                                                       placeholder="키워드 이름" id="keyword" name="keyword">
+                                            </label>
+                                        </div>
+                                        <div class="form-group" style="float:left">
+                                            <label class="col-form-label col-form-label-lg">키워드 코드
+                                                <input class="form-control form-control-lg" type="text"
+                                                       placeholder="키워드 코드" id="keywordCode" name="keywordCode">
+                                            </label>
+                                            <button type="button" class="btn btn-warning"
+                                                    onclick="addKeyword()">추가</button>
+                                        </div>
                                     </fieldset>
 
                                     <table>
-                                        <tr>
-                                            <td>
-                                                <div class="form-group">
-                                                    <label class="col-form-label col-form-label-lg">키워드 이름
-                                                        <input class="form-control form-control-lg" type="text"
-                                                               placeholder="키워드 이름" id="keyword" name="keyword">
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="form-group">
-                                                    <label class="col-form-label col-form-label-lg">키워드 코드
-                                                        <input class="form-control form-control-lg" type="text"
-                                                               placeholder="키워드 코드" id="keywordCode" name="keywordCode">
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <button type="button" class="btn btn-warning" onclick="addKeyword()">추가</button>
-                                            </td>
-                                        </tr>
                                         <tr id="keywordAdd">
                                         <tr>
                                     </table>

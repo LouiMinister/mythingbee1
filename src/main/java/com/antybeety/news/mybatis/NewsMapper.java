@@ -29,4 +29,10 @@ public interface NewsMapper {
     int deleteArticle(String code);
 
     int increaseViewCount(String code);
+
+    List<ArticleInfoVO> searchDelArticleInfo();
+
+    int realDelArticle(String code);
+
+    int restoreArticle(String code);
 }
