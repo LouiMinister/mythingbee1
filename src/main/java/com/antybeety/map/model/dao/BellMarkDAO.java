@@ -30,4 +30,5 @@ public class BellMarkDAO extends FacilityMarkDAOImpl {
     public String getFacilName() {
         return "bell";
     }
+
 }
