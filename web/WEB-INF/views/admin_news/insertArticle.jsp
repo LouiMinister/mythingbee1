@@ -222,7 +222,7 @@
                 return;
             }
 
-            if (keyNames.length == 0) {
+            if (keyNames.length == 0 || keyCodes.length == 0) {
                 document.getElementById("keyword").value = "키워드 미입력";
                 document.getElementById("keywordCode").value = "키워드 코드 미입력";
 
@@ -230,14 +230,23 @@
                 document.getElementById("keywordCode").style.backgroundColor = "#ffffb3";
 
                 setTimeout(function () {
+                    document.getElementById("keyword").value = "";
+                    document.getElementById("keyword").placeholder="키워드 이름";
+
+                    document.getElementById("keywordCode").value = "";
+                    document.getElementById("keywordCode").placeholder="키워드 코드";
+
                     document.getElementById("keyword").style.backgroundColor = "#ffffff";
                     document.getElementById("keywordCode").style.backgroundColor = "#ffffff";
                 }, 1500);
+
                 return;
             }
 
             var keywordNameString = keyNames.toString();
             var keywordCodeString = keyCodes.toString();
+
+            console.log(keywordNameString+"\n"+keywordCodeString);
 
             $.ajax({
                 url: "/admin/addArticle",

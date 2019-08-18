@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.antybeety.news.mybatis.KeywordMapper">
 
-    <resultMap id="keyword_map" type="com.antybeety.news.model.vo.KeywordVO">
+    <resultMap id="keyword_map" type="com.antybeety.news.model.vo.KeywordVO">   add
         <id property="code" column="ke_code"/>
         <id property="name" column="ke_name"/>
     </resultMap>
@@ -17,7 +17,7 @@
     </insert>
 
     <select id="searchCode"  resultType="java.lang.String">
-        SELECT ke_code FROM keyword_tb WHERE ke_code like CONCAT('%',#{code},'%') ORDER BY (ke_code) limit 1
+        SELECT ke_code FROM keyword_tb WHERE ke_code like CONCAT('%',#{code},'%') ORDER BY (ke_code) desc limit 1
     </select>
     
     <select id="searchCodeByName" parameterType="java.lang.String" resultType="java.lang.String">
