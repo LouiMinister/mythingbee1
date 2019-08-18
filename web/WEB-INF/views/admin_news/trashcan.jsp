@@ -7,7 +7,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>뉴스 관리자 페이지</title>
+    <title>뉴스 삭제 기사 페이지</title>
 
     <!-- Custom fonts for this template -->
     <script src="/resources/js/jquery-3.4.1.min.js"></script>
@@ -64,35 +64,41 @@
 
     var showFormat = function(){
         var form = $(''
-            +'<div id="wrapper">'
-            +'<div id="content-wrapper" class="d-flex flex-column">'
-            +'<div id="content">'
-            +'<nav class="navbar navbar-expand">'
-            +'<div class="container" style>'
-            +'<ul id="gn-menu" class="gn-menu-main">'
-            +'<li class="gn-trigger">'
-            +'<a class="gn-icon gn-icon-menu gn-selected" style="margin-top:35px"><span>Menu</span></a>'
-           +'<nav class="gn-menu-wrapper">'
-         +'<div class="gn-scroller">'
-         +'<ul class="gn-menu">'
-         +'<li>'
-          +'<li><a href="preedu.html" class="gn-icon gn-icon-article">안전예방교육</a></li>'
-         +'<li><a href="minwon.html" class="gn-icon gn-icon-article">민원</a></li>'
-         +'<li><a href="hosin.html" class="gn-icon gn-icon-article">호신</a></li>'
-          +'</li>'
-          +'</ul>'
-          +'</div>'
-          +'</nav>'
-         +'</li>'
-         +'<li>'
-          +'<div id="mainmenu_div">'
-           +'<ul class="menu">'
-           +'<li> <span id="mainmenu_text">메인 메뉴</span>'
-            +'<ul>'
-            +'<li><a href="/index.jsp" id="mainmenu-list" class="m1">메인</a></li>'
-           +'<li><a href="/map" id="mainmenu-list" class="m2">지도</a></li>'
-            +'<li><a href="/news/main" id="mainmenu-list" class="m3">뉴스</a></li>'
-            +'<li><a href="/safeguide/preedu.jsp" id="mainmenu-list" class="m4">안전 가이드</a></li>'
+        +'<!-- Page Wrapper -->'
+        +'<div id="wrapper">'
+        +'<!-- Content Wrapper -->'
+        +'<div id="content-wrapper" class="d-flex flex-column">'
+        +'<!-- Main Content -->'
+        +'<div id="content">'
+        +'<!-- Topbar -->'
+        +'<nav class="navbar navbar-expand">'
+        +'<!-- Topbar Navbar -->'
+        +'<div class="container" style>'
+        +'<ul id="gn-menu" class="gn-menu-main">'
+        +'<li class="gn-trigger">'
+        +'<a class="gn-icon gn-icon-menu gn-selected" style="margin-top:35px"><span>Menu</span></a>'
+        +'<nav class="gn-menu-wrapper">'
+        +'<div class="gn-scroller">'
+        +'<ul class="gn-menu">'
+        +'<li>'
+        +'<li><a href="preedu.html" class="gn-icon gn-icon-article">안전예방교육</a></li>'
+        +'<li><a href="minwon.html" class="gn-icon gn-icon-article">민원</a></li>'
+        +'<li><a href="hosin.html" class="gn-icon gn-icon-article">호신</a></li>'
+        +'</li>'
+        +'</ul>'
+        +'</div><!-- /gn-scroller -->'
+        +'</nav>'
+        +'</li>'
+        +'<li>'
+        +'<div id="mainmenu_div">'
+        +'<ul class="menu">'
+        +'<!--  <li><span id=mainmenu_btn>MAIN MENU</span> -->'
+        +'<li> <span id="mainmenu_text">메인 메뉴</span>'
+        +'<ul>'
+        +'<li><a href="/index.jsp" id="mainmenu-list" class="m1">메인</a></li>'
+        +'<li><a href="/map" id="mainmenu-list" class="m2">지도</a></li>'
+        +'<li><a href="/news/main" id="mainmenu-list" class="m3">뉴스</a></li>'
+        +'<li><a href="/safeguide/preedu.jsp" id="mainmenu-list" class="m4">안전 가이드</a></li>'
         +'<li><a href="/stats" id="mainmenu-list" class="m5">범죄 통계</a></li>'
         +'</ul>'
         +'</li>'
@@ -104,6 +110,7 @@
         +'<input type="text" id="mainSearchTextbox" class="form-control mr-sm-2" placeHolder="키워드를 입력해 주세요.">'
         +'<button type="button" id="mainSearchButton" class="btn btn-secondary my-2 my-sm-0" onclick= "searchArticle()"></button>'
         +'<button type="button" id="mainSearchToogle" class="btn btn-primary dropdown-toggle" onclick="showOption()"></button>'
+
         +'<div>'
         +'<form id="detail_search" class="search_wrap" style="background: #ffffff;" >'
         +'<div id="dateSelect" class="up_wrap" >'
@@ -172,113 +179,108 @@
         +'</div>'
         +'</form>'
         +'</div>'
+
+
+
         +'</div>'
         +'</li>'
         +'<li><a class="codrops-icon codrops-icon-prev" href="/index.jsp"><span>THINK BEE WAY</span></a></li>'
         +'</ul>'
+        +'</div><!-- /container -->'
+        +'<ul class="navbar-nav ml-auto">'
+        +'<!-- Nav Item - Search Dropdown (Visible Only XS) -->'
+        +'<li class="nav-item dropdown no-arrow d-sm-none">'
+        +'<a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
+        +'<i class="fas fa-search fa-fw"></i>'
+        +'</a>'
+        +'<div class="topbar-divider d-none d-sm-block"></div>'
+        +'</li>'
+        +'</ul>'
+        +'</nav>'
+        +'<!-- End of Topbar -->'
+        +'<!-- Begin Page Content -->'
+        +'<div class="container-fluid">'
+        +'<!-- DataTales Example -->'
+        +'<div class="card shadow mb-4">'
+        +'<div class="card-header py-3">'
+        +'<h6 class="m-0 font-weight-bold text-primary">기사 휴지통</h6>'
         +'</div>'
-            +'<ul class="navbar-nav ml-auto">'
-            +'<li class="nav-item dropdown no-arrow d-sm-none">'
-            +'<a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
-            +'<i class="fas fa-search fa-fw"></i>'
-            +'</a>'
-            +'<div class="topbar-divider d-none d-sm-block"></div>'
-            +'</li>'
-            +'</ul>'
-            +'</nav>'
-            +'<div class="container-fluid">'
-            +'<div class="card shadow mb-4">'
-            +'<div class="card-header py-3">'
-            +'<h6 class="m-0 font-weight-bold text-primary">뉴스 관리자</h6>'
-            +'</div>'
-            +'<div class="card-body">'
-            +' <div class="table-responsive">'
-            +'<div>'
-            +'<ul style="list-style:none;padding-left: 0px;" >'
-            +'<li>'
-            +' <a onclick=" deleteArticles()" class="btn btn-info btn-icon-split" style="float">'
-            +'<span class="icon text-white-50" >'
-            +' <i class="fas fa-trash-alt"></i>'
-            +' </span>'
-            +'<span class="text">삭제</span>'
-            +' </a>'
-            +' <a href="/admin/addPress" methods="GET"  class="btn btn-info btn-icon-split" style="float:right ;margin-left: 15">'
-            +' <span class="icon text-white-50">'
-            +' <i class="fas fa-trash-alt"></i>'
-            +' </span>'
-            +' <span class="text">언론사 추가</span>'
-            +'</a>'
-            +'<a href="/admin/addArticle" methods="GET" class="btn btn-info btn-icon-split" style="float:right ">'
-            +'  <span class="icon text-white-50" >'
-            +' <i class="fas fa-trash-alt"></i>'
-            +' </span>'
-            +' <span class="text">기사 추가</span>'
-            +' </a>'
-            +'</li>'
-            +'</ul>'
-            +'</div>'
-            +'<table style="font-size: 0.85rem;"class="table table-bordered" id="dataTable" width="100%" cellspacing="0">'
-            +'<thead>'
-            +'<tr>'
-            +'<th></th>'
-            +' <th>제목</th>'
-            +'<th>언론사</th>'
-            +'<th>지역구</th>'
-            +'<th>키워드</th>'
-            +'<th>수정</th>'
-            +'</tr>'
-            +'</thead>'
-            +'<tbody id="addArticleTb">'
-            +'</tbody>'
-            +'</table>'
-            +'</div>'
-        +'<div style="float:right">'
+        +'<div class="card-body">'
+        +' <div class="table-responsive">'
+        +'<div>'
         +'<ul style="list-style:none;padding-left: 0px;" >'
         +'<li>'
-        +' <a href="/admin/goTrashCan" class="btn btn-info btn-icon-split" style="float">'
+        +' <a onclick=" deleteArticles()" class="btn btn-info btn-icon-split" style="float">'
         +'<span class="icon text-white-50" >'
         +' <i class="fas fa-trash-alt"></i>'
         +' </span>'
-        +'<span class="text">휴지통</span>'
+        +'<span class="text">삭제</span>'
         +' </a>'
         +'</li>'
         +'</ul>'
         +'</div>'
-            +'</div>'
-            +'</div>'
-            +'</div>'
-            +'</div>'
-            +'<footer class="sticky-footer bg-white">'
-            +'  <div class="container my-auto">'
-            +'  <div class="copyright text-center my-auto"></div>'
-            +' </div>'
-            +' </footer>'
-            +' </div>'
-            +'   </div>'
-            +'<a class="scroll-to-top rounded" href="#page-top">'
-            +'<i class="fas fa-angle-up"></i>'
-            +' </a>'
-            +'<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">'
-            +' <div class="modal-dialog" role="document">'
-            +' <div class="modal-content">'
-            +'<div class="modal-header">'
-            +' <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>'
-            +' <button class="close" type="button" data-dismiss="modal" aria-label="Close">'
-            +'   <span aria-hidden="true">×</span>'
-            +'</button>'
-            +' </div>'
-            +'<div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>'
-            +' <div class="modal-footer">'
-            +'  <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>'
-            +' <a class="btn btn-primary" href="login.html">Logout</a>'
-            +' </div>'
-            +' </div>'
-            +' </div>'
-            +' </div>').appendTo($('body'));
+        +'<table style="font-size: 0.85rem;"class="table table-bordered" id="dataTable" width="100%" cellspacing="0">'
+        +'<thead>'
+        +'<tr>'
+        +'<th></th>'
+        +' <th>제목</th>'
+        +'<th>언론사</th>'
+        +'<th>지역구</th>'
+        +'<th>키워드</th>'
+        +'<th>수정</th>'
+        +'</tr>'
+        +'</thead>'
+        +'<tbody id="addArticleTb">'
+        +'</tbody>'
+        +'</table>'
+        +'</div>'
+        +'<div style="float:right">'
+        +'<ul style="list-style:none;padding-left: 0px;" >'
+        +'<li>'
+        +' <a href="/admin/news" class="btn btn-info btn-icon-split" style="float">'
+        +'<span class="icon text-white-50" >'
+        +' <i class="fas fa-arrow-circle-left"></i>'
+        +' </span>'
+        +'<span class="text">이전 페이지로</span>'
+        +' </a>'
+        +'</li>'
+        +'</ul>'
+        +'</div>'
+        +'</div>'
+        +'</div>'
+        +'</div>'
+        +'</div>'
+        +'<footer class="sticky-footer bg-white">'
+        +'  <div class="container my-auto">'
+        +'  <div class="copyright text-center my-auto"></div>'
+        +' </div>'
+        +' </footer>'
+        +' </div>'
+        +'   </div>'
+        +'<a class="scroll-to-top rounded" href="#page-top">'
+        +'<i class="fas fa-angle-up"></i>'
+        +' </a>'
+        +'<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">'
+        +' <div class="modal-dialog" role="document">'
+        +' <div class="modal-content">'
+        +'<div class="modal-header">'
+        +' <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>'
+        +' <button class="close" type="button" data-dismiss="modal" aria-label="Close">'
+        +'   <span aria-hidden="true">×</span>'
+        +'</button>'
+        +' </div>'
+        +'<div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>'
+        +' <div class="modal-footer">'
+        +'  <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>'
+        +' <a class="btn btn-primary" href="login.html">Logout</a>'
+        +' </div>'
+        +' </div>'
+        +' </div>'
+        +' </div>').appendTo($('body'));
     }
 
     var getNews = function(){
-        $.ajax("/admin/getNews",{
+        $.ajax("/admin/getDelArticleInfos",{
             type:'GET'
         }).then(function(data, status){
 
@@ -295,7 +297,12 @@
                     $('<td/>',{text:articles[i].pressName}).appendTo(tr);
                     $('<td/>',{text:articles[i].districtName}).appendTo(tr);
                     $('<td/>',{text:articles[i].keywordName}).appendTo(tr);
-                    $('<td><button type="button" value="'+articles[i].code+'" onclick="modifyArticle(event)">수정</button></td>').appendTo(tr);
+                    $('<td><button class="btn btn-warning" type="button" value="'+articles[i].code+'" onclick="restoreArticle(event)" style="\n' +
+                    '    padding-top: 1px;\n' +
+                    '    padding-bottom: 3px;\n' +
+                    '    padding-left: 10px;\n' +
+                    '    padding-right: 10px;\n' +
+                    '">복구</button></td>').appendTo(tr);
                 }
             }
         });
@@ -317,6 +324,8 @@
 
                 var articles = [];
                 articles = data;
+                articles = data;
+                articles = data;
 
                 for(var i = 0 ;i < articles.length ; i++){
 
@@ -326,7 +335,7 @@
                     $('<td/>',{text:articles[i].pressName}).appendTo(tr);
                     $('<td/>',{text:articles[i].districtName}).appendTo(tr);
                     $('<td/>',{text:articles[i].keywordName}).appendTo(tr);
-                    $('<td><button type="button" value="'+articles[i].code+'" onclick="modifyArticle(event)">수정</button></td>').appendTo(tr);
+                    $('<td><button type="button" value="'+articles[i].code+'" onclick="restoreArticle(event)">수정</button></td>').appendTo(tr);
                 }
             }
         });
@@ -342,11 +351,16 @@
         }
     };
 
-    var modifyArticle = function(event){
+    var restoreArticle = function(event){
         var arCode = $(event.srcElement).val();
 
-        var go = "/admin/updateNews?arCode="+arCode;
-        location.href = go;
+        $.ajax("/admin/restoreAr",{
+            type:'GET',
+            data:{arCode:arCode}
+        }).then(function(data,status){
+            $('[name="removeTr"]').remove();
+            getNews();
+        });
     }
 
     var deleteArticles =function(){
@@ -361,7 +375,7 @@
         }
 
 
-        $.ajax('/admin/deleteArticles',{
+        $.ajax('/admin/realDelArticles',{
             type:'GET',
             data:{delCodes:delCodes}
         }).then(function(data,status){
@@ -369,7 +383,6 @@
             getNews();
         });
     }
-
 </script>
 <script src="/resources/js/classie.js"></script>
 

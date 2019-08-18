@@ -157,6 +157,26 @@ public class NewsAdServiceImpl implements NewsAdService {
     }
 
     @Override
+    public List<ArticleInfoVO> searchDelArticleInfo() {
+        return articleDao.searchDelArticleInfo();
+    }
+
+    @Override
+    public int realDelArticles(List<String> code) {
+
+        for(String s : code){
+            articleDao.realDelArticle(s);
+        }
+
+        return 0;
+    }
+
+    @Override
+    public int restoreArticle(String code) {
+        return articleDao.restoreArticle(code);
+    }
+
+    @Override
     public ArticleInfoKVO searchArticle(String article) {
         ArticleInfoVO articleVo= articleDao.searchArticleInfo(article);
         return parseVoToKvo(articleVo); //vo를 Kvo로 파싱하여 리턴
