@@ -1,6 +1,7 @@
 package com.antybeety.map.controller;
 
 import com.antybeety.map.model.vo.FacilityDetailVO;
+import com.antybeety.map.model.vo.FacilityMarkVO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import jdk.nashorn.internal.parser.JSONParser;
@@ -87,6 +88,22 @@ public class ApiMapController {
             e.printStackTrace();
         }
 
+
+        return result;
+    }
+
+    @RequestMapping(value="/search/around", method = RequestMethod.GET)
+    public List<FacilityMarkVO> searchAroundFacility(@RequestParam double la, // bottom
+                                                     double ka, // top
+                                                     double ea, // left
+                                                     double ja){    // top
+
+        Map<String,Object> bounds = new HashMap<>();
+        bounds.put("la",la);
+        bounds.put("ka",ka);
+        bounds.put("ea",ea);
+        bounds.put("ja",ja);
+        List<FacilityMarkVO> result = fc.searchAroundFacility(bounds);
 
         return result;
     }

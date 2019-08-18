@@ -45,4 +45,8 @@ public class FacilityController {
 
         return result;
     }
+
+    public List<FacilityMarkVO> searchAroundFacility(Map<String,Object> bounds) {
+        return fDisplay.searchAroundFacilities(bounds);
+    }
 }

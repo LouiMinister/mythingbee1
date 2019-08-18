@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +28,14 @@ public class FacilityDisplayService {
             }
         }
         return null;
+    }
+
+    public List<FacilityMarkVO> searchAroundFacilities(Map<String,Object> bounds) {
+        List<FacilityMarkVO> temp = new ArrayList<>();
+        for(FacilityMarkDAOImpl facil : fmList){
+            temp.addAll(facil.searchFacilities(bounds));
+        }
+        return temp;
     }
 //    private FacilityMarkDAOImpl createFacilDAO(String type){
 //        ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
