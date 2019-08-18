@@ -104,6 +104,10 @@
             var keyName = $('#keyword').val();
             var keyCode = $('#keywordCode').val();
 
+            if(keyName.isEmpty() || keyCode.isEmpty()){
+                return ;
+            }
+
             for (var i = 0; i < keyNames.length; i++) {
                 if (keyNames[i] == keyName) {
                     document.getElementById("keyword").value = "";
