@@ -298,7 +298,7 @@
                                     <div class="form-group">
                                         <label class="col-form-label col-form-label-lg">기사 제목</label>
                                         <input class="form-control form-control-lg" type="text"
-                                               id="title" name="title" value = '${article.title}'>
+                                               id="title" name="title" value = "${article.title}">
                                     </div>
 
                                     <div class="form-group">

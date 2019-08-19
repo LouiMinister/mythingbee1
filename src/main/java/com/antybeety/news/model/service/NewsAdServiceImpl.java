@@ -181,10 +181,24 @@ public class NewsAdServiceImpl implements NewsAdService {
         return articleDao.restoreArticle(code);
     }
 
+    private String parsingQutation(String string) {
+
+        return string.replace("\"","&quot");
+    }
+
     @Override
     public ArticleInfoKVO searchArticle(String article) {
         ArticleInfoVO articleVo= articleDao.searchArticleInfo(article);
-        return parseVoToKvo(articleVo); //vo를 Kvo로 파싱하여 리턴
+
+        ArticleInfoKVO articleKVO = parseVoToKvo(articleVo);
+
+        if(articleKVO.getTitle().contains("\"")){
+            System.out.println(articleKVO.getTitle());
+
+            articleKVO.setTitle(parsingQutation(articleKVO.getTitle()));
+        }
+
+        return articleKVO; //vo를 Kvo로 파싱하여 리턴
     }
 
 
