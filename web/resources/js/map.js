@@ -302,7 +302,7 @@ function searchNewPlaces() {
 	var fn = JSON.stringify(facilName);
 	var fa = JSON.stringify(facility);
 	$.ajax('api/map/search',{
-		type: 'POST',
+		type: 'GET',
 		dataType:"json",
 		data: {
 			bounds:json,
