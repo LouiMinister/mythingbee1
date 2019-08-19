@@ -18,7 +18,7 @@
 <div class="wrapper fadeInDown">
     <div id="formContent">
         <!-- Tabs Titles -->
-        <h2 class="active"> 로그인 </h2>
+        <h2 class="active"> 로그인${error} </h2>
 
         <!-- Icon -->
         <div class="fadeIn first">
@@ -31,8 +31,15 @@
             <input type="text" id="id" class="fadeIn second" name="id" placeholder="ID">
             <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
             <input type="submit" id="btnSubmit" class="fadeIn fourth" value="로그인">
-            <c:if test="${not empty error}">
-                <div><font color="red">${error}</font><br></div>
+            <c:if test='${not empty error}'>
+                <c:choose>
+                    <c:when test="${error eq 'Bad credentials'}">
+                        <div class="msg"><font color="red">로그인 정보를 확인하세요</font></div>
+                    </c:when>
+                    <c:otherwise> <div><font color="red">
+                        중복접속은 허용되지 않습니다.</font><br></div>
+                    </c:otherwise>
+                </c:choose>
             </c:if>
             <div>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />

@@ -58,4 +58,7 @@
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+    <session-config>
+        <session-timeout>1</session-timeout>
+    </session-config>
 </web-app>
