@@ -15,6 +15,7 @@
 <head>
     <title>뉴스 관리자 페이지</title>
 
+    <script src="/resources/js/jquery-3.4.1.min.js"></script>
     <!-- Custom fonts for this template -->
     <link href="/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -32,7 +33,7 @@
         .button-box{margin: 10px 4px}
     </style>
 
-    <script src="/resources/vendor/jquery/jquery.min.js"></script>
+<%--    <script src="/resources/vendor/jquery/jquery.min.js"></script>--%>
     <script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
@@ -42,11 +43,11 @@
     <script src="/resources/js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="/resources/vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="/resources/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<%--    <script src="/resources/vendor/datatables/jquery.dataTables.min.js"></script>--%>
+<%--    <script src="/resources/vendor/datatables/dataTables.bootstrap4.min.js"></script>--%>
 
     <!-- Page level custom scripts -->
-    <script src="/resources/js/demo/datatables-demo.js"></script>
+<%--    <script src="/resources/js/demo/datatables-demo.js"></script>--%>
 
     <script>
         String.prototype.isEmpty = function () {
@@ -61,18 +62,22 @@
         });
 
         var deletePress = function(){
-            var pressName = document.getElementById('press').value;
 
-            $.ajax("/admin/deletePress",{
-                type:"GET",
-                data:{"delPressName":pressName}
-            }).then(function(data, status){
-                if(status == "success"){
+            if(confirm("선택하신 언론사를 삭제하시겠습니까?")!=0){
 
-                    $('[name="delOp"]').remove();
-                    getPressName();
-                }
-            });
+                var pressName = document.getElementById('press').value;
+
+                $.ajax("/admin/deletePress",{
+                    type:"GET",
+                    data:{"delPressName":pressName}
+                }).then(function(data, status){
+                    if(status == "success"){
+
+                        $('[name="delOp"]').remove();
+                        getPressName();
+                    }
+                });
+            }
         }
 
         var getPressName = function(){
@@ -141,9 +146,16 @@
 
                     document.getElementById("pressName").value = "";
                     document.getElementById("pressName").placeholder = "키워드 이름";
+
+                }else{
+
+                    document.getElementById("pressCode").value = "";
+                    document.getElementById("pressCode").placeholder = "중복되는 코드";
+
+                    document.getElementById("pressName").value = "";
+                    document.getElementById("pressName").placeholder = "중복되는 이름";
+
                 }
-
-
             });
         }
     </script>
