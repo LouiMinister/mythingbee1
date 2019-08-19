@@ -33,7 +33,7 @@ public class ApiNewsController {
         List<ArticleInfoVO> articles=null;
 
         articles = controller.searchArticle(searchWord,lastArticleCode, date, district ,limit );
-        controller.searchArticle(searchWord,lastArticleCode,date,district,limit);
+//        controller.searchArticle(searchWord,lastArticleCode,date,district,limit);
         //System.out.println("검색어:"+searchWord+"마지막기사코드"+lastArticleCode+"마지막일"+date+"구역"+district+"모드"+mode );
         //System.out.println(articles);
         return  articles;
