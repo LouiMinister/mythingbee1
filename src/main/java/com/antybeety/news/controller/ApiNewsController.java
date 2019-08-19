@@ -52,7 +52,7 @@ public class ApiNewsController {
     @RequestMapping(value="/updateTopKeywords", method = RequestMethod.GET)
     public @ResponseBody
     List<String> updateTopKeywords(int limit){
-        limit=5;
+//        limit=5;
         return controller.searchTopKeywords(limit);
     }
 
