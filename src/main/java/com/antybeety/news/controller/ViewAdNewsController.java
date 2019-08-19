@@ -27,10 +27,17 @@ public class ViewAdNewsController {
 
     //로그인 페이지 요청
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public String adminIndex() {
+    public String adminIndexGet() {
         return "admin/adminLogin";
     }
-
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String adminIndexPost() {
+        return "admin/adminLogin";
+    }
+//    @RequestMapping(value = "/admin/login", method = RequestMethod.GET)
+//    public String adminLogin(){
+//        return "/admin/adminLogin";
+//    }
     //produces="application/json;charset=UTF-8"
 //    @RequestMapping(value = "/login", method = RequestMethod.POST)
 //    public @ResponseBody
@@ -56,25 +63,20 @@ public class ViewAdNewsController {
 //        return mav;
 //    }
 
-
-
-
-
-
-    //로그인 요청 처리
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public @ResponseBody
-    String adminLogin(@RequestParam(value = "id", required = true) String id,
-                      @RequestParam(value = "password", required = true) String password) {
-        String pass = "verified";
-        String result = "/admin/news";
-
-        if (pass.equals(newsAdController.login(id, password))) {
-            return result;
-        } else {
-            return null;
-        }
-    }
+    //로그인 요청 처리(비동기 처리)
+//    @RequestMapping(value = "/login", method = RequestMethod.POST)
+//    public @ResponseBody
+//    String adminLogin(@RequestParam(value = "id", required = true) String id,
+//                      @RequestParam(value = "password", required = true) String password) {
+//        String pass = "verified";
+//        String result = "/admin/news";
+//
+//        if (pass.equals(newsAdController.login(id, password))) {
+//            return result;
+//        } else {
+//            return null;
+//        }
+//    }
 
     //시설물 관리자 페이지 연결
     @RequestMapping(value = "/facility", method = RequestMethod.GET)
