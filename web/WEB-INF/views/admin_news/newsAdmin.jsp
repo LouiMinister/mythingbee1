@@ -65,7 +65,12 @@
                     $('<td/>',{text:articles[i].pressName}).appendTo(tr);
                     $('<td/>',{text:articles[i].districtName}).appendTo(tr);
                     $('<td/>',{text:articles[i].keywordName}).appendTo(tr);
-                    $('<td><button type="button" value="'+articles[i].code+'" onclick="modifyArticle(event)">수정</button></td>').appendTo(tr);
+                    $('<td><button class="btn btn-warning" type="button" value="'+articles[i].code+'" onclick="modifyArticle(event)" style="\n' +
+                    '    padding-top: 1px;\n' +
+                    '    padding-bottom: 3px;\n' +
+                    '    padding-left: 10px;\n' +
+                    '    padding-right: 10px;\n' +
+                    '">수정</button></td>').appendTo(tr);
                 }
             }
         });
@@ -143,7 +148,6 @@
         }else{
             $("input:checkbox[name='del_chk']").prop('checked',false);
         }
-;
     }
 
 </script>
@@ -259,7 +263,7 @@
                                         </form>
                                     </div>
                                 </div>
-                            </li>;
+                            </li>
                         <li><a class="codrops-icon codrops-icon-prev" href="/index.jsp"><span>THINK BEE WAY</span></a></li>
                         </ul>
                     </div>
