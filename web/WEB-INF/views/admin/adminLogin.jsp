@@ -18,7 +18,7 @@
 <div class="wrapper fadeInDown">
     <div id="formContent">
         <!-- Tabs Titles -->
-        <h2 class="active"> 로그인${error} </h2>
+        <h2 class="active"> 로그인 </h2>
 
         <!-- Icon -->
         <div class="fadeIn first">
