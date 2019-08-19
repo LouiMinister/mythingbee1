@@ -4,9 +4,12 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
     <title>뉴스 수정 페이지</title>
+    <sec:csrfMetaTags/>
+
 
     <!-- Custom fonts for this template -->
     <link href="/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -32,6 +35,9 @@
     </style>
 
     <script>
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+
         Array.prototype.remove = function () {
             var what, a = arguments, L = a.length, ax;
 
@@ -246,6 +252,11 @@
                 type: "POST",
                 contentType: 'application/json',
                 crossDomain: true,
+                dataType:"json",
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader("AJAX", true);
+                    xhr.setRequestHeader(header, token);
+                },
                 data: JSON.stringify({
                     "title": title,
                     "summary": summary,

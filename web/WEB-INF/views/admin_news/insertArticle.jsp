@@ -270,6 +270,11 @@
                 type: "POST",
                 contentType: 'application/json',
                 crossDomain: true,
+                dataType:"json",
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader("AJAX", true);
+                    xhr.setRequestHeader(header, token);
+                },
                 data: JSON.stringify({
                     "title": title,
                     "summary": summary,
