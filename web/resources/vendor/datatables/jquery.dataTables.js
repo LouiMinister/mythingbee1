@@ -1746,11 +1746,11 @@
 	
 			// Backwards compatibility - if there is no sEmptyTable given, then use the same as
 			// sZeroRecords - assuming that is given.
-			if ( ! lang.sEmptyTable && zeroRecords &&
-				defaults.sEmptyTable === "No data available in table" )
-			{
-				_fnMap( lang, lang, 'sZeroRecords', 'sEmptyTable' );
-			}
+			// if ( ! lang.sEmptyTable && zeroRecords &&
+			// 	defaults.sEmptyTable === "No data available in table" )
+			// {
+			// 	_fnMap( lang, lang, 'sZeroRecords', 'sEmptyTable' );
+			// }
 	
 			// Likewise with loading records
 			if ( ! lang.sLoadingRecords && zeroRecords &&
@@ -11434,7 +11434,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sEmptyTable": "No data available in table",
+			// "sEmptyTable": "No data available in table",
 	
 	
 			/**
@@ -14399,7 +14399,7 @@
 		"sStripeEven": "even",
 	
 		/* Empty row */
-		"sRowEmpty": "dataTables_empty",
+		// "sRowEmpty": "dataTables_empty",
 	
 		/* Features */
 		"sWrapper": "dataTables_wrapper",
