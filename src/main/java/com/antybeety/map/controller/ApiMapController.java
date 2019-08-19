@@ -22,7 +22,7 @@ public class ApiMapController {
     @Autowired
     private FacilityController fc;
 
-    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
 //    @PostMapping(value="/search",
 //                    consumes = "application/json",
 //                    produces = {MediaType.TEXT_PLAIN_VALUE})
