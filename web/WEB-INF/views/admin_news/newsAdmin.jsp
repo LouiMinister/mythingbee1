@@ -259,7 +259,7 @@
                                         </form>
                                     </div>
                                 </div>
-                            </li>
+                            </li>;
                         <li><a class="codrops-icon codrops-icon-prev" href="/index.jsp"><span>THINK BEE WAY</span></a></li>
                         </ul>
                     </div>
@@ -282,13 +282,14 @@
                             <div>
                                 <ul style="list-style:none;padding-left: 0px;" >
                                     <li>
+                                        <form method="post" action='/admin/logout'>
                                          <a onclick=" deleteArticles()" class="btn btn-info btn-icon-split" style="float">
                                             <span class="icon text-white-50" >
              <i class="fas fa-trash-alt"></i>
              </span>
                                             <span class="text">삭제</span>
                                              </a>
-                                         <a href="/admin/addPress" methods="GET"  class="btn btn-info btn-icon-split" style="float:right ;margin-left: 15">
+                                         <a href="/admin/addPress" methods="GET"  class="btn btn-info btn-icon-split" style="float:right ;margin-left: 15px">
                                              <span class="icon text-white-50">
              <i class="fas fa-trash-alt"></i>
              </span>
@@ -300,6 +301,11 @@
              </span>
                                              <span class="text">기사 추가</span>
                                              </a>
+                                            <button id="logout" class="btn btn-info btn-icon-split" >로그아웃</button>
+                                            <div>
+                                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                            </div>
+                                        </form>
                                         </li>
                                     </ul>
                                 </div>

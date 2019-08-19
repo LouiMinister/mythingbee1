@@ -12,12 +12,13 @@
     <link rel="stylesheet" href="/resources/css/adminlogin.css">
     <script src="/resources/js/adminlogin.js"></script>
 </head>
+
 <body>
 
 <div class="wrapper fadeInDown">
     <div id="formContent">
         <!-- Tabs Titles -->
-        <h2 class="active"> 로그인 </h2>
+        <h2 class="active"> 로그인${error} </h2>
 
         <!-- Icon -->
         <div class="fadeIn first">
@@ -30,8 +31,8 @@
             <input type="text" id="id" class="fadeIn second" name="id" placeholder="ID">
             <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
             <input type="submit" id="btnSubmit" class="fadeIn fourth" value="로그인">
-            <c:if test="${not empty exceptionmsgname}">
-                <div><font color="red">로그인 정보를 확인하세요</font><br></div>
+            <c:if test="${not empty error}">
+                <div><font color="red">${error}</font><br></div>
             </c:if>
             <div>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
@@ -40,7 +41,5 @@
     </div>
 </div>
 </div>
-
-
 </body>
 </html>

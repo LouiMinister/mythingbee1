@@ -38,7 +38,7 @@ public class ViewAdNewsController {
 //    public String adminLogin(){
 //        return "/admin/adminLogin";
 //    }
-    //produces="application/json;charset=UTF-8"
+//  produces="application/json;charset=UTF-8"
 //    @RequestMapping(value = "/login", method = RequestMethod.POST)
 //    public @ResponseBody
 //    String adminLogin(@RequestParam(value = "id", required = true) String id,
@@ -62,8 +62,7 @@ public class ViewAdNewsController {
 //        mav.addObject("msg","Access Denied");
 //        return mav;
 //    }
-
-    //로그인 요청 처리(비동기 처리)
+//      로그인 요청 처리(비동기 처리)
 //    @RequestMapping(value = "/login", method = RequestMethod.POST)
 //    public @ResponseBody
 //    String adminLogin(@RequestParam(value = "id", required = true) String id,
