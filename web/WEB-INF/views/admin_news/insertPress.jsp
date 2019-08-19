@@ -11,11 +11,12 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <html>
 <head>
     <title>뉴스 관리자 페이지</title>
-
+    <sec:csrfMetaTags/>
     <script src="/resources/js/jquery-3.4.1.min.js"></script>
     <!-- Custom fonts for this template -->
     <link href="/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -51,6 +52,9 @@
 <%--    <script src="/resources/js/demo/datatables-demo.js"></script>--%>
 
     <script>
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+
         String.prototype.isEmpty = function () {
             return (this.trim() == '');
         }
@@ -70,6 +74,11 @@
 
                 $.ajax("/admin/deletePress",{
                     type:"GET",
+                    dataType:"json",
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader("AJAX", true);
+                        xhr.setRequestHeader(header, token);
+                    },
                     data:{"delPressName":pressName}
                 }).then(function(data, status){
                     if(status == "success"){
@@ -135,6 +144,11 @@
                 type: "POST",
                 contentType: "application/json",
                 crossDomain: true,
+                dataType:"json",
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader("AJAX", true);
+                    xhr.setRequestHeader(header, token);
+                },
                 data: JSON.stringify({"name": pressName, "code": pressCode})
             }).then(function (data, status) {
                 if (status == "success") {
