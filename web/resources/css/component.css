@@ -33,7 +33,18 @@
 	#mainSearchToogle{
 		width : 40px; height:30px;/* left:67.8% */;top:15px;right:62px; position:absolute;
 	}
-	
+	#logout
+	{
+		display: inline-block;
+		padding: 0.375rem 0.75rem;
+		font-size: 1rem;
+		line-height: 1.5;
+		text-align: center;
+		font-weight: 400;
+		cursor: pointer;
+		white-space: nowrap;
+		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	}
 
 
 
@@ -96,7 +107,11 @@
 		-ms-user-select: none;
 		user-select: none;
 }
-
+.gn-menu-main > li:last-child(1){
+	float: right;
+	border-right: none;
+	border-left: 1px solid #c6d0da;
+}
 .gn-menu-main > li:last-child {
 		float: right;
 		border-right: none;
