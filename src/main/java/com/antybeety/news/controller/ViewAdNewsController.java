@@ -5,8 +5,11 @@ import com.antybeety.news.model.vo.ArticleInfoKVO;
 import com.antybeety.news.model.vo.ArticleInfoVO;
 import com.antybeety.news.model.vo.KeywordVO;
 import com.antybeety.press.model.vo.PressVO;
+import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -15,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
+@Log4j
 @Controller
 @RequestMapping("/admin")
 public class ViewAdNewsController {
@@ -24,24 +27,56 @@ public class ViewAdNewsController {
 
     //로그인 페이지 요청
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public String adminIndex() {
+    public String adminIndexGet() {
         return "admin/adminLogin";
     }
-
-    //로그인 요청 처리
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public @ResponseBody
-    String adminLogin(@RequestParam(value = "id", required = true) String id,
-                      @RequestParam(value = "password", required = true) String password) {
-        String pass = "verified";
-        String result = "/admin/news";
-
-        if (pass.equals(newsAdController.login(id, password))) {
-            return result;
-        } else {
-            return null;
-        }
+    public String adminIndexPost() {
+        return "admin/adminLogin";
     }
+//    @RequestMapping(value = "/admin/login", method = RequestMethod.GET)
+//    public String adminLogin(){
+//        return "/admin/adminLogin";
+//    }
+    //produces="application/json;charset=UTF-8"
+//    @RequestMapping(value = "/login", method = RequestMethod.POST)
+//    public @ResponseBody
+//    String adminLogin(@RequestParam(value = "id", required = true) String id,
+//                      @RequestParam(value = "password", required = true) String password) {
+//        String pass = "verified";
+//        String result = "/admin/news";
+//
+//        if (pass.equals(newsAdController.login(id, password))) {
+//            return result;
+//        } else {
+//            System.out.println("로그인 실패");
+//            return null;
+//        }
+//    }
+//
+//    @RequestMapping(value ="/accessError")
+//    public ModelAndView accessDenied(Authentication auth, Model model){
+//        ModelAndView mav = new ModelAndView();
+//        mav.setViewName("/error");
+//        log.info("Access Denied: "+ auth);
+//        mav.addObject("msg","Access Denied");
+//        return mav;
+//    }
+
+    //로그인 요청 처리(비동기 처리)
+//    @RequestMapping(value = "/login", method = RequestMethod.POST)
+//    public @ResponseBody
+//    String adminLogin(@RequestParam(value = "id", required = true) String id,
+//                      @RequestParam(value = "password", required = true) String password) {
+//        String pass = "verified";
+//        String result = "/admin/news";
+//
+//        if (pass.equals(newsAdController.login(id, password))) {
+//            return result;
+//        } else {
+//            return null;
+//        }
+//    }
 
     //시설물 관리자 페이지 연결
     @RequestMapping(value = "/facility", method = RequestMethod.GET)

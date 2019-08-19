@@ -26,10 +26,19 @@
         <div id="status"></div>
     <div>
         <!-- Login Form -->
+        <form method="post" action='/admin/login-process' >
             <input type="text" id="id" class="fadeIn second" name="id" placeholder="ID">
-            <input type="password" id="password" class="fadeIn third" name="login" placeholder="password">
-             <input type="button" id="btnSubmit" class="fadeIn fourth" value="로그인">
+            <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
+            <input type="submit" id="btnSubmit" class="fadeIn fourth" value="로그인">
+            <c:if test="${not empty exceptionmsgname}">
+                <div><font color="red">로그인 정보를 확인하세요</font><br></div>
+            </c:if>
+            <div>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            </div>
+        </form>
     </div>
+</div>
 </div>
 
 

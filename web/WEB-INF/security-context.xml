@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!--<security:http>-->
+<!--    <security:intercept-url pattern="/admin/*" access="ROLE_ADMIN"/>-->
+<!--    <security:session-management invalid-session-url="/admin"> <security:concurrency-control max-sessions="1" error-if-maximum-exceeded="false" /> </security:session-management>-->
+<!--    <security:form-login login-page="/WEB-INF/views/admin/adminLogin.jsp"-->
+<!--    default-target-url="/admin/news"-->
+<!--                         login-processing-url="/admin/loginProcess"-->
+<!--                         username-parameter="id"-->
+<!--                         password-parameter="password"-->
+<!--    authentication-failure-url="/error"/>-->
+<!--    <security:logout-->
+<!--        logout-success-url="/WEB-INF/views/admin/adminLogin.jsp"/>-->
+<!--    <security:csrf disabled="true"/>-->
+<!--</security:http>-->
+<!--    &lt;!&ndash; secured method &ndash;&gt;-->
+<!--    <security:global-method-security secured-annotations="enabled" />-->
+<!--<security:authentication-manager>-->
+<!--    <security:authentication-provider>-->
+<!--        <security:user-service>-->
+<!--            <security:user name="admin" password="abty" authorities="ROLE_ADMIN"/>-->
+<!--        </security:user-service>-->
+<!--    </security:authentication-provider>-->
+<!--</security:authentication-manager>-->
+<bean id="customAuthenticationFailureHandler" class="com.antybeety.news.controller.CustomAuthenticationFailureHandler"/>
+  <security:http pattern="/admin/**">
+        <security:intercept-url pattern="/admin" access="permitAll()"/>
+        <security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
+        <security:form-login
+                login-page="/admin"
+                username-parameter="id"
+                password-parameter="password"
+                login-processing-url="/admin/login-process"
+                default-target-url="/admin/news"
+                authentication-failure-handler-ref="customAuthenticationFailureHandler"
+        />
+      <security:session-management invalid-session-url="/admin">
+          <security:concurrency-control max-sessions="1" error-if-maximum-exceeded="true" expired-url="/error.jsp" />
+      </security:session-management>
+
+  </security:http>
+    <security:authentication-manager>
+        <security:authentication-provider>
+            <security:user-service>
+                <security:user name="admin" password="{noop}abty" authorities="ROLE_ADMIN"/>
+            </security:user-service>
+        </security:authentication-provider>
+    </security:authentication-manager>
+</beans>
