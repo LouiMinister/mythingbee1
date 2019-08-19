@@ -350,24 +350,30 @@
     }
 
     var deleteArticles =function(){
-
         var delCheckBox = document.getElementsByName("del_chk");
-        var delCodes = [];
 
-        for(var i = 0;i<delCheckBox.length;i++){
-            if(delCheckBox[i].checked){
-                delCodes.push(delCheckBox[i].value);
+        if(confirm("선택하신 기사를 휴지통으로 이동시키시겠습니까?")!=0){
+
+            var delCodes = [];
+
+            for(var i = 0;i<delCheckBox.length;i++){
+                if(delCheckBox[i].checked){
+                    delCodes.push(delCheckBox[i].value);
+                }
             }
+
+
+            $.ajax('/admin/deleteArticles',{
+                type:'GET',
+                data:{delCodes:delCodes}
+            }).then(function(data,status){
+                $('[name="removeTr"]').remove();
+                getNews();
+            });
+        }else{
+            $("input:checkbox[name='del_chk']").prop('checked',false);
         }
-
-
-        $.ajax('/admin/deleteArticles',{
-            type:'GET',
-            data:{delCodes:delCodes}
-        }).then(function(data,status){
-            $('[name="removeTr"]').remove();
-            getNews();
-        });
+;
     }
 
 </script>
