@@ -291,13 +291,18 @@ function searchNewPlaces() {
 
 	// 영역의 북동쪽 좌표를 얻어옵니다
 	var neLatLng = bounds.getNorthEast();
+
 	var json = JSON.stringify(bounds);
+	console.log(bounds);
+	console.log(swLatLng);
+	console.log(neLatLng);
+	console.log(json);
 	var facility = [ cctvFlag, bellFlag, policeFlag, shopFlag, guardFlag, securityLampFlag];
 	var facilName = ["cctv","bell","police","convenience"/*shop*/,"guard","light"];
 	var fn = JSON.stringify(facilName);
 	var fa = JSON.stringify(facility);
 	$.ajax('api/map/search',{
-		type: 'POST',
+		type: 'GET',
 		dataType:"json",
 		data: {
 			bounds:json,

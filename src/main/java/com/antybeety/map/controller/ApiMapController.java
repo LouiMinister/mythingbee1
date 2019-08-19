@@ -22,7 +22,7 @@ public class ApiMapController {
     @Autowired
     private FacilityController fc;
 
-    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
 //    @PostMapping(value="/search",
 //                    consumes = "application/json",
 //                    produces = {MediaType.TEXT_PLAIN_VALUE})
@@ -61,11 +61,16 @@ public class ApiMapController {
         return result;
     }
 
-    @RequestMapping(value="/search/mobile", method = RequestMethod.POST)
-    public List<Map<String,Object>> showFacilityByMobile(@RequestBody String request) {
-        Map<String, Object> temp = new HashMap<>();
+    @RequestMapping(value="/search/mobile", method = RequestMethod.GET)
+    public List<Map<String,Object>> showFacilityByMobile(@RequestParam Map<String,Object> request) {// post방식으로 할때는 Requestbody
+
 
         Map<String,Object> bounds = new HashMap<>();
+        bounds.put("la",request.get("la"));
+        bounds.put("ka",request.get("ka"));
+        bounds.put("ea",request.get("ea"));
+        bounds.put("ja",request.get("ja"));
+
         List<Integer> facilFlag = new ArrayList<>();
         List<String> facilName = new ArrayList<>();
 
@@ -73,14 +78,10 @@ public class ApiMapController {
 
         ObjectMapper mapper = new ObjectMapper();
         try {
-            temp = mapper.readValue(request,Map.class);
-            bounds = (Map<String, Object>) temp.get("bounds");
-            String strTemp ;
-            strTemp = (String) temp.get("facilFlag");
+            facilFlag = mapper.readValue((String)request.get("facilFlag"),List.class);
+            facilName = mapper.readValue((String)request.get("facilName"),List.class);
 
-            facilFlag = mapper.readValue(strTemp,List.class);
-
-            facilName = (List<String>) temp.get("facilName");
+//            facilName = (List<String>) temp.get("facilName");
 
             result = fc.searchFacility(bounds,facilFlag,facilName);
 

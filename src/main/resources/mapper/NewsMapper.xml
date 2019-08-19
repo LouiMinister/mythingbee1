@@ -42,16 +42,16 @@
         SELECT ar_time FROM article_view2 where ar_code= #{code}
     </select>
     <select id="searchBeforeArticlesByTime" resultMap="article_map" parameterType="hashmap">
-        SELECT * FROM article_view2 WHERE ar_time &lt; #{time} AND where del='n' ORDER BY ar_time DESC LIMIT ${limit}
+        SELECT * FROM article_view2 WHERE ar_time &lt; #{time} AND del='n' ORDER BY ar_time DESC LIMIT ${limit}
     </select>
     <select id="searchArticleByFilter" resultMap="article_map" parameterType="hashmap">
         SELECT * FROM article_view2 WHERE (title like '%${searchWord}%' OR keyword_array like '%${searchWord}%' ) AND
-         ar_time &lt; #{startTime}  AND ar_time &gt;= #{lastTime} AND where del='n' ORDER BY ar_time desc limit
+         ar_time &lt; #{startTime}  AND ar_time &gt;= #{lastTime} AND del='n' ORDER BY ar_time desc limit
          ${limit}
     </select>
     <select id="searchArticleByFilterDistrict" resultMap="article_map" parameterType="hashmap">
         SELECT * FROM article_view2 WHERE (title like '%${searchWord}%' OR keyword_array like '%${searchWord}%' ) AND
-         di_name=#{district} AND ar_time &lt; #{startTime}  AND ar_time &gt;= #{lastTime} AND where del='n' ORDER BY ar_time desc
+         di_name=#{district} AND ar_time &lt; #{startTime}  AND ar_time &gt;= #{lastTime} AND del='n' ORDER BY ar_time desc
          limit ${limit}
     </select>
     <select id="searchLastDate" resultType="java.lang.String">
