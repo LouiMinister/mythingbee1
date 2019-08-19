@@ -40,7 +40,7 @@
                 default-target-url="/admin/news"
                 authentication-failure-handler-ref="customAuthenticationFailureHandler"
         />
-      <security:csrf disabled="true"/>
+<!--      <security:csrf disabled="true"/>-->
       <security:logout
           logout-url="/admin/logout"
           logout-success-url="/admin"

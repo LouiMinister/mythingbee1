@@ -4,10 +4,14 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%--CSRF 토큰 전송--%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <html>
 <head>
     <title>뉴스 추가 페이지</title>
-
+<%--    CSRF 토큰 전송--%>
+    <sec:csrfMetaTags/>
     <!-- Custom fonts for this template -->
     <link href="/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
@@ -37,6 +41,9 @@
     </style>
 
     <script>
+        //security CSRF 토큰 전송
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
         //링크로 추가하기
         function loadLink(){
 
@@ -46,7 +53,13 @@
             $.ajax({
                 type:'POST',
                 url :'/admin/addlink',
-                data: {link:target}
+                data: {link:target},
+                dataType:"json",
+                //CSRF 토큰 전송
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader("AJAX", true);
+                    xhr.setRequestHeader(header, token);
+                }
             }).then(function(data,status){
                 $('#title').val(data.title);
                 $('#summary').val(data.summary);
