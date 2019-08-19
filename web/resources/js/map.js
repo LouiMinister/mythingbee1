@@ -149,12 +149,12 @@ var guardImageSrc = '/resources/image/map/guard_color.png'; // 마커이미지�
 
 
 //마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
-var policeMarkerImage = new kakao.maps.MarkerImage(policeImageSrc, imageSize, imageOption);
-var shopMarkerImage = new kakao.maps.MarkerImage(shopImageSrc, imageSize, imageOption);
-var securityLampMarkerImage = new kakao.maps.MarkerImage(securityLampImageSrc, imageSize, imageOption);
-var bellMarkerImage = new kakao.maps.MarkerImage(bellImageSrc, imageSize, imageOption);
-var cctvMarkerImage = new kakao.maps.MarkerImage(cctvImageSrc, cctvImageSize, cctvImageOption);
-var guardMarkerImage = new kakao.maps.MarkerImage(guardImageSrc, imageSize, imageOption);
+var policeMarkerImage = new kakao.maps.MarkerImage(policeImageSrc, imageSize/*, imageOption*/);
+var shopMarkerImage = new kakao.maps.MarkerImage(shopImageSrc, imageSize/*, imageOption*/);
+var securityLampMarkerImage = new kakao.maps.MarkerImage(securityLampImageSrc, imageSize/*, imageOption*/);
+var bellMarkerImage = new kakao.maps.MarkerImage(bellImageSrc, imageSize/*, imageOption*/);
+var cctvMarkerImage = new kakao.maps.MarkerImage(cctvImageSrc, cctvImageSize/*, cctvImageOption*/);
+var guardMarkerImage = new kakao.maps.MarkerImage(guardImageSrc, imageSize/*, imageOption*/);
 //markerPosition = new kakao.maps.LatLng(37.498004414546934, 127.02770621963765); // 마커가 표시될 위치입니다
 
 var policeIwContent = '<div style="padding:5px;"> 경찰서! <br>'; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
@@ -293,10 +293,6 @@ function searchNewPlaces() {
 	var neLatLng = bounds.getNorthEast();
 
 	var json = JSON.stringify(bounds);
-	console.log(bounds);
-	console.log(swLatLng);
-	console.log(neLatLng);
-	console.log(json);
 	var facility = [ cctvFlag, bellFlag, policeFlag, shopFlag, guardFlag, securityLampFlag];
 	var facilName = ["cctv","bell","police","convenience"/*shop*/,"guard","light"];
 	var fn = JSON.stringify(facilName);
@@ -949,7 +945,7 @@ function setZoomable(zoomable) {
 $(document).ready(function(){
 	var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
 	var options = { //지도를 생성할 때 필요한 기본 옵션
-		center : new kakao.maps.LatLng(37.49893267508434, 127.02673400572665), //지도의 중심좌표.
+		center : new kakao.maps.LatLng(37.48396611813521, 126.95557093273275), //지도의 중심좌표.
 		level : 2
 		//지도의 레벨(확대, 축소 정도)
 	};
@@ -969,6 +965,8 @@ $(document).ready(function(){
 		if(detailList){
 			detailList.close();
 		}
+
+		var latlng = mouseEvent.latLng;
 	});
 	//////////////////////////////////////////////
 
