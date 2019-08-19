@@ -66,23 +66,23 @@ function layer_toggle(obj) {
 						'<h2>'+data.title+'</th>'+
 					'</tr>'+
 					'<tr>'+
-						'<td>'+data.pressName+'</td>'+
+						'<td style="font-size: 20px;" >'+data.pressName+'</td>'+
 					'</tr>'+
 					'<tr>'+
-						'<td>'+data.articleTime+'</td>'+
+						'<td style="font-size: 20px;">'+data.articleTime+'</td>'+
 					'</tr>'+
 				'</table>'+
 				'</div>'+
 				'<div id="arti_body" class="component_body">'+
 					'<ul>'+
-						'<li id="arti_img" class="articleImg"><img src="'+data.imgURL+'" class="articleImgSize" ></li>'+
+						'<li id="arti_img" class="articleImg"><img src="'+data.imgURL+'" class="articleImgSize"></li>'+
 						'<li>'+data.summary+'</li>'+
 					'</ul>'+
 				'</div>'+
 				'<div id="arti_footer" class="component_footer">'+
 					'<ul id="footer" class="footer">'+
-						'<li><button class="btn btn-outline-info" disabled="true" onclick="showDistrictImg(event)" value="districtImg'+indexNum+'">'+data.districtName+'</button></li>'+
-						'<li><button type="button" id="'+data.code+'" class="btn btn-outline-info" name="findid"  onclick="linkPage(event)" value="'+data.url+'">상세보기</button></li>'+
+						'<li><button class="btn btn-outline-info" disabled="true" onclick="showDistrictImg(event)" value="districtImg'+indexNum+'" style="margin-bottom: 16px;">'+data.districtName+'</button></li>'+
+						'<li><button type="button" id="'+data.code+'" class="btn btn-outline-info" name="findid"  onclick="linkPage(event)" value="'+data.url+'" style="margin-bottom:16px;">상세보기</button></li>'+
 						'<li class="districtImg">'
 						// +'<img src='+"cat.jpg"+' id="districtImg'+indexNum+'" class="districtImg"></li>'+
 						+'<img id="districtImg'+indexNum+'" class="districtImg"></li>'+
