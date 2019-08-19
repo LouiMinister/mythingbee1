@@ -365,23 +365,27 @@
 
     var deleteArticles =function(){
 
-        var delCheckBox = document.getElementsByName("del_chk");
-        var delCodes = [];
+        if(confirm("선택하신 기사를 정말로 삭제하사겠습니까?")!=0){
+            var delCheckBox = document.getElementsByName("del_chk");
+            var delCodes = [];
 
-        for(var i = 0;i<delCheckBox.length;i++){
-            if(delCheckBox[i].checked){
-                delCodes.push(delCheckBox[i].value);
+            for(var i = 0;i<delCheckBox.length;i++){
+                if(delCheckBox[i].checked){
+                    delCodes.push(delCheckBox[i].value);
+                }
             }
+
+
+            $.ajax('/admin/realDelArticles',{
+                type:'GET',
+                data:{delCodes:delCodes}
+            }).then(function(data,status){
+                $('[name="removeTr"]').remove();
+                getNews();
+            });
+        }else{
+            $("input:checkbox[name='del_chk']").prop('checked',false);
         }
-
-
-        $.ajax('/admin/realDelArticles',{
-            type:'GET',
-            data:{delCodes:delCodes}
-        }).then(function(data,status){
-            $('[name="removeTr"]').remove();
-            getNews();
-        });
     }
 </script>
 <script src="/resources/js/classie.js"></script>
