@@ -182,23 +182,8 @@ public class NewsAdServiceImpl implements NewsAdService {
     }
 
     private String parsingQutation(String string) {
-        StringBuffer sb = new StringBuffer();
 
-        String parse[] = string.split("\"");
-
-        int len = parse.length;
-        for(int i=0;i<len;i++){
-            if(i == len-1){
-                sb.append(parse[i]);
-            }
-            else{
-                sb.append(parse[i]+"&quot");
-            }
-        }
-//        for(String s : parse){
-//            sb.append(s+"&quot");
-//        }
-        return sb.toString();
+        return string.replace("\"","&quot");
     }
 
     @Override
