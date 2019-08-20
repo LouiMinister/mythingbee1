@@ -131,4 +131,26 @@ public class ApiMapController {
 
         return result;
     }
+
+    @RequestMapping(value="/distanceAll", method = RequestMethod.GET)
+    public List<Integer> calcDistanceAll(@RequestParam String locationList){
+
+        List<Map<String,Object>> result = new ArrayList<>();
+
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            result = mapper.readValue(locationList,List.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+        return fc.searchDistanceAll(result);
+    }
+
+    @RequestMapping(value="/distance",method = RequestMethod.GET)
+    public int calcDistance(@RequestParam double startLat, double startLon, double endLat, double endLon){
+        return fc.searchDistance(startLat,startLon,endLat,endLon);
+    }
 }

@@ -1,5 +1,6 @@
 package com.antybeety.map.controller;
 
+import com.antybeety.map.model.service.DistanceCalcService;
 import com.antybeety.map.model.service.FacilityDetailService;
 import com.antybeety.map.model.service.FacilityDisplayService;
 import com.antybeety.map.model.vo.FacilityDetailVO;
@@ -21,6 +22,9 @@ public class FacilityController {
 
     @Autowired
     private FacilityDetailService fDetail;
+
+    @Autowired
+    private DistanceCalcService distanceCalc;
 
     public List<Map<String,Object>> searchFacility(Map<String, Object> bounds, List<Integer> facilFlag, List<String> facilName) throws SQLException {
 
@@ -48,5 +52,13 @@ public class FacilityController {
 
     public List<FacilityMarkVO> searchAroundFacility(Map<String,Object> bounds) {
         return fDisplay.searchAroundFacilities(bounds);
+    }
+
+    public List<Integer> searchDistanceAll(List<Map<String,Object>> locationList) {
+        return distanceCalc.calcDistanceAll(locationList);
+    }
+
+    public int searchDistance(double startLat, double startLon, double endLat, double endLon) {
+        return distanceCalc.calcDistance(startLat, startLon, endLat, endLon);
     }
 }
