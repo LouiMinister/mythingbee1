@@ -120,6 +120,7 @@ public class ApiMapController {
         Map<String,String> result = new HashMap<>();
         try{
             FacilityDetailVO fd = fc.searchDetail(type,code);
+            result.put("code",code);
             result.put("roadAddr",fd.getRoadAddr());
             result.put("landAddr",fd.getLandAddr());
             result.put("adminName",fd.getAdminName());
