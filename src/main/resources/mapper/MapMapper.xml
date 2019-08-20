@@ -56,8 +56,8 @@
         <id property="code" column = "pd_code" jdbcType="VARCHAR"/>
         <id property="roadAddr" column = "road_addr" jdbcType="VARCHAR"/>
         <id property="landAddr" column = "land_addr" jdbcType="VARCHAR"/>
-        <id property="adminName" column = "pd_admin_name" jdbcType="VARCHAR"/>
-        <id property="adminTel" column = "pd_admin_tel" jdbcType="VARCHAR"/>
+        <id property="adminName" column = "pd_name" jdbcType="VARCHAR"/>
+        <id property="adminTel" column = "pd_tel" jdbcType="VARCHAR"/>
     </resultMap>
 
     <resultMap id="light_detail" type="com.antybeety.map.model.vo.LightDetailVO">
@@ -110,7 +110,7 @@
     </select>
 
     <select id="getPoliceDetail" resultMap="police_detail">
-        SELECT pd_code, road_addr, land_addr, pd_admin_name, pd_admin_tel FROM pd_detail_view where pd_code = #{code}
+        SELECT pd_code, road_addr, land_addr, pd_name, pd_tel FROM pd_detail_view where pd_code = #{code}
     </select>
 
     <select id="getLightDetail" resultMap="light_detail">
