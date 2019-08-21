@@ -122,7 +122,7 @@ body {
 @media screen and (max-width: 1025px) {
 	.container > header {
 		margin: 0 auto;
-		padding: 120px 50px;
+		padding: 0px 50px;
 		font-size: 70%;
 		text-align: center;
 	}
