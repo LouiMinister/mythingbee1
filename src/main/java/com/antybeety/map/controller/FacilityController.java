@@ -61,4 +61,55 @@ public class FacilityController {
     public int searchDistance(double startLat, double startLon, double endLat, double endLon) {
         return distanceCalc.calcDistance(startLat, startLon, endLat, endLon);
     }
+
+    public double calcSafetyValue(double startLat, double startLon, double endLat, double endLon){
+
+        double ea;  // left
+        double ja;  // right
+        double ka;  // top
+        double la;  // bottom
+
+        double area;    // 영역의 넓이
+
+        Map<String,Object> bounds = new HashMap<>();
+
+        // top, bottom 찾기
+        if(startLat > endLat){
+            la = endLat;
+            ka = startLat;
+        } else {
+            la = startLat;
+            ka = endLat;
+        }
+
+        // left, right 찾기
+        if(startLon > endLon){
+            ea = endLon;
+            ja = startLon;
+        }else {
+            ea = startLon;
+            ja = endLon;
+        }
+
+        // 0.00005를 더해주는 이유 : 정확히 그 내부가 아닌 도로의 폭 정도를 여유를 주기 위함
+        bounds.put("la",la-0.00005);
+        bounds.put("ka",ka+0.00005);
+        bounds.put("ja",ja+0.00005);
+        bounds.put("ea",ea-0.00005);
+
+        // 영역 내의 모든 시설물 가져오기
+        List<FacilityMarkVO> allFacility = fDisplay.searchAroundFacilities(bounds);
+
+        int safetyValueSum = 0;
+
+        // 영역 내의 총 안전수치 점수 . 지금은 개당 1점이지만 안전 시설물마다 점수를 다르게 매겨야 함
+        for(FacilityMarkVO v : allFacility){
+            safetyValueSum ++;
+        }
+
+        area = distanceCalc.calcArea(la,ea,ka,ja);
+
+        // 안전수치 / 넓이
+        return  safetyValueSum / distanceCalc.calcArea(la,ea,ka,ja);
+    }
 }

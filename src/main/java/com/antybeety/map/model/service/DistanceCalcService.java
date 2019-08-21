@@ -44,12 +44,23 @@ public class DistanceCalcService {
     // 두 지점 사이의 예측 거리 구하는 메서드 ( 가로 더하기 세로 )
     public int predictDistance(double startLat, double startLon, double endLat, double endLon) {
         // 직선 거리구하고
-        int startingDistance = calcDistance(startLat, startLon, endLat, endLon);
+        int straightDistance = calcDistance(startLat, startLon, endLat, endLon);
         // x축을 기준으로 두 지점 사이의 각도 구하고
         double degree = calcDegree(startLat, startLon, endLat, endLon);
 
         // 가로 세로 길이 구해서 대충 예상 거리를 구한다.
-        return (int) (startingDistance * Math.cos(degree) + startingDistance * Math.sin(degree));
+        return (int) (straightDistance * Math.cos(degree) + straightDistance * Math.sin(degree));
+    }
+
+    // 두 지점을 대각선에 두고 사각형을 만들었을 때 사각형의 넓이를 구하는 메서드
+    public double calcArea(double startLat, double startLon, double endLat, double endLon){
+
+        int straightDistance = calcDistance(startLat, startLon, endLat, endLon);
+
+        double degree = calcDegree(startLat, startLon, endLat, endLon);
+
+        // 가로 곱하기 세로 리턴
+        return straightDistance * Math.cos(degree) * straightDistance * Math.sin(degree);
     }
 
     public List<Integer> calcDistanceAll(List<Map<String,Object>> locationList){
