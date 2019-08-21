@@ -212,17 +212,17 @@ function layer_toggle(obj) {
 			<ul id="gn-menu" class="gn-menu-main">
 				<li class="gn-trigger">
 					<a class="gn-icon gn-icon-menu gn-selected" style="margin-top:35px"><span>Menu</span></a>
-					<nav class="gn-menu-wrapper">
-						<div class="gn-scroller">
-							<ul class="gn-menu">
-								<li>
-										<li><a href="preedu.html" class="gn-icon gn-icon-article">안전예방교육</a></li>
-										<li><a href="minwon.html" class="gn-icon gn-icon-article">민원</a></li>
-										<li><a href="hosin.html" class="gn-icon gn-icon-article">호신</a></li>
-								</li>
-							</ul>
-						</div><!-- /gn-scroller -->
-					</nav>
+<%--					<nav class="gn-menu-wrapper">--%>
+<%--						<div class="gn-scroller">--%>
+<%--							<ul class="gn-menu">--%>
+<%--								<li>--%>
+<%--										<li><a href="preedu.html" class="gn-icon gn-icon-article">안전예방교육</a></li>--%>
+<%--										<li><a href="minwon.html" class="gn-icon gn-icon-article">민원</a></li>--%>
+<%--										<li><a href="hosin.html" class="gn-icon gn-icon-article">호신</a></li>--%>
+<%--								</li>--%>
+<%--							</ul>--%>
+<%--						</div><!-- /gn-scroller -->--%>
+<%--					</nav>--%>
 				</li>
 				<li>
 
