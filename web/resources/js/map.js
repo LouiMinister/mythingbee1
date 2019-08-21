@@ -967,6 +967,7 @@ $(document).ready(function(){
 		}
 
 		var latlng = mouseEvent.latLng;
+		console.log(latlng);
 	});
 	//////////////////////////////////////////////
 
