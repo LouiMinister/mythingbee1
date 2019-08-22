@@ -13,47 +13,59 @@ public class ApiNewsController {
     @Autowired
     private NewsController controller;
 
+    @Autowired
+    private NewsAdController newsAdController;
 
-    @RequestMapping(value="/getArticles" ,method= RequestMethod.GET)
-    public List<ArticleInfoVO> getArticles(@RequestParam String lastArticleCode){
-        int limit= 5;
+    @RequestMapping(value = "/getArticles", method = RequestMethod.GET)
+    public List<ArticleInfoVO> getArticles(@RequestParam String lastArticleCode) {
+        int limit = 5;
         //System.out.println(lastArticleCode);
-        List<ArticleInfoVO>  articles=  controller.getArticles(lastArticleCode, limit);
+        List<ArticleInfoVO> articles = controller.getArticles(lastArticleCode, limit);
 
         return articles;
     }
 
-    @RequestMapping(value="/searchNews", method=RequestMethod.GET)
+    @RequestMapping(value = "/searchNews", method = RequestMethod.GET)
     public List<ArticleInfoVO> getArticles(@RequestParam String searchWord,
-                                           @RequestParam(required =false) String lastArticleCode,
+                                           @RequestParam(required = false) String lastArticleCode,
                                            @RequestParam String date,
                                            @RequestParam String district,
-                                           @RequestParam(required = false) String mode){
+                                           @RequestParam(required = false) String mode) {
         int limit = Integer.MAX_VALUE;
-        List<ArticleInfoVO> articles=null;
+        List<ArticleInfoVO> articles = null;
 
-        articles = controller.searchArticle(searchWord,lastArticleCode, date, district ,limit );
+        articles = controller.searchArticle(searchWord, lastArticleCode, date, district, limit);
 //        controller.searchArticle(searchWord,lastArticleCode,date,district,limit);
         //System.out.println("검색어:"+searchWord+"마지막기사코드"+lastArticleCode+"마지막일"+date+"구역"+district+"모드"+mode );
         //System.out.println(articles);
-        return  articles;
+        return articles;
 
     }
 
-    @RequestMapping(value="/increaseViewCount",method=RequestMethod.GET)
+    @RequestMapping(value = "/increaseViewCount", method = RequestMethod.GET)
     public @ResponseBody
-    int addViewCount(@RequestParam(value="articleId") String arCode){
+    int addViewCount(@RequestParam(value = "articleId") String arCode) {
         //System.out.println(arCode + "조회수 증가");
 
 
         return controller.increaseViewCount(arCode);
     }
 
-    @RequestMapping(value="/updateTopKeywords", method = RequestMethod.GET)
+    @RequestMapping(value = "/updateTopKeywords", method = RequestMethod.GET)
     public @ResponseBody
-    List<String> updateTopKeywords(int limit){
+    List<String> updateTopKeywords(int limit) {
 //        limit=5;
         return controller.searchTopKeywords(limit);
     }
 
+    @RequestMapping(value = "/getAllPress", method = RequestMethod.GET)
+    public @ResponseBody
+    List<String> getAllPresName() {
+        return newsAdController.searchAllPresses();
+    }
+
+    @RequestMapping(value="/getAllDistrict",method = RequestMethod.GET)
+    public @ResponseBody List<String> getAllDistrictName(){
+        return newsAdController.searchAllDistricts();
+    }
 }
