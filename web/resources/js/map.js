@@ -279,8 +279,12 @@ function makeClickListener(marker){
 }
 
 function searchNewPlaces() {
+	// 시설물 하나도 켜진거 없으면 리턴
+	if( (cctvFlag | bellFlag | securityLampFlag | shopFlag | policeFlag | guardFlag) == 0){
+		return ;
+	}
 	// 지도 영역 조정하고 가져오기 . 해당 시설물 중 하나라도 켜져 있으면 크기 제한
-	if( cctvFlag | bellFlag | securityLampFlag | shopFlag == 1 ){
+	if( (cctvFlag | bellFlag | securityLampFlag | shopFlag) == 1 ){
 		map.setMaxLevel(2);
 	}
 	var center = map.getCenter();
@@ -940,7 +944,60 @@ function setZoomable(zoomable) {
 	map.setZoomable(zoomable);
 }
 
+function getRoad() {
+	$.ajax('api/map/road',{
+		type: 'GET'
+	}).then(function(data,status){
+		if(status == 'success')
+		{
+			console.log(data);
+			for (var i = 0; i < data.length; i++){
+				var temp = data[i];
+				// if(temp.length == 1) {continue;}
+				var positions=[];
+				if(temp == null ) { continue;}
+				var latlng = new kakao.maps.LatLng(temp.lat, temp.lon);
+				// 지도에 표시
+				var marker = new kakao.maps.Marker({
+					position: latlng,
+					title: temp.roadIndex
+				});
+				marker.setMap(map);
+			}
+		}
+	})
+}
 
+function getRoadLine() {
+	$.ajax('api/map/road',{
+		type: 'GET'
+	}).then(function(data,status){
+		if(status == 'success')
+		{
+			for (var i = 0; i < data.length; i++){
+				var temp = data[i];
+				// if(temp.length == 1) {continue;}
+				var positions=[];
+				if(temp == null ) { continue;}
+
+				var linePath = [
+					new kakao.maps.LatLng(temp.startLat, temp.startLon),
+					new kakao.maps.LatLng(temp.endLat, temp.endLon)
+				];
+
+				var polyline = new kakao.maps.Polyline({
+					path : linePath,
+					strokeWeight : 4,
+					storkeColor : '#FFAE00',
+					strokeOpacity : 0.8,
+					storkeStyle : 'solid'
+				});
+
+				polyline.setMap(map);
+			}
+		}
+	})
+}
 
 $(document).ready(function(){
 	var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
@@ -970,6 +1027,9 @@ $(document).ready(function(){
 		console.log(latlng);
 	});
 	//////////////////////////////////////////////
+	getRoad();	// 모든 도로에 마커 표시
+	// getRoadLine();
+
 
 	// 지도에 idle 이벤트를 등록합니다 지도 이동할때 발생하는 이벤트
 	kakao.maps.event.addListener(map, 'dragend', searchNewPlaces);

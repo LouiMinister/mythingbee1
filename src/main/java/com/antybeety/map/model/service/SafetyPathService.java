@@ -2,13 +2,14 @@ package com.antybeety.map.model.service;
 
 import com.antybeety.map.model.vo.GraphAStar;
 import com.antybeety.map.model.vo.NodeData;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-@Service
 // 안전 길찾기 찾아주는 서비스
 public class SafetyPathService {
+
     private final GraphAStar graph;
 
     public SafetyPathService(GraphAStar graphAStar) {
@@ -19,8 +20,8 @@ public class SafetyPathService {
     // 노드 데이터끼리 총 비용을 비교할 수 있도록 Comparator 재정의
     public class NodeComparator implements Comparator<NodeData> {
         public int compare(NodeData nodeFirst, NodeData nodeSecond) {
-            if (nodeFirst.getF() > nodeSecond.getF()) return 1;
-            if (nodeSecond.getF() > nodeFirst.getF()) return -1;
+            if (nodeFirst.getF() > nodeSecond.getF()) return -1;    // F : 예측 안전 가중치 -> 높을 수록 안전
+            if (nodeSecond.getF() > nodeFirst.getF()) return 1;
             return 0;
         }
     }
@@ -32,7 +33,7 @@ public class SafetyPathService {
      * @param destination   the destination nodeid  -> 도착지 노드 id
      * @return              the path from source to destination -> 출발지부터 도착지까지의 경로 반환
      */
-    public List astar(Integer source, Integer destination) {
+    public List<Integer> astar(Integer source, Integer destination) {
         /**
          * http://stackoverflow.com/questions/20344041/why-does-priority-queue-has-default-initial-capacity-of-11
          */
@@ -44,6 +45,7 @@ public class SafetyPathService {
         sourceNodeData.calcF(destination);  // 도착지까지의 총 비용 계산
         openQueue.add(sourceNodeData);  // 출발 노드 큐에 삽입
 
+        // key: 노드, value : 부모 노드   -> 키에 해당하는 노드는 value에 해당하는 노드를 거쳐서 왔다는 뜻
         final Map<Integer, Integer> cameFrom = new HashMap<Integer, Integer>(); // 경로 Map
         final Set<NodeData> closedList = new HashSet<NodeData>(); // 닫힌 목록 -> 더 이상 볼 필요 없는 목록
 
@@ -91,7 +93,7 @@ public class SafetyPathService {
     }
 
     // 경로 반환하는 메서드
-    private List path(Map<Integer, Integer> cameFrom, Integer destination) {
+    private List<Integer> path(Map<Integer, Integer> cameFrom, Integer destination) {
         // assert boolean 식;    -> 개발자가 true이라고 생각하는 식을 적는다. boolean 식이 성공한 경우에만 프로그램이 수행
         assert cameFrom != null;
         assert destination != null;

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Map;
 
-@Repository("BellMarkDAO")
+@Repository
 public class BellMarkDAO extends FacilityMarkDAOImpl {
 
     @Autowired
