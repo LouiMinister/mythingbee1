@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import java.util.List;
 
 @Controller
-public class searchArticleNewsControllerImpl implements NewsController {
+public class NewsControllerImpl implements NewsController {
 
     @Autowired
     private NewsService newsService;
