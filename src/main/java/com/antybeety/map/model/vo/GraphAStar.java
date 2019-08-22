@@ -1,5 +1,7 @@
 package com.antybeety.map.model.vo;
 
+import org.springframework.stereotype.Component;
+
 import java.util.*;
 
 public class GraphAStar implements Iterable{

@@ -3,6 +3,7 @@ package com.antybeety.map.controller;
 import com.antybeety.map.model.service.DistanceCalcService;
 import com.antybeety.map.model.service.FacilityDetailService;
 import com.antybeety.map.model.service.FacilityDisplayService;
+import com.antybeety.map.model.service.SafetyValueService;
 import com.antybeety.map.model.vo.FacilityDetailVO;
 import com.antybeety.map.model.vo.FacilityMarkVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class FacilityController {
 
     @Autowired
     private DistanceCalcService distanceCalc;
+
+    @Autowired
+    private SafetyValueService safetyValue;
 
     public List<Map<String,Object>> searchFacility(Map<String, Object> bounds, List<Integer> facilFlag, List<String> facilName) throws SQLException {
 
@@ -97,19 +101,7 @@ public class FacilityController {
         bounds.put("ja",ja+0.00005);
         bounds.put("ea",ea-0.00005);
 
-        // 영역 내의 모든 시설물 가져오기
-        List<FacilityMarkVO> allFacility = fDisplay.searchAroundFacilities(bounds);
 
-        int safetyValueSum = 0;
-
-        // 영역 내의 총 안전수치 점수 . 지금은 개당 1점이지만 안전 시설물마다 점수를 다르게 매겨야 함
-        for(FacilityMarkVO v : allFacility){
-            safetyValueSum ++;
-        }
-
-        area = distanceCalc.calcArea(la,ea,ka,ja);
-
-        // 안전수치 / 넓이
-        return  safetyValueSum / distanceCalc.calcArea(la,ea,ka,ja);
+        return safetyValue.setSafetyValue(bounds);
     }
 }

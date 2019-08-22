@@ -63,6 +63,16 @@ public class DistanceCalcService {
         return straightDistance * Math.cos(degree) * straightDistance * Math.sin(degree);
     }
 
+    // map으로 왔을 때
+    public double calcArea(Map<String,Object> bounds){
+        double startLat =(double) bounds.get("la");
+        double startLon =(double) bounds.get("ea");
+        double endLat = (double) bounds.get("ka");
+        double endLon = (double) bounds.get("ja");
+
+        return this.calcArea(startLat,startLon,endLat,endLon);
+    }
+
     public List<Integer> calcDistanceAll(List<Map<String,Object>> locationList){
         List<Integer> result = new ArrayList<>();
 

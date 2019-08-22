@@ -1,5 +1,7 @@
 package com.antybeety.map.model.vo;
 
+import lombok.Data;
+
 import java.util.Map;
 
 public class NodeData {

@@ -19,4 +19,7 @@ public interface MapMapper {
     FacilityDetailVO getConvenienceDetail(String code);
     FacilityDetailVO getCCTVDetail(String code);
     FacilityDetailVO getLightDetail(String code);
+
+//    도로 정보 찍어보기
+    List<RoadVO> getAllRoad();
 }
