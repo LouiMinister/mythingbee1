@@ -315,7 +315,8 @@
             <div class="container-fluid">
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        기사 추가
+                        <h6 class="m-0 font-weight-bold text-primary" style="font-size:40px;font-color:#142A6C" >기사
+                            추가</h6>
                     </div>
 
                     <div class="bs-docs-section">

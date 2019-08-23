@@ -66,7 +66,9 @@
                     $('<td/>',{text:articles[i].pressName}).appendTo(tr);
                     $('<td/>',{text:articles[i].districtName}).appendTo(tr);
                     $('<td/>',{text:articles[i].keywordName}).appendTo(tr);
-                    $('<td><button class="btn btn-warning" type="button" value="'+articles[i].code+'" onclick="modifyArticle(event)" style="\n' +
+                    $('<td style="\n' +
+                    '    text-align: center;\n' +
+                    '"><button class="btn btn-primary" type="button" value="'+articles[i].code+'" onclick="modifyArticle(event)" style="\n' +
                     '    padding-top: 1px;\n' +
                     '    padding-bottom: 3px;\n' +
                     '    padding-left: 10px;\n' +
@@ -102,7 +104,14 @@
                     $('<td/>',{text:articles[i].pressName}).appendTo(tr);
                     $('<td/>',{text:articles[i].districtName}).appendTo(tr);
                     $('<td/>',{text:articles[i].keywordName}).appendTo(tr);
-                    $('<td><button type="button" value="'+articles[i].code+'" onclick="modifyArticle(event)">수정</button></td>').appendTo(tr);
+                    $('<td style="\n' +
+                    '    text-align: center;\n' +
+                    '"><button class="btn btn-primary" type="button" value="'+articles[i].code+'" onclick="modifyArticle(event)" style="\n' +
+                    '    padding-top: 1px;\n' +
+                    '    padding-bottom: 3px;\n' +
+                    '    padding-left: 10px;\n' +
+                    '    padding-right: 10px;\n' +
+                    '">수정</button></td>').appendTo(tr);
                 }
             }
         });
@@ -281,7 +290,7 @@
             <div class="container-fluid">
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">뉴스 관리자</h6>
+                        <h6 class="m-0 font-weight-bold text-primary" style="font-size:40px" >뉴스 관리자</h6>
                         </div>
                     <div class="card-body">
                          <div class="table-responsive">
@@ -289,25 +298,29 @@
                                 <ul style="list-style:none;padding-left: 0px;" >
                                     <li>
                                         <form method="post" action='/admin/logout'>
-                                         <a onclick=" deleteArticles()" class="btn btn-info btn-icon-split" style="float">
+                                         <a onclick=" deleteArticles()" class="btn btn-info btn-icon-split"
+                                            style="float:left; background:#ff8080;border-color:#ff8080 ;margin-right
+                                            :10px; color: white;" >
                                             <span class="icon text-white-50" >
-             <i class="fas fa-trash-alt"></i>
+             <i class="fas fa-trash-alt" style="padding-top: 4px;"></i>
              </span>
                                             <span class="text">삭제</span>
                                              </a>
-                                         <a href="/admin/addPress" methods="GET"  class="btn btn-info btn-icon-split" style="float:right ;margin-left: 15px">
+                                         <a href="/admin/addPress" methods="GET"  class="btn btn-info btn-icon-split"
+                                            style="float:right ;margin-left: 15px ;">
                                              <span class="icon text-white-50">
-             <i class="fas fa-trash-alt"></i>
+             <i class="far fa-plus-square" style="padding-top: 4px;"></i>
              </span>
                                              <span class="text">언론사 추가</span>
                                             </a>
-                                        <a href="/admin/addArticle" methods="GET" class="btn btn-info btn-icon-split" style="float:right ">
+                                        <a href="/admin/addArticle" methods="GET" class="btn btn-info btn-icon-split"
+                                           style="float:right ;">
                                               <span class="icon text-white-50" >
-             <i class="fas fa-trash-alt"></i>
+             <i class="far fa-plus-square" style="padding-top: 4px;"></i>
              </span>
                                              <span class="text">기사 추가</span>
                                              </a>
-                                            <button id="logout" class="btn btn-info btn-icon-split" >로그아웃</button>
+                                            <button id="logout" class="btn btn-warning" >로그아웃</button>
                                             <div>
                                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                                             </div>
