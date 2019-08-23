@@ -467,7 +467,7 @@ mark,
 
 .initialism {
   font-size: 90%;
-  text-transform: uppercase;
+  text-transform: none;
 }
 
 .blockquote {
@@ -10337,7 +10337,7 @@ button.bg-dark:focus {
 }
 
 .text-uppercase, .dropdown .dropdown-menu .dropdown-header, .sidebar .sidebar-heading {
-  text-transform: uppercase !important;
+  text-transform: none !important;
 }
 
 .text-capitalize {
@@ -11174,7 +11174,7 @@ a:focus {
   margin: 0;
   white-space: nowrap;
   padding: .5rem 1.5rem;
-  text-transform: uppercase;
+  text-transform: none;
   font-weight: 800;
   font-size: 0.65rem;
   color: #b7b9cc;
@@ -11248,7 +11248,7 @@ a:focus {
   font-weight: 800;
   padding: 1.5rem 1rem;
   text-align: center;
-  text-transform: uppercase;
+  text-transform: none;
   letter-spacing: 0.05rem;
   z-index: 1;
 }
