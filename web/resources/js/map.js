@@ -999,6 +999,60 @@ function getRoadLine() {
 	})
 }
 
+function getNode() {
+	$.ajax('api/map/node',{
+		type: 'GET'
+	}).then(function(data,status){
+		if(status == 'success')
+		{
+			console.log(data);
+			for (var i = 0; i < data.length; i++){
+				var temp = data[i];
+				// if(temp.length == 1) {continue;}
+				var positions=[];
+				if(temp == null ) { continue;}
+				var latlng = new kakao.maps.LatLng(temp.lat-0.00279045488643, temp.lon+0.0021230328);
+				// 지도에 표시
+				var marker = new kakao.maps.Marker({
+					position: latlng,
+					title: temp.nodeId
+				});
+				marker.setMap(map);
+			}
+		}
+	})
+}
+
+function getEdge() {
+	$.ajax('api/map/edge',{
+		type: 'GET'
+	}).then(function(data,status){
+		if(status == 'success')
+		{
+			console.log(data);
+			for (var i = 0; i < data.length; i++){
+				var temp = data[i];
+				var positions=[];
+				if(temp == null ) { continue;}
+				var linePath = [
+					new kakao.maps.LatLng(temp.startLat-0.00279045488643, temp.startLon+0.0021230328),
+					new kakao.maps.LatLng(temp.endLat-0.00279045488643, temp.endLon+0.0021230328)
+				];
+
+				var polyline = new kakao.maps.Polyline({
+					path : linePath,
+					strokeWeight : 2,
+					storkeColor : '#FFAE00',
+					strokeOpacity : 0.8,
+					storkeStyle : 'solid'
+				});
+
+				polyline.setMap(map);
+			}
+		}
+	})
+}
+
 $(document).ready(function(){
 	var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
 	var options = { //지도를 생성할 때 필요한 기본 옵션
@@ -1027,8 +1081,10 @@ $(document).ready(function(){
 		console.log(latlng);
 	});
 	//////////////////////////////////////////////
-	getRoad();	// 모든 도로에 마커 표시
+	// getRoad();	// 모든 도로에 마커 표시
+	getNode();	// 모든 교차로 (속도 변화 구간) 에 마커 표시
 	// getRoadLine();
+	getEdge();
 
 
 	// 지도에 idle 이벤트를 등록합니다 지도 이동할때 발생하는 이벤트

@@ -88,7 +88,19 @@
         <id property="lon" column="lon" jdbcType="DOUBLE"/>
     </resultMap>
 
+    <resultMap id="node_info" type="com.antybeety.map.model.vo.NodeData">
+        <id property="nodeId" column="node_id" jdbcType="INTEGER"/>
+        <id property="lat" column="lat" jdbcType="DOUBLE"/>
+        <id property="lon" column="lon" jdbcType="DOUBLE"/>
+    </resultMap>
 
+    <resultMap id="edge_info" type="com.antybeety.map.model.vo.Edge">
+        <id property="edgeId" column="edge_id" jdbcType="INTEGER"/>
+        <id property="nodeStart" column="node_s" jdbcType="INTEGER"/>
+        <id property="nodeEnd" column="node_e" jdbcType="INTEGER"/>
+    </resultMap>
+    
+    
 <!--    시설물 별 위치 정보 가져오는 쿼리 -->
 
     <select id="selectBell" parameterType="hashmap" resultMap="Bell_map">
@@ -132,7 +144,17 @@
         SELECT cs_code, road_addr, land_addr, name, cs_tel FROM CS_DETAIL_VIEW where CS_CODE = #{code}
     </select>
 
+<!--    모든 도로 정보 가져오기 -->
     <select id="getAllRoad" parameterType="hashmap" resultMap="road_info">
         SELECT road_index, road_name, road_code, start_point, end_point, road_width, road_length, lat, lon FROM road_tb
+    </select>
+
+<!--    모든 노드(교차로 + 속도 변화 구간) 정보 가져오기 -->
+    <select id="getAllNode" parameterType="hashmap" resultMap="node_info">
+        SELECT node_id, lat, lon FROM node_tb
+    </select>
+
+    <select id="getAllEdge" parameterType="hashmap" resultMap="edge_info">
+        SELECT edge_id, node_s, node_e FROM edge_tb
     </select>
 </mapper>
