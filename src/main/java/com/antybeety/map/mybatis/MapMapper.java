@@ -24,4 +24,6 @@ public interface MapMapper {
     List<NodeData> getAllNode();
     List<Edge> getAllEdge();
 
+    void addNode(Map<String, Object> node);
+    void addEdge(Map<String, Object> edge);
 }

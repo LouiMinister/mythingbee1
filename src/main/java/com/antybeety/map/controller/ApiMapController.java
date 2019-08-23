@@ -3,10 +3,13 @@ package com.antybeety.map.controller;
 import com.antybeety.map.model.dao.EdgeDAO;
 import com.antybeety.map.model.dao.NodeDAO;
 import com.antybeety.map.model.dao.RoadDAO;
+import com.antybeety.map.model.service.DistanceCalcService;
 import com.antybeety.map.model.vo.*;
+import com.antybeety.map.mybatis.MapMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import jdk.nashorn.internal.parser.JSONParser;
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +26,9 @@ import java.util.Map;
 public class ApiMapController {
 
     @Autowired
+    private SqlSession sqlSession;
+
+    @Autowired
     private EdgeDAO edgeDAO;
 
     @Autowired
@@ -30,6 +36,9 @@ public class ApiMapController {
 
     @Autowired
     private RoadDAO dao;
+
+    @Autowired
+    private DistanceCalcService distanceCalcService;
 
     @Autowired
     private FacilityController fc;
@@ -170,8 +179,6 @@ public class ApiMapController {
     public List<RoadVO> getAllRoad(){
         List<RoadVO> result = dao.getAll();
 
-        System.out.println("1");
-
         return result;
     }
 
@@ -184,18 +191,19 @@ public class ApiMapController {
     }
 
     @RequestMapping(value="/edge", method = RequestMethod.GET)
-    public List<Map<String,Double>> getAllEdge(){
+    public List<Map<String,Object>> getAllEdge(){
 
         List<Edge> edges = edgeDAO.getAllEdge();
 
         List<NodeData> nodes = nodeDAO.getAllNode();
 
-        List<Map<String,Double>> result = new ArrayList<>();
+        List<Map<String,Object>> result = new ArrayList<>();
 
-        Map<String,Double> data;
+        Map<String,Object> data;
 
         for(Edge e : edges){
             data = new HashMap<>();
+            data.put("edgeId",e.getEdgeId());
             for(NodeData n : nodes){
                 if(n.getNodeId().equals(e.getNodeStart())){
                     data.put("startLat",n.getLat());
@@ -209,5 +217,36 @@ public class ApiMapController {
         }
 
         return result;
+    }
+
+    @RequestMapping(value = "/addNode", method = RequestMethod.GET)
+    public void addNode(@RequestParam Long index, double lat, double lon){
+
+        Map<String,Object> node = new HashMap<>();
+
+        node.put("index",index);
+        node.put("lat",lat);
+        node.put("lon",lon);
+
+        MapMapper mapMapper = sqlSession.getMapper(MapMapper.class);
+        mapMapper.addNode(node);
+    }
+
+    @RequestMapping(value="/addEdge", method = RequestMethod.GET)
+    public void addEdge(@RequestParam Long index, Long startNode, double startLat, double startLon,
+                        Long endNode, double endLat, double endLon){
+
+        Map<String, Object> edge = new HashMap<>();
+
+        edge.put("index",index);
+        edge.put("startNode",startNode);
+        edge.put("endNode",endNode);
+
+        int distance = distanceCalcService.calcDistance(startLat, startLon, endLat, endLon);
+
+        edge.put("distance",distance);
+
+        MapMapper mapMapper = sqlSession.getMapper(MapMapper.class);
+        mapMapper.addEdge(edge);
     }
 }
