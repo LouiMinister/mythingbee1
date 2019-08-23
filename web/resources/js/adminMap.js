@@ -944,180 +944,183 @@ function setZoomable(zoomable) {
 	map.setZoomable(zoomable);
 }
 
-// function getRoad() {
-// 	$.ajax('api/map/road',{
-// 		type: 'GET'
-// 	}).then(function(data,status){
-// 		if(status == 'success')
-// 		{
-// 			console.log(data);
-// 			for (var i = 0; i < data.length; i++){
-// 				var temp = data[i];
-// 				// if(temp.length == 1) {continue;}
-// 				var positions=[];
-// 				if(temp == null ) { continue;}
-// 				var latlng = new kakao.maps.LatLng(temp.lat, temp.lon);
-// 				// 지도에 표시
-// 				var marker = new kakao.maps.Marker({
-// 					position: latlng,
-// 					title: temp.roadIndex
-// 				});
-// 				marker.setMap(map);
-// 			}
-// 		}
-// 	})
-// }
-//
-// function getRoadLine() {
-// 	$.ajax('api/map/road',{
-// 		type: 'GET'
-// 	}).then(function(data,status){
-// 		if(status == 'success')
-// 		{
-// 			for (var i = 0; i < data.length; i++){
-// 				var temp = data[i];
-// 				// if(temp.length == 1) {continue;}
-// 				var positions=[];
-// 				if(temp == null ) { continue;}
-//
-// 				var linePath = [
-// 					new kakao.maps.LatLng(temp.startLat, temp.startLon),
-// 					new kakao.maps.LatLng(temp.endLat, temp.endLon)
-// 				];
-//
-// 				var polyline = new kakao.maps.Polyline({
-// 					path : linePath,
-// 					strokeWeight : 4,
-// 					storkeColor : '#FFAE00',
-// 					strokeOpacity : 0.8,
-// 					storkeStyle : 'solid'
-// 				});
-//
-// 				polyline.setMap(map);
-// 			}
-// 		}
-// 	})
-// }
-//
-// function getNode() {
-// 	$.ajax('api/map/node',{
-// 		type: 'GET'
-// 	}).then(function(data,status){
-// 		if(status == 'success')
-// 		{
-// 			console.log(data);
-// 			for (var i = 0; i < data.length; i++){
-// 				var temp = data[i];
-// 				// if(temp.length == 1) {continue;}
-// 				var positions=[];
-// 				if(temp == null ) { continue;}
-// 				var latlng = new kakao.maps.LatLng(temp.lat-0.00279045488643, temp.lon+0.0021230328);
-// 				// 지도에 표시
-// 				var marker = new kakao.maps.Marker({
-// 					position: latlng,
-// 					title: temp.nodeId
-// 				});
-// 				kakao.maps.event.addListener(marker, 'click', addEdge);
-// 				marker.setMap(map);
-// 			}
-// 		}
-// 	})
-// }
-//
-// function getEdge() {
-// 	$.ajax('api/map/edge',{
-// 		type: 'GET'
-// 	}).then(function(data,status){
-// 		if(status == 'success')
-// 		{
-// 			console.log(data);
-// 			for (var i = 0; i < data.length; i++){
-// 				var temp = data[i];
-// 				var positions=[];
-// 				if(temp == null ) { continue;}
-// 				var linePath = [
-// 					new kakao.maps.LatLng(temp.startLat-0.00279045488643, temp.startLon+0.0021230328),
-// 					new kakao.maps.LatLng(temp.endLat-0.00279045488643, temp.endLon+0.0021230328)
-// 				];
-//
-// 				var polyline = new kakao.maps.Polyline({
-// 					path : linePath,
-// 					strokeWeight : 2,
-// 					storkeColor : '#FFAE00',
-// 					strokeOpacity : 0.8,
-// 					storkeStyle : 'solid'
-// 				});
-//
-// 				polyline.setMap(map);
-// 			}
-// 		}
-// 	})
-// }
-//
-// // false면 엣지 안만들어지느 상태 , true면 엣지 만들 수 있는 상태
-// var edgeFlag = false;
-// var markTemp;
-// // 노드 번호 서로 안겹치게 10000 단위로 끊어서 하기
-// var nodeIndex = 0;
-//
-// // 경로 번호도 서로 안겹치게 10000 단위로 끊어서 하기
-// var edgeIndex = 0;
-//
-// function addNode(marker) {
-// 	$.ajax('api/map/addNode',{
-// 		type: 'GET',
-// 		data: {
-// 			// index: marker.getTitle(),
-// 			lat: marker.getPosition().getLat(),
-// 			lon: marker.getPosition().getLng()
-// 		}
-// 	})
-// }
-//
-// function addEdge(marker) {
-// 	return function() {
-// 		if(edgeFlag == false){
-// 			markTemp = marker;
-// 			edgeFlag = true;
-// 		}
-// 		else {
-// 			var edgePath = [
-// 				new kakao.maps.LatLng(markTemp.getPosition().getLat(), markTemp.getPosition().getLng()),
-// 				new kakao.maps.LatLng(marker.getPosition().getLat(), marker.getPosition().getLng())
-// 			];
-//
-// 			var polyline = new kakao.maps.Polyline({
-// 				path : edgePath,
-// 				strokeWeight : 2,
-// 				storkeColor : '#FFAE00',
-// 				strokeOpacity : 0.8,
-// 				storkeStyle : 'solid'
-// 			});
-//
-// 			polyline.setMap(map);
-//
-// 			edgeIndex++;
-//
-// 			// 경로 그려주면 경로 db에 저장
-// 			$.ajax('api/map/addEdge',{
-// 				type: 'GET',
-// 				data: {
-// 					// index: edgeIndex,
-// 					startNode: markTemp.getTitle(),
-// 					startLat: markTemp.getPosition().getLat(),
-// 					startLon: markTemp.getPosition().getLng(),
-// 					endNode:marker.getTitle(),
-// 					endLat: marker.getPosition().getLat(),
-// 					endLon: marker.getPosition().getLng()
-// 				}
-// 			})
-//
-// 			edgeFlag = false;
-// 			markTemp = null;
-// 		}
-// 	}
-//
-// }
+function getRoad() {
+	$.ajax('api/map/road',{
+		type: 'GET'
+	}).then(function(data,status){
+		if(status == 'success')
+		{
+			console.log(data);
+			for (var i = 0; i < data.length; i++){
+				var temp = data[i];
+				// if(temp.length == 1) {continue;}
+				var positions=[];
+				if(temp == null ) { continue;}
+				var latlng = new kakao.maps.LatLng(temp.lat, temp.lon);
+				// 지도에 표시
+				var marker = new kakao.maps.Marker({
+					position: latlng,
+					title: temp.roadIndex
+				});
+				marker.setMap(map);
+			}
+		}
+	})
+}
+
+function getRoadLine() {
+	$.ajax('api/map/road',{
+		type: 'GET'
+	}).then(function(data,status){
+		if(status == 'success')
+		{
+			for (var i = 0; i < data.length; i++){
+				var temp = data[i];
+				// if(temp.length == 1) {continue;}
+				var positions=[];
+				if(temp == null ) { continue;}
+
+				var linePath = [
+					new kakao.maps.LatLng(temp.startLat, temp.startLon),
+					new kakao.maps.LatLng(temp.endLat, temp.endLon)
+				];
+
+				var polyline = new kakao.maps.Polyline({
+					path : linePath,
+					strokeWeight : 4,
+					storkeColor : '#FFAE00',
+					strokeOpacity : 0.8,
+					storkeStyle : 'solid'
+				});
+
+				polyline.setMap(map);
+			}
+		}
+	})
+}
+
+function getNode() {
+	$.ajax('api/map/node',{
+		type: 'GET'
+	}).then(function(data,status){
+		if(status == 'success')
+		{
+			console.log(data);
+			for (var i = 0; i < data.length; i++){
+				var temp = data[i];
+				// if(temp.length == 1) {continue;}
+				var positions=[];
+				if(temp == null ) { continue;}
+				var latlng = new kakao.maps.LatLng(temp.lat, temp.lon);
+				// 지도에 표시
+				var marker = new kakao.maps.Marker({
+					position: latlng,
+					title: temp.nodeId
+				});
+				kakao.maps.event.addListener(marker, 'click', addEdge);
+				marker.setMap(map);
+			}
+			nodeIndex = data[data.length-1].nodeId + 1;
+		}
+	})
+}
+
+function getEdge() {
+	$.ajax('api/map/edge',{
+		type: 'GET'
+	}).then(function(data,status){
+		if(status == 'success')
+		{
+			console.log(data);
+			for (var i = 0; i < data.length; i++){
+				var temp = data[i];
+				var positions=[];
+				if(temp == null ) { continue;}
+				var linePath = [
+					new kakao.maps.LatLng(temp.startLat, temp.startLon),
+					new kakao.maps.LatLng(temp.endLat, temp.endLon)
+				];
+
+				var polyline = new kakao.maps.Polyline({
+					path : linePath,
+					strokeWeight : 2,
+					storkeColor : '#FFAE00',
+					strokeOpacity : 0.8,
+					storkeStyle : 'solid'
+				});
+
+				edgeIndex = data[data.length-1].edgeId + 1;
+
+				polyline.setMap(map);
+			}
+		}
+	})
+}
+
+// false면 엣지 안만들어지느 상태 , true면 엣지 만들 수 있는 상태
+var edgeFlag = false;
+var markTemp;
+// 노드 번호 서로 안겹치게 10000 단위로 끊어서 하기
+var nodeIndex ;
+
+// 경로 번호도 서로 안겹치게 10000 단위로 끊어서 하기
+var edgeIndex ;
+
+function addNode(marker) {
+	$.ajax('api/map/addNode',{
+		type: 'GET',
+		data: {
+			index: marker.getTitle(),
+			lat: marker.getPosition().getLat(),
+			lon: marker.getPosition().getLng()
+		}
+	})
+}
+
+function addEdge(marker) {
+	return function() {
+		if(edgeFlag == false){
+			markTemp = marker;
+			edgeFlag = true;
+		}
+		else {
+			var edgePath = [
+				new kakao.maps.LatLng(markTemp.getPosition().getLat(), markTemp.getPosition().getLng()),
+				new kakao.maps.LatLng(marker.getPosition().getLat(), marker.getPosition().getLng())
+			];
+
+			var polyline = new kakao.maps.Polyline({
+				path : edgePath,
+				strokeWeight : 2,
+				storkeColor : '#FFAE00',
+				strokeOpacity : 0.8,
+				storkeStyle : 'solid'
+			});
+
+			polyline.setMap(map);
+
+			edgeIndex++;
+
+			// 경로 그려주면 경로 db에 저장
+			$.ajax('api/map/addEdge',{
+				type: 'GET',
+				data: {
+					index: edgeIndex,
+					startNode: markTemp.getTitle(),
+					startLat: markTemp.getPosition().getLat(),
+					startLon: markTemp.getPosition().getLng(),
+					endNode:marker.getTitle(),
+					endLat: marker.getPosition().getLat(),
+					endLon: marker.getPosition().getLng()
+				}
+			})
+
+			edgeFlag = false;
+			markTemp = null;
+		}
+	}
+
+}
 
 
 $(document).ready(function(){
@@ -1144,12 +1147,28 @@ $(document).ready(function(){
 			detailList.close();
 		}
 
+		// 클릭할 때마다 인덱스 1증가
+		nodeIndex++;
+
+		var latlng = mouseEvent.latLng;
+
+		// 지도에 표시
+		var marker = new kakao.maps.Marker({
+			position: latlng,
+			title: nodeIndex
+		});
+
+		addNode(marker);
+
+		kakao.maps.event.addListener(marker,'click', addEdge(marker));
+		marker.setMap(map);
+		console.log(latlng);
 	});
 	//////////////////////////////////////////////
 	// getRoad();	// 모든 도로에 마커 표시
-	// getNode();	// 모든 교차로 (속도 변화 구간) 에 마커 표시
+	getNode();	// 모든 교차로 (속도 변화 구간) 에 마커 표시
 	// getRoadLine();
-	// getEdge();
+	getEdge();
 
 
 	// 지도에 idle 이벤트를 등록합니다 지도 이동할때 발생하는 이벤트
