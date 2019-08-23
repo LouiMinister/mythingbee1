@@ -1,9 +1,9 @@
 package com.antybeety.map.controller;
 
+import com.antybeety.map.model.dao.EdgeDAO;
+import com.antybeety.map.model.dao.NodeDAO;
 import com.antybeety.map.model.dao.RoadDAO;
-import com.antybeety.map.model.vo.FacilityDetailVO;
-import com.antybeety.map.model.vo.FacilityMarkVO;
-import com.antybeety.map.model.vo.RoadVO;
+import com.antybeety.map.model.vo.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import jdk.nashorn.internal.parser.JSONParser;
@@ -21,6 +21,12 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/map/")
 public class ApiMapController {
+
+    @Autowired
+    private EdgeDAO edgeDAO;
+
+    @Autowired
+    private NodeDAO nodeDAO;
 
     @Autowired
     private RoadDAO dao;
@@ -165,6 +171,42 @@ public class ApiMapController {
         List<RoadVO> result = dao.getAll();
 
         System.out.println("1");
+
+        return result;
+    }
+
+    @RequestMapping(value="/node", method = RequestMethod.GET)
+    public List<NodeData> getAllNode(){
+
+        List<NodeData> result = nodeDAO.getAllNode();
+
+        return result;
+    }
+
+    @RequestMapping(value="/edge", method = RequestMethod.GET)
+    public List<Map<String,Double>> getAllEdge(){
+
+        List<Edge> edges = edgeDAO.getAllEdge();
+
+        List<NodeData> nodes = nodeDAO.getAllNode();
+
+        List<Map<String,Double>> result = new ArrayList<>();
+
+        Map<String,Double> data;
+
+        for(Edge e : edges){
+            data = new HashMap<>();
+            for(NodeData n : nodes){
+                if(n.getNodeId().equals(e.getNodeStart())){
+                    data.put("startLat",n.getLat());
+                    data.put("startLon",n.getLon());
+                } else if(n.getNodeId().equals( e.getNodeEnd())){
+                    data.put("endLat",n.getLat());
+                    data.put("endLon",n.getLon());
+                }
+            }
+            result.add(data);
+        }
 
         return result;
     }
