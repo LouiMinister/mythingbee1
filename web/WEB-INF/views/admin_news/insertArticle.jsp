@@ -204,16 +204,16 @@
             }
 
             var img_url = $('#img_url').val();
-            if (img_url.isEmpty()) {
-                $('#img_url').focus();
-                document.getElementById("img_irl").style.backgroundColor = "#ffffb3";
-
-                setTimeout(function () {
-                    document.getElementById("img_irl").style.backgroundColor = "#ffffff";
-                }, 1500);
-
-                return;
-            }
+            // if (img_url.isEmpty()) {
+            //     $('#img_url').focus();
+            //     document.getElementById("img_irl").style.backgroundColor = "#ffffb3";
+            //
+            //     setTimeout(function () {
+            //         document.getElementById("img_irl").style.backgroundColor = "#ffffff";
+            //     }, 1500);
+            //
+            //     return;
+            // }
 
             var district = document.getElementById('district').value;
             if (district == "지역구") {
