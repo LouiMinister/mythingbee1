@@ -120,7 +120,7 @@
 
 .gn-menu-main > li > a {
 		padding: 0 30px;
-		text-transform: uppercase;
+		text-transform: none;
 		letter-spacing: 1px;
 		font-weight: bold;
 }

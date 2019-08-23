@@ -55,7 +55,7 @@ body {
 .codrops-top {
 	background: #fff;
 	background: rgba(255, 255, 255, 0.6);
-	text-transform: uppercase;
+	text-transform:none;
 	width: 100%;
 	font-size: 0.69em;
 	line-height: 2.2;

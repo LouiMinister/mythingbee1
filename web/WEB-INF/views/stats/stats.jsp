@@ -86,7 +86,8 @@
 			    </div>
 				</li>
 
-				<li><a class="" href="/index.jsp"><img src="/resources/image/logo_small.png" id="logo"><span>THINK BEE WAY</span></a></li>
+				<li><a class="" href="/index.jsp"><img src="/resources/image/logo_small.png" id="logo"><span>Think Bee
+					Way</span></a></li>
 			</ul>
 		</div><!-- /container -->
 		<script src="/resources/js/classie.js"></script>
@@ -116,7 +117,8 @@
 			</div>
 		</li>
 
-		<li><a class="" href="/index.jsp"><img src="/resources/image/logo_small.png" id="logo"><span>THINK BEE WAY</span></a></li>
+		<li><a class="" href="/index.jsp"><img src="/resources/image/logo_small.png" id="logo"><span>Think Bee
+			Way</span></a></li>
 	</ul>
 </div><!-- /container -->
 <script src="/resources/js/classie.js"></script>

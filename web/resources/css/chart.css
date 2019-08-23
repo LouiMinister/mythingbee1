@@ -54,7 +54,7 @@ tbody tr:hover {
 }
 
 td.rank {
-	text-transform: capitalize;
+	text-transform: none;
 }
 
 .title > area-name {
