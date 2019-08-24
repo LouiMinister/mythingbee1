@@ -3,7 +3,6 @@ package com.antybeety.map.controller;
 import com.antybeety.map.model.service.DistanceCalcService;
 import com.antybeety.map.model.service.FacilityDetailService;
 import com.antybeety.map.model.service.FacilityDisplayService;
-import com.antybeety.map.model.service.SafetyValueService;
 import com.antybeety.map.model.vo.FacilityDetailVO;
 import com.antybeety.map.model.vo.FacilityMarkVO;
 import org.springframework.beans.factory.annotation.Autowired;
