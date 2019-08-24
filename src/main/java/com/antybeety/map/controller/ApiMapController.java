@@ -1,17 +1,18 @@
 package com.antybeety.map.controller;
 
-import com.antybeety.map.model.dao.RoadDAO;
-import com.antybeety.map.model.vo.FacilityDetailVO;
-import com.antybeety.map.model.vo.FacilityMarkVO;
-import com.antybeety.map.model.vo.RoadVO;
+import com.antybeety.map.way.model.dao.EdgeDAO;
+import com.antybeety.map.way.model.dao.NodeDAO;
+import com.antybeety.map.way.model.service.DistanceCalcService;
+import com.antybeety.map.model.vo.*;
+import com.antybeety.map.mybatis.MapMapper;
+import com.antybeety.map.way.model.vo.EdgeVO;
+import com.antybeety.map.way.model.vo.NodeData;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import jdk.nashorn.internal.parser.JSONParser;
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.sql.JDBCType;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,9 +22,6 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/map/")
 public class ApiMapController {
-
-    @Autowired
-    private RoadDAO dao;
 
     @Autowired
     private FacilityController fc;
@@ -135,36 +133,6 @@ public class ApiMapController {
         catch(SQLException e){
             e.printStackTrace();
         }
-
-        return result;
-    }
-
-    @RequestMapping(value="/distanceAll", method = RequestMethod.GET)
-    public List<Integer> calcDistanceAll(@RequestParam String locationList){
-
-        List<Map<String,Object>> result = new ArrayList<>();
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            result = mapper.readValue(locationList,List.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-
-        return fc.searchDistanceAll(result);
-    }
-
-    @RequestMapping(value="/distance",method = RequestMethod.GET)
-    public int calcDistance(@RequestParam double startLat, double startLon, double endLat, double endLon){
-        return fc.searchDistance(startLat,startLon,endLat,endLon);
-    }
-
-    @RequestMapping(value="/road", method = RequestMethod.GET)
-    public List<RoadVO> getAllRoad(){
-        List<RoadVO> result = dao.getAll();
-
-        System.out.println("1");
 
         return result;
     }

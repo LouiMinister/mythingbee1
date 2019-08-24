@@ -13,4 +13,10 @@ public class ViewMapController {
         return "map/map";
     }
 
+    @RequestMapping(value="/adminMap",method = RequestMethod.GET)
+    public String  showAdminMap() {
+
+        return "admin/adminMap";
+    }
+
 }

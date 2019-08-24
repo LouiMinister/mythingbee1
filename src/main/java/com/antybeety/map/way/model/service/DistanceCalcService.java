@@ -1,4 +1,4 @@
-package com.antybeety.map.model.service;
+package com.antybeety.map.way.model.service;
 
 import org.springframework.stereotype.Service;
 

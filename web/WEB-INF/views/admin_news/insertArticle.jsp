@@ -204,26 +204,27 @@
             }
 
             var img_url = $('#img_url').val();
-            if (img_url.isEmpty()) {
-                $('#img_url').focus();
-                document.getElementById("img_irl").style.backgroundColor = "#ffffb3";
-
-                setTimeout(function () {
-                    document.getElementById("img_irl").style.backgroundColor = "#ffffff";
-                }, 1500);
-
-                return;
-            }
+            // if (img_url.isEmpty()) {
+            //     $('#img_url').focus();
+            //     document.getElementById("img_irl").style.backgroundColor = "#ffffb3";
+            //
+            //     setTimeout(function () {
+            //         document.getElementById("img_irl").style.backgroundColor = "#ffffff";
+            //     }, 1500);
+            //
+            //     return;
+            // }
 
             var district = document.getElementById('district').value;
             if (district == "지역구") {
-                $('#district').focus();
-                document.getElementById("district").style.backgroundColor = "#ffffb3";
-
-                setTimeout(function () {
-                    document.getElementById("district").style.backgroundColor = "#ffffff";
-                }, 1500);
-                return;
+                district = "";
+                // $('#district').focus();
+                // document.getElementById("district").style.backgroundColor = "#ffffb3";
+                //
+                // setTimeout(function () {
+                //     document.getElementById("district").style.backgroundColor = "#ffffff";
+                // }, 1500);
+                // return;
             }
 
             // 구현되면 주석 풀기
@@ -314,7 +315,8 @@
             <div class="container-fluid">
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        기사 추가
+                        <h6 class="m-0 font-weight-bold text-primary" style="font-size:40px;font-color:#142A6C" >기사
+                            추가</h6>
                     </div>
 
                     <div class="bs-docs-section">
@@ -369,7 +371,7 @@
                                             </select>
                                             <div class="form-group">
                                                 <select class="custom-select" id="district" name="district">
-                                                    <option selected disabled>지역구</option>
+                                                    <option selected >지역구</option>
                                                     <c:forEach items="${districts}" var="district">
                                                         <option value='${district}'>${district}</option>
                                                     </c:forEach>

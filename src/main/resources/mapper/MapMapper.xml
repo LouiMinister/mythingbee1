@@ -76,19 +76,6 @@
         <id property="adminTel" column = "CS_TEL" jdbcType="VARCHAR"/>
     </resultMap>
 
-    <resultMap id="road_info" type="com.antybeety.map.model.vo.RoadVO">
-        <id property="roadIndex" column="road_index" jdbcType="INTEGER"/>
-        <id property="roadName" column="road_name" jdbcType="VARCHAR"/>
-        <id property="roadCode" column="road_code" jdbcType="INTEGER"/>
-        <id property="startPoint" column="start_point" jdbcType="VARCHAR"/>
-        <id property="endPoint" column="end_point" jdbcType="VARCHAR"/>
-        <id property="roadWidth" column="road_width" jdbcType="INTEGER"/>
-        <id property="roadLength" column="road_length" jdbcType="INTEGER"/>
-        <id property="lat" column="lat" jdbcType="DOUBLE"/>
-        <id property="lon" column="lon" jdbcType="DOUBLE"/>
-    </resultMap>
-
-
 <!--    시설물 별 위치 정보 가져오는 쿼리 -->
 
     <select id="selectBell" parameterType="hashmap" resultMap="Bell_map">
@@ -130,9 +117,5 @@
 
     <select id="getConvenienceDetail" parameterType="java.lang.String" resultMap="convenience_detail">
         SELECT cs_code, road_addr, land_addr, name, cs_tel FROM CS_DETAIL_VIEW where CS_CODE = #{code}
-    </select>
-
-    <select id="getAllRoad" parameterType="hashmap" resultMap="road_info">
-        SELECT road_index, road_name, road_code, start_point, end_point, road_width, road_length, lat, lon FROM road_tb
     </select>
 </mapper>

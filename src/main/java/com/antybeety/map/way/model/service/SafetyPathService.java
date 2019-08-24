@@ -1,9 +1,7 @@
-package com.antybeety.map.model.service;
+package com.antybeety.map.way.model.service;
 
-import com.antybeety.map.model.vo.GraphAStar;
-import com.antybeety.map.model.vo.NodeData;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.antybeety.map.way.model.vo.GraphAStar;
+import com.antybeety.map.way.model.vo.NodeData;
 
 import java.util.*;
 
@@ -33,7 +31,7 @@ public class SafetyPathService {
      * @param destination   the destination nodeid  -> 도착지 노드 id
      * @return              the path from source to destination -> 출발지부터 도착지까지의 경로 반환
      */
-    public List<Integer> astar(Integer source, Integer destination) {
+    public List<Long> astar(Long source, Long destination) {
         /**
          * http://stackoverflow.com/questions/20344041/why-does-priority-queue-has-default-initial-capacity-of-11
          */
@@ -46,7 +44,7 @@ public class SafetyPathService {
         openQueue.add(sourceNodeData);  // 출발 노드 큐에 삽입
 
         // key: 노드, value : 부모 노드   -> 키에 해당하는 노드는 value에 해당하는 노드를 거쳐서 왔다는 뜻
-        final Map<Integer, Integer> cameFrom = new HashMap<Integer, Integer>(); // 경로 Map
+        final Map<Long, Long> cameFrom = new HashMap<Long, Long>(); // 경로 Map
         final Set<NodeData> closedList = new HashSet<NodeData>(); // 닫힌 목록 -> 더 이상 볼 필요 없는 목록
 
         // 큐 : 열린 목록
@@ -88,17 +86,16 @@ public class SafetyPathService {
                 }
             }
         }
-
         return null;
     }
 
     // 경로 반환하는 메서드
-    private List<Integer> path(Map<Integer, Integer> cameFrom, Integer destination) {
+    private List<Long> path(Map<Long, Long> cameFrom, Long destination) {
         // assert boolean 식;    -> 개발자가 true이라고 생각하는 식을 적는다. boolean 식이 성공한 경우에만 프로그램이 수행
         assert cameFrom != null;
         assert destination != null;
 
-        final List<Integer> pathList = new ArrayList<>();
+        final List<Long> pathList = new ArrayList<>();
         pathList.add(destination);
         while (cameFrom.containsKey(destination)) {
             destination = cameFrom.get(destination);

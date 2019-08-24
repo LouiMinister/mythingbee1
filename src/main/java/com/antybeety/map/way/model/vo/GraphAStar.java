@@ -1,6 +1,4 @@
-package com.antybeety.map.model.vo;
-
-import org.springframework.stereotype.Component;
+package com.antybeety.map.way.model.vo;
 
 import java.util.*;
 
@@ -10,22 +8,22 @@ public class GraphAStar implements Iterable{
      * An outgoing edge is represented as a tuple of NodeData and the edge length
      */
     //NodeId,Map<노드정보,거리길이>
-    private final Map<Integer, Map<NodeData, Double>> graph;
+    private final Map<Long, Map<NodeData, Double>> graph;
     /*
      * A map of heuristic from a node to each other node in the graph.
      */
     // 그래프에서 노드간의 추정비용 Map
-    private final Map<Integer, Map<Integer, Double>> heuristicMap;
+    private final Map<Long, Map<Long, Double>> heuristicMap;
     /*
      * A map between nodeId and nodedata.
      */
     // 노드 id와 노드 data사이의 Map
-    private final Map<Integer, NodeData> nodeIdNodeData;
+    private final Map<Long, NodeData> nodeIdNodeData;
 
-    public GraphAStar(Map<Integer, Map<Integer, Double>> heuristicMap) {
+    public GraphAStar(Map<Long, Map<Long, Double>> heuristicMap) {
         if (heuristicMap == null) throw new NullPointerException("The huerisic map should not be null");
-        graph = new HashMap<Integer, Map<NodeData, Double>>();
-        nodeIdNodeData = new HashMap<Integer, NodeData>();
+        graph = new HashMap<Long, Map<NodeData, Double>>();
+        nodeIdNodeData = new HashMap<Long, NodeData>();
         this.heuristicMap = heuristicMap;
     }
 
@@ -36,7 +34,7 @@ public class GraphAStar implements Iterable{
      * @param nodeId the node to be added
      */
     // 그래프에 새로운 노드 추가. 노드에 대한 heuristic map을 노드 데이터에 채운다
-    public void addNode(Integer nodeId) {
+    public void addNode(Long nodeId) {
         if (nodeId == null) throw new NullPointerException("The node cannot be null");
         if (!heuristicMap.containsKey(nodeId)) throw new NoSuchElementException("This node is not a part of hueristic map");
 
@@ -56,7 +54,7 @@ public class GraphAStar implements Iterable{
     // 출발 노드에서 목적 노드까지 간선 추가
     // 출발 노드로부터 하나의 간선만 있을 수 있다.
     // 간선을 추가하면 값을 덮어쓸 수 있다
-    public void addEdge(Integer nodeIdFirst, Integer nodeIdSecond, double weight) {
+    public void addEdge(Long nodeIdFirst, Long nodeIdSecond, double weight) {
         if (nodeIdFirst == null || nodeIdSecond == null) throw new NullPointerException("The first nor second node can be null.");
 
         // 추정비용 맵에 해당 노드들이 없을 때
@@ -79,7 +77,7 @@ public class GraphAStar implements Iterable{
      * @param nodeId    the nodeId whose outgoing edge needs to be returned -> 검색할 nodeId
      * @return          An immutable view of edges leaving that node    -> 해당 노드에서 나가는 간선에 대한 view
      */
-    public Map<NodeData, Double> edgesFrom (Integer nodeId) {
+    public Map<NodeData, Double> edgesFrom (Long nodeId) {
         if (nodeId == null) throw new NullPointerException("The input node should not be null.");
         if (!heuristicMap.containsKey(nodeId)) throw new NoSuchElementException("This node is not a part of hueristic map");
         if (!graph.containsKey(nodeId)) throw new NoSuchElementException("The node should not be null.");
@@ -93,7 +91,7 @@ public class GraphAStar implements Iterable{
      * @param nodeId    the nodeId to be returned   -> 검색할 노드
      * @return          the nodeData from the
      */
-    public NodeData getNodeData (Integer nodeId) {
+    public NodeData getNodeData (Long nodeId) {
         if (nodeId == null) { throw new NullPointerException("The nodeid should not be empty"); }
         if (!nodeIdNodeData.containsKey(nodeId))  { throw new NoSuchElementException("The nodeId does not exist"); }
         return nodeIdNodeData.get(nodeId);

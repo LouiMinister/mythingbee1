@@ -22,7 +22,7 @@ h2 {
     text-align: center;
     font-size: 16px;
     font-weight: 600;
-    text-transform: uppercase;
+    text-transform: none;
     display:inline-block;
     margin: 40px 8px 10px 8px;
     color: #cccccc;
@@ -90,7 +90,7 @@ input[type=button], input[type=submit], input[type=reset] , input[type=password]
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    text-transform: uppercase;
+    text-transform: none;
     font-size: 13px;
     -webkit-box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
     box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);

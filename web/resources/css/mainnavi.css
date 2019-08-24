@@ -46,7 +46,7 @@
 }
 
 #mainmenu_text{
-	text-transform: uppercase;
+	text-transform: none;
 	letter-spacing:1px;
 	font-weight: bold;
 	font-size: 20px;
