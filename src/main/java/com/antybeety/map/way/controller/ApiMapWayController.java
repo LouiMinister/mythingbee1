@@ -9,6 +9,7 @@ import com.antybeety.map.way.model.dao.NodeDAO;
 import com.antybeety.map.way.model.service.DistanceCalcService;
 import com.antybeety.map.way.model.vo.EdgeVO;
 import com.antybeety.map.way.model.vo.NodeData;
+import com.antybeety.map.way.model.vo.NodeVO;
 import com.antybeety.map.way.mybatis.MapWayMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.ibatis.session.SqlSession;
@@ -43,9 +44,9 @@ public class ApiMapWayController {
 
 
     @RequestMapping(value="/node", method = RequestMethod.GET)
-    public List<NodeData> getAllNode(){
+    public List<NodeVO> getAllNode(){
 
-        List<NodeData> result = nodeDAO.getAllNode();
+        List<NodeVO> result = nodeDAO.getAllNode();
 
         return result;
     }
@@ -55,7 +56,7 @@ public class ApiMapWayController {
 
         List<EdgeVO> edges = edgeDAO.getAllEdge();
 
-        List<NodeData> nodes = nodeDAO.getAllNode();
+        List<NodeVO> nodes = nodeDAO.getAllNode();
 
         List<Map<String,Object>> result = new ArrayList<>();
 
@@ -64,13 +65,13 @@ public class ApiMapWayController {
         for(EdgeVO e : edges){
             data = new HashMap<>();
             data.put("edgeId",e.getEdgeId());
-            for(NodeData n : nodes){
-                if(n.getNodeId().equals(e.getNodeStart())){
+            for(NodeVO n : nodes){
+                if(n.getNodeId() == (e.getNodeStart())){
                     data.put("startLat",n.getLat());
-                    data.put("startLon",n.getLon());
-                } else if(n.getNodeId().equals( e.getNodeEnd())){
+                    data.put("startLon",n.getLng());
+                } else if(n.getNodeId() == ( e.getNodeEnd())){
                     data.put("endLat",n.getLat());
-                    data.put("endLon",n.getLon());
+                    data.put("endLon",n.getLng());
                 }
             }
             result.add(data);
@@ -93,13 +94,13 @@ public class ApiMapWayController {
     }
 
     @RequestMapping(value="/deleteNode", method = RequestMethod.GET)
-    public void deleteNode(@RequestParam Long index){
+    public void deleteNode(@RequestParam long index){
         MapWayMapper mapMapper = sqlSession.getMapper(MapWayMapper.class);
         mapMapper.deleteNode(index);
     }
 
     @RequestMapping(value="/addEdge", method = RequestMethod.GET)
-    public void addEdge(@RequestParam Long index, Long startNode, double startLat, double startLon,
+    public void addEdge(@RequestParam long index, Long startNode, double startLat, double startLon,
                         Long endNode, double endLat, double endLon){
 
         Map<String, Object> edge = new HashMap<>();

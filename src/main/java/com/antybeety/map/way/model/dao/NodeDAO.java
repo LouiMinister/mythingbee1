@@ -17,9 +17,11 @@ public class NodeDAO {
     @Autowired
     private SqlSession sqlSession;
 
+
     private MapWayMapper getMapper() {
         return sqlSession.getMapper(MapWayMapper.class);
     }
+
 
     public List<NodeVO> getAllNode(){
         MapWayMapper mapper = sqlSession.getMapper(MapWayMapper.class);

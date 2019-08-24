@@ -10,19 +10,20 @@ import java.util.Map;
 
 public interface MapWayMapper {
     List<NodeVO> getAllNode();
+
     List<EdgeVO> getAllEdge();
 
     List<NodeVO> searchNodeByArea(HashMap<String, Object> AreaByTwoPoints);
 
     NodeVO searchNodeById(String id);
 
+
     void addNode(Map<String, Object> node);
     void addEdge(Map<String, Object> edge);
 
-    void deleteNode(Long index);
-    void deleteEdge(Long index);
 
+    void deleteNode(long nodeId);
+    void deleteEdge(long edgeId);
 
-
-
+    void setLocation(Map<String, Object> locationList);
 }

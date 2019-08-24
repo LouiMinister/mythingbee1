@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Repository
@@ -20,5 +21,11 @@ public class EdgeDAO {
         MapWayMapper mapper = sqlSession.getMapper(MapWayMapper.class);
 
         return mapper.getAllEdge();
+    }
+
+    public void setLocation(Map<String, Object> locationList) {
+        MapWayMapper mapWayMapper = sqlSession.getMapper(MapWayMapper.class);
+
+        mapWayMapper.setLocation(locationList);
     }
 }

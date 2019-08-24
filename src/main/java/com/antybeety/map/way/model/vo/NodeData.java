@@ -6,7 +6,7 @@ import java.sql.JDBCType;
 import java.util.Map;
 
 public class NodeData {
-    private /*final*/ Long nodeId; //  노드 아이디
+    private /*final*/ long nodeId; //  노드 아이디
     private /*final*/ Map<Long, Double> heuristic; // 다른 노드까지의 예상 비용 Map
     private double lat; // 위도
     private double lon; // 경도

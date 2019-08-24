@@ -24,25 +24,36 @@
         SELECT node_id, lat, lon FROM node_tb
     </select>
 
+<!--    노드 데이터 갖고오기 구현 미완 -->
+    <select id="getAllNodeData" parameterType="hashmap" resultMap="node_info">
+        SELECT node_id, lat, lon FROM node_tb
+    </select>
+
+<!--    간선 정보 가져오기 -->
     <select id="getAllEdge" parameterType="hashmap" resultMap="edge_info">
         SELECT edge_id, node_s, node_e FROM edge_tb
     </select>
 
+<!--    노드 추가-->
     <insert id="addNode" parameterType="hashmap" statementType="PREPARED">
         insert into node_tb (node_id, lat, lon) values(${index}, ${lat}, ${lon})
     </insert>
 
+<!--    간선 추가-->
     <insert id="addEdge"  parameterType="hashmap">
         insert into edge_tb (edge_id, node_s, node_e, dist_value) values(${index}, ${startNode}, ${endNode}, #{distance})
     </insert>
 
-    <delete id="deleteNode">
-        delete from node_tb where node_id = ${index} ;
+<!--    노드 삭제-->
+    <delete id="deleteNode" parameterType="java.lang.Long">
+        delete from node_tb where node_id = #{nodeId} ;
     </delete>
 
+<!--    간선 삭제-->
     <delete id="deleteEdge">
-        delete from edge_tb where edge_id = ${index} ;
+        delete from edge_tb where edge_id = #{edgeId} ;
     </delete>
+
 
     <select id="searchNodeByArea" parameterType="hashmap" resultMap="node_info">
         select * from node_tb where lat &gt;= ${lat1} AND lat &lt;= ${lat2} AND lon &gt;= ${lng1} AND lon &lt;= ${lng2}
@@ -51,4 +62,5 @@
     <select id="searchNodeById" parameterType="java.lang.String" resultMap="node_info">
         select * from node_tb where node_id=#{id};
     </select>
+
 </mapper>
