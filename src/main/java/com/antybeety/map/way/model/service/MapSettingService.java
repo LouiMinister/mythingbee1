@@ -76,12 +76,12 @@ public class MapSettingService {
         double endLon=0;
 
         for(EdgeVO e : edgeList){
-            locationList.put("id",e.getEdgeId());
+            locationList.put("id",e.getId());
             for(NodeVO n : nodeList){
-                if( e.getNodeStart() == n.getNodeId()){
+                if( e.getNodeStart() == n.getId()){
                     startLat = n.getLat();
                     startLon = n.getLng();
-                } else if ( e.getNodeEnd() == n.getNodeId()){
+                } else if ( e.getNodeEnd() == n.getId()){
                     endLat = n.getLat();
                     endLon = n.getLng();
                 }

@@ -64,12 +64,12 @@ public class ApiMapWayController {
 
         for(EdgeVO e : edges){
             data = new HashMap<>();
-            data.put("edgeId",e.getEdgeId());
+            data.put("edgeId",e.getId());
             for(NodeVO n : nodes){
-                if(n.getNodeId() == (e.getNodeStart())){
+                if(n.getId() == (e.getNodeStart())){
                     data.put("startLat",n.getLat());
                     data.put("startLon",n.getLng());
-                } else if(n.getNodeId() == ( e.getNodeEnd())){
+                } else if(n.getId() == ( e.getNodeEnd())){
                     data.put("endLat",n.getLat());
                     data.put("endLon",n.getLng());
                 }
