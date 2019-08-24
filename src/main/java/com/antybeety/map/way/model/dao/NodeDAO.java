@@ -2,6 +2,7 @@ package com.antybeety.map.way.model.dao;
 
 import com.antybeety.map.way.model.vo.NodeData;
 import com.antybeety.map.mybatis.MapMapper;
+import com.antybeety.map.way.model.vo.NodeVO;
 import com.antybeety.map.way.mybatis.MapWayMapper;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,14 @@ public class NodeDAO {
     @Autowired
     private SqlSession sqlSession;
 
-    public List<NodeData> getAllNode(){
+    public List<NodeData> getAllNodeData(){
+
+        MapWayMapper mapper = sqlSession.getMapper(MapWayMapper.class);
+
+        return mapper.getAllNodeData();
+    }
+
+    public List<NodeVO> getAllNode(){
 
         MapWayMapper mapper = sqlSession.getMapper(MapWayMapper.class);
 
