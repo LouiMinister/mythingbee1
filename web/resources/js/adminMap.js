@@ -1005,7 +1005,6 @@ function getNode() {
 	}).then(function(data,status){
 		if(status == 'success')
 		{
-			console.log(data);
 			for (var i = 0; i < data.length; i++){
 				var temp = data[i];
 				// if(temp.length == 1) {continue;}
@@ -1015,13 +1014,13 @@ function getNode() {
 				// 지도에 표시
 				var marker = new kakao.maps.Marker({
 					position: latlng,
-					title: temp.nodeId
+					title: temp.id
 				});
 				kakao.maps.event.addListener(marker, 'click', addEdge(marker));
 				kakao.maps.event.addListener(marker, 'rightclick', deleteNode(marker));
 				marker.setMap(map);
 			}
-			nodeIndex = data[data.length-1].nodeId + 1;
+			nodeIndex = data[data.length-1].id + 1;
 		}
 	})
 }
@@ -1034,7 +1033,6 @@ function getEdge() {
 	}).then(function(data,status){
 		if(status == 'success')
 		{
-			console.log(data);
 			for (var i = 0; i < data.length; i++){
 				var temp = data[i];
 				var positions=[];

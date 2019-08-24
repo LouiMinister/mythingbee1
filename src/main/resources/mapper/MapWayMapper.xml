@@ -46,12 +46,12 @@
 
 <!--    노드 삭제-->
     <delete id="deleteNode" parameterType="java.lang.Long">
-        delete from node_tb where node_id = #{nodeId} ;
+        delete from node_tb where node_id = #{id} ;
     </delete>
 
 <!--    간선 삭제-->
     <delete id="deleteEdge">
-        delete from edge_tb where edge_id = #{edgeId} ;
+        delete from edge_tb where edge_id = #{id} ;
     </delete>
 
 
