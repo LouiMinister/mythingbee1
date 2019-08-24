@@ -1,5 +1,7 @@
 package com.antybeety.map.way.model.vo;
 
+import org.springframework.context.annotation.Lazy;
+
 import java.util.*;
 
 public class GraphAStar implements Iterable{
@@ -7,6 +9,7 @@ public class GraphAStar implements Iterable{
      * A map from the nodeId to outgoing edge.
      * An outgoing edge is represented as a tuple of NodeData and the edge length
      */
+    //NodeId,Map<노드정보,거리길이>
     private final Map<Long, Map<NodeData, Double>> graph;
     /*
      * A map of heuristic from a node to each other node in the graph.
@@ -19,11 +22,25 @@ public class GraphAStar implements Iterable{
     // 노드 id와 노드 data사이의 Map
     private final Map<Long, NodeData> nodeIdNodeData;
 
-    public GraphAStar(Map<Long, Map<Long, Double>> heuristicMap) {
+/*    public GraphAStar(Map<Long, Map<Long, Double>> heuristicMap) {
         if (heuristicMap == null) throw new NullPointerException("The huerisic map should not be null");
         graph = new HashMap<Long, Map<NodeData, Double>>();
         nodeIdNodeData = new HashMap<Long, NodeData>();
         this.heuristicMap = heuristicMap;
+    }*/
+
+    private GraphAStar (){
+        graph =null;
+        nodeIdNodeData = null;
+        heuristicMap =null;
+    }
+
+    public static GraphAStar getInstance(){
+        return LazyHolder.INSTANCE;
+    }
+
+    private static class LazyHolder {
+        private static final GraphAStar INSTANCE = new GraphAStar();
     }
 
     /**

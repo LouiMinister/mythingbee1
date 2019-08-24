@@ -1,14 +1,29 @@
 package com.antybeety.map.way.model.service;
 
+import com.antybeety.map.way.model.dao.EdgeDAO;
+import com.antybeety.map.way.model.dao.NodeDAO;
 import com.antybeety.map.way.model.vo.GraphAStar;
 import com.antybeety.map.way.model.vo.NodeData;
+import com.antybeety.map.way.model.vo.NodeVO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 // 안전 길찾기 찾아주는 서비스
+@Service
 public class SafetyPathService {
 
-    private final GraphAStar graph;
+    @Autowired
+    private NodeDAO nodeDao;
+    @Autowired
+    private EdgeDAO edgeDAO;
+
+    private GraphAStar graph;
+    private final double CIRCLE_RATIO = Math.sqrt(2);       //원에 내적하는 사각형과 원의 반지름 과의 배율
+    private final double MATCH_INIT_RADIUS= 0.00003000000;  //matchNode() 에서 검색하는 최초 반경
+
+    public SafetyPathService(){}
 
     public SafetyPathService(GraphAStar graphAStar) {
         this.graph = graphAStar;
@@ -104,4 +119,52 @@ public class SafetyPathService {
         Collections.reverse(pathList);
         return pathList;
     }
+
+    //파라미터로 받은 위경도와 가장 가까운 노드를 찾는 메서드
+    public NodeVO matchNode(double lat, double lng){
+
+        DistanceCalcService calcService = new DistanceCalcService();
+
+        int ratio =1;   //배율
+        double radiusMultiplyRatio = ratio*MATCH_INIT_RADIUS;   //배율과 반지름의 곱
+
+        List<NodeVO> capturedNode = new ArrayList<>();      //찾은 노드
+
+        while(true) {   //노드 하나라도 찾을때 까지 반복
+            //사각형 안에서 찾기
+            capturedNode.addAll(nodeDao.searchNodesByArea(lat - radiusMultiplyRatio, lng - radiusMultiplyRatio,
+                    lng + radiusMultiplyRatio, lng + radiusMultiplyRatio));
+            //찾은 값이 있을 경우 길이에 CIRCLE_RATION를 곱한 사각형안에서 찾기
+            if (capturedNode.size() > 0) {
+                capturedNode.addAll(nodeDao.searchNodesByArea(lat - radiusMultiplyRatio * CIRCLE_RATIO, lng - radiusMultiplyRatio * CIRCLE_RATIO,
+                        lat + radiusMultiplyRatio*CIRCLE_RATIO, lng + radiusMultiplyRatio * CIRCLE_RATIO));
+                break;
+            }
+
+            ratio++; //배율증가
+            radiusMultiplyRatio= ratio*MATCH_INIT_RADIUS;
+        }
+
+        //찾은 노드들 중 가장 가까운 노드 찾기
+        int index =0;
+        NodeVO resNode = null;
+        int resIndex;
+        double resDistance = Double.POSITIVE_INFINITY;
+
+        double distanceTmp;
+        for(NodeVO vo : capturedNode){  //선택된 노드들중 최소 거리인 노드 찾기
+            distanceTmp=calcService.calcDistance(lat,lng,vo.getLat(),vo.getLng());
+            if(resDistance>distanceTmp){    //더 작은 노드일 경우
+                resDistance = distanceTmp;
+                resIndex=index;
+
+            }
+            index++;
+        }
+        index--;
+        return capturedNode.get(index);
+    }
+
+
+
 }

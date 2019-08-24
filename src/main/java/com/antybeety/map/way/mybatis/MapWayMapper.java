@@ -14,18 +14,21 @@ public interface MapWayMapper {
     List<EdgeVO> getAllEdge();
 
     List<NodeVO> searchNodeByArea(HashMap<String, Object> AreaByTwoPoints);
+    List<EdgeVO> searchEdgesByArea(HashMap<String, Object> AreaByTwoPoints);
 
     NodeVO searchNodeById(String id);
-
+    EdgeVO searchEdgeById(String id);
 
     void addNode(Map<String, Object> node);
+
     void addEdge(Map<String, Object> edge);
 
-
     void deleteNode(long nodeId);
+
     void deleteEdge(long edgeId);
 
     void setLocation(Map<String, Object> locationList);
 
     void setSafetyValue(Map<String, Object> safety);
+
 }
