@@ -59,8 +59,15 @@
         select * from node_tb where lat &gt;= ${lat1} AND lat &lt;= ${lat2} AND lon &gt;= ${lng1} AND lon &lt;= ${lng2}
     </select>
 
+    <select id="searchEdgesByArea" parameterType="hashmap" resultMap="edge_info">
+        select * from edge_view1 where lat &gt;= ${lat1} AND lat &lt;= ${lat2} AND lon &gt;= ${lng1} AND lon &lt;= ${lng2}
+    </select>
+
     <select id="searchNodeById" parameterType="java.lang.String" resultMap="node_info">
         select * from node_tb where node_id=#{id};
     </select>
 
+    <select id="searchEdgeById" parameterType="java.lang.String" resultMap="edge_info">
+        select * from edge_tb where edge_id=#{id};
+    </select>
 </mapper>
