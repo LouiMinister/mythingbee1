@@ -16,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="/resources/css/mdemostats.css" />
     <link rel="stylesheet" type="text/css" href="/resources/css/component.css" />
     <script src="/resources/js/modernizr.custom.js"></script>
-    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/resources/css/bootstrap_1.min.css">
     <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/resources/css/mainnavi.css" media="screen">
     <link rel="stylesheet" href="/resources/css/mappopchart.css">
@@ -40,7 +40,7 @@
         </div>
         <div class="container">
             <header>
-                <h1>지역별 범죄발생율 순위</h1>
+                <h1>지역별 범죄발생율<br> 순위</h1>
             </header>
             <div class="wrapper">
                 <table id="rankContent">
@@ -67,7 +67,7 @@
         <span class="btn btn-default"  onclick="selection(event)" id="SE"> 성범죄</span>
         <span class="btn btn-default" onclick="selection(event)" id="TH">절도</span>
         <span class="btn btn-default" onclick="selection(event)" id="VI">폭력</span>
-        <a href="/stats" class="btn btn_default">맵</a>
+        <a href="/stats" class="btn_change">맵</a>
     </div>
 </footer>
 </body>

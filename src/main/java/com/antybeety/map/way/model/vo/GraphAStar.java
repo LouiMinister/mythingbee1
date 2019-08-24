@@ -7,6 +7,7 @@ public class GraphAStar implements Iterable{
      * A map from the nodeId to outgoing edge.
      * An outgoing edge is represented as a tuple of NodeData and the edge length
      */
+    //NodeId,Map<노드정보,거리길이>
     private final Map<Long, Map<NodeData, Double>> graph;
     /*
      * A map of heuristic from a node to each other node in the graph.
