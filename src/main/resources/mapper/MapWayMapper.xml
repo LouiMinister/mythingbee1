@@ -70,7 +70,13 @@
     <update id="setSafetyValue" parameterType="hashmap">
         update edge_tb set safe_value = #{safetyValue} where edge_id = #{id};
     </update>
+
     <select id="searchEdgeById" parameterType="java.lang.String" resultMap="edge_info">
         select * from edge_tb where edge_id=#{id};
     </select>
+
+    <select id="getNode" parameterType="java.lang.Long" resultType="com.antybeety.map.way.model.vo.NodeVO">
+        select node_id, lat, lon from node_tb where edge_id = #{id};
+    </select>
+
 </mapper>

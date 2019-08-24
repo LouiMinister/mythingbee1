@@ -46,7 +46,7 @@ public class SafetyPathService {
      * @param destination   the destination nodeid  -> 도착지 노드 id
      * @return              the path from source to destination -> 출발지부터 도착지까지의 경로 반환
      */
-    public List<Long> astar(Long source, Long destination) {
+    public List<NodeVO> astar(Long source, Long destination) {
         /**
          * http://stackoverflow.com/questions/20344041/why-does-priority-queue-has-default-initial-capacity-of-11
          */
@@ -69,7 +69,12 @@ public class SafetyPathService {
 
             // 도착지 노드 발견하면 경로에 추가하고 종료
             if (nodeData.getNodeId().equals(destination)) {
-                return path(cameFrom, destination);
+               List<Long> temp = path(cameFrom, destination);
+               List<NodeVO> result = new ArrayList<>();
+               for(long id : temp){
+                   result.add(nodeDao.getNode(id));
+               }
+               return result;
             }
 
             // poll한 노드 닫힌 목록에 추가

@@ -2,9 +2,12 @@ package com.antybeety.map.way.controller;
 
 import com.antybeety.map.way.model.service.DistanceCalcService;
 import com.antybeety.map.way.model.service.MapSettingService;
+import com.antybeety.map.way.model.service.SafetyPathService;
+import com.antybeety.map.way.model.vo.NodeVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import javax.xml.soap.Node;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +21,9 @@ public class FindPathController {
 
     @Autowired
     private MapSettingService safetyValue;
+
+    @Autowired
+    private SafetyPathService safetyPathService;
 
     public List<Integer> searchDistanceAll(List<Map<String,Object>> locationList) {
         return distanceCalc.calcDistanceAll(locationList);
@@ -64,5 +70,13 @@ public class FindPathController {
 
 
         return safetyValue.setSafetyValue(bounds);
+    }
+
+    public List<NodeVO> searchSafePath(double startLat, double startLon, double endLat, double endLon) {
+
+        NodeVO startNode = safetyPathService.matchNode(startLat,startLon);
+        NodeVO endNode = safetyPathService.matchNode(endLat,endLon);
+
+        return  safetyPathService.astar(startNode.getId(),endNode.getId());
     }
 }
