@@ -1025,8 +1025,6 @@ function getNode() {
 	})
 }
 
-
-
 function getEdge() {
 	$.ajax('api/map/way/edge',{
 		type: 'GET'

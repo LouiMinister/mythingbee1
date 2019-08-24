@@ -29,5 +29,6 @@ public interface MapWayMapper {
 
     void setLocation(Map<String, Object> locationList);
 
+    void setSafetyValue(Map<String, Object> safety);
 
 }

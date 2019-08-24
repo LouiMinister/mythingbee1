@@ -21,4 +21,10 @@ public interface MapMapper {
     FacilityDetailVO getConvenienceDetail(String code);
     FacilityDetailVO getCCTVDetail(String code);
     FacilityDetailVO getLightDetail(String code);
+
+    List<String> searchAllCCTVRoadAddr();
+    List<String> searchAllBellRoadAddr();
+    List<String> searchAllPoliceRoadAddr();
+    List<String> searchAllConvenienceRoadAddr();
+    List<String> searchAllLightRoadAddr();
 }

@@ -35,6 +35,21 @@ public class EdgeDAO {
         mapWayMapper.setLocation(locationList);
     }
 
+    public void setSafetyValue(List<EdgeVO> edgeList) {
+        MapWayMapper mapWayMapper = sqlSession.getMapper(MapWayMapper.class);
+
+        Map<String,Object> safety = new HashMap<>();
+        try{
+            for(EdgeVO e : edgeList){
+                if(e.getSafeVal()==0) continue;
+                safety.put("id",e.getId());
+                safety.put("safetyValue",e.getSafeVal());
+
+                mapWayMapper.setSafetyValue(safety);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     public List<EdgeVO> searchEdgesByArea(double lat1, double lng1, double lat2, double lng2) {
         MapWayMapper mapper = getMapper();
         if(!(lat1<lat2)){

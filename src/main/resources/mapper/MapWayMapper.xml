@@ -31,7 +31,7 @@
 
 <!--    간선 정보 가져오기 -->
     <select id="getAllEdge" parameterType="hashmap" resultMap="edge_info">
-        SELECT edge_id, node_s, node_e FROM edge_tb
+        SELECT edge_id, node_s, node_e, addr, /*safe_value,*/ dist_value FROM edge_tb
     </select>
 
 <!--    노드 추가-->
@@ -67,6 +67,9 @@
         select * from node_tb where node_id=#{id};
     </select>
 
+    <update id="setSafetyValue" parameterType="hashmap">
+        update edge_tb set safe_value = #{safetyValue} where edge_id = #{id};
+    </update>
     <select id="searchEdgeById" parameterType="java.lang.String" resultMap="edge_info">
         select * from edge_tb where edge_id=#{id};
     </select>

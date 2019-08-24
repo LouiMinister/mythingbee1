@@ -42,6 +42,8 @@ public class ApiMapWayController {
     @Autowired
     private DistanceCalcService distanceCalcService;
 
+    @Autowired
+    private MapSettingController mapSettingController;
 
     @RequestMapping(value="/node", method = RequestMethod.GET)
     public List<NodeVO> getAllNode(){
@@ -76,7 +78,6 @@ public class ApiMapWayController {
             }
             result.add(data);
         }
-
         return result;
     }
 
@@ -121,5 +122,10 @@ public class ApiMapWayController {
     public void deleteEdge(@RequestParam Long index){
         MapWayMapper mapMapper = sqlSession.getMapper(MapWayMapper.class);
         mapMapper.deleteEdge(index);
+    }
+
+    @RequestMapping(value="/setting", method = RequestMethod.GET)
+    public void setMap(){
+        mapSettingController.setAllSafetyValue();
     }
 }

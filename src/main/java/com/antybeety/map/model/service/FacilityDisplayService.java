@@ -37,6 +37,7 @@ public class FacilityDisplayService {
         }
         return temp;
     }
+
 //    private FacilityMarkDAOImpl createFacilDAO(String type){
 //        ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
 //        switch (type){
