@@ -26,4 +26,6 @@ public interface MapWayMapper {
     void deleteEdge(long edgeId);
 
     void setLocation(Map<String, Object> locationList);
+
+    void setSafetyValue(Map<String, Object> safety);
 }

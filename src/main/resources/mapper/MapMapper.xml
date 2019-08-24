@@ -118,4 +118,25 @@
     <select id="getConvenienceDetail" parameterType="java.lang.String" resultMap="convenience_detail">
         SELECT cs_code, road_addr, land_addr, name, cs_tel FROM CS_DETAIL_VIEW where CS_CODE = #{code}
     </select>
+
+    <select id="searchAllBellRoadAddr"  resultType="java.lang.String">
+        SELECT road_addr FROM bell_detail_view
+    </select>
+
+    <select id="searchAllCCTVRoadAddr" resultType="java.lang.String">
+        SELECT road_addr FROM cctv_detail_view
+    </select>
+
+    <select id="searchAllPoliceRoadAddr" resultType="java.lang.String">
+        SELECT road_addr FROM pd_detail_view
+    </select>
+
+    <select id="searchAllConvenienceRoadAddr" resultType="java.lang.String">
+        SELECT road_addr FROM cs_detail_view
+    </select>
+
+    <select id="searchAllLightRoadAddr" resultType="java.lang.String">
+        SELECT road_addr FROM light_detail_view
+    </select>
+
 </mapper>

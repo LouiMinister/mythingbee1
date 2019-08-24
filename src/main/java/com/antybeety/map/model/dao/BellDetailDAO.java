@@ -6,6 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class BellDetailDAO extends FacilityDetailDAOImpl{
 
@@ -21,5 +23,11 @@ public class BellDetailDAO extends FacilityDetailDAOImpl{
     @Override
     public String getFacilName() {
         return "BE";
+    }
+
+    @Override
+    public List<String> searchAllRoadAddr() {
+        MapMapper mapMapper = sqlSession.getMapper(MapMapper.class);
+        return mapMapper.searchAllBellRoadAddr();
     }
 }

@@ -6,6 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class ConvenienceDetailDAO  extends  FacilityDetailDAOImpl{
 
@@ -22,5 +24,11 @@ public class ConvenienceDetailDAO  extends  FacilityDetailDAOImpl{
     @Override
     public String getFacilName() {
         return "CS";
+    }
+
+    @Override
+    public List<String> searchAllRoadAddr() {
+        MapMapper mapMapper = sqlSession_oracle.getMapper(MapMapper.class);
+        return mapMapper.searchAllConvenienceRoadAddr();
     }
 }

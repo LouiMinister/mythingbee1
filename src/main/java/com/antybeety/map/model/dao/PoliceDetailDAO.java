@@ -6,6 +6,8 @@ package com.antybeety.map.model.dao;
         import org.springframework.beans.factory.annotation.Autowired;
         import org.springframework.stereotype.Repository;
 
+        import java.util.List;
+
 @Repository
 public class PoliceDetailDAO extends  FacilityDetailDAOImpl{
 
@@ -21,5 +23,11 @@ public class PoliceDetailDAO extends  FacilityDetailDAOImpl{
     @Override
     public String getFacilName() {
         return "PD";
+    }
+
+    @Override
+    public List<String> searchAllRoadAddr() {
+        MapMapper mapMapper = sqlSession.getMapper(MapMapper.class);
+        return mapMapper.searchAllPoliceRoadAddr();
     }
 }

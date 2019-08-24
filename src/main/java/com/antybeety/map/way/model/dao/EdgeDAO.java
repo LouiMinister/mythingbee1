@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,5 +28,22 @@ public class EdgeDAO {
         MapWayMapper mapWayMapper = sqlSession.getMapper(MapWayMapper.class);
 
         mapWayMapper.setLocation(locationList);
+    }
+
+    public void setSafetyValue(List<EdgeVO> edgeList) {
+        MapWayMapper mapWayMapper = sqlSession.getMapper(MapWayMapper.class);
+
+        Map<String,Object> safety = new HashMap<>();
+        try{
+            for(EdgeVO e : edgeList){
+                if(e.getSafeVal()==0) continue;
+                safety.put("id",e.getId());
+                safety.put("safetyValue",e.getSafeVal());
+
+                mapWayMapper.setSafetyValue(safety);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }
