@@ -5,15 +5,18 @@
 <mapper namespace="com.antybeety.map.way.mybatis.MapWayMapper">
 
     <resultMap id="node_info" type="com.antybeety.map.way.model.vo.NodeVO">
-        <id property="nodeId" column="node_id" jdbcType="INTEGER"/>
+        <id property="id" column="node_id" jdbcType="INTEGER"/>
         <id property="lat" column="lat" jdbcType="DOUBLE"/>
         <id property="lng" column="lon" jdbcType="DOUBLE"/>
     </resultMap>
 
     <resultMap id="edge_info" type="com.antybeety.map.way.model.vo.EdgeVO">
-        <id property="edgeId" column="edge_id" jdbcType="INTEGER"/>
+        <id property="id" column="edge_id" jdbcType="INTEGER"/>
         <id property="nodeStart" column="node_s" jdbcType="INTEGER"/>
         <id property="nodeEnd" column="node_e" jdbcType="INTEGER"/>
+        <id property="address" column="addr" jdbcType="VARCHAR" />
+        <id property="safeVal" column="safe_value" jdbcType="INTEGER" />
+        <id property="distanceVal" column="dist_value" jdbcType="INTEGER"/>
     </resultMap>
 
 <!--    모든 노드(교차로 + 속도 변화 구간) 정보 가져오기 -->
@@ -51,8 +54,13 @@
         delete from edge_tb where edge_id = #{edgeId} ;
     </delete>
 
-<!--    간선에 위도 경도 주소 세팅 -->
-    <update id="setLocation" parameterType="hashmap">
-        update edge_tb set lat = ${lat}, lon =${lon} where edge_id = ${id} ;
-    </update>
+
+    <select id="searchNodeByArea" parameterType="hashmap" resultMap="node_info">
+        select * from node_tb where lat &gt;= ${lat1} AND lat &lt;= ${lat2} AND lon &gt;= ${lng1} AND lon &lt;= ${lng2}
+    </select>
+
+    <select id="searchNodeById" parameterType="java.lang.String" resultMap="node_info">
+        select * from node_tb where node_id=#{id};
+    </select>
+
 </mapper>
