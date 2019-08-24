@@ -1,5 +1,6 @@
-package com.antybeety.map.model.service;
+package com.antybeety.map.way.model.service;
 
+import com.antybeety.map.model.service.FacilityDisplayService;
 import com.antybeety.map.model.vo.FacilityMarkVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

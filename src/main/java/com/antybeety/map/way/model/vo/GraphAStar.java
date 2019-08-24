@@ -1,6 +1,4 @@
-package com.antybeety.map.model.vo;
-
-import org.springframework.stereotype.Component;
+package com.antybeety.map.way.model.vo;
 
 import java.util.*;
 

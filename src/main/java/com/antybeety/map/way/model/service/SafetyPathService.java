@@ -1,9 +1,7 @@
-package com.antybeety.map.model.service;
+package com.antybeety.map.way.model.service;
 
-import com.antybeety.map.model.vo.GraphAStar;
-import com.antybeety.map.model.vo.NodeData;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.antybeety.map.way.model.vo.GraphAStar;
+import com.antybeety.map.way.model.vo.NodeData;
 
 import java.util.*;
 
