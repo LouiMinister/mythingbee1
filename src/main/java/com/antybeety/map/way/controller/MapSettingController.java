@@ -1,4 +1,4 @@
-package com.antybeety.map.controller;
+package com.antybeety.map.way.controller;
 
 import org.springframework.stereotype.Controller;
 

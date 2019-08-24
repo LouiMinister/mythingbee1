@@ -1,4 +1,4 @@
-package com.antybeety.map.model.vo;
+package com.antybeety.map.way.model.vo;
 
 import lombok.Data;
 

@@ -1,11 +1,12 @@
 package com.antybeety.map.controller;
 
-import com.antybeety.map.model.dao.EdgeDAO;
-import com.antybeety.map.model.dao.NodeDAO;
-import com.antybeety.map.model.dao.RoadDAO;
-import com.antybeety.map.model.service.DistanceCalcService;
+import com.antybeety.map.way.model.dao.EdgeDAO;
+import com.antybeety.map.way.model.dao.NodeDAO;
+import com.antybeety.map.way.model.service.DistanceCalcService;
 import com.antybeety.map.model.vo.*;
 import com.antybeety.map.mybatis.MapMapper;
+import com.antybeety.map.way.model.vo.EdgeVO;
+import com.antybeety.map.way.model.vo.NodeData;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,21 +22,6 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/map/")
 public class ApiMapController {
-
-    @Autowired
-    private SqlSession sqlSession;
-
-    @Autowired
-    private EdgeDAO edgeDAO;
-
-    @Autowired
-    private NodeDAO nodeDAO;
-
-    @Autowired
-    private RoadDAO dao;
-
-    @Autowired
-    private DistanceCalcService distanceCalcService;
 
     @Autowired
     private FacilityController fc;
@@ -149,113 +135,5 @@ public class ApiMapController {
         }
 
         return result;
-    }
-
-    @RequestMapping(value="/distanceAll", method = RequestMethod.GET)
-    public List<Integer> calcDistanceAll(@RequestParam String locationList){
-
-        List<Map<String,Object>> result = new ArrayList<>();
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            result = mapper.readValue(locationList,List.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-
-        return fc.searchDistanceAll(result);
-    }
-
-    @RequestMapping(value="/distance",method = RequestMethod.GET)
-    public int calcDistance(@RequestParam double startLat, double startLon, double endLat, double endLon){
-        return fc.searchDistance(startLat,startLon,endLat,endLon);
-    }
-
-    @RequestMapping(value="/road", method = RequestMethod.GET)
-    public List<RoadVO> getAllRoad(){
-        List<RoadVO> result = dao.getAll();
-
-        return result;
-    }
-
-    @RequestMapping(value="/node", method = RequestMethod.GET)
-    public List<NodeData> getAllNode(){
-
-        List<NodeData> result = nodeDAO.getAllNode();
-
-        return result;
-    }
-
-    @RequestMapping(value="/edge", method = RequestMethod.GET)
-    public List<Map<String,Object>> getAllEdge(){
-
-        List<EdgeVO> edges = edgeDAO.getAllEdge();
-
-        List<NodeData> nodes = nodeDAO.getAllNode();
-
-        List<Map<String,Object>> result = new ArrayList<>();
-
-        Map<String,Object> data;
-
-        for(EdgeVO e : edges){
-            data = new HashMap<>();
-            data.put("edgeId",e.getEdgeId());
-            for(NodeData n : nodes){
-                if(n.getNodeId().equals(e.getNodeStart())){
-                    data.put("startLat",n.getLat());
-                    data.put("startLon",n.getLon());
-                } else if(n.getNodeId().equals( e.getNodeEnd())){
-                    data.put("endLat",n.getLat());
-                    data.put("endLon",n.getLon());
-                }
-            }
-            result.add(data);
-        }
-
-        return result;
-    }
-
-    @RequestMapping(value = "/addNode", method = RequestMethod.GET)
-    public void addNode(@RequestParam Long index, double lat, double lon){
-
-        Map<String,Object> node = new HashMap<>();
-
-        node.put("index",index);
-        node.put("lat",lat);
-        node.put("lon",lon);
-
-        MapMapper mapMapper = sqlSession.getMapper(MapMapper.class);
-        mapMapper.addNode(node);
-    }
-
-    @RequestMapping(value="/deleteNode", method = RequestMethod.GET)
-    public void deleteNode(@RequestParam Long index){
-        MapMapper mapMapper = sqlSession.getMapper(MapMapper.class);
-        mapMapper.deleteNode(index);
-    }
-
-    @RequestMapping(value="/addEdge", method = RequestMethod.GET)
-    public void addEdge(@RequestParam Long index, Long startNode, double startLat, double startLon,
-                        Long endNode, double endLat, double endLon){
-
-        Map<String, Object> edge = new HashMap<>();
-
-        edge.put("index",index);
-        edge.put("startNode",startNode);
-        edge.put("endNode",endNode);
-
-        int distance = distanceCalcService.calcDistance(startLat, startLon, endLat, endLon);
-
-        edge.put("distance",distance);
-
-        MapMapper mapMapper = sqlSession.getMapper(MapMapper.class);
-        mapMapper.addEdge(edge);
-    }
-
-    @RequestMapping(value="/deleteEdge", method = RequestMethod.GET)
-    public void deleteEdge(@RequestParam Long index){
-        MapMapper mapMapper = sqlSession.getMapper(MapMapper.class);
-        mapMapper.deleteEdge(index);
     }
 }

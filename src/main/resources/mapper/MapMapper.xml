@@ -76,30 +76,6 @@
         <id property="adminTel" column = "CS_TEL" jdbcType="VARCHAR"/>
     </resultMap>
 
-    <resultMap id="road_info" type="com.antybeety.map.model.vo.RoadVO">
-        <id property="roadIndex" column="road_index" jdbcType="INTEGER"/>
-        <id property="roadName" column="road_name" jdbcType="VARCHAR"/>
-        <id property="roadCode" column="road_code" jdbcType="INTEGER"/>
-        <id property="startPoint" column="start_point" jdbcType="VARCHAR"/>
-        <id property="endPoint" column="end_point" jdbcType="VARCHAR"/>
-        <id property="roadWidth" column="road_width" jdbcType="INTEGER"/>
-        <id property="roadLength" column="road_length" jdbcType="INTEGER"/>
-        <id property="lat" column="lat" jdbcType="DOUBLE"/>
-        <id property="lon" column="lon" jdbcType="DOUBLE"/>
-    </resultMap>
-
-    <resultMap id="node_info" type="com.antybeety.map.model.vo.NodeData">
-        <id property="nodeId" column="node_id" jdbcType="INTEGER"/>
-        <id property="lat" column="lat" jdbcType="DOUBLE"/>
-        <id property="lon" column="lon" jdbcType="DOUBLE"/>
-    </resultMap>
-
-    <resultMap id="edge_info" type="com.antybeety.map.model.vo.EdgeVO">
-        <id property="edgeId" column="edge_id" jdbcType="INTEGER"/>
-        <id property="nodeStart" column="node_s" jdbcType="INTEGER"/>
-        <id property="nodeEnd" column="node_e" jdbcType="INTEGER"/>
-    </resultMap>
-
 <!--    시설물 별 위치 정보 가져오는 쿼리 -->
 
     <select id="selectBell" parameterType="hashmap" resultMap="Bell_map">
@@ -142,34 +118,4 @@
     <select id="getConvenienceDetail" parameterType="java.lang.String" resultMap="convenience_detail">
         SELECT cs_code, road_addr, land_addr, name, cs_tel FROM CS_DETAIL_VIEW where CS_CODE = #{code}
     </select>
-
-<!--    모든 도로 정보 가져오기 -->
-    <select id="getAllRoad" parameterType="hashmap" resultMap="road_info">
-        SELECT road_index, road_name, road_code, start_point, end_point, road_width, road_length, lat, lon FROM road_tb
-    </select>
-
-<!--    모든 노드(교차로 + 속도 변화 구간) 정보 가져오기 -->
-    <select id="getAllNode" parameterType="hashmap" resultMap="node_info">
-        SELECT node_id, lat, lon FROM node_tb
-    </select>
-
-    <select id="getAllEdge" parameterType="hashmap" resultMap="edge_info">
-        SELECT edge_id, node_s, node_e FROM edge_tb
-    </select>
-
-    <insert id="addNode" parameterType="hashmap" statementType="PREPARED">
-        insert into node_tb (node_id, lat, lon) values(${index}, ${lat}, ${lon})
-    </insert>
-
-    <insert id="addEdge"  parameterType="hashmap">
-        insert into edge_tb (edge_id, node_s, node_e, dist_value) values(${index}, ${startNode}, ${endNode}, #{distance})
-    </insert>
-
-    <delete id="deleteNode">
-        delete from node_tb where node_id = ${index} ;
-    </delete>
-
-    <delete id="deleteEdge">
-        delete from edge_tb where edge_id = ${index} ;
-    </delete>
 </mapper>
