@@ -45,6 +45,14 @@ public class ApiMapWayController {
     @Autowired
     private MapSettingController mapSettingController;
 
+    @Autowired
+    private FindPathController findPathController;
+
+    @RequestMapping(value="/safe", method = RequestMethod.GET)
+    public List<NodeVO> searchSafePath(@RequestParam double startLat, double startLon, double endLat, double endLon){
+        return findPathController.searchSafePath(startLat, startLon, endLat, endLon);
+    }
+
     @RequestMapping(value="/node", method = RequestMethod.GET)
     public List<NodeVO> getAllNode(){
 

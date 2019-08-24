@@ -31,4 +31,5 @@ public interface MapWayMapper {
 
     void setSafetyValue(Map<String, Object> safety);
 
+    NodeVO getNode(long id);
 }

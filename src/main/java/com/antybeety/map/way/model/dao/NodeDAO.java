@@ -52,4 +52,9 @@ public class NodeDAO {
         MapWayMapper mapper = getMapper();
         return mapper.searchNodeById(id);
     }
+
+    public NodeVO getNode(long id) {
+        MapWayMapper mapper = sqlSession.getMapper(MapWayMapper.class);
+        return mapper.getNode(id);
+    }
 }
