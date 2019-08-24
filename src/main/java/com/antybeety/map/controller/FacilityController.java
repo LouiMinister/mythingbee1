@@ -3,7 +3,7 @@ package com.antybeety.map.controller;
 import com.antybeety.map.model.service.DistanceCalcService;
 import com.antybeety.map.model.service.FacilityDetailService;
 import com.antybeety.map.model.service.FacilityDisplayService;
-import com.antybeety.map.model.service.SafetyValueService;
+import com.antybeety.map.model.service.MapSettingService;
 import com.antybeety.map.model.vo.FacilityDetailVO;
 import com.antybeety.map.model.vo.FacilityMarkVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class FacilityController {
     private DistanceCalcService distanceCalc;
 
     @Autowired
-    private SafetyValueService safetyValue;
+    private MapSettingService safetyValue;
 
     public List<Map<String,Object>> searchFacility(Map<String, Object> bounds, List<Integer> facilFlag, List<String> facilName) throws SQLException {
 

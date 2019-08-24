@@ -94,7 +94,7 @@
         <id property="lon" column="lon" jdbcType="DOUBLE"/>
     </resultMap>
 
-    <resultMap id="edge_info" type="com.antybeety.map.model.vo.Edge">
+    <resultMap id="edge_info" type="com.antybeety.map.model.vo.EdgeVO">
         <id property="edgeId" column="edge_id" jdbcType="INTEGER"/>
         <id property="nodeStart" column="node_s" jdbcType="INTEGER"/>
         <id property="nodeEnd" column="node_e" jdbcType="INTEGER"/>
@@ -165,4 +165,11 @@
         insert into edge_tb (edge_id, node_s, node_e, dist_value) values(${index}, ${startNode}, ${endNode}, #{distance})
     </insert>
 
+    <delete id="deleteNode">
+        delete from node_tb where node_id = ${index} ;
+    </delete>
+
+    <delete id="deleteEdge">
+        delete from edge_tb where edge_id = ${index} ;
+    </delete>
 </mapper>

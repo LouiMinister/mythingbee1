@@ -22,8 +22,11 @@ public interface MapMapper {
 
     List<RoadVO> getAllRoad();
     List<NodeData> getAllNode();
-    List<Edge> getAllEdge();
+    List<EdgeVO> getAllEdge();
 
     void addNode(Map<String, Object> node);
     void addEdge(Map<String, Object> edge);
+
+    void deleteNode(Long index);
+    void deleteEdge(Long index);
 }

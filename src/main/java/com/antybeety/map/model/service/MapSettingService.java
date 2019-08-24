@@ -7,10 +7,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 
-
 @Service
-// 길찾기를 위한 정보들 ( 안전 가중치 등 ) 세팅하기 위한 서비스
-public class SafetyValueService {
+public class MapSettingService {
 
     @Autowired
     private FacilityDisplayService fDisplay;

@@ -7,14 +7,11 @@ import com.antybeety.map.model.service.DistanceCalcService;
 import com.antybeety.map.model.vo.*;
 import com.antybeety.map.mybatis.MapMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import jdk.nashorn.internal.parser.JSONParser;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.sql.JDBCType;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -193,7 +190,7 @@ public class ApiMapController {
     @RequestMapping(value="/edge", method = RequestMethod.GET)
     public List<Map<String,Object>> getAllEdge(){
 
-        List<Edge> edges = edgeDAO.getAllEdge();
+        List<EdgeVO> edges = edgeDAO.getAllEdge();
 
         List<NodeData> nodes = nodeDAO.getAllNode();
 
@@ -201,7 +198,7 @@ public class ApiMapController {
 
         Map<String,Object> data;
 
-        for(Edge e : edges){
+        for(EdgeVO e : edges){
             data = new HashMap<>();
             data.put("edgeId",e.getEdgeId());
             for(NodeData n : nodes){
@@ -232,6 +229,12 @@ public class ApiMapController {
         mapMapper.addNode(node);
     }
 
+    @RequestMapping(value="/deleteNode", method = RequestMethod.GET)
+    public void deleteNode(@RequestParam Long index){
+        MapMapper mapMapper = sqlSession.getMapper(MapMapper.class);
+        mapMapper.deleteNode(index);
+    }
+
     @RequestMapping(value="/addEdge", method = RequestMethod.GET)
     public void addEdge(@RequestParam Long index, Long startNode, double startLat, double startLon,
                         Long endNode, double endLat, double endLon){
@@ -248,5 +251,11 @@ public class ApiMapController {
 
         MapMapper mapMapper = sqlSession.getMapper(MapMapper.class);
         mapMapper.addEdge(edge);
+    }
+
+    @RequestMapping(value="/deleteEdge", method = RequestMethod.GET)
+    public void deleteEdge(@RequestParam Long index){
+        MapMapper mapMapper = sqlSession.getMapper(MapMapper.class);
+        mapMapper.deleteEdge(index);
     }
 }
