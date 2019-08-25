@@ -1,5 +1,6 @@
 package com.antybeety.map.way.model.vo;
 
+import com.antybeety.map.way.model.dao.NodeDAO;
 import org.springframework.context.annotation.Lazy;
 
 import java.util.*;

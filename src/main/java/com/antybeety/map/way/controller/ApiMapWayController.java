@@ -53,6 +53,19 @@ public class ApiMapWayController {
         return findPathController.searchSafePath(startLat, startLon, endLat, endLon);
     }
 
+    @RequestMapping(value = "/heuristic", method = RequestMethod.GET)
+    public void setHeuristic(){
+        mapSettingController.setHeuristic();
+    }
+
+
+
+
+
+
+
+
+
     @RequestMapping(value="/node", method = RequestMethod.GET)
     public List<NodeVO> getAllNode(){
 
