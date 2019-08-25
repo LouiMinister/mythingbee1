@@ -4,6 +4,7 @@ import com.antybeety.map.model.dao.FacilityMarkDAOImpl;
 import com.antybeety.map.model.service.FacilityDisplayService;
 import com.antybeety.map.way.model.dao.EdgeDAO;
 import com.antybeety.map.way.model.dao.NodeDAO;
+import com.antybeety.map.way.model.vo.EdgeVO;
 import com.antybeety.map.way.model.vo.GraphAStar;
 import com.antybeety.map.way.model.vo.NodeData;
 import com.antybeety.map.way.model.vo.NodeVO;
@@ -26,6 +27,7 @@ public class SafetyPathService {
     private GraphAStar graph;
     private final double CIRCLE_RATIO = Math.sqrt(2);       //원에 내적하는 사각형과 원의 반지름 과의 배율
     private final double MATCH_INIT_RADIUS= 0.00003000000;  //matchNode() 에서 검색하는 최초 반경
+    private final double CAPTURE_PADDING=0.00015000000;
 
     public SafetyPathService(){}
 
@@ -190,6 +192,38 @@ public class SafetyPathService {
         return capturedNode.get(index);
     }
 
+
+    // 영역 안의 노드와 엣지들을 반환하는 메서드
+    public Map<String,List<?>> searchNodeEdgeByArea(double lat1, double lng1, double lat2, double lng2){
+
+       List<NodeVO> capturedNodes= nodeDao.searchNodesByArea(lat1, lng1, lat2, lng2);
+       List<EdgeVO> capturedEdges= edgedao.searchEdgesByArea(lat1, lng1, lat2, lng2);
+
+       Map<String, List<? extends Object>> res= new HashMap<>();
+
+       res.put("nodes",capturedNodes);
+       res.put("edges", capturedEdges);
+
+       return res;
+    }
+
+    public Map<String,List<?>> searchNodeEdgeForGraph(double lat1, double lng1, double lat2, double lng2){
+
+        if((lat1>lat2)){
+            double temp = lat1;
+            lat1= lat2;
+            lat2= temp;
+        }
+        if((lng1>lng2)){
+            double temp = lng1;
+            lng1= lng2;
+            lng2=temp;
+        }
+        Map<String, List<?>> res= searchNodeEdgeByArea(lat1-CAPTURE_PADDING, lng1-CAPTURE_PADDING,
+                lat2+CAPTURE_PADDING, lng2+CAPTURE_PADDING);
+
+        return res;
+    }
 
 
 }
