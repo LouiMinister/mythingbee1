@@ -32,22 +32,13 @@ public class SafetyPathService {
     private final double MATCH_INIT_RADIUS= 0.00003000000;  //matchNode() 에서 검색하는 최초 반경
     private final double CAPTURE_PADDING=0.00015000000;
 
+    private List<FacilityMarkVO> facilities;
+
     public SafetyPathService(){}
 
     public SafetyPathService(double startLat, double startLon, double endLat, double endLon){
 
-        Map<Long, NodeData> nodeIdNodeData = new HashMap<>();
-        Map<Long, Map<Long,Double>> heuristicMap = new HashMap<>();
-        Map<Long, Map<NodeData, Double>> graph = new HashMap<>();
-
-        // 모든 노드말고 영역을 받아서 영역 내의 노드 들만 가져와야함
-        List<NodeVO> nodeList = new NodeDAO().getAllNode();
-        // 모든 노드 데이터 맵 초기화
-        for(NodeVO node : nodeList){
-            nodeIdNodeData.put(node.getId(),new NodeData(node.getId(),node.getLat(),node.getLng()));
-        }
-
-
+        initAstarGraph(startLat,startLon,endLat,endLon);
 }
 
     public SafetyPathService(GraphAStar graphAStar) {
@@ -195,13 +186,43 @@ public class SafetyPathService {
         return capturedNode.get(index);
     }
 
-    public double calcSafetyValue(Map<String, Object> bounds) {
+    public double calcSafetyValue(double lat1, double lng1, double lat2, double lng2) {
         // 영역 내의 모든 시설물 가져오기
-        List<FacilityMarkVO> allFacility = fDisplay.searchAroundFacilities(bounds);
+
+        List<FacilityMarkVO> allFacility = facilities;
+        List<FacilityMarkVO> facilitiesInRectangle = new ArrayList<FacilityMarkVO>();
+
+        if(!(lat1<lat2)){       //왼쪽아래점, 오른쪽위점으로 세팅
+            double temp = lat1;
+            lat1= lat2;
+            lat2= temp;
+        }
+        if(!(lng1<lng2)){
+            double temp = lng1;
+            lng1= lng2;
+            lng2=temp;
+        }
+
+        double fLat=0;
+        double fLng=0;
+        for(FacilityMarkVO facil :allFacility){     //allFacility중 영역 안 퍼실리티만 배열에 추가
+            fLat=facil.getLat();
+            fLng=facil.getLng();
+            if(fLat>lat1 && fLat<lat2 && fLng> lng1 && fLng < lng2){
+                facilitiesInRectangle.add(facil);
+            }
+        }
+
+
+        Map<String, Object> bounds = new HashMap<>();   //bound 위경도 변경
+        bounds.put("la",lat1);
+        bounds.put("ea",lng1);
+        bounds.put("ka",lat2);
+        bounds.put("ja",lng2);
 
         int safetyValueSum = 0;
         // 영역 내의 총 안전수치 점수
-        for(FacilityMarkVO v : allFacility){
+        for(FacilityMarkVO v : facilitiesInRectangle){
             switch (v.getCode().substring(0,2)){
                 case "CC":
                     safetyValueSum += 8;
@@ -221,6 +242,52 @@ public class SafetyPathService {
             }
         }
         return distanceCalcService.calcDistance(bounds) - safetyValueSum / distanceCalcService.calcArea(bounds);
+    }
+
+    public List<FacilityMarkVO> searchAllFacility(double lat1, double lng1, double lat2, double lng2){
+        Map<String,Object> bounds = new HashMap<String, Object>();
+        bounds.put("la",lat1);
+        bounds.put("ea",lng1);
+        bounds.put("ka",lat2);
+        bounds.put("ja",lng2);
+
+        List<FacilityMarkVO> facilitiesRes = fDisplay.searchAroundFacilities(bounds);
+
+        return facilitiesRes;
+    }
+
+
+    public void initAstarGraph(double lat1, double lng1, double lat2, double lng2){
+        Map<String,List<?>> nodeEdge = searchNodeEdgeForGraph(lat1, lng1, lat2, lng2);
+
+        List<NodeVO> nodes = (List<NodeVO>) nodeEdge.get("nodes");      //영역 안 모든 노드정보
+        List<EdgeVO> edges = (List<EdgeVO>) nodeEdge.get("edges");      //영역 안 모든 엣지정보
+
+        facilities = searchAllFacility(lat1, lng1, lat2, lng2);    //영역 안 모든 시설물 정보
+
+        Map<Long ,Map<Long,Double>> heuristicMap = new HashMap<Long, Map<Long, Double>>(); //휴리스틱값
+
+        long node_sId=0;
+        long node_eId=0;
+        double hScore=0;
+        int nodeSize= nodes.size();
+
+        if(nodeSize<2){       //노드 개수가 두개보다 작을경우 휴리스틱 값이 없다
+
+        }                   //노드 개수가 두개 이상일 경우
+        else {
+            for (int i = 0; i < nodeSize; i++) {
+                for (int j = 0; j < nodeSize; j++) {
+                    if(i==j){continue;}     // 시작 노드와 끝 노드가 같은 경우에 휴리스틱은 없다
+                    hScore=calcSafetyValue(lat1, lng1, lat2, lng2);
+                    HashMap<Long,Double> tempMap = new HashMap<>();
+                    tempMap.put(nodes.get(i).getId(),hScore);
+                    heuristicMap.put(nodes.get(i).getId(), tempMap);
+                }
+            }
+        }
+
+        graph= new GraphAStar(nodes, edges, heuristicMap);
     }
 
     // 영역 안의 노드와 엣지들을 반환하는 메서드
