@@ -241,31 +241,4 @@ public class MapSettingService {
 
     }
 
-    public double calcSafetyValue(Map<String, Object> bounds) {
-        // 영역 내의 모든 시설물 가져오기
-        List<FacilityMarkVO> allFacility = fDisplay.searchAroundFacilities(bounds);
-
-        int safetyValueSum = 0;
-        // 영역 내의 총 안전수치 점수
-        for(FacilityMarkVO v : allFacility){
-            switch (v.getCode().substring(0,2)){
-                case "CC":
-                    safetyValueSum += 8;
-                    break;
-                case "LI":
-                    safetyValueSum += 3;
-                    break;
-                case "PD":
-                    safetyValueSum += 50;
-                    break;
-                case "CS":
-                    safetyValueSum += 20;
-                    break;
-                case "BE":
-                    safetyValueSum ++;
-                    break;
-            }
-        }
-        return safetyValueSum / distanceCalc.calcArea(bounds);
-    }
 }

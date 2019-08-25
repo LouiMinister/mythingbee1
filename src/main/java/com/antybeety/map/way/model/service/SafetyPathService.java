@@ -2,6 +2,7 @@ package com.antybeety.map.way.model.service;
 
 import com.antybeety.map.model.dao.FacilityMarkDAOImpl;
 import com.antybeety.map.model.service.FacilityDisplayService;
+import com.antybeety.map.model.vo.FacilityMarkVO;
 import com.antybeety.map.way.model.dao.EdgeDAO;
 import com.antybeety.map.way.model.dao.NodeDAO;
 import com.antybeety.map.way.model.vo.EdgeVO;
@@ -18,11 +19,13 @@ import java.util.*;
 public class SafetyPathService {
 
     @Autowired
+    private FacilityDisplayService fDisplay;
+    @Autowired
     private NodeDAO nodeDao;
     @Autowired
     private EdgeDAO edgeDAO;
     @Autowired
-    private FacilityDisplayService facilityDisplayService;
+    private DistanceCalcService distanceCalcService;
 
     private GraphAStar graph;
     private final double CIRCLE_RATIO = Math.sqrt(2);       //원에 내적하는 사각형과 원의 반지름 과의 배율
@@ -55,7 +58,7 @@ public class SafetyPathService {
     // 노드 데이터끼리 총 비용을 비교할 수 있도록 Comparator 재정의
     public class NodeComparator implements Comparator<NodeData> {
         public int compare(NodeData nodeFirst, NodeData nodeSecond) {
-            if (nodeFirst.getF() > nodeSecond.getF()) return -1;    // F : 예측 안전 가중치 -> 높을 수록 안전
+            if (nodeFirst.getF() < nodeSecond.getF()) return -1;    // F : 거리 + 안전수치
             if (nodeSecond.getF() > nodeFirst.getF()) return 1;
             return 0;
         }
@@ -191,7 +194,33 @@ public class SafetyPathService {
         index--;
         return capturedNode.get(index);
     }
+    public double calcSafetyValue(Map<String, Object> bounds) {
+        // 영역 내의 모든 시설물 가져오기
+        List<FacilityMarkVO> allFacility = fDisplay.searchAroundFacilities(bounds);
 
+        int safetyValueSum = 0;
+        // 영역 내의 총 안전수치 점수
+        for(FacilityMarkVO v : allFacility){
+            switch (v.getCode().substring(0,2)){
+                case "CC":
+                    safetyValueSum += 8;
+                    break;
+                case "LI":
+                    safetyValueSum += 3;
+                    break;
+                case "PD":
+                    safetyValueSum += 50;
+                    break;
+                case "CS":
+                    safetyValueSum += 20;
+                    break;
+                case "BE":
+                    safetyValueSum ++;
+                    break;
+            }
+        }
+        return distanceCalcService.calcDistance(bounds) - safetyValueSum / distanceCalcService.calcArea(bounds);
+    }
 
     // 영역 안의 노드와 엣지들을 반환하는 메서드
     public Map<String,List<?>> searchNodeEdgeByArea(double lat1, double lng1, double lat2, double lng2){
