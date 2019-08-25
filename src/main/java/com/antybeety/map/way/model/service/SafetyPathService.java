@@ -23,7 +23,7 @@ public class SafetyPathService {
     @Autowired
     private NodeDAO nodeDao;
     @Autowired
-    private EdgeDAO edgeDAO;
+    private EdgeDAO edgeDao;
     @Autowired
     private DistanceCalcService distanceCalcService;
 
@@ -194,6 +194,7 @@ public class SafetyPathService {
         index--;
         return capturedNode.get(index);
     }
+
     public double calcSafetyValue(Map<String, Object> bounds) {
         // 영역 내의 모든 시설물 가져오기
         List<FacilityMarkVO> allFacility = fDisplay.searchAroundFacilities(bounds);
@@ -226,7 +227,7 @@ public class SafetyPathService {
     public Map<String,List<?>> searchNodeEdgeByArea(double lat1, double lng1, double lat2, double lng2){
 
        List<NodeVO> capturedNodes= nodeDao.searchNodesByArea(lat1, lng1, lat2, lng2);
-       List<EdgeVO> capturedEdges= edgedao.searchEdgesByArea(lat1, lng1, lat2, lng2);
+       List<EdgeVO> capturedEdges= edgeDao.searchEdgesByArea(lat1, lng1, lat2, lng2);
 
        Map<String, List<? extends Object>> res= new HashMap<>();
 
