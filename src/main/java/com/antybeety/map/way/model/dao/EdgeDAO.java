@@ -15,6 +15,9 @@ import java.util.Map;
 
 @Repository
 public class EdgeDAO {
+
+    public static final double MARGIN = 0.0005;
+
     @Autowired
     private SqlSession sqlSession;
 
@@ -38,35 +41,37 @@ public class EdgeDAO {
     public void setSafetyValue(List<EdgeVO> edgeList) {
         MapWayMapper mapWayMapper = sqlSession.getMapper(MapWayMapper.class);
 
-        Map<String,Object> safety = new HashMap<>();
-        try{
-            for(EdgeVO e : edgeList){
-                if(e.getSafeVal()==0) continue;
-                safety.put("id",e.getId());
-                safety.put("safetyValue",e.getSafeVal());
+        Map<String, Object> safety = new HashMap<>();
+        try {
+            for (EdgeVO e : edgeList) {
+                if (e.getSafeVal() == 0) continue;
+                safety.put("id", e.getId());
+                safety.put("safetyValue", e.getSafeVal());
 
                 mapWayMapper.setSafetyValue(safety);
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
+    }
     public List<EdgeVO> searchEdgesByArea(double lat1, double lng1, double lat2, double lng2) {
         MapWayMapper mapper = getMapper();
-        if(!(lat1<lat2)){
+        // 1이 작아야됨 그래서 크면 바꿔줌
+        if((lat1>lat2)){
             double temp = lat1;
             lat1= lat2;
             lat2= temp;
         }
-        if(!(lng1<lng2)){
+        if((lng1>lng2)){
             double temp = lng1;
             lng1= lng2;
             lng2=temp;
         }
         HashMap param =new HashMap<String, Object>();
-        param.put("lat1",lat1);
-        param.put("lng1",lng1);
-        param.put("lat2",lat2);
-        param.put("lng2",lng2);
+        param.put("lat1",lat1-MARGIN);
+        param.put("lng1",lng1-MARGIN);
+        param.put("lat2",lat2+MARGIN);
+        param.put("lng2",lng2+MARGIN);
         return mapper.searchEdgesByArea(param);
     }
 
