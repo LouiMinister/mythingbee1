@@ -20,6 +20,13 @@ public class DistanceCalcService {
         return (int) (dist);
     }
 
+    public int calcDistance(Map<String, Object> bounds){
+        return this.calcDistance((double)bounds.get("startLat"),
+                (double)bounds.get("startLon"),
+                (double)bounds.get("endLat"),
+                (double)bounds.get("endLon"));
+    }
+
     // convert decimal degrees to radians
     private double deg2rad(double deg) {
         return (deg * Math.PI / 180.0);
