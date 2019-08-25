@@ -35,7 +35,7 @@
     </select>
 
     <select id="searchAllArticles" resultMap="article_map">
-        SELECT * FROM article_view2 where del='n'
+        SELECT * FROM article_view2 where del='n' order by ar_time desc;
     </select>
 
     <select id="searchArticleTimeByCode" resultType="java.lang.String">
