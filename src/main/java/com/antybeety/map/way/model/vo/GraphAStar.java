@@ -23,11 +23,21 @@ public class GraphAStar implements Iterable{
     // 노드 id와 노드 data사이의 Map
     private final Map<Long, NodeData> nodeIdNodeData;
 
+    private List<NodeVO> nodes;
+    private List<EdgeVO> edges;
+
+
     public GraphAStar(Map<Long, Map<Long, Double>> heuristicMap) {
         if (heuristicMap == null) throw new NullPointerException("The huerisic map should not be null");
         graph = new HashMap<Long, Map<NodeData, Double>>();
         nodeIdNodeData = new HashMap<Long, NodeData>();
         this.heuristicMap = heuristicMap;
+    }
+
+    public GraphAStar(Map<String,List<?>> nodesEdges){
+        this.nodes= (List<NodeVO>) nodesEdges.get("nodes");
+        this.edges =(List<EdgeVO>) nodesEdges.get("edges");
+
     }
 
     /**
