@@ -15,4 +15,8 @@ public class MapSettingController {
     public void setAllSafetyValue() {
         mapSettingService.setAllSafetyValue();
     }
+
+    public void setHeuristic() {
+        mapSettingService.setHeuristicValue();
+    }
 }

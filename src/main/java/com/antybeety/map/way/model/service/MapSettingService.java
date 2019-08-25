@@ -5,11 +5,15 @@ import com.antybeety.map.model.dao.FacilityDetailDAOImpl;
 import com.antybeety.map.model.service.FacilityDisplayService;
 import com.antybeety.map.model.vo.FacilityMarkVO;
 import com.antybeety.map.way.model.dao.EdgeDAO;
+import com.antybeety.map.way.model.dao.HeuristicDAO;
 import com.antybeety.map.way.model.dao.NodeDAO;
+import com.antybeety.map.way.model.dao.RoadDAO;
 import com.antybeety.map.way.model.vo.EdgeVO;
 import com.antybeety.map.way.model.vo.NodeVO;
+import com.antybeety.map.way.model.vo.RoadVO;
 import com.sun.org.apache.xerces.internal.impl.dv.xs.EntityDV;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -35,34 +39,91 @@ public class MapSettingService {
     @Autowired
     private NodeDAO nodeDAO;
 
-    // 두 노드 사이에 안전 가중치를 구하는 메서드
-    public double setSafetyValue (Map<String,Object> bounds){
-        // 영역 내의 모든 시설물 가져오기
-        List<FacilityMarkVO> allFacility = fDisplay.searchAroundFacilities(bounds);
+    @Autowired
+    private RoadDAO roadDAO;
 
+    @Autowired
+    private HeuristicDAO heuristicDAO;
+
+    // 두 노드 사이에 안전 가중치 세팅하는 메서드
+    public void setHeuristicValue(){
+
+        List<NodeVO> nodeList = nodeDAO.getAllNode();
+
+        // 노드 뽑은 뒤 영역 구하기
+        Map<String, Object> bounds = new HashMap<>();
+        double left;
+        double right;
+        double bottom;
+        double top;
+
+        NodeVO node_i ;
+        NodeVO node_j ;
 
         int safetyValueSum = 0;
-        // 영역 내의 총 안전수치 점수 . 지금은 개당 1점이지만 안전 시설물마다 점수를 다르게 매겨야 함
-        for(FacilityMarkVO v : allFacility){
-            switch (v.getCode().substring(0,2)){
-                case "CC":
-                    safetyValueSum += 8;
-                    break;
-                case "LI":
-                    safetyValueSum += 3;
-                    break;
-                case "PD":
-                    safetyValueSum += 50;
-                    break;
-                case "CS":
-                    safetyValueSum += 20;
-                    break;
-                case "BE":
-                    safetyValueSum ++;
-                    break;
+
+        for(int i=0; i<nodeList.size()-1; i++){
+            node_i = nodeList.get(i);
+            for(int j=i+1; j<nodeList.size(); j++) {
+                node_j = nodeList.get(j);
+                // 위 아래 구하기
+                if (node_i.getLat() > node_j.getLat()) {
+                    bottom = node_j.getLat();
+                    top = node_i.getLat();
+                }
+                else {
+                    bottom = node_i.getLat();
+                    top = node_j.getLat();
+                }
+
+                // 좌우 구하기
+                if(node_i.getLng() > node_j.getLng()){
+                    right = node_i.getLng();
+                    left = node_j.getLng();
+                }else {
+                    right = node_j.getLng();
+                    left =  node_i.getLng();
+                }
+                bounds.put("la",left);
+                bounds.put("ka",right);
+                bounds.put("ea",bottom);
+                bounds.put("ja",top);
+
+                // 영역 내의 모든 시설물 가져오기
+                List<FacilityMarkVO> allFacility = fDisplay.searchAroundFacilities(bounds);
+
+                safetyValueSum = 0;
+                // 영역 내의 총 안전수치 점수
+                for(FacilityMarkVO v : allFacility){
+                    switch (v.getCode().substring(0,2)){
+                        case "CC":
+                            safetyValueSum += 8;
+                            break;
+                        case "LI":
+                            safetyValueSum += 3;
+                            break;
+                        case "PD":
+                            safetyValueSum += 50;
+                            break;
+                        case "CS":
+                            safetyValueSum += 20;
+                            break;
+                        case "BE":
+                            safetyValueSum ++;
+                            break;
+                    }
+                }
+                double heuristic = safetyValueSum / distanceCalc.calcArea(bounds);
+
+                if(node_i.getId() > node_j.getId()){
+                    heuristicDAO.setHeuristic(node_j.getId(), node_i.getId(),heuristic);
+                }else {
+                    heuristicDAO.setHeuristic(node_i.getId(), node_j.getId(),heuristic);
+                }
             }
         }
-        return  safetyValueSum / distanceCalc.calcArea(bounds);
+
+
     }
 
     // 경로에 안전 가중치 부여하기
@@ -112,6 +173,7 @@ public class MapSettingService {
        edgeDAO.setSafetyValue(edgeList);
     }
 
+    // 도로명 주소 파싱하기
     private String parseRoadAddr(String roadAddr){
         if(roadAddr.contains("길")){
             int index = roadAddr.indexOf("길");
@@ -122,6 +184,23 @@ public class MapSettingService {
         }
         else {
             return roadAddr;
+        }
+    }
+
+    // 도로명 주소에 전체 길이 추가하기 // 도로명 코드 필요함
+    private void setAllRoadDistance(){
+        List<RoadVO> roadList = roadDAO.searchAllRoad();
+        List<EdgeVO> edgetList = edgeDAO.getAllEdge();
+
+        // 모든 간선 하나씩
+        for(EdgeVO e : edgetList){
+            // 모든 도로명 하나씩
+            for(RoadVO r : roadList){
+                // 간선의 도로명 주소가 도로의 주소명을 포함하고 있으면
+                if(e.getAddress().contains(r.getName())){
+
+                }
+            }
         }
     }
 

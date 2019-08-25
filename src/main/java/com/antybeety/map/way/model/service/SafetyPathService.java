@@ -1,5 +1,7 @@
 package com.antybeety.map.way.model.service;
 
+import com.antybeety.map.model.dao.FacilityMarkDAOImpl;
+import com.antybeety.map.model.service.FacilityDisplayService;
 import com.antybeety.map.way.model.dao.EdgeDAO;
 import com.antybeety.map.way.model.dao.NodeDAO;
 import com.antybeety.map.way.model.vo.EdgeVO;
@@ -18,7 +20,9 @@ public class SafetyPathService {
     @Autowired
     private NodeDAO nodeDao;
     @Autowired
-    private EdgeDAO edgedao;
+    private EdgeDAO edgeDAO;
+    @Autowired
+    private FacilityDisplayService facilityDisplayService;
 
     private GraphAStar graph;
     private final double CIRCLE_RATIO = Math.sqrt(2);       //원에 내적하는 사각형과 원의 반지름 과의 배율
@@ -26,6 +30,22 @@ public class SafetyPathService {
     private final double CAPTURE_PADDING=0.00015000000;
 
     public SafetyPathService(){}
+
+    public SafetyPathService(double startLat, double startLon, double endLat, double endLon){
+
+        Map<Long, NodeData> nodeIdNodeData = new HashMap<>();
+        Map<Long, Map<Long,Double>> heuristicMap = new HashMap<>();
+        Map<Long, Map<NodeData, Double>> graph = new HashMap<>();
+
+        // 모든 노드말고 영역을 받아서 영역 내의 노드 들만 가져와야함
+        List<NodeVO> nodeList = new NodeDAO().getAllNode();
+        // 모든 노드 데이터 맵 초기화
+        for(NodeVO node : nodeList){
+            nodeIdNodeData.put(node.getId(),new NodeData(node.getId(),node.getLat(),node.getLng()));
+        }
+
+
+}
 
     public SafetyPathService(GraphAStar graphAStar) {
         this.graph = graphAStar;
