@@ -37,9 +37,12 @@ public class SafetyPathService {
     public SafetyPathService(){}
 
     public SafetyPathService(double startLat, double startLon, double endLat, double endLon){
-
         initAstarGraph(startLat,startLon,endLat,endLon);
-}
+    }
+
+    public void initService(double startLat, double startLon, double endLat, double endLon){
+        initAstarGraph(startLat, startLon, endLat, endLon);
+    }
 
     public SafetyPathService(GraphAStar graphAStar) {
         this.graph = graphAStar;
@@ -279,13 +282,16 @@ public class SafetyPathService {
         }                   //노드 개수가 두개 이상일 경우
         else {
             for (int i = 0; i < nodeSize; i++) {
+                HashMap<Long,Double> tempMap = new HashMap<>();
                 for (int j = 0; j < nodeSize; j++) {
-                    if(i==j){continue;}     // 시작 노드와 끝 노드가 같은 경우에 휴리스틱은 없다
-                    hScore=calcSafetyValue(lat1, lng1, lat2, lng2);
-                    HashMap<Long,Double> tempMap = new HashMap<>();
-                    tempMap.put(nodes.get(i).getId(),hScore);
-                    heuristicMap.put(nodes.get(i).getId(), tempMap);
+                    if(i==j){
+                        tempMap.put(nodes.get(j).getId(),0.0);
+                        continue;
+                    }     // 시작 노드와 끝 노드가 같은 경우에 휴리스틱은 없다
+                    hScore=calcSafetyValue(nodes.get(i).getLat(), nodes.get(i).getLng(), nodes.get(j).getLat(), nodes.get(j).getLng());
+                    tempMap.put(nodes.get(j).getId(),hScore);
                 }
+                heuristicMap.put(nodes.get(i).getId(), tempMap);
             }
         }
 
@@ -298,6 +304,23 @@ public class SafetyPathService {
        List<NodeVO> capturedNodes= nodeDao.searchNodesByArea(lat1, lng1, lat2, lng2);
        List<EdgeVO> capturedEdges= edgeDao.searchEdgesByArea(lat1, lng1, lat2, lng2);
 
+       boolean startFlag = false;
+       boolean endFlag = false;
+
+       for(int i=0; i<capturedEdges.size(); i++){
+           for(NodeVO n : capturedNodes){
+               if(n.getId() == capturedEdges.get(i).getNodeStart()){
+                   startFlag = true;
+               }
+               if(n.getId() == capturedEdges.get(i).getNodeEnd()){
+                   endFlag = true;
+               }
+           }
+           if(startFlag == false || endFlag == false){
+               capturedEdges.remove(i);
+           }
+           startFlag = endFlag = false;
+       }
        Map<String, List<? extends Object>> res= new HashMap<>();
 
        res.put("nodes",capturedNodes);
