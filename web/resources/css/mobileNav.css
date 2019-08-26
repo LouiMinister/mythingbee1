@@ -43,6 +43,11 @@ body {
     color: #444;
     cursor: default;
 }
+.btn-default.active {
+    background-color: #fff;
+    color: #444;
+    cursor: default;
+}
 
 @media screen and (min-width: 600px) {
     .nav li {
