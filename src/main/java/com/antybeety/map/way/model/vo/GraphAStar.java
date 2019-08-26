@@ -10,7 +10,7 @@ public class GraphAStar implements Iterable{
      * A map from the nodeId to outgoing edge.
      * An outgoing edge is represented as a tuple of NodeData and the edge length
      */
-    //NodeId,Map<노드정보,거리길이>
+    //NodeId,Map<노드정보,가중치>
     private Map<Long, Map<NodeData, Double>> graph;
     /*
      * A map of heuristic from a node to each other node in the graph.
@@ -41,7 +41,25 @@ public class GraphAStar implements Iterable{
 
         this.graph =new HashMap<>();
         this.nodeIdNodeData =new HashMap<>();
+
+        addAllNodes(nodes);
+        addAllEdges(edges);
     }
+
+    public void addAllNodes (List<NodeVO> nodes){
+        for (NodeVO n : nodes){
+            addNode(n.getId(), n.getLat(), n.getLng());
+        }
+    }
+
+
+    public void addAllEdges(List<EdgeVO> edges){
+        for(EdgeVO e : edges){
+            addEdge(e.getNodeStart(),e.getNodeEnd(),e.getDistanceVal()-e.getSafeVal());
+        }
+
+    }
+
     public GraphAStar(Map<String,List<?>> nodesEdges){
         this.nodes= (List<NodeVO>) nodesEdges.get("nodes");
         this.edges =(List<EdgeVO>) nodesEdges.get("edges");
@@ -55,12 +73,12 @@ public class GraphAStar implements Iterable{
      * @param nodeId the node to be added
      */
     // 그래프에 새로운 노드 추가. 노드에 대한 heuristic map을 노드 데이터에 채운다
-    public void addNode(Long nodeId) {
+    public void addNode(Long nodeId, double lat, double lon) {
         if (nodeId == null) throw new NullPointerException("The node cannot be null");
         if (!heuristicMap.containsKey(nodeId)) throw new NoSuchElementException("This node is not a part of hueristic map");
 
         graph.put(nodeId, new HashMap<NodeData, Double>());
-        nodeIdNodeData.put(nodeId, new NodeData(nodeId, heuristicMap.get(nodeId)));
+        nodeIdNodeData.put(nodeId, new NodeData(nodeId, heuristicMap.get(nodeId) , lat ,lon));
     }
 
     /**
@@ -126,4 +144,5 @@ public class GraphAStar implements Iterable{
     @Override public Iterator iterator() {
         return graph.keySet().iterator();
     }
+
 }
