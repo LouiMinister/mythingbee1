@@ -52,7 +52,7 @@ var selection = function (event) {
         type: 'POST',
         data: {crimeId: crimeId},
         success: function (data) {
-            for (let x = 0; x < data.length; x++) {
+            for (var x = 0; x < data.length; x++) {
                 alldata = alldata.concat(data[x]);
             }
             //지도에 폴리곤으로 표시할 영역데이터 배열입니다

@@ -15,8 +15,17 @@
     <script src="/resources/js/statsareas.js"></script>
     <script type="text/javascript"src="/resources/js/markerPosition.js"></script>
 <%--    <script src="/resources/js/statsmapSidebar.js"></script>--%>
+    <link rel="stylesheet" href="/resources/css/mobileNav.css">
 </head>
 <body onload='selection(event)' bgcolor="#f3f3f3" onContextmenu = "return false" ondragstart = "return false" onSelectstart = "return false">
+<header>
+    <div class="nav">
+        <ul>
+            <li class="menu_nav"><a href="/stats/chart">지도</a></li>
+        </ul>
+    </div>
+</header>
+
     <div id="mapwrap">
         <div id="map" style="width: 100%; height: 100%; z-index: 1;"></div>
     </div>
@@ -28,7 +37,6 @@
         <span class="btn btn-default"  onclick="selection(event)" id="SE"> 성범죄</span>
         <span class="btn btn-default" onclick="selection(event)" id="TH">절도</span>
         <span class="btn btn-default" onclick="selection(event)" id="VI">폭력</span>
-        <a href="/stats/chart"class="btn btn-default">차트</a>
     </div>
 </footer>
     <script src="/resources/js/mstaticMap.js"></script>

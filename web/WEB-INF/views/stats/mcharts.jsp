@@ -25,8 +25,16 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="/resources/js/statsmapSidebar.js"></script>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <link rel="stylesheet" href="/resources/css/mobileNav.css">
 </head>
 <body onload='selection(event)' bgcolor="#f3f3f3" onContextmenu = "return false" ondragstart = "return false" onSelectstart = "return false">
+<header>
+    <div class="nav">
+        <ul>
+            <li class="home"><a href="/stats">차트</a></li>
+        </ul>
+    </div>
+</header>
 <script type="text/javascript"src="/resources/js/chart.js"></script>
 
 
@@ -67,7 +75,6 @@
         <span class="btn btn-default"  onclick="selection(event)" id="SE"> 성범죄</span>
         <span class="btn btn-default" onclick="selection(event)" id="TH">절도</span>
         <span class="btn btn-default" onclick="selection(event)" id="VI">폭력</span>
-        <a href="/stats" class="btn_change">맵</a>
     </div>
 </footer>
 </body>
