@@ -48,6 +48,18 @@ body {
     color: #444;
     cursor: default;
 }
+.gradient {
+    width:380px;
+    height:70px;
+}
+
+#gradient {
+    position: absolute;
+    margin-top:30px;
+    z-index: 999;
+    overflow: hidden;
+}
+
 
 @media screen and (min-width: 600px) {
     .nav li {
