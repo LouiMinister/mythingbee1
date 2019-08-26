@@ -21,10 +21,10 @@ public class DistanceCalcService {
     }
 
     public int calcDistance(Map<String, Object> bounds){
-        return this.calcDistance((double)bounds.get("startLat"),
-                (double)bounds.get("startLon"),
-                (double)bounds.get("endLat"),
-                (double)bounds.get("endLon"));
+        return this.calcDistance((double)bounds.get("la"),
+                (double)bounds.get("ea"),
+                (double)bounds.get("ka"),
+                (double)bounds.get("ja"));
     }
 
     // convert decimal degrees to radians

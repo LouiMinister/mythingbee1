@@ -53,7 +53,8 @@ public class NodeData {
 
     // destination 까지의 예상 비용을 구한 뒤 f값을 구한다
     public void calcF(Long destination) {
-        this.h = heuristic.get(destination);
+        Map<Long, Double> temp = heuristic;
+        this.h = temp.get(destination);
         this.f = g + h;
     }
 
