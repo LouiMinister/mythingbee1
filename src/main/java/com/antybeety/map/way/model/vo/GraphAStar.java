@@ -1,11 +1,8 @@
 package com.antybeety.map.way.model.vo;
 
-<<<<<<< HEAD
-=======
 import com.antybeety.map.way.model.dao.NodeDAO;
 import org.springframework.context.annotation.Lazy;
 
->>>>>>> feature/ISSUE-326
 import java.util.*;
 
 public class GraphAStar implements Iterable{
@@ -14,23 +11,41 @@ public class GraphAStar implements Iterable{
      * An outgoing edge is represented as a tuple of NodeData and the edge length
      */
     //NodeId,Map<노드정보,거리길이>
-    private final Map<Long, Map<NodeData, Double>> graph;
+    private Map<Long, Map<NodeData, Double>> graph;
     /*
      * A map of heuristic from a node to each other node in the graph.
      */
     // 그래프에서 노드간의 추정비용 Map
-    private final Map<Long, Map<Long, Double>> heuristicMap;
+    private  Map<Long, Map<Long, Double>> heuristicMap;
     /*
      * A map between nodeId and nodedata.
      */
     // 노드 id와 노드 data사이의 Map
-    private final Map<Long, NodeData> nodeIdNodeData;
+    private  Map<Long, NodeData> nodeIdNodeData;
 
-    public GraphAStar(Map<Long, Map<Long, Double>> heuristicMap) {
+    private List<NodeVO> nodes;
+    private List<EdgeVO> edges;
+
+
+/*    public GraphAStar(Map<Long, Map<Long, Double>> heuristicMap) {
         if (heuristicMap == null) throw new NullPointerException("The huerisic map should not be null");
         graph = new HashMap<Long, Map<NodeData, Double>>();
         nodeIdNodeData = new HashMap<Long, NodeData>();
         this.heuristicMap = heuristicMap;
+    }*/
+
+    public GraphAStar(List<NodeVO> nodes, List<EdgeVO> edges, Map<Long, Map<Long, Double>> heuristicMap){
+        this.nodes = nodes;
+        this.edges =edges;
+        this.heuristicMap = heuristicMap;
+
+        this.graph =new HashMap<>();
+        this.nodeIdNodeData =new HashMap<>();
+    }
+    public GraphAStar(Map<String,List<?>> nodesEdges){
+        this.nodes= (List<NodeVO>) nodesEdges.get("nodes");
+        this.edges =(List<EdgeVO>) nodesEdges.get("edges");
+
     }
 
     /**
