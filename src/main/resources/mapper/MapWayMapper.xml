@@ -79,4 +79,12 @@
         select node_id, lat, lon from node_tb where edge_id = #{id};
     </select>
 
+    <select id="searchAllRoad" resultType="com.antybeety.map.way.model.vo.RoadVO">
+        select road_name, road_length from road_tb;
+    </select>
+
+    <update id="setHeuristic" parameterType="hashmap">
+        update heuristic_tb set safe_value = ${heuristic} where node_s = #{startNodeId} and node_e = #{endNodeId}
+    </update>
+
 </mapper>

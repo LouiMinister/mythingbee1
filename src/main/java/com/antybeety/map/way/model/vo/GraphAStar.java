@@ -1,5 +1,11 @@
 package com.antybeety.map.way.model.vo;
 
+<<<<<<< HEAD
+=======
+import com.antybeety.map.way.model.dao.NodeDAO;
+import org.springframework.context.annotation.Lazy;
+
+>>>>>>> feature/ISSUE-326
 import java.util.*;
 
 public class GraphAStar implements Iterable{

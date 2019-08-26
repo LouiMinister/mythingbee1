@@ -101,7 +101,7 @@ public class ApiMapController {
     public List<FacilityMarkVO> searchAroundFacility(@RequestParam double la, // bottom
                                                      double ka, // top
                                                      double ea, // left
-                                                     double ja){    // top
+                                                     double ja){    // right
 
         Map<String,Object> bounds = new HashMap<>();
         bounds.put("la",la);
