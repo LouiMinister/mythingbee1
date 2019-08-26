@@ -69,6 +69,8 @@ public class SafetyPathService {
         // 우선선위 큐(초기 용량, 비교수단 Comparator)
         final Queue<NodeData> openQueue = new PriorityQueue<NodeData>(11, new NodeComparator());
 
+
+
         NodeData sourceNodeData = graph.getNodeData(source);
         sourceNodeData.setG(0); // 출발지점이니까 0
         sourceNodeData.calcF(destination);  // 도착지까지의 총 비용 계산
