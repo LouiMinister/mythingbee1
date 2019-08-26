@@ -174,13 +174,13 @@ var displayArea = function (area, d, d15, d16) {
             '<div class="desc">' +
             '<table class="table-hover">' +
             '<thead>' +
-            '<tr>' +
+            '<tr class="table-category">' +
             '<th>종류</th>' +
             '<th>2015</th>' +
             '<th>2016</th>' +
             '</tr>' +
             '</thead>' +
-            '<tbody>' +
+            '<tbody class="body-content">' +
             '<tr>' +
             '<td>만명당 범죄율 순위</td>' +
             '<td>' + d15.rank + '</td>' +
