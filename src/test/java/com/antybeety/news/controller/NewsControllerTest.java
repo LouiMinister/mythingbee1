@@ -33,23 +33,27 @@ public class NewsControllerTest {
 
     @Test
     public void test_검색한기사불러오기(){
-        String lastArticleCode= "1907230001";
+        String lastArticleCode= "1908230031";
         String lastDate ="";
         String searchWord= "여";
         int cnt=5;
-        String district="마포구";
+        String district="영등포구";
         List<ArticleInfoVO> articles = newsController.searchArticle(searchWord, lastArticleCode, lastDate, district, cnt);
-        System.out.println(articles);
+        for(ArticleInfoVO a : articles){
+            System.out.println(a);
+        }
     }
 
     @Test
     public void test_검색한기사불러오기2(){
-        String lastArticleCode= "1907230001";
+        String lastArticleCode= "";
         String lastDate ="";
         String searchWord= "여";
         int cnt=5;
-        String district="";
+        String district="영등포구";
         List<ArticleInfoVO> articles = newsController.searchArticle(searchWord, lastArticleCode, lastDate, district, cnt);
-        System.out.println(articles);
+        for(ArticleInfoVO a : articles){
+            System.out.println(a);
+        }
     }
 }

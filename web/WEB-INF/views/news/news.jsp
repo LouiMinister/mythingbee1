@@ -115,13 +115,25 @@ function layer_toggle(obj) {
 		});
 	};
 
+	var scroll_flag=true;
 	$(window).scroll(function(){
 		var scrollHeight=$(window).scrollTop()+$(window).height();
 		var documentHeight=$(document).height();
 
-			if(scrollHeight+1 > documentHeight){
-				getMoreArticles();
-				keyword.keywordsUpdate();
+			if(scrollHeight+1000 > documentHeight){
+			    if(scroll_flag){
+			        getMoreArticles();
+			        scroll_flag=false;
+			        console.log(scroll_flag);
+                    keyword.keywordsUpdate();
+                }else{
+                    console.log("before"+scroll_flag);
+			        setTimeout(function(){
+			            scroll_flag=true;
+                        console.log("after"+scroll_flag);
+                    },500);
+                }
+				console.log(scrollHeight+" "+ documentHeight);
 			}
 
 		});
