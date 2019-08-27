@@ -177,7 +177,7 @@ public class NewsAdServiceImpl implements NewsAdService {
     }
 
     @Override
-    public int restoreArticle(String code) {
+    public int restoreArticle(List<String> code) {
         return articleDao.restoreArticle(code);
     }
 

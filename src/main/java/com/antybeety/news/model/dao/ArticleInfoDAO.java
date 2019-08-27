@@ -27,6 +27,6 @@ public interface ArticleInfoDAO {
 
     int realDelArticle(String code);
 
-    int restoreArticle(String code);
+    int restoreArticle(List<String> code);
 
 }
