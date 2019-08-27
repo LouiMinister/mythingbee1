@@ -31,7 +31,7 @@ public class ApiNewsController {
                                            @RequestParam String date,
                                            @RequestParam String district,
                                            @RequestParam(required = false) String mode) {
-        int limit = Integer.MAX_VALUE;
+        int limit = 5;
         List<ArticleInfoVO> articles = null;
 
         articles = controller.searchArticle(searchWord, lastArticleCode, date, district, limit);

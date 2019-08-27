@@ -1,4 +1,4 @@
-v<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -100,18 +100,30 @@ v<%@ page language="java" contentType="text/html; charset=UTF-8"
 					addArticle(datas[i], indexNum);
 				}
 			}
-		});
-	}
-	
-	$(window).scroll(function(){
-		var scrollHeight=$(window).scrollTop()+$(window).height();
-		var documentHeight=$(document).height();
+		})
+	};
 
-			if(scrollHeight+1 > documentHeight){
-				getMoreArticles();
-				keyword.keywordsUpdate();
-			}
-		});
+
+    var scroll_flag=true;
+    $(window).scroll(function(){
+        var scrollHeight=$(window).scrollTop()+$(window).height();
+        var documentHeight=$(document).height();
+
+        if(scrollHeight+1000 > documentHeight){
+            if(scroll_flag){
+                getMoreArticles();
+                scroll_flag=false;
+                console.log(scroll_flag);
+                keyword.keywordsUpdate();
+            }else{
+                console.log("before"+scroll_flag);
+                setTimeout(function(){
+                    scroll_flag=true;
+                    console.log("after"+scroll_flag);
+                },500);
+            }
+        }
+    });
 	
 	var showOption = function(){
 		
@@ -125,20 +137,19 @@ v<%@ page language="java" contentType="text/html; charset=UTF-8"
 	
 	var getMoreArticles = function(){
 		var lastArticleCode = $("#main_center_wrap").children(":last").find('button[name=findid]').attr('id');
-		
+		console.log("TEST");
 		$.ajax('/api/news/searchNews',{
 			type:'GET',
-			data:{"lastArticleCode" : lastArticleCode,
-				"searchWord" : "${searchWord}",
-				"date": "${date}",
-				"district" : "${district}",
-				"mode" : "init"
+			data:{lastArticleCode : lastArticleCode,
+				searchWord : "${searchWord}",
+				date: "${date}",
+				district : "${district}",
+				mode : "init"
 			}
 		}).then(function(data,status){
 			if(status=='success'){
 				let indexNum = Number($("#main_center_wrap").children(":last").find('input[type=hidden]').val())+1;
 
-				
 				var datas= data;
 				
 				for(let i = 0;i < Object.keys(datas).length; i++){
