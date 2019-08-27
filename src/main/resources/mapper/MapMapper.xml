@@ -35,6 +35,12 @@
         <id property="lng" column="lng" jdbcType="DOUBLE"/>
     </resultMap>
 
+    <resultMap id="ProtectHouse_map" type="com.antybeety.map.model.vo.ProtectHouseVO">
+        <id property="code" column="ph_code" jdbcType="VARCHAR"/>
+        <id property="lat" column ="lat" jdbcType="DOUBLE"/>
+        <id property="lng" column="lng" jdbcType="DOUBLE"/>
+    </resultMap>
+
 <!--    시설물 상세정보 넘겨받는 타입-->
     <resultMap id="bell_detail" type="com.antybeety.map.model.vo.BellDetailVO">
         <id property="code" column = "be_code" jdbcType="VARCHAR"/>
@@ -96,6 +102,10 @@
 
     <select id="selectLight" parameterType="hashmap" resultMap="Light_map">
         SELECT li_code, lat, lng FROM light_mark_view where (lat between #{la} and #{ka} )AND(lng between #{ea} and #{ja})
+    </select>
+
+    <select id="selectProtectHouse" parameterType="hashmap" resultMap="ProtectHouse_map">
+        SELECT ph_code, lat, lng FROM protect_house_tb where (lat between #{la} and #{ka} )AND(lng between #{ea} and #{ja})
     </select>
 
 <!-- 상세 정보 가져오는 쿼리 -->

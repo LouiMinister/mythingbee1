@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>지도 지도 시작하기</title>
+<title>안전 시설물 확인</title>
 <link rel="stylesheet" href="/resources/css/map.css">
 <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
 <link rel="stylesheet" href="/resources/css/mainnavi.css" media="screen">
@@ -133,7 +133,7 @@
 				</li>
 				<li>
 					<img src="/resources/image/map/guard_color.png" style="display:none" name="guard">
-					<button id="guard"><img src="/resources/image/map/guard.png" name="guard"></button>
+					<button id="guard" onclick="guardToggle()"><img src="/resources/image/map/guard.png" name="guard"></button>
 				</li>
 				<li>
 					<img src="/resources/image/map/police_color.png" style="display:none" name="police">

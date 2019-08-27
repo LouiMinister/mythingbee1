@@ -51,7 +51,7 @@ function guardToggle() {
 		searchNewPlaces();
 	} else {
 		guardFlag = 0;
-		hideMarkers("gurad");
+		hideMarkers("guard");
 	}
 }
 
@@ -317,7 +317,7 @@ function searchNewPlaces() {
 
 	var json = JSON.stringify(bounds);
 	var facility = [ cctvFlag, bellFlag, policeFlag, shopFlag, guardFlag, securityLampFlag];
-	var facilName = ["cctv","bell","police","convenience"/*shop*/,"guard","light"];
+	var facilName = ["cctv","bell","police","convenience","protectHouse","light"];
 	var fn = JSON.stringify(facilName);
 	var fa = JSON.stringify(facility);
 	$.ajax('api/map/search',{
@@ -358,9 +358,11 @@ function searchNewPlaces() {
 						createBellMarkers();
 						setMarkers(bellMarkers,map);
 						break;
-					case "guard": guardPositions = [];
+					case "protectHouse": guardPositions = [];
+						guardPositions = []
 						guardPositions = positions;
 						createGuardMarkers();
+						setMarkers(guardMarkers,map);
 						break;
 					case "convenience" : shopPositions = [];
 						shopPositions = positions;

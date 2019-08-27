@@ -14,17 +14,19 @@ public interface MapMapper {
     List<FacilityMarkVO> selectConvenience(Map<String, Object> map);
     List<FacilityMarkVO> selectCCTV(Map<String, Object> map);
     List<FacilityMarkVO> selectLight(Map<String, Object> map);
+    List<FacilityMarkVO> selectProtectHouse(Map<String, Object> bounds);
 
-//    선택한 시설물 상셍정보 표시
+    //    선택한 시설물 상셍정보 표시
     FacilityDetailVO getBellDetail(String code);
     FacilityDetailVO getPoliceDetail(String code);
     FacilityDetailVO getConvenienceDetail(String code);
     FacilityDetailVO getCCTVDetail(String code);
-    FacilityDetailVO getLightDetail(String code);
 
+    FacilityDetailVO getLightDetail(String code);
     List<String> searchAllCCTVRoadAddr();
     List<String> searchAllBellRoadAddr();
     List<String> searchAllPoliceRoadAddr();
     List<String> searchAllConvenienceRoadAddr();
+
     List<String> searchAllLightRoadAddr();
 }
