@@ -17,10 +17,50 @@
 /* Icomoon.com */
 
 
+@media screen and (max-width: 1027px) {
+	#navi-logo-li {
+		visibility: hidden;
+	}
+
+	#navi-searchbar-li{
+		position:absolute;
+		left:165px;
+		width:69%;
+		margin-right: 60px;
+		border-right-width: 0px;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	#navi-logo-li {
+		visibility: hidden;
+	}
+
+	#navi-searchbar-li{
+		position:absolute;
+		left:165px;
+		width:59%;
+		margin-right: 60px;
+		border-right-width: 0px;
+	}
+}
+
+@media screen and (min-width: 1027px) {
+	#navi-searchbar-li{
+		position:absolute;
+		left:215px;
+		width:49%;
+		border-right-width: 0;
+	}
+}
+
+
+
 	#search_div{
 		line-height:10px;
 	}
-	
+
+
 	#mainSearchTextbox{
 		width :90%; height:40px;margin-left:2px;right:2px;position: absolute;  float:left;
 		margin:10px 0;  vertical-align:middle;

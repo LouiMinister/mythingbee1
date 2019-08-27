@@ -30,32 +30,74 @@
 	#main_wrap{
 		width:100%;
 	}
-	
+
+	@media screen {
+		#main_center_wrap{
+			width:45%;float:left;
+			margin-right : 20px;
+			margin-top : 10px;
+		}
+
+		#main_right_wrap{
+			width:28%;float:left;
+			margin-left : 20px;
+		}
+
+		#main_left_wrap{
+			width : 280px; float:left;
+		}
+	}
+
+	@media screen and (max-width: 1400px){
+		#main_center_wrap{
+			width:65%;float:left;
+			margin-right : 20px;
+			margin-top : 10px;
+		}
+
+		#main_right_wrap{
+			width:28%;float:left;
+			margin-left : 20px;
+		}
+
+		#main_left_wrap{
+			width : 140px; float:left;
+		}
+
+		#hot_topic{
+			display: none;
+		}
+	}
+
+	@media screen and (max-width: 700px){
+		#main_center_wrap{
+			width:65%;float:left;
+			margin-right : 20px;
+			margin-top : 10px;
+		}
+
+		#main_right_wrap{
+			width:10%;float:left;
+			margin-left : 20px;
+		}
+
+		#main_left_wrap{
+			width : 20px; float:left;
+		}
+	}
 	#main_left_wrap{
-		width : 20%;float:left;
-		
+		height: 1px;
 	}
-	
-	#main_center_wrap{
-		width:45%;float:left;
-		margin-right : 20px;
-		margin-top : 10px;
-	}
-	
+
 	.component{
 		margin-top:10px;
 		margin-botton:10px;
 	}
-	
-	#main_right_wrap{
-		width:28%;float:left;
-		margin-left : 20px;
-	}
-	
+
 	#detail_search{
 		margin-top: 50px;
 		position: absolute;
-		right: -140px;
+		right: 0;
 		width:250px; height:150px;
 		border:2px solid #EAF0F2;
 		border-radius:10px;
