@@ -96,18 +96,20 @@ public class GraphAStar implements Iterable{
     public void addEdge(Long nodeIdFirst, Long nodeIdSecond, double weight) {
         if (nodeIdFirst == null || nodeIdSecond == null) throw new NullPointerException("The first nor second node can be null.");
 
-        // 추정비용 맵에 해당 노드들이 없을 때
-        if (!heuristicMap.containsKey(nodeIdFirst) || !heuristicMap.containsKey(nodeIdSecond)) {
-            throw new NoSuchElementException("Source and Destination both should be part of the part of hueristic map");
-        }
-        // 그래프 맵에 해당 노드들이 없을 때
-        if (!graph.containsKey(nodeIdFirst) || !graph.containsKey(nodeIdSecond)) {
-            throw new NoSuchElementException("Source and Destination both should be part of the part of graph");
-        }
+////         추정비용 맵에 해당 노드들이 없을 때
+//        if (!heuristicMap.containsKey(nodeIdFirst) || !heuristicMap.containsKey(nodeIdSecond)) {
+//            throw new NoSuchElementException("Source and Destination both should be part of the part of hueristic map");
+//        }
+//        // 그래프 맵에 해당 노드들이 없을 때
+//        if (!graph.containsKey(nodeIdFirst) || !graph.containsKey(nodeIdSecond)) {
+//            throw new NoSuchElementException("Source and Destination both should be part of the part of graph");
+//        }
 
-        // 노드아이디로 노드 찾은다음에 그 노드에 상대방 노드까지의 경로 등록
-        graph.get(nodeIdFirst).put(nodeIdNodeData.get(nodeIdSecond), weight);
-        graph.get(nodeIdSecond).put(nodeIdNodeData.get(nodeIdFirst), weight);
+        if(graph.containsKey(nodeIdFirst) && graph.containsKey(nodeIdSecond)){
+            // 노드아이디로 노드 찾은다음에 그 노드에 상대방 노드까지의 경로 등록
+            graph.get(nodeIdFirst).put(nodeIdNodeData.get(nodeIdSecond), weight);
+            graph.get(nodeIdSecond).put(nodeIdNodeData.get(nodeIdFirst), weight);
+        }
     }
 
     /**

@@ -29,24 +29,10 @@
 	<script src="/resources/js/statsmapSidebar.js"></script>
 	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 	<script type="text/javascript"src="/resources/js/markerPosition.js"></script>
-
-	<script language="JavaScript" type="text/javascript">
-
-
-		function layer_toggle(obj) {
-			if (obj.style.display=='none') obj.style.display = 'block';
-			else if (obj.style.display=='block') obj.style.display = 'none';
-		}
-		$(window).on('resize', function () {
-			redrawChart();
-		});
-	</script>
-
-
+	<script type="text/javascript" src="/resources/js/statsOverlay.js"></script>
 </head>
 <body onload='selection(event)' bgcolor="#f3f3f3" onContextmenu = "return false" ondragstart = "return false" onSelectstart = "return false">
 <script type="text/javascript"src="/resources/js/chart.js"></script>
-
 <div class="container">
 			<ul id="gn-menu" class="gn-menu-main">
 				<li class="gn-trigger">
@@ -130,7 +116,13 @@
 
 <div style="margin-left:10%">
 	<div id="mapwrap">
-		<div id="map" style="width: 75%;height: 600px;z-index: 0;position: relative;overflow: hidden;background: url('http://t1.daumcdn.net/mapjsapi/images/2x/bg_tile.png');margin-left: 15%;"></div>
+		<div id="map" style="width: 75%;height: 600px;z-index: 0;position: relative;overflow: hidden;background: url('http://t1.daumcdn.net/mapjsapi/images/2x/bg_tile.png');margin-left: 15%; z-index: 3">
+		</div>
+		<div style="width: 30%;margin-left:14%">
+		<div id="gradient" class="gradient">
+			<img src="/resources/image/stats/gradient.png" alt="" style="width:100%; z-index: 888">
+		</div>
+		</div>
 		<div id="clickLatlng"></div>
 		<div id="stats_content" style="margin-left: 15%";>
 			<div id="columnchart_values" style="width: 900px; height: 400px; "></div>
