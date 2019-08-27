@@ -54,10 +54,10 @@
 				'<h2>' + data.title + '</th>' +
 				'</tr>' +
 				'<tr>' +
-				'<td>' + data.pressName + '</td>' +
+				'<td style="font-size: 20px;">' + data.pressName + '</td>' +
 				'</tr>' +
 				'<tr>' +
-				'<td>' + data.articleTime + '</td>' +
+				'<td style="font-size: 20px;">' + data.articleTime + '</td>' +
 				'</tr>' +
 				'</table>' +
 				'</div>' +
