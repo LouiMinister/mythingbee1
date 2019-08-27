@@ -52,5 +52,5 @@ public interface NewsAdController {
     int realDelArticles(List<String> code);
 
     //휴지통에 있는 기사 복구
-    int restoreArticle(String code);
+    int restoreArticle(List<String> code);
 }

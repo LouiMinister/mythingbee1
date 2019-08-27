@@ -22,8 +22,12 @@ public class FindPathController {
     @Autowired
     private MapSettingService safetyValue;
 
-    @Autowired
     private SafetyPathService safetyPathService;
+
+    @Autowired
+    public FindPathController(SafetyPathService safetyPathService){
+        this.safetyPathService = safetyPathService;
+    }
 
     public List<Integer> searchDistanceAll(List<Map<String,Object>> locationList) {
         return distanceCalc.calcDistanceAll(locationList);
@@ -74,9 +78,14 @@ public class FindPathController {
 
     public List<NodeVO> searchSafePath(double startLat, double startLon, double endLat, double endLon) {
 
-        NodeVO startNode = safetyPathService.matchNode(startLat,startLon);
-        NodeVO endNode = safetyPathService.matchNode(endLat,endLon);
-
-        return  safetyPathService.astar(startNode.getId(),endNode.getId());
+        try{
+            NodeVO startNode = safetyPathService.matchNode(startLat,startLon);
+            NodeVO endNode = safetyPathService.matchNode(endLat,endLon);
+            safetyPathService.initService(startNode.getLat(), startNode.getLng(), endNode.getLat(), endNode.getLng());
+            return  safetyPathService.astar(startNode.getId(),endNode.getId());
+        }
+        catch(Exception e){
+            return null;
+        }
     }
 }

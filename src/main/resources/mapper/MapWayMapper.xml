@@ -75,8 +75,8 @@
         select * from edge_tb where edge_id=#{id};
     </select>
 
-    <select id="getNode" parameterType="java.lang.Long" resultType="com.antybeety.map.way.model.vo.NodeVO">
-        select node_id, lat, lon from node_tb where edge_id = #{id};
+    <select id="getNode" parameterType="java.lang.Long" resultMap="node_info">
+        select node_id, lat, lon from node_tb where node_id = #{id};
     </select>
 
     <select id="searchAllRoad" resultType="com.antybeety.map.way.model.vo.RoadVO">

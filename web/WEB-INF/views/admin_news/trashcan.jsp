@@ -179,9 +179,6 @@
         +'</div>'
         +'</form>'
         +'</div>'
-
-
-
         +'</div>'
         +'</li>'
         +'<li><a class="" href="/index.jsp"><img src="/resources/image/logo_small.png" id="logo"><span>Think Bee Way</span></a></li>'
@@ -197,8 +194,6 @@
         +'</li>'
         +'</ul>'
         +'</nav>'
-        +'<!-- End of Topbar -->'
-        +'<!-- Begin Page Content -->'
         +'<div class="container-fluid">'
         +'<!-- DataTales Example -->'
         +'<div class="card shadow mb-4">'
@@ -210,12 +205,23 @@
         +'<div>'
         +'<ul style="list-style:none;padding-left: 0px;" >'
         +'<li>'
-        +' <a onclick=" deleteArticles()" class="btn btn-info btn-icon-split" style="float">'
-        +'<span class="icon text-white-50" >'
-        +' <i class="fas fa-trash-alt"></i>'
-        +' </span>'
-        +'<span class="text">삭제</span>'
-        +' </a>'
+        +'<a onclick=" deleteArticles()" class="btn btn-info btn-icon-split"'
+        +'style="float:left; background:#ff8080; border-color:#ff8080 ;margin-right'
+        +'                                    :10px; color: white;" >'
+         +'<span class="icon text-white-50" >'
+          +'  <i class="fas fa-trash-alt" style="padding-top: 4px;"></i>'
+         +'   </span>'
+          +'  <span class="text">삭제</span>'
+         +'   </a>'
+        +'</li>'
+        +'<li>'
+        +'<a onclick="restoreArticles(event)" methods="GET"  class="btn btn-info btn-icon-split"'
+        +'style="float:right ;margin-left: 15px ;  background:#FFDD4F;border-color:#FFDD4F ; color: white;">'
+        +'<span class="icon text-white-50">'
+            +'<i class="far fa-plus-square" style="padding-top: 4px;"></i>'
+            +'</span>'
+           +' <span class="text">다중 복구</span>'
+        +'</a>'
         +'</li>'
         +'</ul>'
         +'</div>'
@@ -227,7 +233,7 @@
         +'<th>언론사</th>'
         +'<th>지역구</th>'
         +'<th>키워드</th>'
-        +'<th>수정</th>'
+
         +'</tr>'
         +'</thead>'
         +'<tbody id="addArticleTb">'
@@ -239,7 +245,7 @@
         +'<li>'
         +' <a href="/admin/news" class="btn btn-info btn-icon-split" style="float">'
         +'<span class="icon text-white-50" >'
-        +' <i class="fas fa-arrow-circle-left"></i>'
+        +' <i class="fas fa-arrow-circle-left" style="padding-top: 4px;"></i>'
         +' </span>'
         +'<span class="text">이전 페이지로</span>'
         +' </a>'
@@ -289,24 +295,24 @@
                 var articles = [];
                 articles = data;
 
-                for(var i = 0 ;i < articles.length ; i++){
+                for(var i = 0 ;i < articles.length ; i++) {
 
                     var tr = $('<tr name="removeTr"></tr>').appendTo($('#addArticleTb'));
-                    $('<td><input type="checkbox" class="delCheck" name="del_chk" value="'+articles[i].code+'"/></td>').appendTo(tr);
-                    $('<td/>',{text:articles[i].title}).appendTo(tr);
-                    $('<td/>',{text:articles[i].pressName}).appendTo(tr);
-                    $('<td/>',{text:articles[i].districtName}).appendTo(tr);
-                    $('<td/>',{text:articles[i].keywordName}).appendTo(tr);
-                    $('<td><button class="btn btn-warning" type="button" value="'+articles[i].code+'" onclick="restoreArticle(event)" style="\n' +
+                    $('<td><input type="checkbox" class="delCheck" name="del_chk" value="' + articles[i].code + '"/></td>').appendTo(tr);
+                    $('<td/>', {text: articles[i].title}).appendTo(tr);
+                    $('<td/>', {text: articles[i].pressName}).appendTo(tr);
+                    $('<td/>', {text: articles[i].districtName}).appendTo(tr);
+                    $('<td><button class="btn btn-warning" type="button" value="' + articles[i].code + '" onclick="restoreArticle(event)" style="\n' +
                     '    padding-top: 1px;\n' +
                     '    padding-bottom: 3px;\n' +
                     '    padding-left: 10px;\n' +
                     '    padding-right: 10px;\n' +
                     '">복구</button></td>').appendTo(tr);
-                }
-            }
+               }
+           }
         });
-    }
+     };
+
 
     var searchArticle  = function(){
 
@@ -335,12 +341,17 @@
                     $('<td/>',{text:articles[i].pressName}).appendTo(tr);
                     $('<td/>',{text:articles[i].districtName}).appendTo(tr);
                     $('<td/>',{text:articles[i].keywordName}).appendTo(tr);
-                    $('<td><button type="button" value="'+articles[i].code+'" onclick="restoreArticle(event)">수정</button></td>').appendTo(tr);
+                    $('<td><button class="btn btn-warning" type="button" value="'+articles[i].code+'" onclick="restoreArticle(event)" style="\n' +
+                                      '    padding-top: 1px;\n' +
+                                      '    padding-bottom: 3px;\n' +
+                                     '    padding-left: 10px;\n' +
+                                      '    padding-right: 10px;\n' +
+                                        '">복구</button></td>').appendTo(tr);
                 }
             }
-        });
-    };
+         });
 
+};
 
     var showOption = function(){
         if($('#detail_search').css("display") == "none"){
@@ -352,15 +363,52 @@
     };
 
     var restoreArticle = function(event){
-        var arCode = $(event.srcElement).val();
 
-        $.ajax("/admin/restoreAr",{
-            type:'GET',
-            data:{arCode:arCode}
-        }).then(function(data,status){
-            $('[name="removeTr"]').remove();
-            getNews();
-        });
+
+        if(confirm("선택하신 기사를 복구하시겠습니까?")!=0){
+
+            var arCodes = [];
+
+            var arCode = $(event.srcElement).val();
+            arCodes.push(arCode);
+
+            $.ajax("/admin/restoreAr",{
+                type:'GET',
+                data:{arCodes:arCodes}
+            }).then(function(data,status){
+                $('[name="removeTr"]').remove();
+                getNews();
+            });
+        }else{
+            $("input:checkbox[name='del_chk']").prop('checked',false);
+        }
+
+    }
+
+    var restoreArticles = function(event){
+
+
+        if(confirm("선택하신 기사를 복구하시겠습니까?")!=0){
+            var restoreCheckBox = document.getElementsByName("del_chk");
+            var arCodes = [];
+
+            for(var i = 0 ;i<restoreCheckBox.length;i++){
+                if(restoreCheckBox[i].checked){
+                    arCodes.push(restoreCheckBox[i].value);
+                }
+            }
+
+            $.ajax("/admin/restoreAr",{
+                type:'GET',
+                data:{arCodes:arCodes}
+            }).then(function(data,status){
+                $('[name="removeTr"]').remove();
+                getNews();
+            });
+        }else{
+            $("input:checkbox[name='del_chk']").prop('checked',false);
+        }
+
     }
 
     var deleteArticles =function(){
@@ -374,7 +422,6 @@
                     delCodes.push(delCheckBox[i].value);
                 }
             }
-
 
             $.ajax('/admin/realDelArticles',{
                 type:'GET',

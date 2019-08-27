@@ -92,7 +92,7 @@ public class NewsAdControllerImpl implements NewsAdController {
     }
 
     @Override
-    public int restoreArticle(String code) {
+    public int restoreArticle(List<String> code) {
         return newsAdService.restoreArticle(code);
     }
 }

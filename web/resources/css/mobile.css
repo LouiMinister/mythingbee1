@@ -35,28 +35,31 @@
     position: absolute;
     left: 0;
     bottom: 40px;
-    width: 288px;
+    width: 190px;
     margin-left: -144px;
     text-align: left;
     overflow: hidden;
-    font-size: 12px;
+    font-size: 8px;
     font-family: 'Malgun Gothic', dotum, '����', sans-serif;
-    line-height: 1.5;
+    line-height: 1.4;
 }
 .wrap .info {
-    width: 286px;
+    width: 200px;
     border-radius: 5px;
     border-bottom: 2px solid #ccc;
     border-right: 1px solid #ccc;
     overflow: hidden;
     background: #fff;
-    font-size: 8px;
+    font-size: 6px;
 }
 .wrap * {
     padding: 0;
     margin: 0;
 }
-
+.area-name{
+    font-size:17px;
+    font-weight: bold;
+}
 .info .close {
     position: absolute;
     top: 10px;
@@ -69,12 +72,22 @@
 .info .body {
     position: relative;
     overflow: hidden;
-    margin-top: 20px;
-    height: 140px;
+    margin-top: 5px;
+    height: 100px;
+    margin-right: 10px;
 }
 .info .desc {
     position: relative;
     height: 75px;
+}
+.table-category{
+    font-size: 1.25rem;
+}
+.table-hover{
+    font-size: 1.3rem;
+}
+.body-content{
+    font-size: 1.20rem;
 }
 table {
     width: 100%;

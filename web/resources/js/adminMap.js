@@ -1227,7 +1227,9 @@ $(document).ready(function(){
 		nodeIndex++;
 
 		var latlng = mouseEvent.latLng;
-
+		console.log(latlng);
+		console.log(latlng.getLat());
+		console.log(latlng.getLng());
 		// 지도에 표시
 		var marker = new kakao.maps.Marker({
 			position: latlng,

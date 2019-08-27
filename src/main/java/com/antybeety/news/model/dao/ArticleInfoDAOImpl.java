@@ -127,9 +127,13 @@ public class ArticleInfoDAOImpl implements ArticleInfoDAO{
     }
 
     @Override
-    public int restoreArticle(String code) {
+    public int restoreArticle(List<String> code) {
         NewsMapper mapper = getMapper();
-        return mapper.restoreArticle(code);
+
+        for(String s  : code){
+            mapper.restoreArticle(s);
+        }
+        return 1;
     }
 
 

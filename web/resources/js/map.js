@@ -1140,6 +1140,7 @@ $(document).ready(function(){
 		// 	paginationEl.removeChild (paginationEl.lastChild);
 		// }
 		// removeAllChildNods(listEl);
+
 		if(detailList){
 			detailList.close();
 		}

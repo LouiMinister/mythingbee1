@@ -1,0 +1,94 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+.nav {
+    position: fixed;
+    top:0px;
+    z-index: 999;
+    width:100%;
+}
+.nav ul {
+    list-style: none;
+    background-color: #fff;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    width:100%;
+
+}
+.nav li {
+    font-family: 'Oswald', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 40px;
+    width:100%;
+    height: 40px;
+    border-bottom: 1px solid #888;
+}
+
+.nav a {
+    text-decoration: none;
+    color: #000000;
+    display: block;
+    transition: .3s background-color;
+}
+
+.nav a:hover {
+    background-color: #005f5f;
+}
+
+.nav a.active {
+    background-color: #fff;
+    color: #444;
+    cursor: default;
+}
+.btn-default.active {
+    background-color: #fff;
+    color: #444;
+    cursor: default;
+}
+.gradient {
+    width:380px;
+    height:70px;
+}
+
+#gradient {
+    position: absolute;
+    margin-top:30px;
+    z-index: 999;
+    overflow: hidden;
+}
+
+
+@media screen and (min-width: 600px) {
+    .nav li {
+        border:1px;
+        border--color: rgba(132, 126, 109, 0.76);
+        width: 100%;
+        border-bottom: none;
+        height: 50px;
+        line-height: 50px;
+        font-size: 1.4em;
+    }
+
+    /* Option 1 - Display Inline */
+    /* .nav li {
+      display: inline-block;
+      margin-right: -4px;
+    }
+    */
+    /* Options 2 - Float
+    .nav li {
+      float: left;
+    }
+    .nav ul {
+      overflow: auto;
+      width: 600px;
+      margin: 0 auto;
+    }
+    .nav {
+      background-color: #444;
+    }
+    */
+}
