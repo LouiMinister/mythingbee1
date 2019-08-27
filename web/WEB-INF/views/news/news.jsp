@@ -255,7 +255,7 @@ function layer_toggle(obj) {
 			    </ul>
 			    </div>
 				</li>
-	 		  <li style="position:absolute; left:215px; width:49%; border-right-width: 0;" >
+	 		  <li id="navi-searchbar-li" >
 	 		  	<div id="search_div" >
 	 		  	  <input type="text" id="mainSearchTextbox" class="form-control mr-sm-2" placeHolder="키워드를 입력해 주세요.">
 	       		  <button type="button" id="mainSearchButton" class="btn btn-secondary my-2 my-sm-0" onclick= "searchArticle()"></button>
@@ -334,7 +334,7 @@ function layer_toggle(obj) {
 
 
 
-				<li><a class="" href="/index.jsp"><img src="/resources/image/logo_small.png" id="logo"><span>Think Bee
+				<li id="navi-logo-li"><a class="" href="/index.jsp"><img src="/resources/image/logo_small.png" id="logo"><span>Think Bee
 					Way</span></a></li>
 			</ul>
 		</div><!-- /container -->
@@ -346,7 +346,7 @@ function layer_toggle(obj) {
 
 
 	<div id="main_wrap" class="warp">
-		<div id="main_left_wrap" class="warp" style="width:280px; height:1px"></div>
+		<div id="main_left_wrap" class="warp" ></div>
 		<div id="main_center_wrap" class="wrap"></div>
 		<div id="main_right_wrap" class="wrap">
 
