@@ -78,10 +78,14 @@ public class FindPathController {
 
     public List<NodeVO> searchSafePath(double startLat, double startLon, double endLat, double endLon) {
 
-        NodeVO startNode = safetyPathService.matchNode(startLat,startLon);
-        NodeVO endNode = safetyPathService.matchNode(endLat,endLon);
-
-        safetyPathService.initService(startNode.getLat(), startNode.getLng(), endNode.getLat(), endNode.getLng());
-        return safetyPathService.astar(startNode.getId(),endNode.getId());
+        try{
+            NodeVO startNode = safetyPathService.matchNode(startLat,startLon);
+            NodeVO endNode = safetyPathService.matchNode(endLat,endLon);
+            safetyPathService.initService(startNode.getLat(), startNode.getLng(), endNode.getLat(), endNode.getLng());
+            return  safetyPathService.astar(startNode.getId(),endNode.getId());
+        }
+        catch(Exception e){
+            return null;
+        }
     }
 }

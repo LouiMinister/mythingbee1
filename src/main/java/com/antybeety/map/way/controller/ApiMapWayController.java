@@ -30,6 +30,12 @@ import java.util.Map;
 @RequestMapping("/api/map/way")
 public class ApiMapWayController {
 
+    public static final double MAX_TOP = 37.498184268458694;
+    public static final double MAX_BOTTOM = 37.4680270499956;
+    public static final double MAX_RIGHT = 126.9760561098761;
+    public static final double MAX_LEFT = 126.92032849888486;
+
+
     @Autowired
     private SqlSession sqlSession;
 
@@ -50,6 +56,12 @@ public class ApiMapWayController {
 
     @RequestMapping(value="/safe", method = RequestMethod.GET)
     public List<NodeVO> searchSafePath(@RequestParam double startLat, double startLon, double endLat, double endLon){
+        // 영역 제한 걸기
+        if(startLat > MAX_TOP || startLat < MAX_BOTTOM) return null;
+        if(endLat > MAX_TOP ||  endLat < MAX_BOTTOM) return null;
+        if(startLon > MAX_RIGHT || startLon < MAX_LEFT) return null;
+        if(endLon > MAX_RIGHT || endLon < MAX_LEFT) return null;
+
         return findPathController.searchSafePath(startLat, startLon, endLat, endLon);
     }
 
