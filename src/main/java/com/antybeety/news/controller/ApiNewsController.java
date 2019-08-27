@@ -31,6 +31,7 @@ public class ApiNewsController {
                                            @RequestParam String date,
                                            @RequestParam String district,
                                            @RequestParam(required = false) String mode) {
+
         int limit = Integer.MAX_VALUE;
         List<ArticleInfoVO> articles = null;
 
