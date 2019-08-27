@@ -35,7 +35,7 @@
 							<ul class="gn-menu">
 								<li>
 										<li><a class="gn-icon gn-icon-article" id="search_menu">검색</a></li>
-										<li><a class="gn-icon gn-icon-article" id="security_menu">치안</a></li>
+										<li><a class="gn-icon gn-icon-article" id="security_menu">안전 시설물</a></li>
 								</li>
 							</ul>
 							<div class="scroll_pane content" id="searchForm">
