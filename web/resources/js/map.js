@@ -164,7 +164,7 @@ var bellIwContent = '<div style="padding:5px;"> 비상벨! <br>'; // 인포윈�
 var cctvIwContent = '<div style="padding:5px;"> cctv! <br>'; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
 var guardIwContent = '<div style="padding:5px;"> 지킴이집! <br>'; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
 
-// 포지션 마커 마커 전부 담는 배열 생성
+// 포지션, 마커, 마커 전부 담는 배열 순서
 var policePositions = [];
 var policeMarkers = [];
 var policeAll = [];
@@ -279,6 +279,25 @@ function makeClickListener(marker){
 }
 
 function searchNewPlaces() {
+	//기존 시설물 다 지우어주기
+	for(var i=0; i<policeAll.length; i++){
+		policeAll[i].setMap(null);
+	}
+	for(var i=0; i<shopAll.length; i++){
+		shopAll[i].setMap(null);
+	}
+	for(var i=0; i<securityLampAll.length; i++){
+		securityLampAll[i].setMap(null);
+	}
+	for(var i=0; i<bellAll.length; i++){
+		bellAll[i].setMap(null);
+	}
+	for(var i=0; i<cctvAll.length; i++){
+		cctvAll[i].setMap(null);
+	}
+	for(var i=0; i<guardAll.length; i++){
+		guardAll[i].setMap(null);
+	}
 	// 시설물 하나도 켜진거 없으면 리턴
 	if( (cctvFlag | bellFlag | securityLampFlag | shopFlag | policeFlag | guardFlag) == 0){
 		return ;
