@@ -39,5 +39,5 @@ public interface NewsAdService {
     public int realDelArticles(List<String> code);
 
     //휴지통에 있는 기사 복구
-    public int restoreArticle(String code);
+    public int restoreArticle(List<String> code);
 }

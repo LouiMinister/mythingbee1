@@ -259,8 +259,8 @@ public class ViewAdNewsController {
 
     //휴지통에 있는 기사 목록으로 복구
     @RequestMapping(value="/restoreAr",method=RequestMethod.GET)
-    public @ResponseBody int restoreArticle(@RequestParam(value="arCode")String code){
-        return newsAdController.restoreArticle(code);
+    public @ResponseBody int restoreArticle(@RequestParam(value="arCodes[]")List<String> codes){
+        return newsAdController.restoreArticle(codes);
     }
 
     //언론사 삭제 요청
