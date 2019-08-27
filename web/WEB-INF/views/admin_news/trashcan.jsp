@@ -233,7 +233,7 @@
         +'<th>언론사</th>'
         +'<th>지역구</th>'
         +'<th>키워드</th>'
-
+        +'<th>복구</th>'
         +'</tr>'
         +'</thead>'
         +'<tbody id="addArticleTb">'
@@ -298,11 +298,12 @@
                 for(var i = 0 ;i < articles.length ; i++) {
 
                     var tr = $('<tr name="removeTr"></tr>').appendTo($('#addArticleTb'));
-                    $('<td><input type="checkbox" class="delCheck" name="del_chk" value="' + articles[i].code + '"/></td>').appendTo(tr);
-                    $('<td/>', {text: articles[i].title}).appendTo(tr);
-                    $('<td/>', {text: articles[i].pressName}).appendTo(tr);
-                    $('<td/>', {text: articles[i].districtName}).appendTo(tr);
-                    $('<td><button class="btn btn-warning" type="button" value="' + articles[i].code + '" onclick="restoreArticle(event)" style="\n' +
+                    $('<td><input type="checkbox" class="delCheck" name="del_chk" value="'+articles[i].code+'"/></td>').appendTo(tr);
+                    $('<td/>',{text:articles[i].title}).appendTo(tr);
+                    $('<td/>',{text:articles[i].pressName}).appendTo(tr);
+                    $('<td/>',{text:articles[i].districtName}).appendTo(tr);
+                    $('<td/>',{text:articles[i].keywordName}).appendTo(tr);
+                    $('<td><button class="btn btn-warning" type="button" value="'+articles[i].code+'" onclick="restoreArticle(event)" style="\n' +
                     '    padding-top: 1px;\n' +
                     '    padding-bottom: 3px;\n' +
                     '    padding-left: 10px;\n' +
@@ -342,11 +343,11 @@
                     $('<td/>',{text:articles[i].districtName}).appendTo(tr);
                     $('<td/>',{text:articles[i].keywordName}).appendTo(tr);
                     $('<td><button class="btn btn-warning" type="button" value="'+articles[i].code+'" onclick="restoreArticle(event)" style="\n' +
-                                      '    padding-top: 1px;\n' +
-                                      '    padding-bottom: 3px;\n' +
-                                     '    padding-left: 10px;\n' +
-                                      '    padding-right: 10px;\n' +
-                                        '">복구</button></td>').appendTo(tr);
+                    '    padding-top: 1px;\n' +
+                    '    padding-bottom: 3px;\n' +
+                    '    padding-left: 10px;\n' +
+                    '    padding-right: 10px;\n' +
+                    '">복구</button></td>').appendTo(tr);
                 }
             }
          });

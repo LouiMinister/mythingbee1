@@ -172,17 +172,6 @@
                     <ul id="gn-menu" class="gn-menu-main">
                         <li class="gn-trigger">
                             <a class="gn-icon gn-icon-menu gn-selected" style="margin-top:35px"><span>Menu</span></a>
-<%--                            <nav class="gn-menu-wrapper">--%>
-<%--                                <div class="gn-scroller">--%>
-<%--                                    <ul class="gn-menu">--%>
-<%--                                        <li>--%>
-<%--                                            <li><a href="preedu.html" class="gn-icon gn-icon-article">안전예방교육</a></li>--%>
-<%--                                        <li><a href="minwon.html" class="gn-icon gn-icon-article">민원</a></li>--%>
-<%--                                        <li><a href="hosin.html" class="gn-icon gn-icon-article">호신</a></li>--%>
-<%--                                        </li>--%>
-<%--                                        </ul>--%>
-<%--                                    </div>--%>
-<%--                                </nav>--%>
                             </li>
                         <li>
                             <div id="mainmenu_div">
@@ -199,7 +188,7 @@
                                     </ul>
                                 </div>
                             </li>
-                        <li style="position:absolute; left:215px; width:49%; border-right-width: 0;" >
+                        <li style="position:absolute;left:215px;width: 801px;margin-left: 40px;height: 60px;" >
                             <div id="search_div" >
                                 <input type="text" id="mainSearchTextbox" class="form-control mr-sm-2" placeHolder="키워드를 입력해 주세요.">
                                 <button type="button" id="mainSearchButton" class="btn btn-secondary my-2 my-sm-0" onclick= "searchArticle()"></button>
@@ -274,6 +263,15 @@
                                     </div>
                                 </div>
                             </li>
+                        <li style="margin-left:59.5% ; border-right-width:0">
+                            <form method="post" action='/admin/logout'>
+
+                                <button id="logout" class="btn btn-warning" style="margin-top:7%">로그아웃</button>
+                                <div>
+                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                </div>
+                            </form>
+                        </li>
                         <li><a class="" href="/index.jsp"><img src="/resources/image/logo_small.png"
                                                                id="logo"><span>Think Bee Way</span></a></li>
                         </ul>
@@ -297,7 +295,7 @@
                             <div>
                                 <ul style="list-style:none;padding-left: 0px;" >
                                     <li>
-                                        <form method="post" action='/admin/logout'>
+
                                          <a onclick=" deleteArticles()" class="btn btn-info btn-icon-split"
                                             style="float:left; background:#ff8080;border-color:#ff8080 ;margin-right
                                             :10px; color: white;" >
@@ -306,6 +304,15 @@
              </span>
                                             <span class="text">삭제</span>
                                              </a>
+
+                                            <a href="/admin/goTrashCan" class="btn btn-info btn-icon-split"
+                                               >
+                                        <span class="icon text-white-50" >
+         <i class="fas fa-trash-alt"></i>
+         </span>
+                                                <span class="text">휴지통</span>
+                                            </a>
+
                                          <a href="/admin/addPress" methods="GET"  class="btn btn-info btn-icon-split"
                                             style="float:right ;margin-left: 15px ;">
                                              <span class="icon text-white-50">
@@ -320,11 +327,7 @@
              </span>
                                              <span class="text">기사 추가</span>
                                              </a>
-                                            <button id="logout" class="btn btn-warning" >로그아웃</button>
-                                            <div>
-                                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                                            </div>
-                                        </form>
+
                                         </li>
                                     </ul>
                                 </div>
@@ -346,13 +349,7 @@
                         <div style="float:right">
                             <ul style="list-style:none;padding-left: 0px;" >
                                 <li>
-                                     <a href="/admin/goTrashCan" class="btn btn-info btn-icon-split"
-                                          style="float">
-                                        <span class="icon text-white-50" >
-         <i class="fas fa-trash-alt"></i>
-         </span>
-                                        <span class="text">휴지통</span>
-                                         </a>
+
                                     </li>
                                 </ul>
                             </div>
