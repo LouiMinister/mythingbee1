@@ -3,14 +3,17 @@ package com.antybeety.map.model.dao;
 import com.antybeety.map.mybatis.MapMapper;
 import com.antybeety.map.model.vo.FacilityMarkVO;
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
 
-@Repository
-public class BellMarkDAO extends FacilityMarkDAOImpl {
+@Repository(value = "bell")
+public class BellMarkDAO extends FacilityMarkDAOImpl implements InitializingBean, DisposableBean {
 
     @Autowired
     private SqlSession sqlSession;
@@ -27,8 +30,12 @@ public class BellMarkDAO extends FacilityMarkDAOImpl {
     }
 
     @Override
-    public String getFacilName() {
-        return "bell";
+    public void destroy() throws Exception {
+        System.out.println("BellDAO의 destroy");
     }
 
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        System.out.println("BellDAO의 afterPropertieseSet");
+    }
 }

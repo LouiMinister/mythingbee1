@@ -8,5 +8,4 @@ import java.util.Map;
 public interface FacilityMarkDAO {
     public List<FacilityMarkVO> searchFacilities(Map<String, Object> bounds);
     public List<FacilityMarkVO> searchAll();
-    public String getFacilName();
 }
