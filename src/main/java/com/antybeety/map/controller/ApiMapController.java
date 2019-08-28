@@ -9,6 +9,8 @@ import com.antybeety.map.way.model.vo.EdgeVO;
 import com.antybeety.map.way.model.vo.NodeData;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +23,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/map/")
-public class ApiMapController {
+public class ApiMapController  implements InitializingBean, DisposableBean {
 
     @Autowired
     private FacilityController fc;
@@ -135,5 +137,15 @@ public class ApiMapController {
         }
 
         return result;
+    }
+
+    @Override
+    public void destroy() throws Exception {
+        System.out.println("ApiMapController의 destory");
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        System.out.println("ApiMapController의 afterPropertiesSet");
     }
 }

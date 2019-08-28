@@ -1,5 +1,6 @@
 package com.antybeety.map.model.service;
 
+import com.antybeety.map.factory.FacilityDetailReloader;
 import com.antybeety.map.model.dao.FacilityDetailDAO;
 import com.antybeety.map.model.dao.FacilityDetailDAOImpl;
 import com.antybeety.map.model.vo.FacilityDetailVO;
@@ -13,20 +14,18 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Service
-public class FacilityDetailService {
+public class FacilityDetailService implements FacilityDetailReloader {
 
-    @Autowired
-    private List<FacilityDetailDAOImpl> fd;
+    private FacilityDetailDAO fd;
 
     public FacilityDetailVO searchDetail(String type, String code) throws SQLException {
 
-        for(FacilityDetailDAO f : fd){
-            if(f.getFacilName().equals(type)){
-                //System.out.println(f.getFacilName());
-                return f.searchDetail(code);
-            }
-        }
-        return null;
+        return fd.searchDetail(code);
+    }
+
+    @Override
+    public void changeFacilityDetailDAO(FacilityDetailDAO type) {
+        this.fd = type;
     }
 
 //    private FacilityDetailDAOImpl createFaciliDAO(String type) {

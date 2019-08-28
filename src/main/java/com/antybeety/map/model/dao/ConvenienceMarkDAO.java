@@ -4,12 +4,14 @@ import com.antybeety.map.mybatis.MapMapper;
 import com.antybeety.map.model.vo.FacilityMarkVO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
 
-@Repository
+@Repository (value = "convenience")
+//@Qualifier(value = "convenience")
 public class ConvenienceMarkDAO extends FacilityMarkDAOImpl{
 
     @Autowired
@@ -28,10 +30,5 @@ public class ConvenienceMarkDAO extends FacilityMarkDAOImpl{
     @Override
     public List<FacilityMarkVO> searchAll(){
         return null;
-    }
-
-    @Override
-    public String getFacilName() {
-        return "convenience";
     }
 }
