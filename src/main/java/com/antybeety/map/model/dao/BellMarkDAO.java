@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,5 +38,11 @@ public class BellMarkDAO extends FacilityMarkDAOImpl implements InitializingBean
     @Override
     public void afterPropertiesSet() throws Exception {
         System.out.println("BellDAO의 afterPropertieseSet");
+    }
+
+    //안쓰임
+    @Override
+    public List<FacilityMarkVO> getLatLng() {
+        return null;
     }
 }

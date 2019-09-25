@@ -4,6 +4,7 @@ package com.antybeety.map;
 import com.antybeety.map.controller.FacilityController;
 import com.antybeety.map.model.dao.ConvenienceDetailDAO;
 import com.antybeety.map.model.dao.ConvenienceMarkDAO;
+import com.antybeety.map.model.dao.PoliceMarkDAO;
 import com.antybeety.stats.model.dao.CrimeStatsDAO;
 import com.antybeety.stats.model.vo.CrimeRankedVO;
 import com.antybeety.stats.model.vo.CrimeStatsVO;
@@ -38,6 +39,9 @@ public class MapTest {
     @Autowired
     private ConvenienceDetailDAO list;
 
+    @Autowired
+    private PoliceMarkDAO policeMarkDAO;
+
     @Test
     public void 시설물테스트(){
         Map<String, Object> map = new HashMap<>();
@@ -51,5 +55,10 @@ public class MapTest {
     @Test
     public void 상세정보테스트(){
         System.out.println(list.searchDetail("CS3876"));
+    }
+
+    @Test
+    public void 시설물의위도경도가져오기(){
+        System.out.println(policeMarkDAO.getLatLng());
     }
 }
