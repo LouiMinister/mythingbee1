@@ -7,5 +7,10 @@ public class NodeVO {
     private long id;
     private double lat;
     private double lng;
+
+    public NodeVO(double v, double v1) {
+        lat = v;
+        lng = v1;
+    }
 }
 

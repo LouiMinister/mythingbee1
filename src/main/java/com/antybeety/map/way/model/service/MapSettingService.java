@@ -136,19 +136,19 @@ public class MapSettingService {
         for(FacilityDetailDAOImpl d : detailDAO){
            switch (d.getFacilName()){
                case "CC":
-                   point =  8;
+                   point =  1;//포인트제가 아니라 테이블에 추가해야함
                    break;
                case "BE":
                    point  = 1;
                    break;
                case "PD":
-                   point = 50;
+                   point = 1;
                    break;
                case "LI":
-                   point = 3;
+                   point = 1;
                    break;
                case "CS":
-                   point = 20;
+                   point = 1;
                    break;
                default: break;
            }

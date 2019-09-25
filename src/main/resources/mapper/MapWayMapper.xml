@@ -71,6 +71,29 @@
         update edge_tb set safe_value = #{safetyValue} where edge_id = #{id};
     </update>
 
+    <update id="addFacility" parameterType="hashmap">
+        update ai_data_tb
+            <choose>
+                <when test="facilityId.equals('CC')">
+                    set cctv = 1 where edge_id = #{edgeId};
+                </when>
+                <when test="facilityId.equals('PI')">
+                    set police = 1 where edge_id = #{edgeId};
+                </when>
+                <when test="facilityId.equals('LL')">
+                    set convenience = 1 where edge_id = #{edgeId};
+                </when>
+                <when test="facilityId.equals('OO')">
+                    set road = 1 where edge_id = #{edgeId};
+                </when>
+                <when test="facilityId.equals('OO')">
+                    set light = light+1 where edge_id = #{edgeId};
+                </when>
+
+
+            </choose>
+    </update>
+
     <select id="searchEdgeById" parameterType="java.lang.String" resultMap="edge_info">
         select * from edge_tb where edge_id=#{id};
     </select>
