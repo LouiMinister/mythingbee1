@@ -93,7 +93,7 @@
     </select>
 
     <select id="selectConvenience" parameterType="hashmap" resultMap="Convenience_map">
-        SELECT cs_code, lat, lng FROM CS_MARK_VIEW where (lat between #{la} and #{ka} )AND(lng between #{ea} and #{ja})
+        SELECT cs_code, lat, lng FROM cs_mark_view where (lat between #{la} and #{ka} )AND(lng between #{ea} and #{ja})
     </select>
 
     <select id="selectCCTV" parameterType="hashmap" resultMap="CCTV_map">
@@ -126,7 +126,7 @@
     </select>
 
     <select id="getConvenienceDetail" parameterType="java.lang.String" resultMap="convenience_detail">
-        SELECT cs_code, road_addr, land_addr, name, cs_tel FROM CS_DETAIL_VIEW where CS_CODE = #{code}
+        SELECT cs_code, road_addr, land_addr, name, cs_tel FROM cs_detail_view where cs_code = #{code}
     </select>
 
     <select id="searchAllBellRoadAddr"  resultType="java.lang.String">
