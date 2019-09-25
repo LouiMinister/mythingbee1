@@ -4,6 +4,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.antybeety.map.way.mybatis.MapWayMapper">
 
+    <resultMap id="edgeLocationInfo" type="com.antybeety.map.way.model.vo.EdgeInfoVO">
+        <id property="edgeId" column="edge_id" jdbcType="INTEGER" />
+        <id property="lat_s" column="lat_s" jdbcType="DOUBLE" />
+        <id property="lng_s" column="lon_s" jdbcType="DOUBLE"/>
+        <id property="lat_e" column="lat_e" jdbcType="DOUBLE" />
+        <id property="lng_e" column="lon_e" jdbcType="DOUBLE" />
+    </resultMap>
+
     <resultMap id="cs_location" type="com.antybeety.map.model.vo.ConvenienceMarkVO">
         <id property="code" column="cs_code" jdbcType="VARCHAR"/>
         <id property="lat" column="lat" jdbcType="DOUBLE"/>
@@ -125,6 +133,10 @@
 
     <select id="searchPatrolDivision" resultMap="pd_location">
         select pd_code, lat, lng from pd_location_view
+    </select>
+
+    <select id="searchAllEdgeInfo" resultMap="edgeLocationInfo">
+        select * from edge_node_view;
     </select>
 
 </mapper>

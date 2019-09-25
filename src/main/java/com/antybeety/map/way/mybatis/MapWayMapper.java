@@ -1,10 +1,7 @@
 package com.antybeety.map.way.mybatis;
 
 import com.antybeety.map.model.vo.*;
-import com.antybeety.map.way.model.vo.EdgeVO;
-import com.antybeety.map.way.model.vo.NodeData;
-import com.antybeety.map.way.model.vo.NodeVO;
-import com.antybeety.map.way.model.vo.RoadVO;
+import com.antybeety.map.way.model.vo.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -48,5 +45,7 @@ public interface MapWayMapper {
     List<FacilityMarkVO> searchCCTV();
 
     List<FacilityMarkVO> searchPatrolDivision();
+
+    List<EdgeInfoVO> searchAllEdgeInfo();
 
 }
