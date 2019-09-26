@@ -12,13 +12,15 @@ import java.util.List;
 public class ConvenienceDetailDAO  extends  FacilityDetailDAOImpl{
 
     @Autowired
-    private SqlSession sqlSession_oracle;
+    private SqlSession sqlSession;
 
     @Override
     public FacilityDetailVO searchDetail(String code) {
-        MapMapper mapper = sqlSession_oracle.getMapper(MapMapper.class);
+        MapMapper mapper = sqlSession.getMapper(MapMapper.class);
         FacilityDetailVO vo = mapper.getConvenienceDetail(code);
-        //System.out.println(vo.toString());
+
+        System.out.println("편의점 상세 정보");
+        System.out.println(vo.toString());
         return vo;
     }
     @Override
@@ -28,7 +30,7 @@ public class ConvenienceDetailDAO  extends  FacilityDetailDAOImpl{
 
     @Override
     public List<String> searchAllRoadAddr() {
-        MapMapper mapMapper = sqlSession_oracle.getMapper(MapMapper.class);
+        MapMapper mapMapper = sqlSession.getMapper(MapMapper.class);
         return mapMapper.searchAllConvenienceRoadAddr();
     }
 }

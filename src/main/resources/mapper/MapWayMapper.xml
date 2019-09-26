@@ -4,6 +4,38 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.antybeety.map.way.mybatis.MapWayMapper">
 
+    <resultMap id="edgeLocationInfo" type="com.antybeety.map.way.model.vo.EdgeInfoVO">
+        <id property="edgeId" column="edge_id" jdbcType="INTEGER" />
+        <id property="lat_s" column="lat_s" jdbcType="DOUBLE" />
+        <id property="lng_s" column="lon_s" jdbcType="DOUBLE"/>
+        <id property="lat_e" column="lat_e" jdbcType="DOUBLE" />
+        <id property="lng_e" column="lon_e" jdbcType="DOUBLE" />
+    </resultMap>
+
+    <resultMap id="cs_location" type="com.antybeety.map.model.vo.ConvenienceMarkVO">
+        <id property="code" column="cs_code" jdbcType="VARCHAR"/>
+        <id property="lat" column="lat" jdbcType="DOUBLE"/>
+        <id property="lng" column="lng" jdbcType="DOUBLE"/>
+    </resultMap>
+
+    <resultMap id="cctv_location" type="com.antybeety.map.model.vo.CCTVMarkVO">
+        <id property="code" column="cc_code" jdbcType="VARCHAR"/>
+        <id property="lat" column="lat" jdbcType="DOUBLE"/>
+        <id property="lng" column="lng" jdbcType="DOUBLE"/>
+    </resultMap>
+
+    <resultMap id="pd_location" type="com.antybeety.map.model.vo.PoliceMarkVO">
+        <id property="code" column="pd_code" jdbcType="VARCHAR"/>
+        <id property="lat" column="lat" jdbcType="DOUBLE"/>
+        <id property="lng" column="lng" jdbcType="DOUBLE"/>
+    </resultMap>
+
+    <resultMap id="light_location" type="com.antybeety.map.model.vo.LightMarkVO">
+        <id property="code" column="li_code" jdbcType="VARCHAR"/>
+        <id property="lat" column="lat" jdbcType="DOUBLE"/>
+        <id property="lng" column="lng" jdbcType="DOUBLE"/>
+    </resultMap>
+
     <resultMap id="node_info" type="com.antybeety.map.way.model.vo.NodeVO">
         <id property="id" column="node_id" jdbcType="INTEGER"/>
         <id property="lat" column="lat" jdbcType="DOUBLE"/>
@@ -109,5 +141,25 @@
     <update id="setHeuristic" parameterType="hashmap">
         update heuristic_tb set safe_value = ${heuristic} where node_s = #{startNodeId} and node_e = #{endNodeId}
     </update>
+
+    <select id="searchLight" resultMap="light_location">
+        select li_code, lat, lng from light_location_view
+    </select>
+
+    <select id="searchConvenienceStore" resultMap="cs_location">
+        select cs_code, lat, lng from cs_location_view
+    </select>
+
+    <select id="searchCCTV" resultMap="cctv_location">
+        select cc_code, lat, lng from cctv_location_view
+    </select>
+
+    <select id="searchPatrolDivision" resultMap="pd_location">
+        select pd_code, lat, lng from pd_location_view
+    </select>
+
+    <select id="searchAllEdgeInfo" resultMap="edgeLocationInfo">
+        select * from edge_node_view;
+    </select>
 
 </mapper>

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +26,12 @@ public class ProotectHouseDAO extends FacilityMarkDAOImpl{
 
     @Override
     public List<FacilityMarkVO> searchAll() {
+        return null;
+    }
+
+    //사용하지 않음.
+    @Override
+    public List<FacilityMarkVO> getLatLng() {
         return null;
     }
 }
