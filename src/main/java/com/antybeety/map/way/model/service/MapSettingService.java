@@ -4,10 +4,7 @@ import com.antybeety.map.model.dao.FacilityDetailDAO;
 import com.antybeety.map.model.dao.FacilityDetailDAOImpl;
 import com.antybeety.map.model.service.FacilityDisplayService;
 import com.antybeety.map.model.vo.FacilityMarkVO;
-import com.antybeety.map.way.model.dao.EdgeDAO;
-import com.antybeety.map.way.model.dao.HeuristicDAO;
-import com.antybeety.map.way.model.dao.NodeDAO;
-import com.antybeety.map.way.model.dao.RoadDAO;
+import com.antybeety.map.way.model.dao.*;
 import com.antybeety.map.way.model.vo.EdgeVO;
 import com.antybeety.map.way.model.vo.NodeVO;
 import com.antybeety.map.way.model.vo.RoadVO;
@@ -16,10 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 @Service
 public class MapSettingService {
@@ -44,6 +39,9 @@ public class MapSettingService {
 
     @Autowired
     private HeuristicDAO heuristicDAO;
+
+    @Autowired
+    private OsmDAO osmDao;
 
     // 두 노드 사이에 안전 가중치 세팅하는 메서드
     public void setHeuristicValue(){
@@ -238,7 +236,11 @@ public class MapSettingService {
     // 일단 패스 // 안 쓰임
     public void setAllDistance(){
         List<EdgeVO> edgeList = edgeDAO.getAllEdge();
-
     }
 
+    public Queue<ConcurrentLinkedQueue<Double[]>> getOsmLines(){
+
+
+        return osmDao.getOsmLines();
+    }
 }
