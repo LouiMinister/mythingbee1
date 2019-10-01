@@ -23,7 +23,7 @@
 	<link rel="stylesheet" href="/resources/css/mappolygon.css">
 	<link rel="stylesheet" href="/resources/css/bootstrap.min.css">
 	<script src="/resources/js/jquery-3.4.1.min.js"></script>
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=06e3ef01d1d218cb9e1a983b257300eb"></script>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=35f88b3326c6cf22ba301e0eba7afc88"></script>
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<script src="/resources/js/statsareas.js"></script>
 	<script src="/resources/js/statsmapSidebar.js"></script>
