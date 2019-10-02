@@ -22,26 +22,26 @@ public class ApiReportController implements InitializingBean, DisposableBean {
 
     @Autowired
     private ReportController controller;
+
     @RequestMapping(value="/add",method=RequestMethod.POST)
-    public int addRequest(@RequestParam double lat, double lon, String address,String category, String date, String comments){
+    public int addReport(@RequestParam double lat, double lon, String address, String category, String date, String comments){
         ReportVO rv = new ReportVO(lat,lon,address,category,date,comments);
         int result = controller.addReport(rv);
         return result;
     }
 
-//    @RequestMapping(value="/search",method= RequestMethod.GET)
-//    public List<ReportVO> showReport(@RequestParam Map<String,Object> request){
-//
-//        Map<String,Object> bounds = new HashMap<>();
-//        bounds.put("la",request.get("la"));
-//        bounds.put("ka",request.get("ka"));
-//        bounds.put("ea",request.get("ea"));
-//        bounds.put("ja",request.get("ja"));
-//
-//        List<ReportVO> result = new ArrayList<>();
-//
-//        result = rc
-//    }
+    @RequestMapping(value="/search",method=RequestMethod.GET)
+    public List<ReportVO> searchReport(@RequestParam Map<String,Object> request){
+        Map<String,Object> bounds = new HashMap<String,Object>();
+        bounds.put("la",request.get("la"));
+        bounds.put("ka",request.get("ka"));
+        bounds.put("ea",request.get("ea"));
+        bounds.put("ja",request.get("ja"));
+
+        List<ReportVO> result;
+        result = controller.searchReport(bounds);
+        return result;
+    }
 
     @Override
     public void destroy() throws Exception {

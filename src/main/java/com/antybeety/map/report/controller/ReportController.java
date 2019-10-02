@@ -1,6 +1,5 @@
 package com.antybeety.map.report.controller;
 
-import com.antybeety.map.report.model.service.ReportDisplayService;
 import com.antybeety.map.report.model.service.ReportService;
 import com.antybeety.map.report.model.vo.ReportVO;
 import org.springframework.beans.factory.DisposableBean;
@@ -28,5 +27,9 @@ public class ReportController implements InitializingBean, DisposableBean {
     @Override
     public void afterPropertiesSet() throws Exception {
 
+    }
+
+    public List<ReportVO> searchReport(Map<String, Object> bounds) {
+       return rs.searchReport(bounds);
     }
 }
