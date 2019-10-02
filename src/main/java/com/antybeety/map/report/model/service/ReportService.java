@@ -20,4 +20,7 @@ public class ReportService {
         return reportDao.addReport(report);
     }
 
+    public List<ReportVO> searchReport(Map<String, Object> bounds) {
+        return reportDao.searchReport(bounds);
+    }
 }
