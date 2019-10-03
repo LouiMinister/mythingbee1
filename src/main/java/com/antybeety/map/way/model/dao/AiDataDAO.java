@@ -22,4 +22,13 @@ public class AiDataDAO {
         addFacilityMap.put("facilityId",facilityId.substring(0,2));
         mapWayMapper.addFacility(addFacilityMap);
     }
+    public void addRoadInfo(double edgeId, int landType, int roadType, int safeRate){
+        MapWayMapper mapWayMapper = sqlSession.getMapper(MapWayMapper.class);
+        Map<String,Object> roadInfo = new HashMap<>();
+        roadInfo.put("edgeId",edgeId);
+        roadInfo.put("landType",edgeId);
+        roadInfo.put("roadType",edgeId);
+        roadInfo.put("safeRate",safeRate);
+        mapWayMapper.addRoadInfo(roadInfo);
+    }
 }

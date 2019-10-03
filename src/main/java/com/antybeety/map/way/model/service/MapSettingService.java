@@ -4,10 +4,7 @@ import com.antybeety.map.model.dao.FacilityDetailDAO;
 import com.antybeety.map.model.dao.FacilityDetailDAOImpl;
 import com.antybeety.map.model.service.FacilityDisplayService;
 import com.antybeety.map.model.vo.FacilityMarkVO;
-import com.antybeety.map.way.model.dao.EdgeDAO;
-import com.antybeety.map.way.model.dao.HeuristicDAO;
-import com.antybeety.map.way.model.dao.NodeDAO;
-import com.antybeety.map.way.model.dao.RoadDAO;
+import com.antybeety.map.way.model.dao.*;
 import com.antybeety.map.way.model.vo.EdgeVO;
 import com.antybeety.map.way.model.vo.NodeVO;
 import com.antybeety.map.way.model.vo.RoadVO;
@@ -45,8 +42,11 @@ public class MapSettingService {
     @Autowired
     private HeuristicDAO heuristicDAO;
 
+    @Autowired
+    private AiDataDAO aiDataDAO;
+
     // 두 노드 사이에 안전 가중치 세팅하는 메서드
-    public void setHeuristicValue(){
+    public void setHeuristicValue() {
 
         List<NodeVO> nodeList = nodeDAO.getAllNode();
 
@@ -57,45 +57,44 @@ public class MapSettingService {
         double bottom;
         double top;
 
-        NodeVO node_i ;
-        NodeVO node_j ;
+        NodeVO node_i;
+        NodeVO node_j;
 
         int safetyValueSum = 0;
 
-        for(int i=0; i<nodeList.size()-1; i++){
+        for (int i = 0; i < nodeList.size() - 1; i++) {
             node_i = nodeList.get(i);
-            for(int j=i+1; j<nodeList.size(); j++) {
+            for (int j = i + 1; j < nodeList.size(); j++) {
                 node_j = nodeList.get(j);
                 // 위 아래 구하기
                 if (node_i.getLat() > node_j.getLat()) {
                     bottom = node_j.getLat();
                     top = node_i.getLat();
-                }
-                else {
+                } else {
                     bottom = node_i.getLat();
                     top = node_j.getLat();
                 }
 
                 // 좌우 구하기
-                if(node_i.getLng() > node_j.getLng()){
+                if (node_i.getLng() > node_j.getLng()) {
                     right = node_i.getLng();
                     left = node_j.getLng();
-                }else {
+                } else {
                     right = node_j.getLng();
-                    left =  node_i.getLng();
+                    left = node_i.getLng();
                 }
-                bounds.put("la",left);
-                bounds.put("ka",right);
-                bounds.put("ea",bottom);
-                bounds.put("ja",top);
+                bounds.put("la", left);
+                bounds.put("ka", right);
+                bounds.put("ea", bottom);
+                bounds.put("ja", top);
 
                 // 영역 내의 모든 시설물 가져오기
                 List<FacilityMarkVO> allFacility = fDisplay.searchAroundFacilities(bounds);
 
                 safetyValueSum = 0;
                 // 영역 내의 총 안전수치 점수
-                for(FacilityMarkVO v : allFacility){
-                    switch (v.getCode().substring(0,2)){
+                for (FacilityMarkVO v : allFacility) {
+                    switch (v.getCode().substring(0, 2)) {
                         case "CC":
                             safetyValueSum += 8;
                             break;
@@ -109,16 +108,16 @@ public class MapSettingService {
                             safetyValueSum += 20;
                             break;
                         case "BE":
-                            safetyValueSum ++;
+                            safetyValueSum++;
                             break;
                     }
                 }
                 double heuristic = safetyValueSum / distanceCalc.calcArea(bounds);
 
-                if(node_i.getId() > node_j.getId()){
-                    heuristicDAO.setHeuristic(node_j.getId(), node_i.getId(),heuristic);
-                }else {
-                    heuristicDAO.setHeuristic(node_i.getId(), node_j.getId(),heuristic);
+                if (node_i.getId() > node_j.getId()) {
+                    heuristicDAO.setHeuristic(node_j.getId(), node_i.getId(), heuristic);
+                } else {
+                    heuristicDAO.setHeuristic(node_i.getId(), node_j.getId(), heuristic);
                 }
             }
         }
@@ -127,77 +126,77 @@ public class MapSettingService {
     }
 
     // 경로에 안전 가중치 부여하기
-    public void setAllSafetyValue (){
+    public void setAllSafetyValue() {
         List<EdgeVO> edgeList = edgeDAO.getAllEdge();
 
         List<String> roadAddrList = null;
         int point = 0;
         // 시설물 dao 반복
-        for(FacilityDetailDAOImpl d : detailDAO){
-           switch (d.getFacilName()){
-               case "CC":
-                   point =  1;//포인트제가 아니라 테이블에 추가해야함
-                   break;
-               case "BE":
-                   point  = 1;
-                   break;
-               case "PD":
-                   point = 1;
-                   break;
-               case "LI":
-                   point = 1;
-                   break;
-               case "CS":
-                   point = 1;
-                   break;
-               default: break;
-           }
+        for (FacilityDetailDAOImpl d : detailDAO) {
+            switch (d.getFacilName()) {
+                case "CC":
+                    point = 1;//포인트제가 아니라 테이블에 추가해야함
+                    break;
+                case "BE":
+                    point = 1;
+                    break;
+                case "PD":
+                    point = 1;
+                    break;
+                case "LI":
+                    point = 1;
+                    break;
+                case "CS":
+                    point = 1;
+                    break;
+                default:
+                    break;
+            }
 
-           roadAddrList = d.searchAllRoadAddr();    // 시설물들의 도로명 주소 리스트
+            roadAddrList = d.searchAllRoadAddr();    // 시설물들의 도로명 주소 리스트
 
-           String facilRoadAddr_p =null;
-           String edgeRoadAddr_p = null;
-           for(String roadAddr : roadAddrList){
-               if(roadAddr == null) continue;
-               facilRoadAddr_p = parseRoadAddr(roadAddr);
-                for(EdgeVO e : edgeList){   // 간선 리스트
-                    if(e.getAddress() == null) continue;
+            String facilRoadAddr_p = null;
+            String edgeRoadAddr_p = null;
+            for (String roadAddr : roadAddrList) {
+                if (roadAddr == null) continue;
+                facilRoadAddr_p = parseRoadAddr(roadAddr);
+                for (EdgeVO e : edgeList) {   // 간선 리스트
+                    if (e.getAddress() == null) continue;
                     edgeRoadAddr_p = parseRoadAddr(e.getAddress());
 
-                    if(facilRoadAddr_p.equals(edgeRoadAddr_p)){
+                    if (facilRoadAddr_p.equals(edgeRoadAddr_p)) {
                         e.addSafeVal(point);
                     }
                 }
-           }
-       }
-       edgeDAO.setSafetyValue(edgeList);
+            }
+        }
+        edgeDAO.setSafetyValue(edgeList);
     }
 
     // 도로명 주소 파싱하기
-    private String parseRoadAddr(String roadAddr){
-        if(roadAddr.contains("길")){
+    private String parseRoadAddr(String roadAddr) {
+        if (roadAddr.contains("길")) {
             int index = roadAddr.indexOf("길");
-            return roadAddr.substring(0,index+1);
-        }else if( roadAddr.contains("로")){
+            return roadAddr.substring(0, index + 1);
+        } else if (roadAddr.contains("로")) {
             int index = roadAddr.indexOf("로");
-            return roadAddr.substring(0,index+1);
-        }
-        else {
+            return roadAddr.substring(0, index + 1);
+        } else {
             return roadAddr;
         }
     }
 
     // 도로명 주소에 전체 길이 추가하기 // 도로명 코드 필요함
-    private void setAllRoadDistance(){
+    private void setAllRoadDistance() {
         List<RoadVO> roadList = roadDAO.searchAllRoad();
         List<EdgeVO> edgetList = edgeDAO.getAllEdge();
 
         // 모든 간선 하나씩
-        for(EdgeVO e : edgetList){
+        for (EdgeVO e : edgetList) {
             // 모든 도로명 하나씩
-            for(RoadVO r : roadList){
+            for (RoadVO r : roadList) {
                 // 간선의 도로명 주소가 도로의 주소명을 포함하고 있으면
-                if(e.getAddress().contains(r.getName())){
+                if (e.getAddress().contains(r.getName())) {
 
                 }
             }
@@ -211,34 +210,37 @@ public class MapSettingService {
 
         Map<String, Object> locationList = new HashMap<>();
 
-        double startLat=0;
-        double startLon=0;
-        double endLat=0;
-        double endLon=0;
+        double startLat = 0;
+        double startLon = 0;
+        double endLat = 0;
+        double endLon = 0;
 
-        for(EdgeVO e : edgeList){
-            locationList.put("id",e.getId());
-            for(NodeVO n : nodeList){
-                if( e.getNodeStart() == n.getId()){
+        for (EdgeVO e : edgeList) {
+            locationList.put("id", e.getId());
+            for (NodeVO n : nodeList) {
+                if (e.getNodeStart() == n.getId()) {
                     startLat = n.getLat();
                     startLon = n.getLng();
-                } else if ( e.getNodeEnd() == n.getId()){
+                } else if (e.getNodeEnd() == n.getId()) {
                     endLat = n.getLat();
                     endLon = n.getLng();
                 }
             }
 
-            locationList.put("lat", (startLat + endLat)/2);
-            locationList.put("lon", (startLon + endLon)/2);
+            locationList.put("lat", (startLat + endLat) / 2);
+            locationList.put("lon", (startLon + endLon) / 2);
 
             edgeDAO.setLocation(locationList);
         }
     }
 
     // 일단 패스 // 안 쓰임
-    public void setAllDistance(){
+    public void setAllDistance() {
         List<EdgeVO> edgeList = edgeDAO.getAllEdge();
 
     }
 
+    public void addRoadInfo(double edgeId, int landType, int roadType, int safeRate) {
+        aiDataDAO.addRoadInfo(edgeId, landType, roadType, safeRate);
+    }
 }

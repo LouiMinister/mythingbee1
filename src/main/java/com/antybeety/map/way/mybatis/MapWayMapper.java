@@ -27,7 +27,7 @@ public interface MapWayMapper {
     void deleteEdge(long edgeId);
     void addFacility(Map<String, Object> addFacilityMap);//시설물 추가
     void setLocation(Map<String, Object> locationList);
-
+    void addRoadInfo(Map<String, Object> roadInfo);
     // 간선에 안전치 추가
     void setSafetyValue(Map<String, Object> safety);
 
