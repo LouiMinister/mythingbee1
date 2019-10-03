@@ -10,14 +10,10 @@ import java.util.List;
 
 @Repository
 public class EdgeInfoDAO {
-
     @Autowired
     private SqlSession sqlSession;
-
     public List<EdgeInfoVO> getEdgeInfo(){
         MapWayMapper mapper = sqlSession.getMapper(MapWayMapper.class);
-
         return mapper.searchAllEdgeInfo();
     }
-
 }

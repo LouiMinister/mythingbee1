@@ -6,6 +6,7 @@ import com.antybeety.map.model.dao.ConvenienceDetailDAO;
 import com.antybeety.map.model.dao.ConvenienceMarkDAO;
 import com.antybeety.map.model.dao.PoliceMarkDAO;
 import com.antybeety.map.way.model.dao.EdgeInfoDAO;
+import com.antybeety.map.way.model.service.SafetySettingService;
 import com.antybeety.map.way.model.vo.EdgeInfoVO;
 import com.antybeety.stats.model.dao.CrimeStatsDAO;
 import com.antybeety.stats.model.vo.CrimeRankedVO;
@@ -34,7 +35,8 @@ import static org.junit.Assert.assertNotNull;
 })
 @WebAppConfiguration
 public class MapTest {
-
+    @Autowired
+    private SafetySettingService safetySettingService;
     @Autowired
     private ConvenienceMarkDAO dao;
 
@@ -56,7 +58,10 @@ public class MapTest {
         map.put("ja",127.5);
         System.out.println(dao.searchFacilities(map));
     }
-
+    @Test
+    public void 데이터전처리(){
+        safetySettingService.settingSafetyData();
+    }
     @Test
     public void 상세정보테스트(){
         System.out.println(list.searchDetail("CS3876"));

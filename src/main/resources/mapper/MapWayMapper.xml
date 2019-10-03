@@ -107,22 +107,17 @@
         update ai_data_tb
             <choose>
                 <when test="facilityId.equals('CC')">
-                    set cctv = 1 where edge_id = #{edgeId};
+                    set cctv = 1 where edge_id like #{edgeId};
                 </when>
-                <when test="facilityId.equals('PI')">
-                    set police = 1 where edge_id = #{edgeId};
+                <when test="facilityId.equals('PD')">
+                    set police = 1 where edge_id like #{edgeId};
                 </when>
-                <when test="facilityId.equals('LL')">
-                    set convenience = 1 where edge_id = #{edgeId};
+                <when test="facilityId.equals('CS')">
+                    set convenience = 1 where edge_id like #{edgeId};
                 </when>
-                <when test="facilityId.equals('OO')">
-                    set road = 1 where edge_id = #{edgeId};
+                <when test="facilityId.equals('LI')">
+                    set light = light+1 where edge_id like #{edgeId};
                 </when>
-                <when test="facilityId.equals('OO')">
-                    set light = light+1 where edge_id = #{edgeId};
-                </when>
-
-
             </choose>
     </update>
 

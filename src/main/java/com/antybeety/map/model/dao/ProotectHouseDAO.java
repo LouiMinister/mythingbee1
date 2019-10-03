@@ -13,7 +13,7 @@ import java.util.Map;
 
 @Repository (value = "protectHouse")
 //@Qualifier(value = "protectHouse")
-public class ProotectHouseDAO extends FacilityMarkDAOImpl{
+public class ProotectHouseDAO extends FacilityMarkDAOImpl2{
 
     @Autowired
     private SqlSession sqlSession;

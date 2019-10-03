@@ -19,8 +19,7 @@ public class AiDataDAO {
 
         Map<String,Object> addFacilityMap = new HashMap<>();
         addFacilityMap.put("edgeId",edgeId);
-        addFacilityMap.put("facilityId",facilityId);
-
+        addFacilityMap.put("facilityId",facilityId.substring(0,2));
         mapWayMapper.addFacility(addFacilityMap);
     }
 }
