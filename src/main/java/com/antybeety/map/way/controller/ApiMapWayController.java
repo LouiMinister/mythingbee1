@@ -6,6 +6,7 @@ import com.antybeety.map.model.vo.FacilityMarkVO;
 import com.antybeety.map.mybatis.MapMapper;
 import com.antybeety.map.way.model.dao.EdgeDAO;
 import com.antybeety.map.way.model.dao.NodeDAO;
+import com.antybeety.map.way.model.dao.OsmDAO;
 import com.antybeety.map.way.model.service.DistanceCalcService;
 import com.antybeety.map.way.model.vo.EdgeVO;
 import com.antybeety.map.way.model.vo.NodeData;
@@ -21,10 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 @RestController
 @RequestMapping("/api/map/way")
@@ -44,6 +43,9 @@ public class ApiMapWayController {
 
     @Autowired
     private NodeDAO nodeDAO;
+
+    @Autowired
+    private OsmDAO osmDAO;
 
     @Autowired
     private DistanceCalcService distanceCalcService;
@@ -69,14 +71,6 @@ public class ApiMapWayController {
     public void setHeuristic(){
         mapSettingController.setHeuristic();
     }
-
-
-
-
-
-
-
-
 
     @RequestMapping(value="/node", method = RequestMethod.GET)
     public List<NodeVO> getAllNode(){
@@ -112,6 +106,27 @@ public class ApiMapWayController {
             result.add(data);
         }
         return result;
+    }
+
+    /**
+     * osm 파일을 통해 노드, 엣지를 세팅하는 메서드
+     */
+    @RequestMapping(value = "/settingLineByOsm", method = RequestMethod.GET)
+    public void settingLineByOsm(){
+        System.out.println("settingLineByOsm");
+        MapWayMapper mapMapper = sqlSession.getMapper(MapWayMapper.class);
+
+        Queue<ConcurrentLinkedQueue<Double[]>> osmLines = osmDAO.getOsmLines();
+
+        for(ConcurrentLinkedQueue<Double[]> osmLine : osmLines){
+            for(Double[] osmPoint: osmLine){
+                Map<String,Object> node = new HashMap<>();
+                node.put("lat",osmPoint[1]);
+                node.put("lon",osmPoint[0]);
+
+                mapMapper.addNode(node);
+            }
+        }
     }
 
     @RequestMapping(value = "/addNode", method = RequestMethod.GET)

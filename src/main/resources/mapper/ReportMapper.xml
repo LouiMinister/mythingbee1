@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.antybeety.map.mybatis.ReportMapper">
+        <resultMap id="report_map" type="com.antybeety.map.report.model.vo.ReportVO">
+            <id property="id" column="id"/>
+            <id property="lat" column="lat"/>
+            <id property="lon" column="lon"/>
+            <id property="category" column="category"/>
+            <id property="address" column="road_addr"/>
+            <id property="comments" column="comments"/>
+            <id property="date" column="date"/>
+        </resultMap>
+    <insert id="addReport" parameterType="com.antybeety.map.report.model.vo.ReportVO">
+        INSERT INTO report_tb(lat,lon,category,road_addr,comments,date)VALUES(#{lat},#{lon},#{category},#{address},#{comments},#{date});
+    </insert>
+    <select id="searchReport"  parameterType="hashmap" resultMap="report_map">
+        SELECT id, lat, lon, category, road_addr, comments, date  FROM report_tb WHERE (lat BETWEEN #{la} and #{ka} ) AND (lon BETWEEN #{ea} AND #{ja});
+    </select>
+</mapper>

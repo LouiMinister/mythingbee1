@@ -13,10 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 @Service
 public class MapSettingService {
@@ -44,6 +42,8 @@ public class MapSettingService {
 
     @Autowired
     private AiDataDAO aiDataDAO;
+    @Autowired
+    private OsmDAO osmDao;
 
     // 두 노드 사이에 안전 가중치 세팅하는 메서드
     public void setHeuristicValue() {
@@ -237,10 +237,12 @@ public class MapSettingService {
     // 일단 패스 // 안 쓰임
     public void setAllDistance() {
         List<EdgeVO> edgeList = edgeDAO.getAllEdge();
-
     }
 
     public void addRoadInfo(double edgeId, int landType, int roadType, int safeRate) {
         aiDataDAO.addRoadInfo(edgeId, landType, roadType, safeRate);
+    }
+    public Queue<ConcurrentLinkedQueue<Double[]>> getOsmLines(){
+        return osmDao.getOsmLines();
     }
 }
