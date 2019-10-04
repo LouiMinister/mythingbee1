@@ -8,9 +8,12 @@ public class NodeVO {
     private double lat;
     private double lng;
 
-    public NodeVO(double v, double v1) {
-        lat = v;
-        lng = v1;
+    public NodeVO(){}
+
+    public NodeVO(long id,double lat, double lng) {
+        this.id = id;
+        this.lat = lat;
+        this.lng = lng;
     }
 }
 
