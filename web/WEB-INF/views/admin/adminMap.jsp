@@ -152,8 +152,11 @@
 	</div>
 </div>
 </div>
-
+<div style="position:absolute; z-index: 999999999999; top: 50px;">
+	<button type="button" onclick="modeChange('addDelete')">노드,엣지 추가삭제 모드</button>
+	<button type="button" onclick="modeChange('ModifyInfo')">노드,엣지 정보수정 모드</button>
+</div>
 <script src="/resources/js/adminMap.js"></script>
-<!-- <input type="checkbox" id="menu_state" checked> --> 
+<!-- <input type="checkbox" id="menu_state" checked> -->
 </body>
 </html>

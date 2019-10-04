@@ -1054,9 +1054,10 @@ function getEdge() {
 				edgeArray.push(polyline);
 				edgeIdArray.push(edgeIndex);
 
+				kakao.maps.event.addListener(polyline,'click',openEdgeInfo(polyline));
+				kakao.maps.event.addListener(polyline,'click',deleteEdge(polyline));
 				kakao.maps.event.addListener(polyline,'mouseover',edgeOver(polyline));
 				kakao.maps.event.addListener(polyline,'mouseout',edgeOut(polyline));
-				kakao.maps.event.addListener(polyline, 'click',deleteEdge(polyline));
 				polyline.setMap(map);
 			}
 			edgeIndex = data[data.length-1].edgeId + 1;
@@ -1078,24 +1079,112 @@ function edgeOut(edge) {
 		})
 	}
 }
+var mode;
+function modeChange(modeType){
+	if(modeType=='addDelete'){
+		console.log("1");
+		mode = 1;
+	}else if(modeType=='ModifyInfo'){
+		console.log("2");
+		mode = 2;
+	}
+}
+
+
+var edgeInfoContent = '<div class="edgeInfo-wrap" onclick="kakao.maps.event.preventMap();" style="background-color: whitesmoke">' +
+'        <div class="nav">' +
+'            <div class="close" onclick="closeEdgeInfo()" style="background-color: indianred; right: 0px;">X</div>' +
+'        </div>' +
+'        <form>' +
+'        <div class="body">' +
+'            <div class="landType">' +
+'                <label>지역분류</label>' +
+'				    <input type="radio" name="chk_landType" value=1>주거'+
+'					<input type="radio" name="chk_landType" value=2>준주거'+
+'					<input type="radio" name="chk_landType" value=3>상업'+
+'           </div>' +
+'            <div class="safetyScore">' +
+'                <label>안전수치</label>' +
+'				 <input id="safetyScore" type="number">'+
+'           </div>' +
+'            <div class="roadType">' +
+'                <label>대로분류</label>' +
+' 					<input type="radio" name="chk_roadType" value=1>소'+
+'					<input type="radio" name="chk_roadType" value=2>중'+
+'					<input type="radio" name="chk_roadType" value=3>대'+
+'           </div>' +
+'           <button type="button" onclick="updateEdgeInfo(tempInfoEdge);" >수정</input>'+
+'        </div>' +
+'		</form> ' +
+	'</div>';
+
+var landType, safetyScore, roadType;
+
+function updateEdgeInfo(edge){
+	kakao.maps.event.preventMap();
+		if(mode==2) {
+			for (var i = 0; i < edgeArray.length; i++) {
+				if (edgeArray[i] == edge) {
+					$.ajax('api/map/way/updateEdgeInfo',{
+						type: 'GET',
+						data: {
+							index: edgeIdArray[i],
+							landType: $('input[name="chk_landType"]:checked').val(),
+							safetyScore: $('#safetyScore').val(),
+							roadType: $('input[name="chk_roadType"]:checked').val()
+						}
+					});
+				}
+			}
+	}
+}
+
+var edgeInfoOverlay = new kakao.maps.CustomOverlay({
+	content: edgeInfoContent,
+	map:map
+});
+
+function closeEdgeInfo() {
+	edgeInfoOverlay.setMap(null);
+}
+
+var tempInfoEdge;
+function openEdgeInfo(edge) {
+		return function () {
+			if(mode==2) {
+			console.log("openEdgeInfo");
+			var nowEdgePath = edge.getPath();
+			var nowEdgePoint = new kakao.maps.LatLng((nowEdgePath[0].getLat() + nowEdgePath[1].getLat()) / 2,
+			(nowEdgePath[0].getLng() + nowEdgePath[1].getLng()) / 2);
+			edgeInfoOverlay.setPosition(nowEdgePoint);
+			tempInfoEdge = edge;
+
+
+			edgeInfoOverlay.setMap(map);
+		}
+	}
+}
 
 function deleteEdge(edge) {
 	return function() {
+		if(mode==1){
 		console.log("deleteEdge");
 		edge.setMap(null);
-		for(var i=0; i<edgePathArray.length; i++){
-			if(edgeArray[i] == edge){
-				console.log("edgePathArray == edge.getPath")
-				$.ajax('api/map/way/deleteEdge',{
+		for (var i = 0; i < edgeArray.length; i++) {
+			if (edgeArray[i] == edge) {
+				$.ajax('api/map/way/deleteEdge', {
 					type: 'GET',
 					data: {
 						index: edgeIdArray[i]
 					}
-				})
+				});
 			}
 		}
 	}
+	}
 }
+
+
 
 // false면 엣지 안만들어지는 상태 , true면 엣지 만들 수 있는 상태
 var edgeFlag = false;
@@ -1111,23 +1200,26 @@ var edgePathArray = [];	// edge 객체의 path
 var edgeIdArray = [];	// edge 객체의 id
 
 function deleteNode(marker) {
-	return function() {
-		marker.setMap(null);	// 노드 지도에서 삭제
 
-		// 노드 데이터 지우고
-		$.ajax('api/map/way/deleteNode',{
-			type: 'GET',
-			data: {
-				index: marker.getTitle()
-			}
-		})
+		return function () {
+			if(mode==1) {
+			marker.setMap(null);	// 노드 지도에서 삭제
 
-		// 노드랑 연결된 간선 정보도 지우기
-		for (var i = 0; i < edgePathArray.length; i++) {	// edgePath 검사
-			for (var j = 0; j < edgePathArray[i].length; j++) {	// edgePath의 포인트들 검사
-				// edgePath의 포인트 중 marker의 위도 포인트와 일치하는게 있으면 해당 edge 삭제
-				if (edgePathArray[i][j].getLat() == marker.getPosition().getLat()  && edgePathArray[i][j].getLng() == marker.getPosition().getLng()) {
-					edgeArray[i].setMap(null);
+			// 노드 데이터 지우고
+			$.ajax('api/map/way/deleteNode', {
+				type: 'GET',
+				data: {
+					index: marker.getTitle()
+				}
+			});
+
+			// 노드랑 연결된 간선 정보도 지우기
+			for (var i = 0; i < edgePathArray.length; i++) {	// edgePath 검사
+				for (var j = 0; j < edgePathArray[i].length; j++) {	// edgePath의 포인트들 검사
+					// edgePath의 포인트 중 marker의 위도 포인트와 일치하는게 있으면 해당 edge 삭제
+					if (edgePathArray[i][j].getLat() == marker.getPosition().getLat() && edgePathArray[i][j].getLng() == marker.getPosition().getLng()) {
+						edgeArray[i].setMap(null);
+					}
 				}
 			}
 		}
@@ -1135,69 +1227,79 @@ function deleteNode(marker) {
 }
 
 function addNode(marker) {
-	$.ajax('api/map/way/addNode',{
-		type: 'GET',
-		data: {
-			index: marker.getTitle(),
-			lat: marker.getPosition().getLat(),
-			lon: marker.getPosition().getLng()
-		}
-	})
+	if(mode==1) {
+		$.ajax('api/map/way/addNode', {
+			type: 'GET',
+			data: {
+				index: marker.getTitle(),
+				lat: marker.getPosition().getLat(),
+				lon: marker.getPosition().getLng()
+			}
+		});
+	}
 }
 
 function addEdge(marker) {
-	return function() {
-		if(edgeFlag == false){
-			markTemp = marker;
-			edgeFlag = true;
-		}
-		else {
-			var edgePath = [
-				new kakao.maps.LatLng(markTemp.getPosition().getLat(), markTemp.getPosition().getLng()),
-				new kakao.maps.LatLng(marker.getPosition().getLat(), marker.getPosition().getLng())
-			];
 
-			var polyline = new kakao.maps.Polyline({
-				path : edgePath,
-				strokeWeight : 2,
-				storkeColor : '#FFAE00',
-				strokeOpacity : 0.8,
-				storkeStyle : 'solid',
-			});
+		return function () {
+			if(mode==1) {
+			if (edgeFlag == false) {
+				markTemp = marker;
+				edgeFlag = true;
+			} else {
+				var edgePath = [
+					new kakao.maps.LatLng(markTemp.getPosition().getLat(), markTemp.getPosition().getLng()),
+					new kakao.maps.LatLng(marker.getPosition().getLat(), marker.getPosition().getLng())
+				];
 
-
-
-			polyline.setMap(map);
-
-			kakao.maps.event.addListener(polyline,'click',deleteEdge(polyline));
-			kakao.maps.event.addListener(polyline,'mouseover',edgeOver(polyline));
-			kakao.maps.event.addListener(polyline,'mouseout',edgeOut(polyline));
-			edgeIndex++;
-
-			edgePathArray.push(polyline.getPath());
-			edgeArray.push(polyline);
-			edgeIdArray.push(edgeIndex);
+				var polyline = new kakao.maps.Polyline({
+					path: edgePath,
+					strokeWeight: 2,
+					storkeColor: '#FFAE00',
+					strokeOpacity: 0.8,
+					storkeStyle: 'solid',
+				});
 
 
-			// 경로 그려주면 경로 db에 저장
-			$.ajax('api/map/way/addEdge',{
-				type: 'GET',
-				data: {
-					index: edgeIndex,
-					startNode: markTemp.getTitle(),
-					startLat: markTemp.getPosition().getLat(),
-					startLon: markTemp.getPosition().getLng(),
-					endNode:marker.getTitle(),
-					endLat: marker.getPosition().getLat(),
-					endLon: marker.getPosition().getLng()
-				}
-			})
+				polyline.setMap(map);
 
-			edgeFlag = false;
-			markTemp = null;
+				kakao.maps.event.addListener(polyline, 'click', openEdgeInfo(polyline));
+				kakao.maps.event.addListener(polyline,'click',deleteEdge(polyline));
+				kakao.maps.event.addListener(polyline, 'mouseover', edgeOver(polyline));
+				kakao.maps.event.addListener(polyline, 'mouseout', edgeOut(polyline));
+
+				// kakao.maps.event.addListener(polyline, 'click', function() {
+				// 	overlay.setMap(map);
+				// });
+				edgeIndex++;
+
+				edgePathArray.push(polyline.getPath());
+				edgeArray.push(polyline);
+				edgeIdArray.push(edgeIndex);
+
+
+				// 경로 그려주면 경로 db에 저장
+				$.ajax('api/map/way/addEdge', {
+					type: 'GET',
+					data: {
+						index: edgeIndex,
+						startNode: markTemp.getTitle(),
+						startLat: markTemp.getPosition().getLat(),
+						startLon: markTemp.getPosition().getLng(),
+						endNode: marker.getTitle(),
+						endLat: marker.getPosition().getLat(),
+						endLon: marker.getPosition().getLng()
+					}
+				});
+
+				edgeFlag = false;
+				markTemp = null;
+			}
 		}
 	}
 }
+
+
 
 $(document).ready(function(){
 	var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
@@ -1213,34 +1315,37 @@ $(document).ready(function(){
 	map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
 	kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
-		// keyword.value().set
-		// // 기존에 추가된 페이지번호를 삭제합니다
-		// while (paginationEl.hasChildNodes()) {
-		// 	paginationEl.removeChild (paginationEl.lastChild);
-		// }
-		// removeAllChildNods(listEl);
-		if(detailList){
-			detailList.close();
+		if(mode==1) {
+			// keyword.value().set
+			// // 기존에 추가된 페이지번호를 삭제합니다
+			// while (paginationEl.hasChildNodes()) {
+			// 	paginationEl.removeChild (paginationEl.lastChild);
+			// }
+			// removeAllChildNods(listEl);
+			if (detailList) {
+				detailList.close();
+			}
+
+			// 클릭할 때마다 인덱스 1증가
+			nodeIndex++;
+
+			var latlng = mouseEvent.latLng;
+			console.log(latlng);
+			console.log(latlng.getLat());
+			console.log(latlng.getLng());
+			// 지도에 표시
+			var marker = new kakao.maps.Marker({
+				position: latlng,
+				title: nodeIndex
+
+			});
+
+			addNode(marker);
+
+			kakao.maps.event.addListener(marker, 'rightclick', deleteNode(marker));
+			kakao.maps.event.addListener(marker, 'click', addEdge(marker));
+			marker.setMap(map);
 		}
-
-		// 클릭할 때마다 인덱스 1증가
-		nodeIndex++;
-
-		var latlng = mouseEvent.latLng;
-		console.log(latlng);
-		console.log(latlng.getLat());
-		console.log(latlng.getLng());
-		// 지도에 표시
-		var marker = new kakao.maps.Marker({
-			position: latlng,
-			title: nodeIndex
-		});
-
-		addNode(marker);
-
-		kakao.maps.event.addListener(marker,'rightclick',deleteNode(marker));
-		kakao.maps.event.addListener(marker,'click', addEdge(marker));
-		marker.setMap(map);
 	});
 	//////////////////////////////////////////////
 	// getRoad();	// 모든 도로에 마커 표시

@@ -26,8 +26,8 @@ public class AiDataDAO {
         MapWayMapper mapWayMapper = sqlSession.getMapper(MapWayMapper.class);
         Map<String,Object> roadInfo = new HashMap<>();
         roadInfo.put("edgeId",edgeId);
-        roadInfo.put("landType",edgeId);
-        roadInfo.put("roadType",edgeId);
+        roadInfo.put("landType",landType);
+        roadInfo.put("roadType",roadType);
         roadInfo.put("safeRate",safeRate);
         mapWayMapper.addRoadInfo(roadInfo);
     }
