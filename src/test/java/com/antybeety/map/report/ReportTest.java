@@ -23,7 +23,15 @@ public class ReportTest {
 
     @Test
     public void addTest() {
-        System.out.println(arc.addReport(1.1,1.2,"addr","cat","2019-10-02","commentss"));
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put("lat",1.2);
+        map.put("lon",3.3);
+        map.put("address","testing");
+        map.put("category","theCategory");
+        map.put("date","2019-10-03");
+        map.put("comments","etc");
+        System.out.println(arc.addReport(map));
+        //System.out.println(arc.addReport(1.1,1.2,"addr","cat","2019-10-02","commentss"));
 
     }
 
