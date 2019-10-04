@@ -159,7 +159,7 @@ public class SafetyPathService {
         while(true) {   //노드 하나라도 찾을때 까지 반복
             //사각형 안에서 찾기
             capturedNode.addAll(nodeDao.searchNodesByArea(lat - radiusMultiplyRatio, lng - radiusMultiplyRatio,
-                    lng + radiusMultiplyRatio, lng + radiusMultiplyRatio));
+                    lat + radiusMultiplyRatio, lng + radiusMultiplyRatio));
             //찾은 값이 있을 경우 길이에 CIRCLE_RATION를 곱한 사각형안에서 찾기
             if (capturedNode.size() > 0) {
                 capturedNode.addAll(nodeDao.searchNodesByArea(lat - radiusMultiplyRatio * CIRCLE_RATIO, lng - radiusMultiplyRatio * CIRCLE_RATIO,
