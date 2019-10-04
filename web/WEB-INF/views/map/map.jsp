@@ -15,7 +15,7 @@
 <link rel="stylesheet" type="text/css" href="/resources/css/component.css" />
 <script src="/resources/js/modernizr.custom.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap" rel="stylesheet">
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=06e3ef01d1d218cb9e1a983b257300eb&libraries=services"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=35f88b3326c6cf22ba301e0eba7afc88&libraries=services"></script>
 <script src='/resources/js/jquery-3.4.1.min.js'></script>
 </head>
 <body>

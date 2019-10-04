@@ -103,6 +103,34 @@
         update edge_tb set safe_value = #{safetyValue} where edge_id = #{id};
     </update>
 
+    <update id="addFacility" parameterType="hashmap">
+        update ai_data_tb
+            <choose>
+                <when test="facilityId.equals('CC')">
+                    set cctv = 1 where edge_id like #{edgeId};
+                </when>
+                <when test="facilityId.equals('PD')">
+                    set police = 1 where edge_id like #{edgeId};
+                </when>
+                <when test="facilityId.equals('CS')">
+                    set convenience = 1 where edge_id like #{edgeId};
+                </when>
+                <when test="facilityId.equals('LI')">
+                    set light = light+1 where edge_id like #{edgeId};
+                </when>
+            </choose>
+    </update>
+    <update id="addRoadInfo" parameterType="hashmap">
+        UPDATE ai_data_tb
+        SET road_type = #{roadType}
+        AND land_type = #{landType}
+        <choose>
+            <when test="safetyRate!=null">
+                AND safety_rate = #{safetyRate}
+            </when>
+        </choose>
+        WHERE edge_id = #{edgeId};
+    </update>
     <select id="searchEdgeById" parameterType="java.lang.String" resultMap="edge_info">
         select * from edge_tb where edge_id=#{id};
     </select>

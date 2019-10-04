@@ -16,7 +16,7 @@ import java.util.Map;
 @Repository
 public class EdgeDAO {
 
-    public static final double MARGIN = 0.0005;
+    public static final double MARGIN = 0.001;
 
     @Autowired
     private SqlSession sqlSession;

@@ -36,7 +36,13 @@ public class FacilityDisplayService implements FacilityMarkReloader, Initializin
     public List<FacilityMarkVO> searchFacilities(Map<String,Object> bounds, FacilityMarkDAO dao) throws SQLException {
         return dao.searchFacilities(bounds);
     }
-
+    public List<FacilityMarkVO> searchAllFacilities() {
+        List<FacilityMarkVO> temp = new ArrayList<>();
+        for(FacilityMarkDAOImpl facil : fmList){
+            temp.addAll(facil.getLatLng());
+        }
+        return temp;
+    }
     public List<FacilityMarkVO> searchAroundFacilities(Map<String,Object> bounds) {
         List<FacilityMarkVO> temp = new ArrayList<>();
         for(FacilityMarkDAOImpl facil : fmList){

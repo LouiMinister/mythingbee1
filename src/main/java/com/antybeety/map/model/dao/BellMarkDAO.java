@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository(value = "bell")
-public class BellMarkDAO extends FacilityMarkDAOImpl implements InitializingBean, DisposableBean {
+public class BellMarkDAO extends FacilityMarkDAOImpl2 implements InitializingBean, DisposableBean {
 
     @Autowired
     private SqlSession sqlSession;
