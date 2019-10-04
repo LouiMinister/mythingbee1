@@ -25,16 +25,16 @@ public class ApiReportController implements InitializingBean, DisposableBean {
 
     @RequestMapping(value="/add",method=RequestMethod.POST)
     public int addReport(@RequestParam Map<String,Object> map){
-        System.out.println("here");
-        double lat = (double) map.get("lat");
-        double lon = (double)map.get("lon");
+        double lat = Double.parseDouble((String) map.get("lat"));
+        double lon =  Double.parseDouble((String) map.get("lon"));
         String address = (String)map.get("address");
         String category = (String)map.get("category");
         String date = (String)map.get("date");
         String comments = (String)map.get("comments");
 
         ReportVO rv = new ReportVO(lat,lon,address,category,date,comments);
-        int result = controller.addReport(rv);
+        controller.addReport(rv);
+        int result=0;
         return result;
     }
 
