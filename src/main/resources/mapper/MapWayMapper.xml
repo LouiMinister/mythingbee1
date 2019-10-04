@@ -122,13 +122,9 @@
     </update>
     <update id="addRoadInfo" parameterType="hashmap">
         UPDATE ai_data_tb
-        SET road_type = #{roadType}
-        AND land_type = #{landType}
-        <choose>
-            <when test="safetyRate!=null">
-                AND safety_rate = #{safetyRate}
-            </when>
-        </choose>
+        SET road_type = #{roadType},
+        land_type = #{landType},
+        safety_rate = #{safeRate}
         WHERE edge_id = #{edgeId};
     </update>
     <select id="searchEdgeById" parameterType="java.lang.String" resultMap="edge_info">

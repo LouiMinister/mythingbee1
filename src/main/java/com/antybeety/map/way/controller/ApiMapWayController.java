@@ -8,6 +8,7 @@ import com.antybeety.map.way.model.dao.EdgeDAO;
 import com.antybeety.map.way.model.dao.NodeDAO;
 import com.antybeety.map.way.model.dao.OsmDAO;
 import com.antybeety.map.way.model.service.DistanceCalcService;
+import com.antybeety.map.way.model.service.MapSettingService;
 import com.antybeety.map.way.model.vo.EdgeVO;
 import com.antybeety.map.way.model.vo.NodeData;
 import com.antybeety.map.way.model.vo.NodeVO;
@@ -55,6 +56,9 @@ public class ApiMapWayController {
 
     @Autowired
     private FindPathController findPathController;
+
+    @Autowired
+    private MapSettingService mapSettingService;
 
     @RequestMapping(value="/safe", method = RequestMethod.GET)
     public List<NodeVO> searchSafePath(@RequestParam double startLat, double startLon, double endLat, double endLon){
@@ -175,5 +179,16 @@ public class ApiMapWayController {
     @RequestMapping(value="/setting", method = RequestMethod.GET)
     public void setMap(){
         mapSettingController.setAllSafetyValue();
+    }
+
+    @RequestMapping(value="/updateEdgeInfo", method = RequestMethod.GET)
+    public void updateEdgeInfo(@RequestParam long index,
+                               @RequestParam(required = false, defaultValue = "0") int landType,
+                               @RequestParam(required = false, defaultValue = "0") int safetyScore,
+                               @RequestParam(required = false, defaultValue = "0") int roadType){
+
+        System.out.println("updateEdgeInfo");
+        System.out.println(index +" "+ landType+ " "+ safetyScore+" "+roadType);
+        mapSettingService.addRoadInfo(index, landType, roadType, safetyScore);
     }
 }
