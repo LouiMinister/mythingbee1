@@ -32,6 +32,12 @@ public class SafetyPathService {
     private final double MATCH_INIT_RADIUS= 0.00003000000;  //matchNode() 에서 검색하는 최초 반경
     private final double CAPTURE_PADDING=0.00015000000;
 
+    //패딩 조절 비율
+    private final double PADDING_RATIO = 2.1;
+
+    //padding == CAPTURE_PADDING 일 경우, 가장 깔끔 하게 나온 경로 결과 값의 직선 거리
+    private final int STANDARD_DIST = 255;
+
     private List<FacilityMarkVO> facilities;
 
     public SafetyPathService(){}
@@ -73,7 +79,6 @@ public class SafetyPathService {
         final Queue<NodeData> openQueue = new PriorityQueue<NodeData>(11, new NodeComparator());
 
 
-
         NodeData sourceNodeData = graph.getNodeData(source);
         sourceNodeData.setG(0); // 출발지점이니까 0
         sourceNodeData.calcF(destination);  // 도착지까지의 총 비용 계산
@@ -85,7 +90,8 @@ public class SafetyPathService {
 
         // 큐 : 열린 목록
         // 큐가 비기 전 까지 무한 반복 -> 큐가 빈거면 경로가 없다는 뜻
-        while (!openQueue.isEmpty()) {
+        while (!(openQueue.isEmpty())) {
+
             final NodeData nodeData = openQueue.poll();  // 큐에서 하나 poll
 
             // 도착지 노드 발견하면 경로에 추가하고 종료
@@ -331,6 +337,8 @@ public class SafetyPathService {
 
     public Map<String,List<?>> searchNodeEdgeForGraph(double lat1, double lng1, double lat2, double lng2){
 
+        double padding = calcPadding(lat1,lng1,lat2,lng2)*CAPTURE_PADDING;
+
         if((lat1>lat2)){
             double temp = lat1;
             lat1= lat2;
@@ -341,10 +349,20 @@ public class SafetyPathService {
             lng1= lng2;
             lng2=temp;
         }
-        Map<String, List<?>> res= searchNodeEdgeByArea(lat1-CAPTURE_PADDING, lng1-CAPTURE_PADDING,
-                lat2+CAPTURE_PADDING, lng2+CAPTURE_PADDING);
+
+
+        Map<String, List<?>> res= searchNodeEdgeByArea(lat1-padding, lng1-padding,
+                lat2+padding, lng2+padding);
 
         return res;
+    }
+
+    private double calcPadding(double lat1,double lng1, double lat2, double lng2) {
+        int dist = distanceCalcService.calcDistance(lat1, lng1, lat2, lng2);
+
+        return dist*PADDING_RATIO/STANDARD_DIST;
+
+
     }
 
 
