@@ -1153,10 +1153,32 @@ function openEdgeInfo(edge) {
 			edgeInfoOverlay.setPosition(nowEdgePoint);
 
 			tempEdgeIndex = findEdgeIndex(edge);
+			settingEdgeInfo(edgeIndex);
 
 			edgeInfoOverlay.setMap(map);
 		}
 	}
+}
+
+function settingEdgeInfo(edgeIndex){
+	var edgeId = edgeIdArray[edgeIndex];
+
+	$.ajax('api/map/way/getEdgeInfo',{
+		type:'GET',
+		data: {
+			edgeId: edgeId
+		}
+	}).then(function(data,status){
+		if(status=='success'){
+			var tLandType = data.landType;
+			var tRoadType = data.roadType;
+			var tSafetyScore = data.safetyScore;
+
+			$('input:radio[name="chk_landType"]:input[value='+tLandType+']').attr("checked",true);
+			$('input:radio[name="chk_roadType"]:input[value='+tRoadType+']').attr("checked",true);
+			$("#safetyScore").val(tSafetyScore);
+		}
+	});
 }
 
 function findEdgeIndex(edge){
