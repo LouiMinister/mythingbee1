@@ -95,6 +95,10 @@
         select * from edge_view1 where lat &gt;= ${lat1} AND lat &lt;= ${lat2} AND lon &gt;= ${lng1} AND lon &lt;= ${lng2}
     </select>
 
+    <select id="searchEdgesByArea_AI" parameterType="hashmap" resultMap="edge_info">
+        select * from ai_data_view where lat &gt;= ${lat1} AND lat &lt;= ${lat2} AND lon &gt;= ${lng1} AND lon &lt;= ${lng2}
+    </select>
+
     <select id="searchNodeById" parameterType="java.lang.String" resultMap="node_info">
         select * from node_tb where node_id=#{id};
     </select>
