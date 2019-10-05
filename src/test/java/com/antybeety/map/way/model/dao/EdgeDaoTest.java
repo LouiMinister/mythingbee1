@@ -33,4 +33,11 @@ public class EdgeDaoTest {
         EdgeVO node= dao.searchEdgeById("2420192102");
         System.out.println(node);
     }
+
+    @Test
+    public void test_영역으로_엣지찾기_AI(){
+        List<EdgeVO> nodes = dao.searchEdgesByArea_AI(37.47686563082442, 126.95416760502995,
+                37.478168073615855, 126.95543304469112);
+        System.out.println(nodes);
+    }
 }

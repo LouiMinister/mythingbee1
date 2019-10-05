@@ -15,6 +15,8 @@ public interface MapWayMapper {
     List<NodeVO> searchNodeByArea(HashMap<String, Object> AreaByTwoPoints);
     List<EdgeVO> searchEdgesByArea(HashMap<String, Object> AreaByTwoPoints);
 
+    List<EdgeVO> searchEdgesByArea_AI(HashMap<String, Object> AreaByTwoPoints);
+
     NodeVO searchNodeById(String id);
     EdgeVO searchEdgeById(String id);
 

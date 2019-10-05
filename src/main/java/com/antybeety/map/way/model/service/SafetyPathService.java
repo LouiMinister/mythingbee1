@@ -304,6 +304,38 @@ public class SafetyPathService {
         graph= new GraphAStar(nodes, edges, heuristicMap);
     }
 
+    //영역 안의 노드와 엣지들을 반환하는 메서드(ai_data_tb)
+    public Map<String,List<?>> searchNodeEdgeByArea_ai(double lat1, double lng1, double lat2, double lng2){
+
+        List<NodeVO> capturedNodes= nodeDao.searchNodesByArea(lat1, lng1, lat2, lng2);
+        List<EdgeVO> capturedEdges= edgeDao.searchEdgesByArea_AI(lat1, lng1, lat2, lng2);
+
+        boolean startFlag = false;
+        boolean endFlag = false;
+
+        for(int i=0; i<capturedEdges.size(); i++){
+            for(NodeVO n : capturedNodes){
+                if(n.getId() == capturedEdges.get(i).getNodeStart()){
+                    startFlag = true;
+                }
+                if(n.getId() == capturedEdges.get(i).getNodeEnd()){
+                    endFlag = true;
+                }
+            }
+            if(startFlag == false || endFlag == false){
+                capturedEdges.remove(i);
+            }
+            startFlag = endFlag = false;
+        }
+        Map<String, List<? extends Object>> res= new HashMap<>();
+
+        res.put("nodes",capturedNodes);
+        res.put("edges", capturedEdges);
+
+        return res;
+    }
+
+
     // 영역 안의 노드와 엣지들을 반환하는 메서드
     public Map<String,List<?>> searchNodeEdgeByArea(double lat1, double lng1, double lat2, double lng2){
 
@@ -335,6 +367,30 @@ public class SafetyPathService {
        return res;
     }
 
+
+//    public Map<String,List<?>> searchNodeEdgeForGraph(double lat1, double lng1, double lat2, double lng2){
+//
+//        double padding = calcPadding(lat1,lng1,lat2,lng2)*CAPTURE_PADDING;
+//
+//        if((lat1>lat2)){
+//            double temp = lat1;
+//            lat1= lat2;
+//            lat2= temp;
+//        }
+//        if((lng1>lng2)){
+//            double temp = lng1;
+//            lng1= lng2;
+//            lng2=temp;
+//        }
+//
+//
+//        Map<String, List<?>> res= searchNodeEdgeByArea(lat1-padding, lng1-padding,
+//                lat2+padding, lng2+padding);
+//
+//        return res;
+//    }
+
+    //ai_data_tb ver.
     public Map<String,List<?>> searchNodeEdgeForGraph(double lat1, double lng1, double lat2, double lng2){
 
         double padding = calcPadding(lat1,lng1,lat2,lng2)*CAPTURE_PADDING;
@@ -351,7 +407,7 @@ public class SafetyPathService {
         }
 
 
-        Map<String, List<?>> res= searchNodeEdgeByArea(lat1-padding, lng1-padding,
+        Map<String, List<?>> res= searchNodeEdgeByArea_ai(lat1-padding, lng1-padding,
                 lat2+padding, lng2+padding);
 
         return res;

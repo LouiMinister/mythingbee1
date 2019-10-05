@@ -75,6 +75,27 @@ public class EdgeDAO {
         return mapper.searchEdgesByArea(param);
     }
 
+    public List<EdgeVO> searchEdgesByArea_AI(double lat1, double lng1, double lat2, double lng2){
+        MapWayMapper mapper = getMapper();
+        // 1이 작아야됨 그래서 크면 바꿔줌
+        if((lat1>lat2)){
+            double temp = lat1;
+            lat1= lat2;
+            lat2= temp;
+        }
+        if((lng1>lng2)){
+            double temp = lng1;
+            lng1= lng2;
+            lng2=temp;
+        }
+        HashMap param =new HashMap<String, Object>();
+        param.put("lat1",lat1-MARGIN);
+        param.put("lng1",lng1-MARGIN);
+        param.put("lat2",lat2+MARGIN);
+        param.put("lng2",lng2+MARGIN);
+        return mapper.searchEdgesByArea_AI(param);
+    }
+
     public EdgeVO searchEdgeById(String id){
         MapWayMapper mapper = getMapper();
         return mapper.searchEdgeById(id);
