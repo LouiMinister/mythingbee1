@@ -1166,7 +1166,7 @@ function settingEdgeInfo(edgeIndex){
 	$.ajax('api/map/way/getEdgeInfo',{
 		type:'GET',
 		data: {
-			edgeId: edgeIdArray[edgeIndex]
+			edgeId: edgeId
 		}
 	}).then(function(data,status){
 		if(status=='success'){
