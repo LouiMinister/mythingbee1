@@ -1113,30 +1113,24 @@ var edgeInfoContent = '<div class="edgeInfo-wrap" onclick="kakao.maps.event.prev
 '					<input type="radio" name="chk_roadType" value=2>중'+
 '					<input type="radio" name="chk_roadType" value=3>대'+
 '           </div>' +
-'           <button type="button" onclick="updateEdgeInfo(tempInfoEdge);" >수정</input>'+
+'           <button type="button" onclick="updateEdgeInfo(tempEdgeIndex);" >수정</input>'+
 '        </div>' +
 '		</form> ' +
 	'</div>';
 
 var landType, safetyScore, roadType;
 
-function updateEdgeInfo(edge){
+function updateEdgeInfo(edgeIndex){
 	kakao.maps.event.preventMap();
-		if(mode==2) {
-			for (var i = 0; i < edgeArray.length; i++) {
-				if (edgeArray[i] == edge) {
-					$.ajax('api/map/way/updateEdgeInfo',{
-						type: 'GET',
-						data: {
-							index: edgeIdArray[i],
-							landType: $('input[name="chk_landType"]:checked').val(),
-							safetyScore: $('#safetyScore').val(),
-							roadType: $('input[name="chk_roadType"]:checked').val()
-						}
-					});
-				}
-			}
-	}
+	$.ajax('api/map/way/updateEdgeInfo',{
+		type: 'GET',
+		data: {
+			index: edgeIdArray[edgeIndex],
+			landType: $('input[name="chk_landType"]:checked').val(),
+			safetyScore: $('#safetyScore').val(),
+			roadType: $('input[name="chk_roadType"]:checked').val()
+		}
+	});
 }
 
 var edgeInfoOverlay = new kakao.maps.CustomOverlay({
@@ -1148,7 +1142,7 @@ function closeEdgeInfo() {
 	edgeInfoOverlay.setMap(null);
 }
 
-var tempInfoEdge;
+var tempEdgeIndex
 function openEdgeInfo(edge) {
 		return function () {
 			if(mode==2) {
@@ -1157,10 +1151,18 @@ function openEdgeInfo(edge) {
 			var nowEdgePoint = new kakao.maps.LatLng((nowEdgePath[0].getLat() + nowEdgePath[1].getLat()) / 2,
 			(nowEdgePath[0].getLng() + nowEdgePath[1].getLng()) / 2);
 			edgeInfoOverlay.setPosition(nowEdgePoint);
-			tempInfoEdge = edge;
 
+			tempEdgeIndex = findEdgeIndex(edge);
 
 			edgeInfoOverlay.setMap(map);
+		}
+	}
+}
+
+function findEdgeIndex(edge){
+	for (var i = 0; i < edgeArray.length; i++) {
+		if (edgeArray[i] == edge) {
+			return i;
 		}
 	}
 }
