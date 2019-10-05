@@ -25,6 +25,9 @@ public class SafetyPathServiceTest {
      @Autowired
      SafetyPathService service;
 
+     @Autowired
+    DistanceCalcService distService;
+
     @Test
     public void test_좌표로부터_가장가까운_노드찾기(){
         NodeVO node = service.matchNode(37.48669756159295,126.95819580920832);
@@ -54,4 +57,20 @@ public class SafetyPathServiceTest {
         System.out.println(""+nodes+nodes.size());
         System.out.println(""+edges+edges.size());
     }
+
+    @Test
+    public void test_안전경로찾기(){
+
+        NodeVO startNode = service.matchNode(37.481155806833094,126.95250635567398);
+        NodeVO endNode = service.matchNode(37.47923658669725,126.9525814028913);
+        service.initService(startNode.getLat(), startNode.getLng(), endNode.getLat(), endNode.getLng());
+        System.out.println(service.astar(startNode.getId(),endNode.getId()));
+
+    }
+
+    @Test
+    public void test_distance(){
+        System.out.println(distService.calcDistance(37.476870208154466, 126.95332029114627, 37.479133839685325,126.95363408772076 ));
+    }
+
 }
