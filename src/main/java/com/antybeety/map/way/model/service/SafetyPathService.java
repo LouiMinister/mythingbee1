@@ -30,8 +30,13 @@ public class SafetyPathService {
     private GraphAStar graph;
     private final double CIRCLE_RATIO = Math.sqrt(2);       //원에 내적하는 사각형과 원의 반지름 과의 배율
     private final double MATCH_INIT_RADIUS= 0.00003000000;  //matchNode() 에서 검색하는 최초 반경
-//    private final double CAPTURE_PADDING=0.00015000000;
     private final double CAPTURE_PADDING=0.00015000000;
+
+    //패딩 조절 비율
+    private final double PADDING_RATIO = 2.1;
+
+    //padding == CAPTURE_PADDING 일 경우, 가장 깔끔 하게 나온 경로 결과 값의 직선 거리
+    private final int STANDARD_DIST = 255;
 
     private List<FacilityMarkVO> facilities;
 
@@ -332,7 +337,7 @@ public class SafetyPathService {
 
     public Map<String,List<?>> searchNodeEdgeForGraph(double lat1, double lng1, double lat2, double lng2){
 
-        final double PADDING_CONS = calcPadding(lat1,lng1,lat2,lng2)*CAPTURE_PADDING;
+        double padding = calcPadding(lat1,lng1,lat2,lng2)*CAPTURE_PADDING;
 
         if((lat1>lat2)){
             double temp = lat1;
@@ -346,8 +351,8 @@ public class SafetyPathService {
         }
 
 
-        Map<String, List<?>> res= searchNodeEdgeByArea(lat1-PADDING_CONS, lng1-PADDING_CONS,
-                lat2+PADDING_CONS, lng2+PADDING_CONS);
+        Map<String, List<?>> res= searchNodeEdgeByArea(lat1-padding, lng1-padding,
+                lat2+padding, lng2+padding);
 
         return res;
     }
@@ -355,7 +360,7 @@ public class SafetyPathService {
     private double calcPadding(double lat1,double lng1, double lat2, double lng2) {
         int dist = distanceCalcService.calcDistance(lat1, lng1, lat2, lng2);
 
-        return dist*2.1/255;
+        return dist*PADDING_RATIO/STANDARD_DIST;
 
 
     }
