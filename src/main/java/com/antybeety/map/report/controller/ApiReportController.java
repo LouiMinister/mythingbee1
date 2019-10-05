@@ -18,7 +18,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/report")
-public class ApiReportController implements InitializingBean, DisposableBean {
+public class ApiReportController{
 
     @Autowired
     private ReportController controller;
@@ -41,23 +41,20 @@ public class ApiReportController implements InitializingBean, DisposableBean {
     @RequestMapping(value="/search",method=RequestMethod.GET)
     public List<ReportVO> searchReport(@RequestParam Map<String,Object> request){
         Map<String,Object> bounds = new HashMap<String,Object>();
-        bounds.put("la",request.get("la"));
-        bounds.put("ka",request.get("ka"));
-        bounds.put("ea",request.get("ea"));
-        bounds.put("ja",request.get("ja"));
+
+
+        bounds.put("rbLat",request.get("rbLat"));
+        bounds.put("rbLon",request.get("rbLon"));
+        bounds.put("ltLat",request.get("ltLat"));
+        bounds.put("ltLon",request.get("ltLon"));
+        System.out.println(bounds.get("rbLat"));
+        System.out.println(bounds.get("rbLon"));
+        System.out.println(bounds.get("ltLat"));
+        System.out.println(bounds.get("ltLon"));
 
         List<ReportVO> result;
         result = controller.searchReport(bounds);
+        System.out.println(result.size());
         return result;
-    }
-
-    @Override
-    public void destroy() throws Exception {
-
-    }
-
-    @Override
-    public void afterPropertiesSet() throws Exception {
-
     }
 }

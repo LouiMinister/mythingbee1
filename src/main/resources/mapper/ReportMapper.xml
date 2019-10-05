@@ -16,6 +16,6 @@
         INSERT INTO report_tb(lat,lon,category,road_addr,comments,date)VALUES(#{lat},#{lon},#{category},#{address},#{comments},#{date});
     </insert>
     <select id="searchReport"  parameterType="hashmap" resultMap="report_map">
-        SELECT id, lat, lon, category, road_addr, comments, date  FROM report_tb WHERE (lat BETWEEN #{la} and #{ka} ) AND (lon BETWEEN #{ea} AND #{ja});
+        SELECT id, lat, lon, category, road_addr, comments, date  FROM report_tb WHERE (lat BETWEEN #{rbLat} and #{ltLat} ) AND (lon BETWEEN #{ltLon} AND #{rbLon});
     </select>
 </mapper>
