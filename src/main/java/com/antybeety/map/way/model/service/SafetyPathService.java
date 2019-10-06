@@ -33,10 +33,10 @@ public class SafetyPathService {
     private final double CAPTURE_PADDING=0.00015000000;
 
     //패딩 조절 비율
-    private final double PADDING_RATIO = 2.1;
+    private final double PADDING_RATIO = 3.3;
 
     //padding == CAPTURE_PADDING 일 경우, 가장 깔끔 하게 나온 경로 결과 값의 직선 거리
-    private final int STANDARD_DIST = 255;
+    private final int STANDARD_DIST = 254;
 
     private List<FacilityMarkVO> facilities;
 
@@ -48,6 +48,10 @@ public class SafetyPathService {
 
     public void initService(double startLat, double startLon, double endLat, double endLon){
         initAstarGraph(startLat, startLon, endLat, endLon);
+    }
+
+    public void initService_ai(double startLat, double startLon, double endLat, double endLon){
+        initAstarGraph_ai(startLat, startLon, endLat, endLon);
     }
 
     public SafetyPathService(GraphAStar graphAStar) {
@@ -72,6 +76,9 @@ public class SafetyPathService {
      * @return              the path from source to destination -> 출발지부터 도착지까지의 경로 반환
      */
     public List<NodeVO> astar(Long source, Long destination) {
+
+        System.out.println("START : " + source + "              END : "+destination);
+
         /**
          * http://stackoverflow.com/questions/20344041/why-does-priority-queue-has-default-initial-capacity-of-11
          */
@@ -90,7 +97,7 @@ public class SafetyPathService {
 
         // 큐 : 열린 목록
         // 큐가 비기 전 까지 무한 반복 -> 큐가 빈거면 경로가 없다는 뜻
-        while (!(openQueue.isEmpty())) {
+        while (!openQueue.isEmpty()) {
 
             final NodeData nodeData = openQueue.poll();  // 큐에서 하나 poll
 
@@ -302,45 +309,45 @@ public class SafetyPathService {
         return facilitiesRes;
     }
 
-//    public void initAstarGraph(double lat1, double lng1, double lat2, double lng2){
-//        Map<String,List<?>> nodeEdge = searchNodeEdgeForGraph(lat1, lng1, lat2, lng2);
-//
-//        List<NodeVO> nodes = (List<NodeVO>) nodeEdge.get("nodes");      //영역 안 모든 노드정보
-//        List<EdgeVO> edges = (List<EdgeVO>) nodeEdge.get("edges");      //영역 안 모든 엣지정보
-//
-//        facilities = searchAllFacility(lat1, lng1, lat2, lng2);    //영역 안 모든 시설물 정보
-//
-//        Map<Long ,Map<Long,Double>> heuristicMap = new HashMap<Long, Map<Long, Double>>(); //휴리스틱값
-//
-//        long node_sId=0;
-//        long node_eId=0;
-//        double hScore=0;
-//        int nodeSize= nodes.size();
-//
-//        if(nodeSize<2){       //노드 개수가 두개보다 작을경우 휴리스틱 값이 없다
-//
-//        }                   //노드 개수가 두개 이상일 경우
-//        else {
-//            for (int i = 0; i < nodeSize; i++) {
-//                HashMap<Long,Double> tempMap = new HashMap<>();
-//                for (int j = 0; j < nodeSize; j++) {
-//                    if(i==j){
-//                        tempMap.put(nodes.get(j).getId(),0.0);
-//                        continue;
-//                    }     // 시작 노드와 끝 노드가 같은 경우에 휴리스틱은 없다
-//                    hScore=calcSafetyValue(nodes.get(i).getLat(), nodes.get(i).getLng(), nodes.get(j).getLat(), nodes.get(j).getLng());
-//                    tempMap.put(nodes.get(j).getId(),hScore);
-//                }
-//                heuristicMap.put(nodes.get(i).getId(), tempMap);
-//            }
-//        }
-//
-//        graph= new GraphAStar(nodes, edges, heuristicMap);
-//    }
-
-    //ai_data_tb ver.
     public void initAstarGraph(double lat1, double lng1, double lat2, double lng2){
         Map<String,List<?>> nodeEdge = searchNodeEdgeForGraph(lat1, lng1, lat2, lng2);
+
+        List<NodeVO> nodes = (List<NodeVO>) nodeEdge.get("nodes");      //영역 안 모든 노드정보
+        List<EdgeVO> edges = (List<EdgeVO>) nodeEdge.get("edges");      //영역 안 모든 엣지정보
+
+        facilities = searchAllFacility(lat1, lng1, lat2, lng2);    //영역 안 모든 시설물 정보
+
+        Map<Long ,Map<Long,Double>> heuristicMap = new HashMap<Long, Map<Long, Double>>(); //휴리스틱값
+
+        long node_sId=0;
+        long node_eId=0;
+        double hScore=0;
+        int nodeSize= nodes.size();
+
+        if(nodeSize<2){       //노드 개수가 두개보다 작을경우 휴리스틱 값이 없다
+
+        }                   //노드 개수가 두개 이상일 경우
+        else {
+            for (int i = 0; i < nodeSize; i++) {
+                HashMap<Long,Double> tempMap = new HashMap<>();
+                for (int j = 0; j < nodeSize; j++) {
+                    if(i==j){
+                        tempMap.put(nodes.get(j).getId(),0.0);
+                        continue;
+                    }     // 시작 노드와 끝 노드가 같은 경우에 휴리스틱은 없다
+                    hScore=calcSafetyValue(nodes.get(i).getLat(), nodes.get(i).getLng(), nodes.get(j).getLat(), nodes.get(j).getLng());
+                    tempMap.put(nodes.get(j).getId(),hScore);
+                }
+                heuristicMap.put(nodes.get(i).getId(), tempMap);
+            }
+        }
+
+        graph= new GraphAStar(nodes, edges, heuristicMap);
+    }
+
+    //ai_data_tb ver.
+    public void initAstarGraph_ai(double lat1, double lng1, double lat2, double lng2){
+        Map<String,List<?>> nodeEdge = searchNodeEdgeForGraph_ai(lat1, lng1, lat2, lng2);
 
         List<NodeVO> nodes = (List<NodeVO>) nodeEdge.get("nodes");      //영역 안 모든 노드정보
         List<EdgeVO> edges = (List<EdgeVO>) nodeEdge.get("edges");      //영역 안 모든 엣지정보
@@ -437,30 +444,30 @@ public class SafetyPathService {
     }
 
 
-//    public Map<String,List<?>> searchNodeEdgeForGraph(double lat1, double lng1, double lat2, double lng2){
-//
-//        double padding = calcPadding(lat1,lng1,lat2,lng2)*CAPTURE_PADDING;
-//
-//        if((lat1>lat2)){
-//            double temp = lat1;
-//            lat1= lat2;
-//            lat2= temp;
-//        }
-//        if((lng1>lng2)){
-//            double temp = lng1;
-//            lng1= lng2;
-//            lng2=temp;
-//        }
-//
-//
-//        Map<String, List<?>> res= searchNodeEdgeByArea(lat1-padding, lng1-padding,
-//                lat2+padding, lng2+padding);
-//
-//        return res;
-//    }
+    public Map<String,List<?>> searchNodeEdgeForGraph(double lat1, double lng1, double lat2, double lng2){
+
+        double padding = calcPadding(lat1,lng1,lat2,lng2)*CAPTURE_PADDING;
+
+        if((lat1>lat2)){
+            double temp = lat1;
+            lat1= lat2;
+            lat2= temp;
+        }
+        if((lng1>lng2)){
+            double temp = lng1;
+            lng1= lng2;
+            lng2=temp;
+        }
+
+
+        Map<String, List<?>> res= searchNodeEdgeByArea(lat1-padding, lng1-padding,
+                lat2+padding, lng2+padding);
+
+        return res;
+    }
 
     //ai_data_tb ver.
-    public Map<String,List<?>> searchNodeEdgeForGraph(double lat1, double lng1, double lat2, double lng2){
+    public Map<String,List<?>> searchNodeEdgeForGraph_ai(double lat1, double lng1, double lat2, double lng2){
 
         double padding = calcPadding(lat1,lng1,lat2,lng2)*CAPTURE_PADDING;
 
