@@ -255,6 +255,41 @@ public class SafetyPathService {
         return distanceCalcService.calcDistance(bounds) - safetyValueSum / distanceCalcService.calcArea(bounds);
     }
 
+    public double calcHeuristic(double lat1, double lng1, double lat2, double lng2, List<EdgeVO> edges){
+
+        if(!(lat1<lat2)){       //왼쪽아래점, 오른쪽위점으로 세팅
+            double temp = lat1;
+            lat1= lat2;
+            lat2= temp;
+        }
+        if(!(lng1<lng2)){
+            double temp = lng1;
+            lng1= lng2;
+            lng2=temp;
+        }
+
+        double lat = 0.0;
+        double lng = 0.0;
+        int sum = 0;
+
+        for(int i = 0; i <edges.size() ; i++){
+            lat = edges.get(i).getLat();
+            lng = edges.get(i).getLng();
+
+            if((lat1 <= lat && lat <= lat2) && (lng1 <= lng && lng <= lng2)){
+                sum += edges.get(i).getSafeVal();
+            }
+        }
+
+        Map<String, Object> bounds = new HashMap<>();   //bound 위경도 변경
+        bounds.put("la",lat1);
+        bounds.put("ea",lng1);
+        bounds.put("ka",lat2);
+        bounds.put("ja",lng2);
+
+        return distanceCalcService.calcDistance(bounds) - sum / distanceCalcService.calcArea(bounds);
+    }
+
     public List<FacilityMarkVO> searchAllFacility(double lat1, double lng1, double lat2, double lng2){
         Map<String,Object> bounds = new HashMap<String, Object>();
         bounds.put("la",lat1);
@@ -267,20 +302,52 @@ public class SafetyPathService {
         return facilitiesRes;
     }
 
+//    public void initAstarGraph(double lat1, double lng1, double lat2, double lng2){
+//        Map<String,List<?>> nodeEdge = searchNodeEdgeForGraph(lat1, lng1, lat2, lng2);
+//
+//        List<NodeVO> nodes = (List<NodeVO>) nodeEdge.get("nodes");      //영역 안 모든 노드정보
+//        List<EdgeVO> edges = (List<EdgeVO>) nodeEdge.get("edges");      //영역 안 모든 엣지정보
+//
+//        facilities = searchAllFacility(lat1, lng1, lat2, lng2);    //영역 안 모든 시설물 정보
+//
+//        Map<Long ,Map<Long,Double>> heuristicMap = new HashMap<Long, Map<Long, Double>>(); //휴리스틱값
+//
+//        long node_sId=0;
+//        long node_eId=0;
+//        double hScore=0;
+//        int nodeSize= nodes.size();
+//
+//        if(nodeSize<2){       //노드 개수가 두개보다 작을경우 휴리스틱 값이 없다
+//
+//        }                   //노드 개수가 두개 이상일 경우
+//        else {
+//            for (int i = 0; i < nodeSize; i++) {
+//                HashMap<Long,Double> tempMap = new HashMap<>();
+//                for (int j = 0; j < nodeSize; j++) {
+//                    if(i==j){
+//                        tempMap.put(nodes.get(j).getId(),0.0);
+//                        continue;
+//                    }     // 시작 노드와 끝 노드가 같은 경우에 휴리스틱은 없다
+//                    hScore=calcSafetyValue(nodes.get(i).getLat(), nodes.get(i).getLng(), nodes.get(j).getLat(), nodes.get(j).getLng());
+//                    tempMap.put(nodes.get(j).getId(),hScore);
+//                }
+//                heuristicMap.put(nodes.get(i).getId(), tempMap);
+//            }
+//        }
+//
+//        graph= new GraphAStar(nodes, edges, heuristicMap);
+//    }
 
+    //ai_data_tb ver.
     public void initAstarGraph(double lat1, double lng1, double lat2, double lng2){
         Map<String,List<?>> nodeEdge = searchNodeEdgeForGraph(lat1, lng1, lat2, lng2);
 
         List<NodeVO> nodes = (List<NodeVO>) nodeEdge.get("nodes");      //영역 안 모든 노드정보
         List<EdgeVO> edges = (List<EdgeVO>) nodeEdge.get("edges");      //영역 안 모든 엣지정보
 
-        facilities = searchAllFacility(lat1, lng1, lat2, lng2);    //영역 안 모든 시설물 정보
-
         Map<Long ,Map<Long,Double>> heuristicMap = new HashMap<Long, Map<Long, Double>>(); //휴리스틱값
 
-        long node_sId=0;
-        long node_eId=0;
-        double hScore=0;
+        double safety_rate = 0;
         int nodeSize= nodes.size();
 
         if(nodeSize<2){       //노드 개수가 두개보다 작을경우 휴리스틱 값이 없다
@@ -294,8 +361,10 @@ public class SafetyPathService {
                         tempMap.put(nodes.get(j).getId(),0.0);
                         continue;
                     }     // 시작 노드와 끝 노드가 같은 경우에 휴리스틱은 없다
-                    hScore=calcSafetyValue(nodes.get(i).getLat(), nodes.get(i).getLng(), nodes.get(j).getLat(), nodes.get(j).getLng());
-                    tempMap.put(nodes.get(j).getId(),hScore);
+
+                    safety_rate = calcHeuristic(nodes.get(i).getLat(), nodes.get(i).getLng(), nodes.get(j).getLat(),
+                            nodes.get(j).getLng(),edges);
+                    tempMap.put(nodes.get(j).getId(),safety_rate);
                 }
                 heuristicMap.put(nodes.get(i).getId(), tempMap);
             }
