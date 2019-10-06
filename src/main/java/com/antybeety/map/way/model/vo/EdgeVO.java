@@ -10,6 +10,8 @@ public class EdgeVO {
     private String address;
     private int safeVal;
     private int distanceVal;
+    private double lat;
+    private double lng;
 
     public void addSafeVal(int value){
         this.safeVal += value;

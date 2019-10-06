@@ -42,6 +42,15 @@
         <id property="lng" column="lon" jdbcType="DOUBLE"/>
     </resultMap>
 
+<!--    <resultMap id="edge_info" type="com.antybeety.map.way.model.vo.EdgeVO">-->
+<!--        <id property="id" column="edge_id" jdbcType="INTEGER"/>-->
+<!--        <id property="nodeStart" column="node_s" jdbcType="INTEGER"/>-->
+<!--        <id property="nodeEnd" column="node_e" jdbcType="INTEGER"/>-->
+<!--        <id property="address" column="addr" jdbcType="VARCHAR" />-->
+<!--        <id property="safeVal" column="safe_value" jdbcType="INTEGER" />-->
+<!--        <id property="distanceVal" column="dist_value" jdbcType="INTEGER"/>-->
+<!--    </resultMap>-->
+
     <resultMap id="edge_info" type="com.antybeety.map.way.model.vo.EdgeVO">
         <id property="id" column="edge_id" jdbcType="INTEGER"/>
         <id property="nodeStart" column="node_s" jdbcType="INTEGER"/>
@@ -49,6 +58,8 @@
         <id property="address" column="addr" jdbcType="VARCHAR" />
         <id property="safeVal" column="safe_value" jdbcType="INTEGER" />
         <id property="distanceVal" column="dist_value" jdbcType="INTEGER"/>
+        <id property="lat" column="lat" jdbcType="DOUBLE"/>
+        <id property="lng" column="lon" jdbcType="DOUBLE"/>
     </resultMap>
 
 <!--    모든 노드(교차로 + 속도 변화 구간) 정보 가져오기 -->

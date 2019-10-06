@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
@@ -71,6 +72,13 @@ public class SafetyPathServiceTest {
     @Test
     public void test_distance(){
         System.out.println(distService.calcDistance(37.476870208154466, 126.95332029114627, 37.479133839685325,126.95363408772076 ));
+    }
+
+    @Test
+    public void initGraphTest(){
+        NodeVO startNode = service.matchNode(37.481155806833094,126.95250635567398);
+        NodeVO endNode = service.matchNode(37.47923658669725,126.9525814028913);
+        service.initService(startNode.getLat(), startNode.getLng(), endNode.getLat(), endNode.getLng());
     }
 
 }
