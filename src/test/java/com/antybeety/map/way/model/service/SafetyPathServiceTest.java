@@ -70,6 +70,14 @@ public class SafetyPathServiceTest {
     }
 
     @Test
+    public void test_안전경로_ai(){
+        NodeVO startNode = service.matchNode(37.481155806833094,126.95250635567398);
+        NodeVO endNode = service.matchNode(37.47923658669725,126.9525814028913);
+        service.initService_ai(startNode.getLat(), startNode.getLng(), endNode.getLat(), endNode.getLng());
+        System.out.println(service.astar(startNode.getId(),endNode.getId()));
+    }
+
+    @Test
     public void test_distance(){
         System.out.println(distService.calcDistance(37.476870208154466, 126.95332029114627, 37.479133839685325,126.95363408772076 ));
     }
