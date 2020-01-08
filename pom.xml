@@ -129,7 +129,7 @@
         <dependency>
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>6.0.17.Final</version>
+            <version>6.1.0.Final</version>
         </dependency>
         <!--AOP를 위한 dependency 추가-->
         <dependency>
